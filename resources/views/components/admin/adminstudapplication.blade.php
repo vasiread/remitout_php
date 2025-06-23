@@ -12,7 +12,10 @@
 <body>
     @extends('layouts.app')
 
+
+
     <div class="admin-studnet-application-main-container">
+
         <div class="nbfc-studentdashboardprofile-profile-section-container" id="admin-student-form-edit-container">
             <form id="student-application-form" enctype="multipart/form-data">
                 <div class="admin-student-form-container">
@@ -1622,47 +1625,47 @@
 
 
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {
 
-        fetchAndAppendSocialNames();
-        fetchAndRenderStudyLocations();
-        fetchAndRenderDegrees();
-        fetchAndRenderCourseDurations();
-
-
-        // kycInitialization();
+            fetchAndAppendSocialNames();
+            fetchAndRenderStudyLocations();
+            fetchAndRenderDegrees();
+            fetchAndRenderCourseDurations();
 
 
+            // kycInitialization();
 
-        fetchAdditionalPersonalFields();
-        fetchAcademics();
-        fetchCourseDetailOptions();
 
-        const managers = [
-            SectionToggler,
-            InputFieldManager,
-            SocialOptionsManager,
-            CourseLocationManager,
-            CourseOptionsManager,
-            CourseDurationManager,
-            CourseDetailsManager,
-            AcademicDetailsManager,
-            CoBorrowerManager,
-            DocumentFieldManager,
-            FormSubmissionManager
-        ];
-        managers.forEach(manager => manager.init());
-    });
 
-    // Utility function for toggling visibility
-    const toggleVisibility = (element, isVisible, icon, rotateClass = 'rotated') => {
-        element.style.display = isVisible ? 'none' : 'block';
-        if (icon) icon.classList.toggle(rotateClass, !isVisible);
-    };
+            fetchAdditionalPersonalFields();
+            fetchAcademics();
+            fetchCourseDetailOptions();
 
-    const SectionToggler = {
-        init() {
-            this.setupToggles([{
+            const managers = [
+                SectionToggler,
+                InputFieldManager,
+                SocialOptionsManager,
+                CourseLocationManager,
+                CourseOptionsManager,
+                CourseDurationManager,
+                CourseDetailsManager,
+                AcademicDetailsManager,
+                CoBorrowerManager,
+                DocumentFieldManager,
+                FormSubmissionManager
+            ];
+            managers.forEach(manager => manager.init());
+        });
+
+        // Utility function for toggling visibility
+        const toggleVisibility = (element, isVisible, icon, rotateClass = 'rotated') => {
+            element.style.display = isVisible ? 'none' : 'block';
+            if (icon) icon.classList.toggle(rotateClass, !isVisible);
+        };
+
+        const SectionToggler = {
+            init() {
+                this.setupToggles([{
                     header: '.admin-student-section-header',
                     content: '.admin-student-section-content',
                     arrow: '.admin-student-arrow-icon img',
@@ -1755,113 +1758,113 @@
                     defaultExpanded: false,
                     parentContainer: '.admin-student-form-question'
                 }
-            ]);
-        },
+                ]);
+            },
 
-        setupToggles(configs) {
-            configs.forEach(config => {
-                if (!config.header || !config.content) {
-                    console.warn(
-                        `Invalid config: header (${config.header}) or content (${config.content}) missing`
-                    );
-                    return;
-                }
-
-                const header = document.querySelector(config.header);
-                const content = document.querySelector(config.content);
-                const arrow = config.arrow ? document.querySelector(config.arrow) : null;
-                const parentContainer = config.parentContainer ? header.closest(config.parentContainer) :
-                    null;
-
-                if (!header) console.warn(`Header not found: ${config.header}`);
-                if (!content) console.warn(`Content not found: ${config.content}`);
-                if (config.arrow && !arrow) console.warn(`Arrow not found: ${config.arrow}`);
-                if (!header || !content) return;
-
-                // Set initial state
-                content.style.display = config.defaultExpanded === false ? 'none' : 'block';
-                if (parentContainer) {
-                    parentContainer.classList.toggle('active', config.defaultExpanded !== false);
-                }
-                if (arrow && config.rotate) {
-                    arrow.style.transition = 'transform 0.3s ease';
-                    arrow.style.transform = config.defaultExpanded === false ? 'rotate(0deg)' :
-                        'rotate(180deg)';
-                }
-
-                // Add click event listener
-                header.addEventListener('click', () => {
-                    const isVisible = content.style.display === 'block';
-                    console.log(`Toggling ${config.content}: isVisible=${isVisible}`);
-                    content.style.display = isVisible ? 'none' : 'block';
-                    if (arrow && config.rotate) {
-                        arrow.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(180deg)';
+            setupToggles(configs) {
+                configs.forEach(config => {
+                    if (!config.header || !config.content) {
+                        console.warn(
+                            `Invalid config: header (${config.header}) or content (${config.content}) missing`
+                        );
+                        return;
                     }
+
+                    const header = document.querySelector(config.header);
+                    const content = document.querySelector(config.content);
+                    const arrow = config.arrow ? document.querySelector(config.arrow) : null;
+                    const parentContainer = config.parentContainer ? header.closest(config.parentContainer) :
+                        null;
+
+                    if (!header) console.warn(`Header not found: ${config.header}`);
+                    if (!content) console.warn(`Content not found: ${config.content}`);
+                    if (config.arrow && !arrow) console.warn(`Arrow not found: ${config.arrow}`);
+                    if (!header || !content) return;
+
+                    // Set initial state
+                    content.style.display = config.defaultExpanded === false ? 'none' : 'block';
                     if (parentContainer) {
-                        parentContainer.classList.toggle('active', !isVisible);
+                        parentContainer.classList.toggle('active', config.defaultExpanded !== false);
                     }
-                });
-            });
-        }
-    };
+                    if (arrow && config.rotate) {
+                        arrow.style.transition = 'transform 0.3s ease';
+                        arrow.style.transform = config.defaultExpanded === false ? 'rotate(0deg)' :
+                            'rotate(180deg)';
+                    }
 
-    const InputFieldManager = {
-        section: 'Personal Information',
-        modified: false,
-
-        init() {
-            this.setupEvents();
-        },
-
-        setupEvents() {
-            document.addEventListener('click', e => {
-                if (e.target.classList.contains('remove-option')) {
-                    e.target.closest('.input-group').remove();
-                    this.reorganizeInputs();
-                    this.modified = true;
-                }
-            });
-
-            const addInputField = document.getElementById('add-input-field');
-            if (addInputField) {
-                addInputField.addEventListener('click', () => {
-                    const label = prompt("Enter field label (e.g., Country, Favorite Color):")?.trim();
-                    if (!label) return;
-
-                    const name = prompt("Enter a unique field name (e.g., country, favorite_color):")
-                        ?.trim();
-                    if (!name) return;
-
-                    const fieldType = prompt("Enter field type (text, select, checkbox, radio, date):")
-                        ?.trim();
-                    if (!fieldType) return;
-                    const sectionSeperate = "general";
-                    this.addNewInputField({
-                        label,
-                        name,
-                        type: fieldType,
-                        sectionSeperate
+                    // Add click event listener
+                    header.addEventListener('click', () => {
+                        const isVisible = content.style.display === 'block';
+                        console.log(`Toggling ${config.content}: isVisible=${isVisible}`);
+                        content.style.display = isVisible ? 'none' : 'block';
+                        if (arrow && config.rotate) {
+                            arrow.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(180deg)';
+                        }
+                        if (parentContainer) {
+                            parentContainer.classList.toggle('active', !isVisible);
+                        }
                     });
                 });
             }
-        },
+        };
 
-        addNewInputField({
-            label,
-            name,
-            type,
-            sectionSeperate
-        }) {
-            let options = [];
+        const InputFieldManager = {
+            section: 'Personal Information',
+            modified: false,
 
-            if (['select', 'checkbox', 'radio'].includes(type)) {
-                const optionString = prompt("Enter options separated by commas (e.g., Red,Green,Blue):");
-                if (optionString) {
-                    options = optionString.split(',').map(opt => opt.trim()).filter(Boolean);
+            init() {
+                this.setupEvents();
+            },
+
+            setupEvents() {
+                document.addEventListener('click', e => {
+                    if (e.target.classList.contains('remove-option')) {
+                        e.target.closest('.input-group').remove();
+                        this.reorganizeInputs();
+                        this.modified = true;
+                    }
+                });
+
+                const addInputField = document.getElementById('add-input-field');
+                if (addInputField) {
+                    addInputField.addEventListener('click', () => {
+                        const label = prompt("Enter field label (e.g., Country, Favorite Color):")?.trim();
+                        if (!label) return;
+
+                        const name = prompt("Enter a unique field name (e.g., country, favorite_color):")
+                            ?.trim();
+                        if (!name) return;
+
+                        const fieldType = prompt("Enter field type (text, select, checkbox, radio, date):")
+                            ?.trim();
+                        if (!fieldType) return;
+                        const sectionSeperate = "general";
+                        this.addNewInputField({
+                            label,
+                            name,
+                            type: fieldType,
+                            sectionSeperate
+                        });
+                    });
                 }
-            }
+            },
 
-            fetch('/addadditionalpersonalinfodata', {
+            addNewInputField({
+                label,
+                name,
+                type,
+                sectionSeperate
+            }) {
+                let options = [];
+
+                if (['select', 'checkbox', 'radio'].includes(type)) {
+                    const optionString = prompt("Enter options separated by commas (e.g., Red,Green,Blue):");
+                    if (optionString) {
+                        options = optionString.split(',').map(opt => opt.trim()).filter(Boolean);
+                    }
+                }
+
+                fetch('/addadditionalpersonalinfodata', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1876,101 +1879,101 @@
                         sectionSeperate
                     })
                 })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.field) {
-                        console.log('Field added:', data.field);
-                        fetchAdditionalPersonalFields();
-                    } else {
-                        console.error('Failed to add field:', data);
-                    }
-                })
-                .catch(err => console.error('API Error:', err));
-        },
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.field) {
+                            console.log('Field added:', data.field);
+                            fetchAdditionalPersonalFields();
+                        } else {
+                            console.error('Failed to add field:', data);
+                        }
+                    })
+                    .catch(err => console.error('API Error:', err));
+            },
 
-        reorganizeInputs() {
-            const allInputs = document.querySelectorAll('.input-group');
-            const addField = document.getElementById('add-input-field');
-            let row1 = document.getElementById('input-row-1');
-            let row2 = document.getElementById('input-row-2');
-            if (!row1 || !row2) return;
+            reorganizeInputs() {
+                const allInputs = document.querySelectorAll('.input-group');
+                const addField = document.getElementById('add-input-field');
+                let row1 = document.getElementById('input-row-1');
+                let row2 = document.getElementById('input-row-2');
+                if (!row1 || !row2) return;
 
-            row1.innerHTML = '';
-            row2.innerHTML = '';
-            const existingRow3 = document.getElementById('input-row-3');
-            if (existingRow3) existingRow3.remove();
+                row1.innerHTML = '';
+                row2.innerHTML = '';
+                const existingRow3 = document.getElementById('input-row-3');
+                if (existingRow3) existingRow3.remove();
 
-            let row3 = allInputs.length > 6 ? document.createElement('div') : null;
-            if (row3) {
-                row3.className = 'input-row';
-                row3.id = 'input-row-3';
-                row2.parentNode.insertBefore(row3, row2.nextSibling);
-            }
+                let row3 = allInputs.length > 6 ? document.createElement('div') : null;
+                if (row3) {
+                    row3.className = 'input-row';
+                    row3.id = 'input-row-3';
+                    row2.parentNode.insertBefore(row3, row2.nextSibling);
+                }
 
-            allInputs.forEach((input, i) => {
-                if (i < 3) row1.appendChild(input);
-                else if (i < 6) row2.appendChild(input);
-                else if (row3) row3.appendChild(input);
-            });
-
-            const lastRow = row3 || (allInputs.length > 3 ? row2 : row1);
-            const inputsInLastRow = lastRow.querySelectorAll('.input-group').length;
-            if (inputsInLastRow < 3) {
-                lastRow.appendChild(addField);
-            } else {
-                const newRow = document.createElement('div');
-                newRow.className = 'input-row';
-                newRow.id = `input-row-${row3 ? '4' : (row2.children.length > 0 ? '3' : '2')}`;
-                newRow.appendChild(addField);
-                lastRow.parentNode.insertBefore(newRow, lastRow.nextSibling);
-            }
-        },
-
-        getDynamicFields() {
-            const inputs = document.querySelectorAll('.input-group input[disabled]');
-            const fields = [];
-            inputs.forEach(input => {
-                const fieldName = input.placeholder;
-                fields.push({
-                    name: fieldName,
-                    type: 'text'
+                allInputs.forEach((input, i) => {
+                    if (i < 3) row1.appendChild(input);
+                    else if (i < 6) row2.appendChild(input);
+                    else if (row3) row3.appendChild(input);
                 });
-            });
-            return fields;
-        },
 
-        isModified() {
-            return this.modified;
-        }
-    };
+                const lastRow = row3 || (allInputs.length > 3 ? row2 : row1);
+                const inputsInLastRow = lastRow.querySelectorAll('.input-group').length;
+                if (inputsInLastRow < 3) {
+                    lastRow.appendChild(addField);
+                } else {
+                    const newRow = document.createElement('div');
+                    newRow.className = 'input-row';
+                    newRow.id = `input-row-${row3 ? '4' : (row2.children.length > 0 ? '3' : '2')}`;
+                    newRow.appendChild(addField);
+                    lastRow.parentNode.insertBefore(newRow, lastRow.nextSibling);
+                }
+            },
 
-    const SocialOptionsManager = {
-        section: 'Personal Information',
-        modified: false,
-
-        init() {
-            this.setupRemoveButtons();
-            this.setupAddButton();
-        },
-
-        setupRemoveButtons() {
-            document.querySelectorAll('.social-remove').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const socialOption = btn.parentElement;
-                    socialOption.remove();
-                    this.modified = true;
-                    FormSubmissionManager.setModifiedSection(this.section);
+            getDynamicFields() {
+                const inputs = document.querySelectorAll('.input-group input[disabled]');
+                const fields = [];
+                inputs.forEach(input => {
+                    const fieldName = input.placeholder;
+                    fields.push({
+                        name: fieldName,
+                        type: 'text'
+                    });
                 });
-            });
-        },
+                return fields;
+            },
 
-        setupAddButton() {
-            const addSocialButton = document.querySelector('.add-social');
-            if (addSocialButton) {
-                addSocialButton.addEventListener('click', () => {
-                    const userInput = prompt("Enter dropdown option", "")?.trim();
-                    if (userInput) {
-                        fetch('/storesocialoption', {
+            isModified() {
+                return this.modified;
+            }
+        };
+
+        const SocialOptionsManager = {
+            section: 'Personal Information',
+            modified: false,
+
+            init() {
+                this.setupRemoveButtons();
+                this.setupAddButton();
+            },
+
+            setupRemoveButtons() {
+                document.querySelectorAll('.social-remove').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const socialOption = btn.parentElement;
+                        socialOption.remove();
+                        this.modified = true;
+                        FormSubmissionManager.setModifiedSection(this.section);
+                    });
+                });
+            },
+
+            setupAddButton() {
+                const addSocialButton = document.querySelector('.add-social');
+                if (addSocialButton) {
+                    addSocialButton.addEventListener('click', () => {
+                        const userInput = prompt("Enter dropdown option", "")?.trim();
+                        if (userInput) {
+                            fetch('/storesocialoption', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -1981,229 +1984,229 @@
                                     name: userInput
                                 })
                             })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.error) {
-                                    alert(`Error: ${data.error}`);
-                                    return;
-                                }
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.error) {
+                                        alert(`Error: ${data.error}`);
+                                        return;
+                                    }
 
-                                fetchAndAppendSocialNames();
-
-
+                                    fetchAndAppendSocialNames();
 
 
 
 
-                            })
-                            .catch(error => {
-                                console.error('Fetch error:', error);
-                                alert('An error occurred while saving the option.');
-                            });
+
+
+                                })
+                                .catch(error => {
+                                    console.error('Fetch error:', error);
+                                    alert('An error occurred while saving the option.');
+                                });
+                        }
+                    });
+                }
+            },
+
+            getDynamicFields() {
+                const options = Array.from(document.querySelectorAll('.social-option .social-name')).map(span => span
+                    .textContent);
+                return options.length > 0 ? [{
+                    name: 'Source',
+                    type: 'dropdown',
+                    options: options
+                }] : [];
+            },
+
+            isModified() {
+                return this.modified;
+            }
+        };
+
+        // Course Location Manager
+        const CourseLocationManager = {
+            section: 'Course Information',
+            modified: false,
+
+            init() {
+                this.setupCheckboxContainer();
+                // setupQuestionRow removed; handled by SectionToggler
+            },
+
+            setupCheckboxContainer() {
+                const checkboxContainer = document.getElementById('selected-study-location');
+                const addCheckboxContainer = document.querySelector('.add-checkbox-container');
+                if (checkboxContainer && addCheckboxContainer) {
+                    addCheckboxContainer.addEventListener('click', e => {
+                        e.preventDefault();
+                        this.addNewCheckbox(checkboxContainer, addCheckboxContainer);
+                        this.modified = true;
+                        FormSubmissionManager.setModifiedSection(this.section);
+                    });
+                }
+            },
+
+            addNewCheckbox(checkboxContainer, addCheckboxContainer) {
+                const newCountry = prompt("Enter country name", "")?.trim();
+                if (newCountry) {
+                    const existingCountries = Array.from(checkboxContainer.querySelectorAll('input[type="checkbox"]'))
+                        .map(cb => cb.value.toLowerCase());
+                    if (existingCountries.includes(newCountry.toLowerCase())) {
+                        alert('This country is already in the list');
+                        return;
                     }
-                });
+
+                    const newLabel = document.createElement('label');
+                    newLabel.innerHTML = `
+              <input type="checkbox" value="${newCountry}" disabled> ${newCountry}
+            `;
+                    checkboxContainer.insertBefore(newLabel, addCheckboxContainer);
+                }
+            },
+
+            getDynamicFields() {
+                const checkboxes = document.querySelectorAll('#selected-study-location input[type="checkbox"]');
+                const options = Array.from(checkboxes).map(cb => cb.value);
+                return options.length > 0 ? [{
+                    name: 'Location',
+                    type: 'checkbox',
+                    options: options
+                }] : [];
+            },
+
+            isModified() {
+                return this.modified;
             }
-        },
+        };
 
-        getDynamicFields() {
-            const options = Array.from(document.querySelectorAll('.social-option .social-name')).map(span => span
-                .textContent);
-            return options.length > 0 ? [{
-                name: 'Source',
-                type: 'dropdown',
-                options: options
-            }] : [];
-        },
+        // Course Options Manager
+        const CourseOptionsManager = {
+            section: 'Course Information',
+            modified: false,
 
-        isModified() {
-            return this.modified;
-        }
-    };
+            init() {
+                this.setupDropdown();
+                this.setupAddOption();
+            },
 
-    // Course Location Manager
-    const CourseLocationManager = {
-        section: 'Course Information',
-        modified: false,
-
-        init() {
-            this.setupCheckboxContainer();
-            // setupQuestionRow removed; handled by SectionToggler
-        },
-
-        setupCheckboxContainer() {
-            const checkboxContainer = document.getElementById('selected-study-location');
-            const addCheckboxContainer = document.querySelector('.add-checkbox-container');
-            if (checkboxContainer && addCheckboxContainer) {
-                addCheckboxContainer.addEventListener('click', e => {
-                    e.preventDefault();
-                    this.addNewCheckbox(checkboxContainer, addCheckboxContainer);
-                    this.modified = true;
-                    FormSubmissionManager.setModifiedSection(this.section);
-                });
-            }
-        },
-
-        addNewCheckbox(checkboxContainer, addCheckboxContainer) {
-            const newCountry = prompt("Enter country name", "")?.trim();
-            if (newCountry) {
-                const existingCountries = Array.from(checkboxContainer.querySelectorAll('input[type="checkbox"]'))
-                    .map(cb => cb.value.toLowerCase());
-                if (existingCountries.includes(newCountry.toLowerCase())) {
-                    alert('This country is already in the list');
+            setupDropdown() {
+                const optionsContainer = document.getElementById('option-section-degree-container');
+                const dropdownTrigger = document.getElementById('admin-student-course-second');
+                const parentContainer = dropdownTrigger?.closest('.admin-student-form-question-course-degree');
+                if (!optionsContainer || !dropdownTrigger || !parentContainer) {
+                    console.error('setupDropdown: Missing elements', {
+                        optionsContainer,
+                        dropdownTrigger,
+                        parentContainer
+                    });
                     return;
                 }
 
-                const newLabel = document.createElement('label');
-                newLabel.innerHTML = `
-              <input type="checkbox" value="${newCountry}" disabled> ${newCountry}
-            `;
-                checkboxContainer.insertBefore(newLabel, addCheckboxContainer);
-            }
-        },
-
-        getDynamicFields() {
-            const checkboxes = document.querySelectorAll('#selected-study-location input[type="checkbox"]');
-            const options = Array.from(checkboxes).map(cb => cb.value);
-            return options.length > 0 ? [{
-                name: 'Location',
-                type: 'checkbox',
-                options: options
-            }] : [];
-        },
-
-        isModified() {
-            return this.modified;
-        }
-    };
-
-    // Course Options Manager
-    const CourseOptionsManager = {
-        section: 'Course Information',
-        modified: false,
-
-        init() {
-            this.setupDropdown();
-            this.setupAddOption();
-        },
-
-        setupDropdown() {
-            const optionsContainer = document.getElementById('option-section-degree-container');
-            const dropdownTrigger = document.getElementById('admin-student-course-second');
-            const parentContainer = dropdownTrigger?.closest('.admin-student-form-question-course-degree');
-            if (!optionsContainer || !dropdownTrigger || !parentContainer) {
-                console.error('setupDropdown: Missing elements', {
-                    optionsContainer,
-                    dropdownTrigger,
-                    parentContainer
-                });
-                return;
-            }
-
-            optionsContainer.style.display = 'none';
-            dropdownTrigger.addEventListener('click', e => {
-                e.stopPropagation();
-                const isVisible = optionsContainer.style.display === 'block';
-                toggleVisibility(optionsContainer, isVisible);
-                parentContainer.classList.toggle('active', !isVisible);
-            });
-        },
-
-        setupAddOption() {
-            const addSection = document.getElementById('addSection');
-            const optionsGrid = document.getElementById('optionsContainer');
-            if (addSection && optionsGrid) {
-                addSection.addEventListener('click', e => {
+                optionsContainer.style.display = 'none';
+                dropdownTrigger.addEventListener('click', e => {
                     e.stopPropagation();
-                    const newOptionName = prompt('Enter new degree type:')?.trim();
-                    if (newOptionName) {
-                        const newOptionItem = document.createElement('div');
-                        newOptionItem.className = 'option-item';
-                        newOptionItem.innerHTML = `
+                    const isVisible = optionsContainer.style.display === 'block';
+                    toggleVisibility(optionsContainer, isVisible);
+                    parentContainer.classList.toggle('active', !isVisible);
+                });
+            },
+
+            setupAddOption() {
+                const addSection = document.getElementById('addSection');
+                const optionsGrid = document.getElementById('optionsContainer');
+                if (addSection && optionsGrid) {
+                    addSection.addEventListener('click', e => {
+                        e.stopPropagation();
+                        const newOptionName = prompt('Enter new degree type:')?.trim();
+                        if (newOptionName) {
+                            const newOptionItem = document.createElement('div');
+                            newOptionItem.className = 'option-item';
+                            newOptionItem.innerHTML = `
                   <input type="checkbox" value="${newOptionName}" disabled>
                   <div class="option-name">${newOptionName}</div>
                 `;
-                        optionsGrid.insertBefore(newOptionItem, addSection);
+                            optionsGrid.insertBefore(newOptionItem, addSection);
+                            this.modified = true;
+                            FormSubmissionManager.setModifiedSection(this.section);
+                        }
+                    });
+                }
+            },
+
+            getDynamicFields() {
+                const checkboxes = document.querySelectorAll('#optionsContainer input[type="checkbox"]');
+                const options = Array.from(checkboxes).map(cb => cb.value);
+                return options.length > 0 ? [{
+                    name: 'Degree',
+                    type: 'checkbox',
+                    options: options
+                }] : [];
+            },
+
+            isModified() {
+                return this.modified;
+            }
+        };
+        // Course Duration Manager
+        const CourseDurationManager = {
+            section: 'Course Information',
+            modified: false,
+
+            init() {
+                this.setupDropdown();
+                this.setupRemoveButtons();
+                this.setupAddButton();
+            },
+
+            setupDropdown() {
+                const rowElement = document.getElementById('course-row-month-id');
+                const dropdownElement = document.getElementById('course-dropdown-month-id');
+                const optionsSection = document.getElementById('course-duration-section-month');
+                if (!rowElement || !dropdownElement || !optionsSection) return;
+
+                optionsSection.style.display = 'none';
+                const toggleOptions = () => {
+                    const isHidden = optionsSection.style.display === 'none';
+
+
+                    toggleVisibility(optionsSection, !isHidden, document.querySelector(
+                        '#admin-student-dropdown-icon-id'));
+                    document.querySelector('.admin-student-form-question-month').classList.toggle('active',
+                        isHidden);
+                };
+
+                rowElement.addEventListener('click', toggleOptions);
+                dropdownElement.addEventListener('click', e => {
+                    e.stopPropagation();
+                    toggleOptions();
+                });
+            },
+
+            setupRemoveButtons() {
+                document.querySelectorAll('.course-remove').forEach(btn => {
+                    btn.addEventListener('click', e => {
+                        e.stopPropagation();
+                        btn.parentElement.remove();
                         this.modified = true;
                         FormSubmissionManager.setModifiedSection(this.section);
-                    }
+                    });
                 });
-            }
-        },
+            },
 
-        getDynamicFields() {
-            const checkboxes = document.querySelectorAll('#optionsContainer input[type="checkbox"]');
-            const options = Array.from(checkboxes).map(cb => cb.value);
-            return options.length > 0 ? [{
-                name: 'Degree',
-                type: 'checkbox',
-                options: options
-            }] : [];
-        },
-
-        isModified() {
-            return this.modified;
-        }
-    };
-    // Course Duration Manager
-    const CourseDurationManager = {
-        section: 'Course Information',
-        modified: false,
-
-        init() {
-            this.setupDropdown();
-            this.setupRemoveButtons();
-            this.setupAddButton();
-        },
-
-        setupDropdown() {
-            const rowElement = document.getElementById('course-row-month-id');
-            const dropdownElement = document.getElementById('course-dropdown-month-id');
-            const optionsSection = document.getElementById('course-duration-section-month');
-            if (!rowElement || !dropdownElement || !optionsSection) return;
-
-            optionsSection.style.display = 'none';
-            const toggleOptions = () => {
-                const isHidden = optionsSection.style.display === 'none';
-
-
-                toggleVisibility(optionsSection, !isHidden, document.querySelector(
-                    '#admin-student-dropdown-icon-id'));
-                document.querySelector('.admin-student-form-question-month').classList.toggle('active',
-                    isHidden);
-            };
-
-            rowElement.addEventListener('click', toggleOptions);
-            dropdownElement.addEventListener('click', e => {
-                e.stopPropagation();
-                toggleOptions();
-            });
-        },
-
-        setupRemoveButtons() {
-            document.querySelectorAll('.course-remove').forEach(btn => {
-                btn.addEventListener('click', e => {
+            setupAddButton() {
+                document.querySelector('.add-course')?.addEventListener('click', e => {
                     e.stopPropagation();
-                    btn.parentElement.remove();
+                    this.addNewDurationOption();
                     this.modified = true;
                     FormSubmissionManager.setModifiedSection(this.section);
                 });
-            });
-        },
+            },
 
-        setupAddButton() {
-            document.querySelector('.add-course')?.addEventListener('click', e => {
-                e.stopPropagation();
-                this.addNewDurationOption();
-                this.modified = true;
-                FormSubmissionManager.setModifiedSection(this.section);
-            });
-        },
+            addNewDurationOption() {
+                const userInput = prompt("Enter course duration option (in months)", "")?.trim();
 
-        addNewDurationOption() {
-            const userInput = prompt("Enter course duration option (in months)", "")?.trim();
-
-            if (userInput && !isNaN(userInput)) {
-                fetch('/storecourseduration', {
+                if (userInput && !isNaN(userInput)) {
+                    fetch('/storecourseduration', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -2214,85 +2217,85 @@
                             duration_in_months: userInput
                         })
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.message) {
-                            alert(data.message);
-                            fetchAndRenderCourseDurations();
-                        } else {
-                            alert('Failed to save duration. Please try again.');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Error occurred. Check console for details.');
-                    });
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.message) {
+                                alert(data.message);
+                                fetchAndRenderCourseDurations();
+                            } else {
+                                alert('Failed to save duration. Please try again.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error occurred. Check console for details.');
+                        });
+                }
+            },
+
+            getDynamicFields() {
+                const options = Array.from(document.querySelectorAll('.course-option .course-name')).map(span => span
+                    .textContent);
+                return options.length > 0 ? [{
+                    name: 'Duration',
+                    type: 'dropdown',
+                    options: options
+                }] : [];
+            },
+
+            isModified() {
+                return this.modified;
             }
-        },
+        };
 
-        getDynamicFields() {
-            const options = Array.from(document.querySelectorAll('.course-option .course-name')).map(span => span
-                .textContent);
-            return options.length > 0 ? [{
-                name: 'Duration',
-                type: 'dropdown',
-                options: options
-            }] : [];
-        },
+        const CourseDetailsManager = {
+            section: 'Course Information',
+            modified: false,
 
-        isModified() {
-            return this.modified;
-        }
-    };
+            init() {
+                const optionsContainer = document.querySelector('#course-details-options .checkbox-options-container');
+                // console.log('Initial optionsContainer:', optionsContainer);
+                this.setupDropdown();
+                this.setupAddOption();
+            },
 
-    const CourseDetailsManager = {
-        section: 'Course Information',
-        modified: false,
+            setupDropdown() {
+                const container = document.getElementById('course-details-container');
+                if (!container) return;
 
-        init() {
-            const optionsContainer = document.querySelector('#course-details-options .checkbox-options-container');
-            console.log('Initial optionsContainer:', optionsContainer);
-            this.setupDropdown();
-            this.setupAddOption();
-        },
+                const row = container.querySelector('#course-details-row');
+                const dropdownIcon = container.querySelector('.admin-student-dropdown-icon');
+                const optionsSection = container.querySelector('#course-details-options');
+                if (!row || !dropdownIcon || !optionsSection) return;
 
-        setupDropdown() {
-            const container = document.getElementById('course-details-container');
-            if (!container) return;
-
-            const row = container.querySelector('#course-details-row');
-            const dropdownIcon = container.querySelector('.admin-student-dropdown-icon');
-            const optionsSection = container.querySelector('#course-details-options');
-            if (!row || !dropdownIcon || !optionsSection) return;
-
-            optionsSection.style.display = 'none';
-            row.addEventListener('click', () => {
-                const isVisible = optionsSection.style.display !== 'none';
-                toggleVisibility(optionsSection, isVisible, dropdownIcon);
-                container.classList.toggle('active', !isVisible);
-            });
-        },
-
-        setupAddOption() {
-            const addOptionBtn = document.getElementById('add-course-option-btn');
-            if (addOptionBtn) {
-                console.log('Attaching event listener to add-course-option-btn');
-                addOptionBtn.addEventListener('click', e => {
-                    e.stopPropagation();
-                    this.addNewCourseOption();
-                    this.modified = true;
-                    FormSubmissionManager.setModifiedSection(this.section);
+                optionsSection.style.display = 'none';
+                row.addEventListener('click', () => {
+                    const isVisible = optionsSection.style.display !== 'none';
+                    toggleVisibility(optionsSection, isVisible, dropdownIcon);
+                    container.classList.toggle('active', !isVisible);
                 });
-            } else {
-                console.error('add-course-option-btn not found');
-            }
-        },
+            },
 
-        addNewCourseOption() {
-            const userInput = prompt("Enter new course option", "")?.trim();
-            if (userInput) {
-                // Send the input to Laravel backend
-                fetch('/course-options', {
+            setupAddOption() {
+                const addOptionBtn = document.getElementById('add-course-option-btn');
+                if (addOptionBtn) {
+                    // console.log('Attaching event listener to add-course-option-btn');
+                    addOptionBtn.addEventListener('click', e => {
+                        e.stopPropagation();
+                        this.addNewCourseOption();
+                        this.modified = true;
+                        FormSubmissionManager.setModifiedSection(this.section);
+                    });
+                } else {
+                    console.error('add-course-option-btn not found');
+                }
+            },
+
+            addNewCourseOption() {
+                const userInput = prompt("Enter new course option", "")?.trim();
+                if (userInput) {
+                    // Send the input to Laravel backend
+                    fetch('/course-options', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -2304,133 +2307,133 @@
                             label: userInput
                         })
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        alert(`Course option added: ${data.label}`);
-                        fetchCourseDetailOptions();
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(`Course option added: ${data.label}`);
+                            fetchCourseDetailOptions();
 
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Failed to add course option');
-                    });
-            }
-        },
-
-        getDynamicFields() {
-            const checkboxes = document.querySelectorAll('#course-details-options input[type="checkbox"]');
-            const options = Array.from(checkboxes).map(cb => cb.value);
-            return options.length > 0 ? [{
-                name: 'Course Option',
-                type: 'checkbox',
-                options: options
-            }] : [];
-        },
-
-        isModified() {
-            return this.modified;
-        }
-    };
-
-
-    //Academic details
-
-    const AcademicDetailsManager = {
-        section: 'Academic Details',
-        modified: false,
-        educationRowCount: 0,
-        gapOptionCount: 2,
-
-        init() {
-            console.log('AcademicDetailsManager.init called');
-            this.setupSectionToggle();
-            this.setupEducationSection();
-            this.setupAcademicGapSection();
-        },
-
-        setupSectionToggle() {
-            const section = document.getElementById('academic-details-section');
-            const content = document.getElementById('academic-details-content');
-            const arrow = document.querySelector('.admin-student-arrow-icon-academic');
-            if (section && content && arrow) {
-                section.addEventListener('click', () => {
-                    content.classList.toggle('expanded');
-                    arrow.classList.toggle('rotated');
-                });
-            } else {
-                console.error('setupSectionToggle: Missing elements', {
-                    section,
-                    content,
-                    arrow
-                });
-            }
-        },
-
-        setupEducationSection() {
-            console.log('setupEducationSection called');
-            const container = document.getElementById('education-container');
-            const headerRow = document.getElementById('education-header-row');
-            const dropdownIcon = container?.querySelector('.admin-student-dropdown-icon');
-            const section = document.getElementById('education-section');
-            if (!container || !headerRow || !dropdownIcon || !section) {
-                console.error('setupEducationSection: Missing elements', {
-                    container,
-                    headerRow,
-                    dropdownIcon,
-                    section
-                });
-                return;
-            }
-
-            section.style.display = 'none';
-            headerRow.addEventListener('click', e => {
-                e.stopPropagation();
-                const isVisible = section.style.display === 'block';
-                toggleVisibility(section, isVisible, dropdownIcon);
-                container.classList.toggle('active', !isVisible);
-            });
-
-            const addButtonEducation = document.getElementById('add-education-field-btn');
-            if (addButtonEducation) {
-                addButtonEducation.addEventListener('click', () => {
-                    const label = prompt("Enter field label (e.g., Country, Favorite Color):")?.trim();
-                    if (!label) return;
-
-                    const name = prompt("Enter a unique field name (e.g., country, favorite_color):")
-                        ?.trim();
-                    if (!name) return;
-
-                    const fieldType = prompt("Enter field type (text, select, checkbox, radio, date):")
-                        ?.trim();
-                    if (!fieldType) return;
-
-                    const academicSection = 'academic';
-                    this.addEducationInputField({
-                        label,
-                        name,
-                        type: fieldType,
-                        sectionSeperate: academicSection
-                    });
-                });
-            }
-        },
-
-        addEducationInputField({
-            label,
-            name,
-            type,
-            sectionSeperate
-        }) {
-            let options = [];
-
-            if (['select', 'checkbox', 'radio'].includes(type)) {
-                const optionString = prompt("Enter options separated by commas (e.g., Red,Green,Blue):");
-                if (optionString) {
-                    options = optionString.split(',').map(opt => opt.trim()).filter(Boolean);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Failed to add course option');
+                        });
                 }
-            }
+            },
 
-            fetch('/addadditionalpersonalinfodata', {
+            getDynamicFields() {
+                const checkboxes = document.querySelectorAll('#course-details-options input[type="checkbox"]');
+                const options = Array.from(checkboxes).map(cb => cb.value);
+                return options.length > 0 ? [{
+                    name: 'Course Option',
+                    type: 'checkbox',
+                    options: options
+                }] : [];
+            },
+
+            isModified() {
+                return this.modified;
+            }
+        };
+
+
+        //Academic details
+
+        const AcademicDetailsManager = {
+            section: 'Academic Details',
+            modified: false,
+            educationRowCount: 0,
+            gapOptionCount: 2,
+
+            init() {
+                // console.log('AcademicDetailsManager.init called');
+                this.setupSectionToggle();
+                this.setupEducationSection();
+                this.setupAcademicGapSection();
+            },
+
+            setupSectionToggle() {
+                const section = document.getElementById('academic-details-section');
+                const content = document.getElementById('academic-details-content');
+                const arrow = document.querySelector('.admin-student-arrow-icon-academic');
+                if (section && content && arrow) {
+                    section.addEventListener('click', () => {
+                        content.classList.toggle('expanded');
+                        arrow.classList.toggle('rotated');
+                    });
+                } else {
+                    console.error('setupSectionToggle: Missing elements', {
+                        section,
+                        content,
+                        arrow
+                    });
+                }
+            },
+
+            setupEducationSection() {
+                // console.log('setupEducationSection called');
+                const container = document.getElementById('education-container');
+                const headerRow = document.getElementById('education-header-row');
+                const dropdownIcon = container?.querySelector('.admin-student-dropdown-icon');
+                const section = document.getElementById('education-section');
+                if (!container || !headerRow || !dropdownIcon || !section) {
+                    console.error('setupEducationSection: Missing elements', {
+                        container,
+                        headerRow,
+                        dropdownIcon,
+                        section
+                    });
+                    return;
+                }
+
+                section.style.display = 'none';
+                headerRow.addEventListener('click', e => {
+                    e.stopPropagation();
+                    const isVisible = section.style.display === 'block';
+                    toggleVisibility(section, isVisible, dropdownIcon);
+                    container.classList.toggle('active', !isVisible);
+                });
+
+                const addButtonEducation = document.getElementById('add-education-field-btn');
+                if (addButtonEducation) {
+                    addButtonEducation.addEventListener('click', () => {
+                        const label = prompt("Enter field label (e.g., Country, Favorite Color):")?.trim();
+                        if (!label) return;
+
+                        const name = prompt("Enter a unique field name (e.g., country, favorite_color):")
+                            ?.trim();
+                        if (!name) return;
+
+                        const fieldType = prompt("Enter field type (text, select, checkbox, radio, date):")
+                            ?.trim();
+                        if (!fieldType) return;
+
+                        const academicSection = 'academic';
+                        this.addEducationInputField({
+                            label,
+                            name,
+                            type: fieldType,
+                            sectionSeperate: academicSection
+                        });
+                    });
+                }
+            },
+
+            addEducationInputField({
+                label,
+                name,
+                type,
+                sectionSeperate
+            }) {
+                let options = [];
+
+                if (['select', 'checkbox', 'radio'].includes(type)) {
+                    const optionString = prompt("Enter options separated by commas (e.g., Red,Green,Blue):");
+                    if (optionString) {
+                        options = optionString.split(',').map(opt => opt.trim()).filter(Boolean);
+                    }
+                }
+
+                fetch('/addadditionalpersonalinfodata', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2445,104 +2448,104 @@
                         sectionSeperate
                     })
                 })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.field) {
-                        console.log('Field added:', data.field);
-                        fetchAcademics();
-                    } else {
-                        console.error('Failed to add field:', data);
-                    }
-                })
-                .catch(err => console.error('API Error:', err));
-        },
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.field) {
+                            console.log('Field added:', data.field);
+                            fetchAcademics();
+                        } else {
+                            console.error('Failed to add field:', data);
+                        }
+                    })
+                    .catch(err => console.error('API Error:', err));
+            },
 
-        setupAcademicGapSection() {
-            console.log('setupAcademicGapSection called');
-            const container = document.getElementById('academic-gap-container');
-            const row = container?.querySelector('#academic-gap-row');
-            const dropdownIcon = container?.querySelector('.admin-student-dropdown-icon');
-            const optionsSection = container?.querySelector('#academic-gap-options');
-            if (!container || !row || !dropdownIcon || !optionsSection) {
-                console.error('setupAcademicGapSection: Missing elements', {
-                    container,
-                    row,
-                    dropdownIcon,
-                    optionsSection
-                });
-                return;
-            }
+            setupAcademicGapSection() {
+                // console.log('setupAcademicGapSection called');
+                const container = document.getElementById('academic-gap-container');
+                const row = container?.querySelector('#academic-gap-row');
+                const dropdownIcon = container?.querySelector('.admin-student-dropdown-icon');
+                const optionsSection = container?.querySelector('#academic-gap-options');
+                if (!container || !row || !dropdownIcon || !optionsSection) {
+                    console.error('setupAcademicGapSection: Missing elements', {
+                        container,
+                        row,
+                        dropdownIcon,
+                        optionsSection
+                    });
+                    return;
+                }
 
-            optionsSection.style.display = 'none';
-            row.addEventListener('click', e => {
-                e.stopPropagation();
-                const isVisible = optionsSection.style.display === 'block';
-                toggleVisibility(optionsSection, isVisible, dropdownIcon);
-                container.classList.toggle('active', !isVisible);
-            });
-
-            const addOptionButton = container.querySelector('#add-academic-option-btn');
-            if (addOptionButton) {
-                addOptionButton.addEventListener('click', e => {
+                optionsSection.style.display = 'none';
+                row.addEventListener('click', e => {
                     e.stopPropagation();
-                    this.addAcademicGapOption();
-                    this.modified = true;
-                    try {
-                        FormSubmissionManager.setModifiedSection(this.section);
-                    } catch (error) {
-                        console.error('Error in FormSubmissionManager.setModifiedSection:', error);
-                    }
+                    const isVisible = optionsSection.style.display === 'block';
+                    toggleVisibility(optionsSection, isVisible, dropdownIcon);
+                    container.classList.toggle('active', !isVisible);
                 });
-            } else {
-                console.error('add-academic-option-btn not found');
-            }
-        },
 
-        addAcademicGapOption() {
-            console.log('addAcademicGapOption called');
-            const userInput = prompt("Enter new option", "")?.trim();
-            if (userInput) {
-                const optionsContainer = document.querySelector('.academic-options');
-                if (optionsContainer) {
-                    const newOption = document.createElement('div');
-                    newOption.className = 'academic-option';
-                    const radioId = `academic-option-${this.gapOptionCount++}`;
-                    newOption.innerHTML = `
+                const addOptionButton = container.querySelector('#add-academic-option-btn');
+                if (addOptionButton) {
+                    addOptionButton.addEventListener('click', e => {
+                        e.stopPropagation();
+                        this.addAcademicGapOption();
+                        this.modified = true;
+                        try {
+                            FormSubmissionManager.setModifiedSection(this.section);
+                        } catch (error) {
+                            console.error('Error in FormSubmissionManager.setModifiedSection:', error);
+                        }
+                    });
+                } else {
+                    console.error('add-academic-option-btn not found');
+                }
+            },
+
+            addAcademicGapOption() {
+                console.log('addAcademicGapOption called');
+                const userInput = prompt("Enter new option", "")?.trim();
+                if (userInput) {
+                    const optionsContainer = document.querySelector('.academic-options');
+                    if (optionsContainer) {
+                        const newOption = document.createElement('div');
+                        newOption.className = 'academic-option';
+                        const radioId = `academic-option-${this.gapOptionCount++}`;
+                        newOption.innerHTML = `
           <input type="radio" id="${radioId}" value="${userInput}" disabled>
           <label for="${radioId}">${userInput}</label>
         `;
-                    optionsContainer.appendChild(newOption);
-                    console.log('Added new academic gap option:', userInput);
+                        optionsContainer.appendChild(newOption);
+                        console.log('Added new academic gap option:', userInput);
+                    } else {
+                        console.error('.academic-options container not found');
+                    }
                 } else {
-                    console.error('.academic-options container not found');
+                    console.log('No option provided or prompt cancelled');
                 }
-            } else {
-                console.log('No option provided or prompt cancelled');
+            },
+
+            getDynamicFieldsForGap() {
+                console.log('getDynamicFieldsForGap called');
+                const radios = document.querySelectorAll('#academic-gap-options input[type="radio"]');
+                const options = Array.from(radios).map(radio => radio.value);
+                return options.length > 0 ? [{
+                    name: 'Gap',
+                    type: 'checkbox',
+                    options: options
+                }] : [];
+            },
+
+            isModified() {
+                return this.modified;
             }
-        },
+        };
 
-        getDynamicFieldsForGap() {
-            console.log('getDynamicFieldsForGap called');
-            const radios = document.querySelectorAll('#academic-gap-options input[type="radio"]');
-            const options = Array.from(radios).map(radio => radio.value);
-            return options.length > 0 ? [{
-                name: 'Gap',
-                type: 'checkbox',
-                options: options
-            }] : [];
-        },
+        const CoBorrowerManager = {
+            section: 'Co-Borrower Information',
+            modified: false,
 
-        isModified() {
-            return this.modified;
-        }
-    };
-
-    const CoBorrowerManager = {
-        section: 'Co-Borrower Information',
-        modified: false,
-
-        init() {
-            this.setupDropdowns([{
+            init() {
+                this.setupDropdowns([{
                     containerId: 'co-borrower-container',
                     rowId: 'co-borrower-row',
                     optionsId: 'co-borrower-options'
@@ -2557,185 +2560,185 @@
                     rowId: 'liability-row',
                     optionsId: 'liability-options'
                 }
-            ]);
-            this.setupCoBorrowerOptions();
-            this.setupIncomeFields();
-            this.setupLiabilityFields();
-            this.setupCoBorrowerSectionToggle();
-        },
+                ]);
+                this.setupCoBorrowerOptions();
+                this.setupIncomeFields();
+                this.setupLiabilityFields();
+                this.setupCoBorrowerSectionToggle();
+            },
 
-        setupDropdowns(dropdowns) {
-            dropdowns.forEach(({
-                containerId,
-                rowId,
-                optionsId
-            }) => {
-                const container = document.getElementById(containerId);
-                const row = document.getElementById(rowId);
-                const options = document.getElementById(optionsId);
-                const dropdownIcon = row?.querySelector('.admin-student-dropdown-icon');
-                if (container && row && options && dropdownIcon) {
-                    options.style.display = 'none';
-                    row.addEventListener('click', () => {
-                        const isVisible = options.style.display !== 'none';
-                        toggleVisibility(options, isVisible, dropdownIcon);
-                        container.classList.toggle('active', !isVisible);
-                    });
-                }
-            });
-        },
+            setupDropdowns(dropdowns) {
+                dropdowns.forEach(({
+                    containerId,
+                    rowId,
+                    optionsId
+                }) => {
+                    const container = document.getElementById(containerId);
+                    const row = document.getElementById(rowId);
+                    const options = document.getElementById(optionsId);
+                    const dropdownIcon = row?.querySelector('.admin-student-dropdown-icon');
+                    if (container && row && options && dropdownIcon) {
+                        options.style.display = 'none';
+                        row.addEventListener('click', () => {
+                            const isVisible = options.style.display !== 'none';
+                            toggleVisibility(options, isVisible, dropdownIcon);
+                            container.classList.toggle('active', !isVisible);
+                        });
+                    }
+                });
+            },
 
-        setupCoBorrowerOptions() {
-            const addOptionBtn = document.getElementById('add-coborrower-option-btn');
-            if (addOptionBtn) {
-                addOptionBtn.addEventListener('click', e => {
-                    e.stopPropagation();
-                    const userInput = prompt("Enter new relationship option", "")?.trim();
-                    if (userInput) {
-                        const optionsContainer = document.querySelector(
-                            '#co-borrower-options .checkbox-options-container');
-                        const newOption = document.createElement('div');
-                        newOption.className = 'checkbox-option';
-                        newOption.innerHTML = `
+            setupCoBorrowerOptions() {
+                const addOptionBtn = document.getElementById('add-coborrower-option-btn');
+                if (addOptionBtn) {
+                    addOptionBtn.addEventListener('click', e => {
+                        e.stopPropagation();
+                        const userInput = prompt("Enter new relationship option", "")?.trim();
+                        if (userInput) {
+                            const optionsContainer = document.querySelector(
+                                '#co-borrower-options .checkbox-options-container');
+                            const newOption = document.createElement('div');
+                            newOption.className = 'checkbox-option';
+                            newOption.innerHTML = `
               <input type="checkbox" value="${userInput}" disabled>
               <label>${userInput}</label>
             `;
-                        optionsContainer.insertBefore(newOption, addOptionBtn);
+                            optionsContainer.insertBefore(newOption, addOptionBtn);
+                            this.modified = true;
+                            FormSubmissionManager.setModifiedSection(this.section);
+                        }
+                    });
+                }
+            },
+
+            setupIncomeFields() {
+                document.querySelectorAll('.delete-field').forEach(btn => {
+                    btn.addEventListener('click', e => {
+                        e.stopPropagation();
+                        btn.closest('.field-container').remove();
                         this.modified = true;
                         FormSubmissionManager.setModifiedSection(this.section);
-                    }
+                    });
                 });
-            }
-        },
 
-        setupIncomeFields() {
-            document.querySelectorAll('.delete-field').forEach(btn => {
-                btn.addEventListener('click', e => {
-                    e.stopPropagation();
-                    btn.closest('.field-container').remove();
-                    this.modified = true;
-                    FormSubmissionManager.setModifiedSection(this.section);
-                });
-            });
-
-            const addIncomeFieldBtn = document.getElementById('add-income-field-btn');
-            if (addIncomeFieldBtn) {
-                addIncomeFieldBtn.addEventListener('click', e => {
-                    e.stopPropagation();
-                    const userInput = prompt("Enter field name", "")?.trim();
-                    if (userInput) {
-                        const fieldsRowContainer = document.querySelector('.fields-row-container');
-                        const fieldContainer = document.createElement('div');
-                        fieldContainer.className = 'field-container';
-                        fieldContainer.innerHTML = `
+                const addIncomeFieldBtn = document.getElementById('add-income-field-btn');
+                if (addIncomeFieldBtn) {
+                    addIncomeFieldBtn.addEventListener('click', e => {
+                        e.stopPropagation();
+                        const userInput = prompt("Enter field name", "")?.trim();
+                        if (userInput) {
+                            const fieldsRowContainer = document.querySelector('.fields-row-container');
+                            const fieldContainer = document.createElement('div');
+                            fieldContainer.className = 'field-container';
+                            fieldContainer.innerHTML = `
               <input type="text" class="text-input" placeholder="${userInput}" disabled>
               <button class="delete-field">✕</button>
             `;
-                        fieldsRowContainer.insertBefore(fieldContainer, addIncomeFieldBtn);
-                        fieldContainer.querySelector('.delete-field').addEventListener('click', e => {
-                            e.stopPropagation();
-                            fieldContainer.remove();
-                            this.modified = true;
-                            FormSubmissionManager.setModifiedSection(this.section);
-                        });
-                        this.modified = true;
-                        FormSubmissionManager.setModifiedSection(this.section);
-                    }
-                });
-            }
-        },
-
-        setupLiabilityFields() {
-            const addLiabilityBtn = document.getElementById('add-liability-btn');
-            if (addLiabilityBtn) {
-                addLiabilityBtn.addEventListener('click', e => {
-                    e.stopPropagation();
-                    const userInput = prompt("Enter field name for liability", "")?.trim();
-                    if (userInput) {
-                        const additionalFields = document.getElementById('additional-liability-fields');
-                        const fieldContainer = document.createElement('div');
-                        fieldContainer.className = 'liability-input-container';
-                        fieldContainer.innerHTML = `
-              <input type="text" class="text-input" placeholder="${userInput}" disabled>
-              <button class="delete-liability-field">✕</button>
-            `;
-                        additionalFields.appendChild(fieldContainer);
-                        fieldContainer.querySelector('.delete-liability-field').addEventListener('click',
-                            e => {
+                            fieldsRowContainer.insertBefore(fieldContainer, addIncomeFieldBtn);
+                            fieldContainer.querySelector('.delete-field').addEventListener('click', e => {
                                 e.stopPropagation();
                                 fieldContainer.remove();
                                 this.modified = true;
                                 FormSubmissionManager.setModifiedSection(this.section);
                             });
-                        this.modified = true;
-                        FormSubmissionManager.setModifiedSection(this.section);
-                    }
+                            this.modified = true;
+                            FormSubmissionManager.setModifiedSection(this.section);
+                        }
+                    });
+                }
+            },
+
+            setupLiabilityFields() {
+                const addLiabilityBtn = document.getElementById('add-liability-btn');
+                if (addLiabilityBtn) {
+                    addLiabilityBtn.addEventListener('click', e => {
+                        e.stopPropagation();
+                        const userInput = prompt("Enter field name for liability", "")?.trim();
+                        if (userInput) {
+                            const additionalFields = document.getElementById('additional-liability-fields');
+                            const fieldContainer = document.createElement('div');
+                            fieldContainer.className = 'liability-input-container';
+                            fieldContainer.innerHTML = `
+              <input type="text" class="text-input" placeholder="${userInput}" disabled>
+              <button class="delete-liability-field">✕</button>
+            `;
+                            additionalFields.appendChild(fieldContainer);
+                            fieldContainer.querySelector('.delete-liability-field').addEventListener('click',
+                                e => {
+                                    e.stopPropagation();
+                                    fieldContainer.remove();
+                                    this.modified = true;
+                                    FormSubmissionManager.setModifiedSection(this.section);
+                                });
+                            this.modified = true;
+                            FormSubmissionManager.setModifiedSection(this.section);
+                        }
+                    });
+                }
+            },
+
+            setupCoBorrowerSectionToggle() {
+                const header = document.querySelector('.admin-student-section-header-co-borrower');
+                const content = document.querySelector('.admin-student-form-section-co-borrower');
+                const arrow = document.querySelector('.admin-student-arrow-icon-co-borrower');
+                if (header && content && arrow) {
+                    content.classList.add('visible'); // Ensure section is visible by default
+                    header.addEventListener('click', () => {
+                        const isVisible = content.classList.contains('visible');
+                        content.classList.toggle('visible', !isVisible);
+                        content.classList.toggle('hidden', isVisible);
+                        arrow.classList.toggle('rotated', !isVisible);
+                    });
+                }
+            },
+
+            getDynamicFields() {
+                const fields = [];
+                const relationCheckboxes = document.querySelectorAll('#co-borrower-options input[type="checkbox"]');
+                if (relationCheckboxes.length > 0) {
+                    const options = Array.from(relationCheckboxes).map(cb => cb.value);
+                    fields.push({
+                        name: 'Relation',
+                        type: 'checkbox',
+                        options: options
+                    });
+                }
+                const incomeFields = document.querySelectorAll('.fields-row-container input[disabled]');
+                incomeFields.forEach(input => {
+                    fields.push({
+                        name: input.placeholder,
+                        type: 'text'
+                    });
                 });
+                const liabilityFields = document.querySelectorAll('#additional-liability-fields input[disabled]');
+                liabilityFields.forEach(input => {
+                    fields.push({
+                        name: input.placeholder,
+                        type: 'text'
+                    });
+                });
+                return fields;
+            },
+
+            isModified() {
+                return this.modified;
             }
-        },
+        };
 
-        setupCoBorrowerSectionToggle() {
-            const header = document.querySelector('.admin-student-section-header-co-borrower');
-            const content = document.querySelector('.admin-student-form-section-co-borrower');
-            const arrow = document.querySelector('.admin-student-arrow-icon-co-borrower');
-            if (header && content && arrow) {
-                content.classList.add('visible'); // Ensure section is visible by default
-                header.addEventListener('click', () => {
-                    const isVisible = content.classList.contains('visible');
-                    content.classList.toggle('visible', !isVisible);
-                    content.classList.toggle('hidden', isVisible);
-                    arrow.classList.toggle('rotated', !isVisible);
-                });
-            }
-        },
+        const DocumentFieldManager = {
+            section: 'Document Upload',
+            modified: false,
+            counts: {
+                document: 0,
+                academic: 0,
+                secured: 0,
+                workExperience: 0,
+                coBorrower: 0,
+                salariedBusiness: 0
+            },
 
-        getDynamicFields() {
-            const fields = [];
-            const relationCheckboxes = document.querySelectorAll('#co-borrower-options input[type="checkbox"]');
-            if (relationCheckboxes.length > 0) {
-                const options = Array.from(relationCheckboxes).map(cb => cb.value);
-                fields.push({
-                    name: 'Relation',
-                    type: 'checkbox',
-                    options: options
-                });
-            }
-            const incomeFields = document.querySelectorAll('.fields-row-container input[disabled]');
-            incomeFields.forEach(input => {
-                fields.push({
-                    name: input.placeholder,
-                    type: 'text'
-                });
-            });
-            const liabilityFields = document.querySelectorAll('#additional-liability-fields input[disabled]');
-            liabilityFields.forEach(input => {
-                fields.push({
-                    name: input.placeholder,
-                    type: 'text'
-                });
-            });
-            return fields;
-        },
-
-        isModified() {
-            return this.modified;
-        }
-    };
-
-    const DocumentFieldManager = {
-        section: 'Document Upload',
-        modified: false,
-        counts: {
-            document: 0,
-            academic: 0,
-            secured: 0,
-            workExperience: 0,
-            coBorrower: 0,
-            salariedBusiness: 0
-        },
-
-        init() {
-            const buttons = [{
+            init() {
+                const buttons = [{
                     id: 'add-document-btn-kyc-id',
                     type: 'document',
                     containerId: 'document-fields-container-kyc-id',
@@ -2790,78 +2793,78 @@
                     subSections: ['salaried', 'business'],
                     slug: 'business-document'
                 }
-            ];
+                ];
 
 
-            buttons.forEach(({
-                id,
-                type,
-                containerId,
-                rowId,
-                apiEndpoint,
-                namePrefix,
-                subSections,
-                slug
-            }) => {
-                const button = document.getElementById(id);
-                if (button) {
-                    button.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        let fieldType = prompt(`Enter ${type} document type:`)?.trim();
-                        let subSection = '';
-                        if (type === 'salariedBusiness' && fieldType) {
-                            subSection = prompt('Enter sub-section (salaried or business):')
-                                ?.trim();
-                            if (!['salaried', 'business'].includes(subSection)) {
-                                alert(
-                                    'Invalid sub-section. Please enter "salaried" or "business".'
-                                );
-                                return;
+                buttons.forEach(({
+                    id,
+                    type,
+                    containerId,
+                    rowId,
+                    apiEndpoint,
+                    namePrefix,
+                    subSections,
+                    slug
+                }) => {
+                    const button = document.getElementById(id);
+                    if (button) {
+                        button.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            let fieldType = prompt(`Enter ${type} document type:`)?.trim();
+                            let subSection = '';
+                            if (type === 'salariedBusiness' && fieldType) {
+                                subSection = prompt('Enter sub-section (salaried or business):')
+                                    ?.trim();
+                                if (!['salaried', 'business'].includes(subSection)) {
+                                    alert(
+                                        'Invalid sub-section. Please enter "salaried" or "business".'
+                                    );
+                                    return;
+                                }
                             }
-                        }
-                        if (fieldType) {
-                            this.addNewDocumentField(fieldType, type, containerId, rowId,
-                                apiEndpoint, namePrefix, subSection, slug);
-                            this.modified = true;
-                            // Assuming FormSubmissionManager exists
-                            if (typeof FormSubmissionManager !== 'undefined') {
-                                FormSubmissionManager.setModifiedSection(this.section);
+                            if (fieldType) {
+                                this.addNewDocumentField(fieldType, type, containerId, rowId,
+                                    apiEndpoint, namePrefix, subSection, slug);
+                                this.modified = true;
+                                // Assuming FormSubmissionManager exists
+                                if (typeof FormSubmissionManager !== 'undefined') {
+                                    FormSubmissionManager.setModifiedSection(this.section);
+                                }
                             }
-                        }
-                    });
-                }
-                this.initializeSection(containerId, rowId, apiEndpoint, namePrefix, type, subSections,
-                    slug);
-            });
-
-            this.setupHelpTriggerListener();
-        },
-
-        setupHelpTriggerListener() {
-            document.removeEventListener('click', this.handleHelpTriggerClick);
-            this.handleHelpTriggerClick = (e) => {
-                if (e.target.classList.contains('help-trigger')) {
-                    e.stopPropagation(); // Prevent interference with other click events
-                    const targetId = e.target.getAttribute('data-target');
-                    const helpContainer = document.querySelector(`.${targetId}`);
-                    if (helpContainer) {
-                        helpContainer.style.display = helpContainer.style.display === 'none' ? 'block' : 'none';
-                    } else {
-                        console.warn(`Help container with class .${targetId} not found`);
+                        });
                     }
-                }
-            };
-            document.addEventListener('click', this.handleHelpTriggerClick);
-        },
+                    this.initializeSection(containerId, rowId, apiEndpoint, namePrefix, type, subSections,
+                        slug);
+                });
 
-        initializeSection(containerId, rowId, apiEndpoint, namePrefix, type, subSections, slug) {
-            const container = document.getElementById(rowId);
-            if (!container) return;
+                this.setupHelpTriggerListener();
+            },
 
-            container.innerHTML = '';
+            setupHelpTriggerListener() {
+                document.removeEventListener('click', this.handleHelpTriggerClick);
+                this.handleHelpTriggerClick = (e) => {
+                    if (e.target.classList.contains('help-trigger')) {
+                        e.stopPropagation(); // Prevent interference with other click events
+                        const targetId = e.target.getAttribute('data-target');
+                        const helpContainer = document.querySelector(`.${targetId}`);
+                        if (helpContainer) {
+                            helpContainer.style.display = helpContainer.style.display === 'none' ? 'block' : 'none';
+                        } else {
+                            console.warn(`Help container with class .${targetId} not found`);
+                        }
+                    }
+                };
+                document.addEventListener('click', this.handleHelpTriggerClick);
+            },
 
-            const staticDocs = {
-                document: [{
+            initializeSection(containerId, rowId, apiEndpoint, namePrefix, type, subSections, slug) {
+                const container = document.getElementById(rowId);
+                if (!container) return;
+
+                container.innerHTML = '';
+
+                const staticDocs = {
+                    document: [{
                         key: 'pan-card',
                         name: 'PAN Card'
                     },
@@ -2873,8 +2876,8 @@
                         key: 'passport',
                         name: 'Passport'
                     }
-                ],
-                academic: [{
+                    ],
+                    academic: [{
                         key: 'tenth-grade',
                         name: '10th Grade Mark Sheet'
                     },
@@ -2886,8 +2889,8 @@
                         key: 'graduation-grade',
                         name: 'Graduation Mark Sheet'
                     }
-                ],
-                secured: [{
+                    ],
+                    secured: [{
                         key: 'secured-tenth',
                         name: '10th Grade'
                     },
@@ -2899,8 +2902,8 @@
                         key: 'secured-graduation',
                         name: 'Graduation'
                     }
-                ],
-                workExperience: [{
+                    ],
+                    workExperience: [{
                         key: 'work-experience-letter',
                         name: 'Experience Letter'
                     },
@@ -2916,8 +2919,8 @@
                         key: 'work-joining-letter',
                         name: 'Joining Letter'
                     }
-                ],
-                coBorrower: [{
+                    ],
+                    coBorrower: [{
                         key: 'co-pan-card',
                         name: 'PAN Card'
                     },
@@ -2929,8 +2932,8 @@
                         key: 'co-address-proof',
                         name: 'Address Proof'
                     }
-                ],
-                salariedBusiness: [{
+                    ],
+                    salariedBusiness: [{
                         key: 'salary-slip',
                         name: '3 months salary slip',
                         subSection: 'salaried'
@@ -2960,57 +2963,57 @@
                         name: 'Office/Shop photographs',
                         subSection: 'business'
                     }
-                ]
-            };
+                    ]
+                };
 
-            if (type === 'salariedBusiness') {
-                const salariedContainer = document.getElementById('salaried-row-1');
-                const businessContainer = document.getElementById('business-row-1');
-                if (salariedContainer && businessContainer) {
-                    salariedContainer.innerHTML = '';
-                    businessContainer.innerHTML = '';
-                    staticDocs[type].forEach(doc => {
-                        const targetContainer = doc.subSection === 'salaried' ? salariedContainer :
-                            businessContainer;
-                        targetContainer.appendChild(this.createDocumentBox(doc, false, namePrefix, type));
-                    });
-                }
-            } else {
-                staticDocs[type].forEach(doc => {
-                    container.appendChild(this.createDocumentBox(doc, false, namePrefix, type));
-                });
-            }
-
-            fetch(`/api${apiEndpoint}/${slug}`)
-
-
-                .then(res => res.json())
-                .then(data => {
-                    const dynamicDocs = data.documentTypes || [];
-                    if (type === 'salariedBusiness') {
-                        const salariedContainer = document.getElementById('salaried-row-1');
-                        const businessContainer = document.getElementById('business-row-1');
-                        if (salariedContainer && businessContainer) {
-                            dynamicDocs.forEach(doc => {
-                                const targetContainer = doc.subSection === 'salaried' ?
-                                    salariedContainer : businessContainer;
-                                targetContainer.appendChild(this.createDocumentBox(doc, true,
-                                    namePrefix, type));
-                            });
-                        }
-                    } else {
-                        dynamicDocs.forEach(doc => {
-                            container.appendChild(this.createDocumentBox(doc, true, namePrefix, type));
+                if (type === 'salariedBusiness') {
+                    const salariedContainer = document.getElementById('salaried-row-1');
+                    const businessContainer = document.getElementById('business-row-1');
+                    if (salariedContainer && businessContainer) {
+                        salariedContainer.innerHTML = '';
+                        businessContainer.innerHTML = '';
+                        staticDocs[type].forEach(doc => {
+                            const targetContainer = doc.subSection === 'salaried' ? salariedContainer :
+                                businessContainer;
+                            targetContainer.appendChild(this.createDocumentBox(doc, false, namePrefix, type));
                         });
                     }
-                    this.deleteInitialization(containerId, apiEndpoint, namePrefix, type);
-                    this.setupHelpTriggerListener();
-                })
-                .catch(err => console.error(`Error fetching dynamic documents for ${type}:`, err));
-        },
+                } else {
+                    staticDocs[type].forEach(doc => {
+                        container.appendChild(this.createDocumentBox(doc, false, namePrefix, type));
+                    });
+                }
 
-        addNewDocumentField(fieldType, type, containerId, rowId, apiEndpoint, namePrefix, subSection = '', slug) {
-            fetch('/kycdynamicpost', {
+                fetch(`/api${apiEndpoint}/${slug}`)
+
+
+                    .then(res => res.json())
+                    .then(data => {
+                        const dynamicDocs = data.documentTypes || [];
+                        if (type === 'salariedBusiness') {
+                            const salariedContainer = document.getElementById('salaried-row-1');
+                            const businessContainer = document.getElementById('business-row-1');
+                            if (salariedContainer && businessContainer) {
+                                dynamicDocs.forEach(doc => {
+                                    const targetContainer = doc.subSection === 'salaried' ?
+                                        salariedContainer : businessContainer;
+                                    targetContainer.appendChild(this.createDocumentBox(doc, true,
+                                        namePrefix, type));
+                                });
+                            }
+                        } else {
+                            dynamicDocs.forEach(doc => {
+                                container.appendChild(this.createDocumentBox(doc, true, namePrefix, type));
+                            });
+                        }
+                        this.deleteInitialization(containerId, apiEndpoint, namePrefix, type);
+                        this.setupHelpTriggerListener();
+                    })
+                    .catch(err => console.error(`Error fetching dynamic documents for ${type}:`, err));
+            },
+
+            addNewDocumentField(fieldType, type, containerId, rowId, apiEndpoint, namePrefix, subSection = '', slug) {
+                fetch('/kycdynamicpost', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -3024,52 +3027,52 @@
                         subSection
                     })
                 })
-                .then(response => {
-                    if (response.ok) return response.json();
-                    else throw new Error("Document type may already exist.");
-                })
-                .then(data => {
-                    console.log("Added Document Type:", data);
+                    .then(response => {
+                        if (response.ok) return response.json();
+                        else throw new Error("Document type may already exist.");
+                    })
+                    .then(data => {
+                        console.log("Added Document Type:", data);
 
-                    // ✅ Call the fetch to refresh document types for the slug
-                    return fetch(`/getdocumenttypesadminform/${slug}`, {
-                        headers: {
-                            'Accept': 'application/json' // or 'text/html' depending on your server
-                        }
+                        // ✅ Call the fetch to refresh document types for the slug
+                        return fetch(`/getdocumenttypesadminform/${slug}`, {
+                            headers: {
+                                'Accept': 'application/json' // or 'text/html' depending on your server
+                            }
+                        });
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error("Failed to refresh document form.");
+
+                        // ✅ Optional: You might not need to do anything if the page auto-updates
+                        // But if needed: parse and trigger your update logic
+                        return response.text(); // or .json() if it's JSON
+                    })
+                    .then(data => {
+                        // Optional: handle response if needed
+                        console.log(`Refreshed form for ${slug}`, data);
+                    })
+                    .catch(error => {
+                        alert(error.message);
                     });
-                })
-                .then(response => {
-                    if (!response.ok) throw new Error("Failed to refresh document form.");
-
-                    // ✅ Optional: You might not need to do anything if the page auto-updates
-                    // But if needed: parse and trigger your update logic
-                    return response.text(); // or .json() if it's JSON
-                })
-                .then(data => {
-                    // Optional: handle response if needed
-                    console.log(`Refreshed form for ${slug}`, data);
-                })
-                .catch(error => {
-                    alert(error.message);
-                });
-        },
+            },
 
 
 
-        createDocumentBox(doc, isDynamic, namePrefix, type) {
-            const key = (doc.key || doc.name.toLowerCase().replace(/[^a-z0-9-_]/g, '-')).trim();
-            const displayName = doc.name;
-            const subSection = doc.subSection || '';
+            createDocumentBox(doc, isDynamic, namePrefix, type) {
+                const key = (doc.key || doc.name.toLowerCase().replace(/[^a-z0-9-_]/g, '-')).trim();
+                const displayName = doc.name;
+                const subSection = doc.subSection || '';
 
-            const uploadIconHTML = isDynamic ?
-                `<p class="kyc-delete-dynamic-content" data-id="${doc.id}" data-target="${key}" style="cursor: pointer; color: gray; font-size: 14px; margin: 0;">x</p>` :
-                '';
+                const uploadIconHTML = isDynamic ?
+                    `<p class="kyc-delete-dynamic-content" data-id="${doc.id}" data-target="${key}" style="cursor: pointer; color: gray; font-size: 14px; margin: 0;">x</p>` :
+                    '';
 
-            const div = document.createElement('div');
-            div.className =
-                `document-box ${subSection ? 'salary-upload-box' : type === 'workExperience' ? 'work-experience-box' : ''}`;
-            div.id = `document-box-${key}`;
-            div.innerHTML = `
+                const div = document.createElement('div');
+                div.className =
+                    `document-box ${subSection ? 'salary-upload-box' : type === 'workExperience' ? 'work-experience-box' : ''}`;
+                div.id = `document-box-${key}`;
+                div.innerHTML = `
             <div class="document-name" id="${key}-document-name" style="display: none">${displayName}</div>
             <div class="upload-field">
                 <span id="${key}-name" data-original="${displayName}" title="${displayName}">${displayName}</span>
@@ -3097,252 +3100,252 @@
                     </div>
                 `;
 
-                        return div;
-                    },
+                return div;
+            },
 
-        deleteInitialization(containerId, apiEndpoint, namePrefix, type) {
-            const container = document.getElementById(containerId)?.parentElement;
-            if (!container) return;
+            deleteInitialization(containerId, apiEndpoint, namePrefix, type) {
+                const container = document.getElementById(containerId)?.parentElement;
+                if (!container) return;
 
-            const deleteButtons = container.querySelectorAll('.kyc-delete-dynamic-content');
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.preventDefault(); // Prevent any default behavior
-                    e.stopPropagation(); // Prevent the click from bubbling to the label
-                    const key = button.getAttribute('data-target');
-                    const id = button.getAttribute('data-id');
-                    const box = document.getElementById(`document-box-${key}`);
-                    if (box && confirm(`Are you sure you want to delete "${key}"?`)) {
-                        box.remove();
-                        fetch(`/deletekycdocument/${id}`, {
+                const deleteButtons = container.querySelectorAll('.kyc-delete-dynamic-content');
+                deleteButtons.forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault(); // Prevent any default behavior
+                        e.stopPropagation(); // Prevent the click from bubbling to the label
+                        const key = button.getAttribute('data-target');
+                        const id = button.getAttribute('data-id');
+                        const box = document.getElementById(`document-box-${key}`);
+                        if (box && confirm(`Are you sure you want to delete "${key}"?`)) {
+                            box.remove();
+                            fetch(`/deletekycdocument/${id}`, {
                                 method: 'DELETE',
                                 headers: {
                                     'X-CSRF-TOKEN': document.querySelector(
                                         'meta[name="csrf-token"]')?.getAttribute('content')
                                 }
                             })
-                            .then(res => {
-                                if (!res.ok) throw new Error('Delete failed');
-                                alert(`Deleted: ${key}`);
-                                const rowIdElement = document.getElementById(containerId)
-                                    .parentElement.querySelector(
-                                        '.document-row:not(:last-child)');
-                                const rowId = rowIdElement ? rowIdElement.id : document
-                                    .getElementById(containerId).parentElement.querySelector(
-                                        '.document-row').id;
-                                this.initializeSection(containerId, rowId, apiEndpoint,
-                                    namePrefix, type, ['salaried', 'business']);
-                            })
-                            .catch(err => console.error(err));
-                    }
+                                .then(res => {
+                                    if (!res.ok) throw new Error('Delete failed');
+                                    alert(`Deleted: ${key}`);
+                                    const rowIdElement = document.getElementById(containerId)
+                                        .parentElement.querySelector(
+                                            '.document-row:not(:last-child)');
+                                    const rowId = rowIdElement ? rowIdElement.id : document
+                                        .getElementById(containerId).parentElement.querySelector(
+                                            '.document-row').id;
+                                    this.initializeSection(containerId, rowId, apiEndpoint,
+                                        namePrefix, type, ['salaried', 'business']);
+                                })
+                                .catch(err => console.error(err));
+                        }
+                    });
                 });
-            });
-        },
+            },
 
-        handleFileUpload(event, nameId, uploadIconId, removeIconId) {
-            const fileInput = event.target;
-            const fileNameSpan = document.getElementById(nameId);
-            const uploadIcon = document.getElementById(uploadIconId);
-            const removeIcon = document.getElementById(removeIconId);
+            handleFileUpload(event, nameId, uploadIconId, removeIconId) {
+                const fileInput = event.target;
+                const fileNameSpan = document.getElementById(nameId);
+                const uploadIcon = document.getElementById(uploadIconId);
+                const removeIcon = document.getElementById(removeIconId);
 
-            if (fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                if (file.size > 5 * 1024 * 1024) {
-                    alert('File size must be less than 5MB.');
-                    fileInput.value = '';
+                if (fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert('File size must be less than 5MB.');
+                        fileInput.value = '';
+                        return;
+                    }
+                    fileNameSpan.textContent = file.name;
+                    uploadIcon.style.display = 'none';
+                    removeIcon.style.display = 'inline-block';
+                }
+            },
+
+            removeFile(inputId, nameId, uploadIconId, removeIconId) {
+                const fileInput = document.getElementById(inputId);
+                const fileNameSpan = document.getElementById(nameId);
+                const uploadIcon = document.getElementById(uploadIconId);
+                const removeIcon = document.getElementById(removeIconId);
+
+                fileInput.value = '';
+                fileNameSpan.textContent = fileNameSpan.dataset.original;
+                uploadIcon.style.display = 'inline-flex'; // Use inline-flex to match .upload-icon CSS
+                removeIcon.style.display = 'none';
+            },
+
+            getDynamicFields() {
+                const fields = [];
+                const containers = {
+                    document: document.getElementById('document-fields-container-kyc-id'),
+                    academic: document.getElementById('academic-fields-container-id'),
+                    secured: document.getElementById('secured-fields-container-id'),
+                    workExperience: document.getElementById('work-experience-container-id'),
+                    coBorrower: document.getElementById('co-borrower-fields-container'),
+                    salariedBusiness: document.getElementById('salaried-business-fields-container')
+                };
+                for (const [type, container] of Object.entries(containers)) {
+                    if (container) {
+                        const fieldNames = Array.from(container.parentElement.querySelectorAll('.document-name')).map(
+                            name => name.textContent);
+                        fieldNames.forEach(name => fields.push({
+                            name: `${type}-${name.toLowerCase().replace(/\s+/g, '-')}`,
+                            type: 'file'
+                        }));
+                    }
+                }
+                return fields;
+            },
+
+            isModified() {
+                return this.modified;
+            }
+        };
+
+
+        // Form Submission Manager
+        const FormSubmissionManager = {
+            modifiedSection: null,
+
+            init() {
+                const saveButton = document.getElementById('admin-student-form-save-btn-id');
+                if (saveButton) {
+                    saveButton.addEventListener('click', () => this.submitForm());
+                }
+            },
+
+            setModifiedSection(section) {
+                this.modifiedSection = section;
+            },
+
+            submitForm() {
+                if (!this.modifiedSection) {
+                    alert('No changes have been made to any section.');
                     return;
                 }
-                fileNameSpan.textContent = file.name;
-                uploadIcon.style.display = 'none';
-                removeIcon.style.display = 'inline-block';
-            }
-        },
 
-        removeFile(inputId, nameId, uploadIconId, removeIconId) {
-            const fileInput = document.getElementById(inputId);
-            const fileNameSpan = document.getElementById(nameId);
-            const uploadIcon = document.getElementById(uploadIconId);
-            const removeIcon = document.getElementById(removeIconId);
-
-            fileInput.value = '';
-            fileNameSpan.textContent = fileNameSpan.dataset.original;
-            uploadIcon.style.display = 'inline-flex'; // Use inline-flex to match .upload-icon CSS
-            removeIcon.style.display = 'none';
-        },
-
-        getDynamicFields() {
-            const fields = [];
-            const containers = {
-                document: document.getElementById('document-fields-container-kyc-id'),
-                academic: document.getElementById('academic-fields-container-id'),
-                secured: document.getElementById('secured-fields-container-id'),
-                workExperience: document.getElementById('work-experience-container-id'),
-                coBorrower: document.getElementById('co-borrower-fields-container'),
-                salariedBusiness: document.getElementById('salaried-business-fields-container')
-            };
-            for (const [type, container] of Object.entries(containers)) {
-                if (container) {
-                    const fieldNames = Array.from(container.parentElement.querySelectorAll('.document-name')).map(
-                        name => name.textContent);
-                    fieldNames.forEach(name => fields.push({
-                        name: `${type}-${name.toLowerCase().replace(/\s+/g, '-')}`,
-                        type: 'file'
-                    }));
-                }
-            }
-            return fields;
-        },
-
-        isModified() {
-            return this.modified;
-        }
-    };
-
-
-    // Form Submission Manager
-    const FormSubmissionManager = {
-        modifiedSection: null,
-
-        init() {
-            const saveButton = document.getElementById('admin-student-form-save-btn-id');
-            if (saveButton) {
-                saveButton.addEventListener('click', () => this.submitForm());
-            }
-        },
-
-        setModifiedSection(section) {
-            this.modifiedSection = section;
-        },
-
-        submitForm() {
-            if (!this.modifiedSection) {
-                alert('No changes have been made to any section.');
-                return;
-            }
-
-            const sections = [{
+                const sections = [{
                     sectionName: 'Personal Information',
                     questions: [{
-                            title: 'Let us know more about you',
-                            fields: InputFieldManager.getDynamicFields(),
-                            manager: InputFieldManager
-                        },
-                        {
-                            title: 'How did you find about us?',
-                            fields: SocialOptionsManager.getDynamicFields(),
-                            manager: SocialOptionsManager
-                        }
+                        title: 'Let us know more about you',
+                        fields: InputFieldManager.getDynamicFields(),
+                        manager: InputFieldManager
+                    },
+                    {
+                        title: 'How did you find about us?',
+                        fields: SocialOptionsManager.getDynamicFields(),
+                        manager: SocialOptionsManager
+                    }
                     ]
                 },
                 {
                     sectionName: 'Course Information',
                     questions: [{
-                            title: 'Where are you planning to study?',
-                            fields: CourseLocationManager.getDynamicFields(),
-                            manager: CourseLocationManager
-                        },
-                        {
-                            title: 'Select the type of degree you want to pursue',
-                            fields: CourseOptionsManager.getDynamicFields(),
-                            manager: CourseOptionsManager
-                        },
-                        {
-                            title: 'What is the duration of the course?',
-                            fields: CourseDurationManager.getDynamicFields(),
-                            manager: CourseDurationManager
-                        },
-                        {
-                            title: 'Course Details',
-                            fields: CourseDetailsManager.getDynamicFields(),
-                            manager: CourseDetailsManager
-                        }
+                        title: 'Where are you planning to study?',
+                        fields: CourseLocationManager.getDynamicFields(),
+                        manager: CourseLocationManager
+                    },
+                    {
+                        title: 'Select the type of degree you want to pursue',
+                        fields: CourseOptionsManager.getDynamicFields(),
+                        manager: CourseOptionsManager
+                    },
+                    {
+                        title: 'What is the duration of the course?',
+                        fields: CourseDurationManager.getDynamicFields(),
+                        manager: CourseDurationManager
+                    },
+                    {
+                        title: 'Course Details',
+                        fields: CourseDetailsManager.getDynamicFields(),
+                        manager: CourseDetailsManager
+                    }
                     ]
                 },
                 {
                     sectionName: 'Academic Details',
                     questions: [{
-                            title: 'Academic details',
-                            fields: AcademicDetailsManager.getDynamicFields(),
-                            manager: AcademicDetailsManager
-                        },
-                        {
-                            title: 'Do you have any gap in your academics?',
-                            fields: AcademicDetailsManager.getDynamicFieldsForGap(),
-                            manager: AcademicDetailsManager
-                        }
+                        title: 'Academic details',
+                        fields: AcademicDetailsManager.getDynamicFields(),
+                        manager: AcademicDetailsManager
+                    },
+                    {
+                        title: 'Do you have any gap in your academics?',
+                        fields: AcademicDetailsManager.getDynamicFieldsForGap(),
+                        manager: AcademicDetailsManager
+                    }
                     ]
                 },
                 {
                     sectionName: 'Co-Borrower Information',
                     questions: [{
-                            title: 'How is the co-borrower related to you?',
-                            fields: CoBorrowerManager.getDynamicFields().filter(f => f.name === 'Relation'),
-                            manager: CoBorrowerManager
-                        },
-                        {
-                            title: 'What is the gross monthly income of co-borrower?',
-                            fields: CoBorrowerManager.getDynamicFields().filter(f => f.name !==
-                                'Relation' && f.name !== 'Liability'),
-                            manager: CoBorrowerManager
-                        },
-                        {
-                            title: 'Is there any existing co-borrower monthly liability?',
-                            fields: CoBorrowerManager.getDynamicFields().filter(f => f.name ===
-                                'Liability'),
-                            manager: CoBorrowerManager
-                        }
+                        title: 'How is the co-borrower related to you?',
+                        fields: CoBorrowerManager.getDynamicFields().filter(f => f.name === 'Relation'),
+                        manager: CoBorrowerManager
+                    },
+                    {
+                        title: 'What is the gross monthly income of co-borrower?',
+                        fields: CoBorrowerManager.getDynamicFields().filter(f => f.name !==
+                            'Relation' && f.name !== 'Liability'),
+                        manager: CoBorrowerManager
+                    },
+                    {
+                        title: 'Is there any existing co-borrower monthly liability?',
+                        fields: CoBorrowerManager.getDynamicFields().filter(f => f.name ===
+                            'Liability'),
+                        manager: CoBorrowerManager
+                    }
                     ]
                 },
                 {
                     sectionName: 'Document Upload',
                     questions: [{
-                            title: 'Student KYC Document',
-                            fields: DocumentFieldManager.getDynamicFields().filter(f => ['document',
-                                'coBorrower'
-                            ].includes(f.name.split('-')[0])),
-                            manager: DocumentFieldManager
-                        },
-                        {
-                            title: 'Academic Mark Sheets',
-                            fields: DocumentFieldManager.getDynamicFields().filter(f => ['academic',
-                                'secured'
-                            ].includes(f.name.split('-')[0])),
-                            manager: DocumentFieldManager
-                        }
+                        title: 'Student KYC Document',
+                        fields: DocumentFieldManager.getDynamicFields().filter(f => ['document',
+                            'coBorrower'
+                        ].includes(f.name.split('-')[0])),
+                        manager: DocumentFieldManager
+                    },
+                    {
+                        title: 'Academic Mark Sheets',
+                        fields: DocumentFieldManager.getDynamicFields().filter(f => ['academic',
+                            'secured'
+                        ].includes(f.name.split('-')[0])),
+                        manager: DocumentFieldManager
+                    }
                     ]
                 }
-            ];
+                ];
 
-            // Find the modified section
-            const modifiedSectionData = sections.find(section => section.sectionName === this.modifiedSection);
-            if (!modifiedSectionData) {
-                alert('Modified section not found.');
-                return;
-            }
-
-            // Check if the section has any modified managers
-            const hasModifiedManagers = modifiedSectionData.questions.some(q => q.manager.isModified());
-            if (!hasModifiedManagers) {
-                alert(`No changes have been made to "${this.modifiedSection}".`);
-                return;
-            }
-
-            // Filter questions to include only those with fields
-            const questions = modifiedSectionData.questions.filter(q => q.fields.length > 0);
-            if (questions.length === 0) {
-                alert(`No fields have been added to "${this.modifiedSection}".`);
-                return;
-            }
-
-            const payload = {
-                section_name: this.modifiedSection,
-                data: {
-                    questions: questions
+                // Find the modified section
+                const modifiedSectionData = sections.find(section => section.sectionName === this.modifiedSection);
+                if (!modifiedSectionData) {
+                    alert('Modified section not found.');
+                    return;
                 }
-            };
 
-            // Send POST request to /student-application-form
-            fetch('/student-application-form', {
+                // Check if the section has any modified managers
+                const hasModifiedManagers = modifiedSectionData.questions.some(q => q.manager.isModified());
+                if (!hasModifiedManagers) {
+                    alert(`No changes have been made to "${this.modifiedSection}".`);
+                    return;
+                }
+
+                // Filter questions to include only those with fields
+                const questions = modifiedSectionData.questions.filter(q => q.fields.length > 0);
+                if (questions.length === 0) {
+                    alert(`No fields have been added to "${this.modifiedSection}".`);
+                    return;
+                }
+
+                const payload = {
+                    section_name: this.modifiedSection,
+                    data: {
+                        questions: questions
+                    }
+                };
+
+                // Send POST request to /student-application-form
+                fetch('/student-application-form', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -3350,55 +3353,55 @@
                     },
                     body: JSON.stringify(payload)
                 })
-                .then(response => response.json())
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(`Changes for "${this.modifiedSection}" saved successfully!`);
+                            modifiedSectionData.questions.forEach(q => {
+                                q.manager.modified = false;
+                            });
+                            this.modifiedSection = null;
+                        } else {
+                            alert(
+                                `Error saving changes for "${this.modifiedSection}": ${data.message || 'Unknown error'}`
+                            );
+                        }
+                    })
+                    .catch(error => {
+                        console.error(`Error saving "${this.modifiedSection}":`, error);
+                        alert(`An error occurred while saving changes for "${this.modifiedSection}".`);
+                    });
+            }
+        };
+
+
+
+
+
+        function fetchAndAppendSocialNames() {
+            fetch('/getInfoForAdminSocial')
+                .then(res => res.json())
                 .then(data => {
-                    if (data.success) {
-                        alert(`Changes for "${this.modifiedSection}" saved successfully!`);
-                        modifiedSectionData.questions.forEach(q => {
-                            q.manager.modified = false;
-                        });
-                        this.modifiedSection = null;
-                    } else {
-                        alert(
-                            `Error saving changes for "${this.modifiedSection}": ${data.message || 'Unknown error'}`
-                        );
-                    }
-                })
-                .catch(error => {
-                    console.error(`Error saving "${this.modifiedSection}":`, error);
-                    alert(`An error occurred while saving changes for "${this.modifiedSection}".`);
-                });
-        }
-    };
+                    const container = document.querySelector('.second-question-options');
 
+                    // Clear existing options
+                    container.innerHTML = '';
 
+                    data.socialOptions.forEach(item => {
+                        const socialOption = document.createElement('div');
+                        socialOption.className = 'social-option';
 
+                        const nameSpan = document.createElement('span');
+                        nameSpan.className = 'social-name';
+                        nameSpan.textContent = item.name;
 
+                        const removeSpan = document.createElement('span');
+                        removeSpan.className = 'social-remove';
+                        removeSpan.textContent = '×';
 
-    function fetchAndAppendSocialNames() {
-        fetch('/getInfoForAdminSocial')
-            .then(res => res.json())
-            .then(data => {
-                const container = document.querySelector('.second-question-options');
-
-                // Clear existing options
-                container.innerHTML = '';
-
-                data.socialOptions.forEach(item => {
-                    const socialOption = document.createElement('div');
-                    socialOption.className = 'social-option';
-
-                    const nameSpan = document.createElement('span');
-                    nameSpan.className = 'social-name';
-                    nameSpan.textContent = item.name;
-
-                    const removeSpan = document.createElement('span');
-                    removeSpan.className = 'social-remove';
-                    removeSpan.textContent = '×';
-
-                    // Add click listener to removeSpan
-                    removeSpan.addEventListener('click', () => {
-                        fetch(`/deleteInfoForAdminSocial/${item.id}`, {
+                        // Add click listener to removeSpan
+                        removeSpan.addEventListener('click', () => {
+                            fetch(`/deleteInfoForAdminSocial/${item.id}`, {
                                 method: 'DELETE',
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -3407,61 +3410,61 @@
                                 },
 
                             })
-                            .then(response => {
-                                if (response.ok) {
-                                    socialOption.remove();
-                                    alert(`selected dropdown deleted ${item.name}`)
-                                } else {
-                                    console.error('Failed to delete:', item.id);
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error deleting data:', error);
-                            });
+                                .then(response => {
+                                    if (response.ok) {
+                                        socialOption.remove();
+                                        alert(`selected dropdown deleted ${item.name}`)
+                                    } else {
+                                        console.error('Failed to delete:', item.id);
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error deleting data:', error);
+                                });
+                        });
+
+                        socialOption.appendChild(nameSpan);
+                        socialOption.appendChild(removeSpan);
+                        container.appendChild(socialOption);
                     });
-
-                    socialOption.appendChild(nameSpan);
-                    socialOption.appendChild(removeSpan);
-                    container.appendChild(socialOption);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
                 });
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
-    }
+        }
 
 
-    function fetchAndRenderStudyLocations() {
-        fetch('/getplantocountries')
-            .then(res => res.json())
-            .then(data => {
-                const container = document.getElementById('selected-study-location-admin');
+        function fetchAndRenderStudyLocations() {
+            fetch('/getplantocountries')
+                .then(res => res.json())
+                .then(data => {
+                    const container = document.getElementById('selected-study-location-admin');
 
-                const othersCheckbox = container.querySelector('.others-checkbox');
-                const addContainer = container.querySelector('#plantostudycountryadd');
+                    const othersCheckbox = container.querySelector('.others-checkbox');
+                    const addContainer = container.querySelector('#plantostudycountryadd');
 
-                container.innerHTML = '';
+                    container.innerHTML = '';
 
-                data.countries.forEach(country => {
-                    const label = document.createElement('label');
-                    label.style.display = 'flex';
-                    label.style.alignItems = 'center';
-                    label.style.gap = '8px';
+                    data.countries.forEach(country => {
+                        const label = document.createElement('label');
+                        label.style.display = 'flex';
+                        label.style.alignItems = 'center';
+                        label.style.gap = '8px';
 
-                    const input = document.createElement('input');
-                    input.type = 'checkbox';
-                    input.name = 'where-are-you-planning-to-study[locations][]';
-                    input.value = country.country_name;
+                        const input = document.createElement('input');
+                        input.type = 'checkbox';
+                        input.name = 'where-are-you-planning-to-study[locations][]';
+                        input.value = country.country_name;
 
-                    const textNode = document.createTextNode(' ' + country.country_name);
+                        const textNode = document.createTextNode(' ' + country.country_name);
 
-                    const removeBtn = document.createElement('span');
-                    removeBtn.style.color = '#888';
-                    removeBtn.textContent = 'x';
-                    removeBtn.style.cursor = 'pointer';
-                    removeBtn.addEventListener('click', () => {
-                        if (confirm(`Are you sure you want to delete "${country.country_name}"?`)) {
-                            fetch(`/deleteplantostudycountry/${country.id}`, {
+                        const removeBtn = document.createElement('span');
+                        removeBtn.style.color = '#888';
+                        removeBtn.textContent = 'x';
+                        removeBtn.style.cursor = 'pointer';
+                        removeBtn.addEventListener('click', () => {
+                            if (confirm(`Are you sure you want to delete "${country.country_name}"?`)) {
+                                fetch(`/deleteplantostudycountry/${country.id}`, {
                                     method: 'DELETE',
                                     headers: {
                                         'Content-Type': 'application/json',
@@ -3470,37 +3473,37 @@
                                     },
 
                                 })
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.message) {
-                                        fetchAndRenderStudyLocations();
-                                        alert(data.message)
-                                    } else {
-                                        alert('Failed to delete.');
-                                    }
-                                })
-                                .catch(error => {
-                                    console.error('Delete error:', error);
-                                    alert('Error while deleting.');
-                                });
-                        }
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.message) {
+                                            fetchAndRenderStudyLocations();
+                                            alert(data.message)
+                                        } else {
+                                            alert('Failed to delete.');
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Delete error:', error);
+                                        alert('Error while deleting.');
+                                    });
+                            }
+                        });
+
+                        label.appendChild(input);
+                        label.appendChild(textNode);
+                        label.appendChild(removeBtn);
+                        container.appendChild(label);
                     });
 
-                    label.appendChild(input);
-                    label.appendChild(textNode);
-                    label.appendChild(removeBtn);
-                    container.appendChild(label);
-                });
+                    // Re-append Others and Add buttons
+                    if (othersCheckbox) container.appendChild(othersCheckbox);
+                    if (addContainer) container.appendChild(addContainer);
 
-                // Re-append Others and Add buttons
-                if (othersCheckbox) container.appendChild(othersCheckbox);
-                if (addContainer) container.appendChild(addContainer);
-
-                if (addContainer) {
-                    addContainer.addEventListener('click', () => {
-                        const userInput = prompt("Enter dropdown option", "")?.trim();
-                        if (userInput) {
-                            fetch('/storeplantostudycountry', {
+                    if (addContainer) {
+                        addContainer.addEventListener('click', () => {
+                            const userInput = prompt("Enter dropdown option", "")?.trim();
+                            if (userInput) {
+                                fetch('/storeplantostudycountry', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',
@@ -3511,77 +3514,77 @@
                                         country_name: userInput
                                     })
                                 })
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.error) {
-                                        alert(`Error: ${data.error}`);
-                                        return;
-                                    }
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.error) {
+                                            alert(`Error: ${data.error}`);
+                                            return;
+                                        }
 
-                                    fetchAndRenderStudyLocations();
-                                    alert(`${userInput} added`);
-                                })
-                                .catch(error => {
-                                    console.error('Fetch error:', error);
-                                    alert('An error occurred while saving the option.');
-                                });
-                        }
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching countries:', error);
-            });
-    }
+                                        fetchAndRenderStudyLocations();
+                                        alert(`${userInput} added`);
+                                    })
+                                    .catch(error => {
+                                        console.error('Fetch error:', error);
+                                        alert('An error occurred while saving the option.');
+                                    });
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching countries:', error);
+                });
+        }
 
 
-    function fetchAndRenderDegrees() {
-        fetch('/showstudentcourse')
-            .then(res => res.json())
-            .then(data => {
-                const container = document.getElementById('optionsContainer');
+        function fetchAndRenderDegrees() {
+            fetch('/showstudentcourse')
+                .then(res => res.json())
+                .then(data => {
+                    const container = document.getElementById('optionsContainer');
 
-                const othersOption = container.querySelector('.option-item input[value="Others"]')?.closest(
-                    '.option-item');
-                const addContainer = document.getElementById('addSection');
+                    const othersOption = container.querySelector('.option-item input[value="Others"]')?.closest(
+                        '.option-item');
+                    const addContainer = document.getElementById('addSection');
 
-                container.innerHTML = '';
+                    container.innerHTML = '';
 
-                data.degree.forEach(degree => {
-                    if (degree.name === 'Others') return;
+                    data.degree.forEach(degree => {
+                        if (degree.name === 'Others') return;
 
-                    const optionItem = document.createElement('div');
-                    optionItem.className = 'option-item';
-                    optionItem.style.display = 'flex';
-                    optionItem.style.alignItems = 'center';
-                    optionItem.style.justifyContent = 'space-between';
-                    optionItem.style.gap = '10px';
+                        const optionItem = document.createElement('div');
+                        optionItem.className = 'option-item';
+                        optionItem.style.display = 'flex';
+                        optionItem.style.alignItems = 'center';
+                        optionItem.style.justifyContent = 'space-between';
+                        optionItem.style.gap = '10px';
 
-                    const left = document.createElement('div');
-                    left.style.display = 'flex';
-                    left.style.alignItems = 'center';
-                    left.style.gap = '8px';
+                        const left = document.createElement('div');
+                        left.style.display = 'flex';
+                        left.style.alignItems = 'center';
+                        left.style.gap = '8px';
 
-                    const input = document.createElement('input');
-                    input.type = 'checkbox';
-                    input.name = 'select-the-type-of-degree-you-want-to-pursue[degrees][]';
-                    input.className = 'option-checkbox';
-                    input.value = degree.name;
+                        const input = document.createElement('input');
+                        input.type = 'checkbox';
+                        input.name = 'select-the-type-of-degree-you-want-to-pursue[degrees][]';
+                        input.className = 'option-checkbox';
+                        input.value = degree.name;
 
-                    const label = document.createElement('div');
-                    label.className = 'option-name';
-                    label.textContent = degree.name;
+                        const label = document.createElement('div');
+                        label.className = 'option-name';
+                        label.textContent = degree.name;
 
-                    left.appendChild(input);
-                    left.appendChild(label);
+                        left.appendChild(input);
+                        left.appendChild(label);
 
-                    const removeBtn = document.createElement('span');
-                    removeBtn.textContent = 'x';
-                    removeBtn.style.cursor = 'pointer';
-                    removeBtn.style.color = '#888';
-                    removeBtn.addEventListener('click', () => {
-                        if (confirm(`Are you sure you want to delete "${degree.name}"?`)) {
-                            fetch(`/deletedegree/${degree.id}`, {
+                        const removeBtn = document.createElement('span');
+                        removeBtn.textContent = 'x';
+                        removeBtn.style.cursor = 'pointer';
+                        removeBtn.style.color = '#888';
+                        removeBtn.addEventListener('click', () => {
+                            if (confirm(`Are you sure you want to delete "${degree.name}"?`)) {
+                                fetch(`/deletedegree/${degree.id}`, {
                                     method: 'DELETE',
                                     headers: {
                                         'Content-Type': 'application/json',
@@ -3589,35 +3592,35 @@
                                             'meta[name="csrf-token"]')?.content
                                     }
                                 })
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.message) {
-                                        alert(data.message);
-                                        fetchAndRenderDegrees();
-                                    } else {
-                                        alert('Failed to delete.');
-                                    }
-                                })
-                                .catch(error => {
-                                    console.error('Delete error:', error);
-                                    alert('Error while deleting.');
-                                });
-                        }
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.message) {
+                                            alert(data.message);
+                                            fetchAndRenderDegrees();
+                                        } else {
+                                            alert('Failed to delete.');
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Delete error:', error);
+                                        alert('Error while deleting.');
+                                    });
+                            }
+                        });
+
+                        optionItem.appendChild(left);
+                        optionItem.appendChild(removeBtn);
+                        container.appendChild(optionItem);
                     });
 
-                    optionItem.appendChild(left);
-                    optionItem.appendChild(removeBtn);
-                    container.appendChild(optionItem);
-                });
+                    if (othersOption) container.appendChild(othersOption);
+                    if (addContainer) container.appendChild(addContainer);
 
-                if (othersOption) container.appendChild(othersOption);
-                if (addContainer) container.appendChild(addContainer);
-
-                if (addContainer) {
-                    document.getElementById('addSection')?.addEventListener('click', () => {
-                        const userInput = prompt("Enter new degree option", "")?.trim();
-                        if (userInput) {
-                            fetch('/storedegree', {
+                    if (addContainer) {
+                        document.getElementById('addSection')?.addEventListener('click', () => {
+                            const userInput = prompt("Enter new degree option", "")?.trim();
+                            if (userInput) {
+                                fetch('/storedegree', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',
@@ -3628,56 +3631,56 @@
                                         degree_type: userInput
                                     })
                                 })
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.error) {
-                                        alert(`Error: ${data.error}`);
-                                        return;
-                                    }
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.error) {
+                                            alert(`Error: ${data.error}`);
+                                            return;
+                                        }
 
-                                    alert(`${userInput} added`);
-                                    fetchAndRenderDegrees();
-                                })
-                                .catch(error => {
-                                    console.error('Fetch error:', error);
-                                    alert('An error occurred while saving the option.');
-                                });
-                        }
-                    });
+                                        alert(`${userInput} added`);
+                                        fetchAndRenderDegrees();
+                                    })
+                                    .catch(error => {
+                                        console.error('Fetch error:', error);
+                                        alert('An error occurred while saving the option.');
+                                    });
+                            }
+                        });
 
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching degrees:', error);
-            });
-    }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching degrees:', error);
+                });
+        }
 
-    function fetchAndRenderCourseDurations() {
-        fetch('/showstudentcourseduration')
-            .then(res => res.json())
-            .then(data => {
-                const container = document.querySelector('.course-options');
-                if (!container) return;
+        function fetchAndRenderCourseDurations() {
+            fetch('/showstudentcourseduration')
+                .then(res => res.json())
+                .then(data => {
+                    const container = document.querySelector('.course-options');
+                    if (!container) return;
 
-                container.innerHTML = '';
+                    container.innerHTML = '';
 
-                data.duration.forEach(item => {
-                    const courseOption = document.createElement('div');
-                    courseOption.className = 'course-option';
+                    data.duration.forEach(item => {
+                        const courseOption = document.createElement('div');
+                        courseOption.className = 'course-option';
 
-                    const courseName = document.createElement('span');
-                    courseName.className = 'course-name';
-                    courseName.textContent = `${item.duration_in_months} Months`;
+                        const courseName = document.createElement('span');
+                        courseName.className = 'course-name';
+                        courseName.textContent = `${item.duration_in_months} Months`;
 
-                    const removeBtn = document.createElement('span');
-                    removeBtn.className = 'course-remove';
-                    removeBtn.textContent = '×';
+                        const removeBtn = document.createElement('span');
+                        removeBtn.className = 'course-remove';
+                        removeBtn.textContent = '×';
 
-                    removeBtn.addEventListener('click', () => {
-                        if (confirm(
+                        removeBtn.addEventListener('click', () => {
+                            if (confirm(
                                 `Are you sure you want to delete "${item.duration_in_months} Months"?`
                             )) {
-                            fetch(`/deletecourseduration/${item.id}`, {
+                                fetch(`/deletecourseduration/${item.id}`, {
                                     method: 'DELETE',
                                     headers: {
                                         'Content-Type': 'application/json',
@@ -3685,37 +3688,37 @@
                                             'meta[name="csrf-token"]')?.content
                                     }
                                 })
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.message) {
-                                        alert(data.message);
-                                        fetchAndRenderCourseDurations();
-                                    } else {
-                                        alert('Failed to delete.');
-                                    }
-                                })
-                                .catch(error => {
-                                    console.error('Delete error:', error);
-                                    alert('Error while deleting.');
-                                });
-                        }
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.message) {
+                                            alert(data.message);
+                                            fetchAndRenderCourseDurations();
+                                        } else {
+                                            alert('Failed to delete.');
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Delete error:', error);
+                                        alert('Error while deleting.');
+                                    });
+                            }
+                        });
+
+                        courseOption.appendChild(courseName);
+                        courseOption.appendChild(removeBtn);
+                        container.appendChild(courseOption);
                     });
-
-                    courseOption.appendChild(courseName);
-                    courseOption.appendChild(removeBtn);
-                    container.appendChild(courseOption);
+                })
+                .catch(error => {
+                    console.error('Error fetching course durations:', error);
                 });
-            })
-            .catch(error => {
-                console.error('Error fetching course durations:', error);
-            });
-    }
+        }
 
-    document.getElementById('addCourseDurationBtn')?.addEventListener('click', () => {
-        const userInput = prompt("Enter new course duration in months (e.g., 12)", "").trim();
+        document.getElementById('addCourseDurationBtn')?.addEventListener('click', () => {
+            const userInput = prompt("Enter new course duration in months (e.g., 12)", "").trim();
 
-        if (userInput && !isNaN(userInput) && Number(userInput) > 0) {
-            fetch('/storecourseduration', {
+            if (userInput && !isNaN(userInput) && Number(userInput) > 0) {
+                fetch('/storecourseduration', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -3725,32 +3728,32 @@
                         duration_in_months: userInput
                     })
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        alert(`Error: ${data.error}`);
-                    } else {
-                        alert(`${userInput} Months added`);
-                        fetchAndRenderCourseDurations();
-                    }
-                })
-                .catch(error => {
-                    console.error('Add error:', error);
-                    alert('Error while adding course duration.');
-                });
-        } else {
-            alert("Please enter a valid number greater than 0.");
-        }
-    });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(`Error: ${data.error}`);
+                        } else {
+                            alert(`${userInput} Months added`);
+                            fetchAndRenderCourseDurations();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Add error:', error);
+                        alert('Error while adding course duration.');
+                    });
+            } else {
+                alert("Please enter a valid number greater than 0.");
+            }
+        });
 
 
 
-    function fetchAdditionalPersonalFields() {
-        const existingStyle = document.getElementById("personal-inline-style");
-        if (!existingStyle) {
-            const style = document.createElement("style");
-            style.id = "personal-inline-style";
-            style.innerHTML = `
+        function fetchAdditionalPersonalFields() {
+            const existingStyle = document.getElementById("personal-inline-style");
+            if (!existingStyle) {
+                const style = document.createElement("style");
+                style.id = "personal-inline-style";
+                style.innerHTML = `
       #personal-fields-container {
         padding: 20px;
         border-top: 1px solid #e0e0e0;
@@ -3806,100 +3809,100 @@
         cursor: pointer;
       }
     `;
-            document.head.appendChild(style);
-        }
+                document.head.appendChild(style);
+            }
 
-        fetch('/additionalpersonalinfodata')
-            .then(response => response.json())
-            .then(data => {
-                if (data && data.additionalFields) {
-                    const container = document.getElementById("personal-fields-container");
-                    container.innerHTML = "";
+            fetch('/additionalpersonalinfodata')
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.additionalFields) {
+                        const container = document.getElementById("personal-fields-container");
+                        container.innerHTML = "";
 
-                    data.additionalFields.forEach((field, index) => {
-                        const fieldWrapper = document.createElement("div");
-                        fieldWrapper.className = "personal-field";
-                        fieldWrapper.dataset.id = field.id;
+                        data.additionalFields.forEach((field, index) => {
+                            const fieldWrapper = document.createElement("div");
+                            fieldWrapper.className = "personal-field";
+                            fieldWrapper.dataset.id = field.id;
 
-                        const labelElement = document.createElement("label");
-                        labelElement.textContent = field.label || "Field";
-                        fieldWrapper.appendChild(labelElement);
+                            const labelElement = document.createElement("label");
+                            labelElement.textContent = field.label || "Field";
+                            fieldWrapper.appendChild(labelElement);
 
-                        let inputHTML = "";
-                        const fieldName = `personal-info[extra][${index}][${field.name}]`;
+                            let inputHTML = "";
+                            const fieldName = `personal-info[extra][${index}][${field.name}]`;
 
-                        if (field.type === "text") {
-                            inputHTML =
-                                `<input type="text" name="${fieldName}" placeholder="${field.label}">`;
-                        } else if (field.type === "select" && Array.isArray(field.options)) {
-                            const options = field.options.map(opt =>
-                                `<option value="${opt}">${opt}</option>`).join("");
-                            inputHTML = `<select name="${fieldName}">${options}</select>`;
-                        } else if (field.type === "radio" && Array.isArray(field.options)) {
-                            inputHTML = field.options.map(opt => `
+                            if (field.type === "text") {
+                                inputHTML =
+                                    `<input type="text" name="${fieldName}" placeholder="${field.label}">`;
+                            } else if (field.type === "select" && Array.isArray(field.options)) {
+                                const options = field.options.map(opt =>
+                                    `<option value="${opt}">${opt}</option>`).join("");
+                                inputHTML = `<select name="${fieldName}">${options}</select>`;
+                            } else if (field.type === "radio" && Array.isArray(field.options)) {
+                                inputHTML = field.options.map(opt => `
               <label style="margin-right:10px">
                 <input type="radio" name="${fieldName}" value="${opt}"> ${opt}
               </label>
             `).join("");
-                        } else if (field.type === "checkbox" && Array.isArray(field.options)) {
-                            inputHTML = field.options.map(opt => `
+                            } else if (field.type === "checkbox" && Array.isArray(field.options)) {
+                                inputHTML = field.options.map(opt => `
               <label style="margin-right:10px">
                 <input type="checkbox" name="${fieldName}[]" value="${opt}"> ${opt}
               </label>
             `).join("");
-                        }
+                            }
 
-                        fieldWrapper.innerHTML += inputHTML;
+                            fieldWrapper.innerHTML += inputHTML;
 
-                        const deleteBtn = document.createElement("button");
-                        deleteBtn.type = "button";
-                        deleteBtn.className = "remove-field-btn";
-                        deleteBtn.textContent = "✕";
-                        deleteBtn.title = "Delete this field";
+                            const deleteBtn = document.createElement("button");
+                            deleteBtn.type = "button";
+                            deleteBtn.className = "remove-field-btn";
+                            deleteBtn.textContent = "✕";
+                            deleteBtn.title = "Delete this field";
 
-                        deleteBtn.addEventListener("click", () => {
-                            const id = fieldWrapper.dataset.id;
-                            if (id && confirm("Are you sure you want to delete this field?")) {
-                                fetch(`/additionalfields/${id}`, {
+                            deleteBtn.addEventListener("click", () => {
+                                const id = fieldWrapper.dataset.id;
+                                if (id && confirm("Are you sure you want to delete this field?")) {
+                                    fetch(`/additionalfields/${id}`, {
                                         method: "DELETE",
                                         headers: {
                                             "Content-Type": "application/json",
                                             "X-CSRF-TOKEN": document.querySelector(
                                                 'meta[name="csrf-token"]').getAttribute(
-                                                "content")
+                                                    "content")
                                         }
                                     })
-                                    .then(res => res.json())
-                                    .then(response => {
-                                        if (response.success) {
-                                            fieldWrapper.remove();
-                                        } else {
-                                            alert("Failed to delete the field.");
-                                        }
-                                    })
-                                    .catch(err => {
-                                        console.error("Error deleting field:", err);
-                                    });
-                            }
+                                        .then(res => res.json())
+                                        .then(response => {
+                                            if (response.success) {
+                                                fieldWrapper.remove();
+                                            } else {
+                                                alert("Failed to delete the field.");
+                                            }
+                                        })
+                                        .catch(err => {
+                                            console.error("Error deleting field:", err);
+                                        });
+                                }
+                            });
+
+                            fieldWrapper.appendChild(deleteBtn);
+                            container.appendChild(fieldWrapper);
                         });
-
-                        fieldWrapper.appendChild(deleteBtn);
-                        container.appendChild(fieldWrapper);
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching personal fields:', error);
-            });
-    }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching personal fields:', error);
+                });
+        }
 
 
-    function fetchAcademics() {
-        const existingStyle = document.getElementById("education-inline-style");
-        if (!existingStyle) {
-            const style = document.createElement("style");
-            style.id = "education-inline-style"; // prevent duplicates
-            style.innerHTML = `
+        function fetchAcademics() {
+            const existingStyle = document.getElementById("education-inline-style");
+            if (!existingStyle) {
+                const style = document.createElement("style");
+                style.id = "education-inline-style"; // prevent duplicates
+                style.innerHTML = `
       #education-rows-container {
         padding: 20px;
         border-top: 1px solid #e0e0e0;
@@ -3962,196 +3965,196 @@
         color: #555;
       }
     `;
-            document.head.appendChild(style);
-        }
+                document.head.appendChild(style);
+            }
 
-        fetch("/academics-adminshow")
-            .then((res) => res.json())
-            .then((data) => {
-                const academicFields = data.data;
-                const rowsContainer = document.getElementById("education-rows-container");
+            fetch("/academics-adminshow")
+                .then((res) => res.json())
+                .then((data) => {
+                    const academicFields = data.data;
+                    const rowsContainer = document.getElementById("education-rows-container");
 
-                rowsContainer.innerHTML = ""; // Clear previous data
+                    rowsContainer.innerHTML = ""; // Clear previous data
 
-                academicFields.forEach((field, index) => {
-                    const fieldWrapper = document.createElement("div");
-                    fieldWrapper.className = "education-field";
-                    fieldWrapper.dataset.id = field.id;
+                    academicFields.forEach((field, index) => {
+                        const fieldWrapper = document.createElement("div");
+                        fieldWrapper.className = "education-field";
+                        fieldWrapper.dataset.id = field.id;
 
 
-                    // Create label
-                    const labelElement = document.createElement("label");
-                    labelElement.textContent = field.label || "Field";
-                    labelElement.style.display = "block";
-                    labelElement.style.marginBottom = "5px";
-                    fieldWrapper.appendChild(labelElement);
+                        // Create label
+                        const labelElement = document.createElement("label");
+                        labelElement.textContent = field.label || "Field";
+                        labelElement.style.display = "block";
+                        labelElement.style.marginBottom = "5px";
+                        fieldWrapper.appendChild(labelElement);
 
-                    // Field input based on type
-                    if (field.type === "text") {
-                        fieldWrapper.innerHTML += `
+                        // Field input based on type
+                        if (field.type === "text") {
+                            fieldWrapper.innerHTML += `
             <input type="text" placeholder="${field.label}" name="academic-details[extra][${index}][${field.name}]">
             <button type="button" class="remove-field-btn">✕</button>
           `;
-                    } else if (field.type === "select" && Array.isArray(field.options)) {
-                        const options = field.options.map(opt => `<option value="${opt}">${opt}</option>`)
-                            .join("");
-                        fieldWrapper.innerHTML += `
+                        } else if (field.type === "select" && Array.isArray(field.options)) {
+                            const options = field.options.map(opt => `<option value="${opt}">${opt}</option>`)
+                                .join("");
+                            fieldWrapper.innerHTML += `
             <select name="academic-details[extra][${index}][${field.name}]">
               ${options}
             </select>
             <button type="button" class="remove-field-btn">✕</button>
           `;
-                    } else if (field.type === "radio" && Array.isArray(field.options)) {
-                        const radios = field.options.map(opt => `
+                        } else if (field.type === "radio" && Array.isArray(field.options)) {
+                            const radios = field.options.map(opt => `
             <label style="margin-right:10px">
               <input type="radio" name="academic-details[extra][${index}][${field.name}]" value="${opt}">
               ${opt}
             </label>`).join("");
-                        fieldWrapper.innerHTML += radios + `
+                            fieldWrapper.innerHTML += radios + `
             <button type="button" class="remove-field-btn">✕</button>
           `;
-                    } else if (field.type === "checkbox" && Array.isArray(field.options)) {
-                        const checkboxes = field.options.map(opt => `
+                        } else if (field.type === "checkbox" && Array.isArray(field.options)) {
+                            const checkboxes = field.options.map(opt => `
             <label style="margin-right:10px">
               <input type="checkbox" name="academic-details[extra][${index}][${field.name}][]" value="${opt}">
               ${opt}
             </label>`).join("");
-                        fieldWrapper.innerHTML += checkboxes + `
+                            fieldWrapper.innerHTML += checkboxes + `
             <button type="button" class="remove-field-btn">✕</button>
           `;
-                    }
+                        }
 
-                    rowsContainer.appendChild(fieldWrapper);
-                });
+                        rowsContainer.appendChild(fieldWrapper);
+                    });
 
-                // Attach remove event listeners
-                // Attach remove event listeners
-                const removeButtons = document.querySelectorAll(".remove-field-btn");
-                removeButtons.forEach((btn, i) => {
-                    btn.addEventListener("click", function() {
-                        const fieldDiv = btn.closest(".education-field");
+                    // Attach remove event listeners
+                    // Attach remove event listeners
+                    const removeButtons = document.querySelectorAll(".remove-field-btn");
+                    removeButtons.forEach((btn, i) => {
+                        btn.addEventListener("click", function () {
+                            const fieldDiv = btn.closest(".education-field");
 
-                        // Get the field ID from backend
-                        const id = fieldDiv?.dataset?.id;
+                            // Get the field ID from backend
+                            const id = fieldDiv?.dataset?.id;
 
-                        alert(id)
+                            alert(id)
 
-                        if (id) {
-                            if (confirm("Are you sure you want to delete this field?")) {
-                                fetch(`/academics-adminshow/${id}`, {
+                            if (id) {
+                                if (confirm("Are you sure you want to delete this field?")) {
+                                    fetch(`/academics-adminshow/${id}`, {
                                         method: "DELETE",
                                         headers: {
                                             "Content-Type": "application/json",
                                             "X-CSRF-TOKEN": document.querySelector(
                                                 'meta[name="csrf-token"]').getAttribute(
-                                                "content") // For Laravel CSRF
+                                                    "content") // For Laravel CSRF
                                         }
                                     })
-                                    .then(res => res.json())
-                                    .then(response => {
-                                        if (response.success) {
-                                            fieldDiv.remove();
-                                        } else {
-                                            alert("Error deleting field.");
-                                        }
-                                    })
-                                    .catch(err => {
-                                        console.error("Error deleting field:", err);
-                                    });
+                                        .then(res => res.json())
+                                        .then(response => {
+                                            if (response.success) {
+                                                fieldDiv.remove();
+                                            } else {
+                                                alert("Error deleting field.");
+                                            }
+                                        })
+                                        .catch(err => {
+                                            console.error("Error deleting field:", err);
+                                        });
+                                }
+                            } else {
+                                console.warn("No backend ID found.");
                             }
-                        } else {
-                            console.warn("No backend ID found.");
-                        }
-                    });
-                });
-
-            })
-            .catch((err) => console.error("Error fetching academic fields:", err));
-    }
-
-    async function fetchCourseDetailOptions() {
-        try {
-            const response = await fetch('/course-detail-options');
-            const result = await response.json();
-
-            if (result.success && Array.isArray(result.data)) {
-                const container = document.getElementById('checkbox-options-container-expenses');
-
-                // Remove existing checkbox-option elements before inserting new ones
-                container.querySelectorAll('.checkbox-option').forEach(el => el.remove());
-
-                result.data.forEach(option => {
-                    const optionDiv = document.createElement('div');
-                    optionDiv.className = 'checkbox-option';
-
-                    // Checkbox input
-                    const input = document.createElement('input');
-                    input.type = 'checkbox';
-                    input.id = `option-${option.id}`;
-                    input.name = 'course-details[options][]';
-                    input.value = option.label;
-
-                    // Label for checkbox
-                    const label = document.createElement('label');
-                    label.htmlFor = input.id;
-                    label.textContent = option.label;
-
-                    // P tag with only delete 'x'
-                    const p = document.createElement('p');
-                    p.style.display = 'inline-block';
-                    p.style.marginLeft = '10px';
-                    p.style.cursor = 'pointer';
-                    p.title = 'Delete this option';
-
-                    // Delete 'x' button
-                    const deleteBtn = document.createElement('span');
-                    deleteBtn.textContent = 'x';
-                    deleteBtn.style.cursor = 'pointer';
-
-                    deleteBtn.addEventListener('click', () => {
-                        if (confirm(`Are you sure you want to delete "${option.label}"?`)) {
-                            deleteCourseOption(option.id, optionDiv);
-                        }
+                        });
                     });
 
-                    p.appendChild(deleteBtn);
-
-                    // Append checkbox, label, and delete button
-                    optionDiv.appendChild(input);
-                    optionDiv.appendChild(label);
-                    optionDiv.appendChild(p);
-
-                    const addButton = document.getElementById('add-course-option-btn');
-                    container.insertBefore(optionDiv, addButton);
-                });
-
-            }
-        } catch (error) {
-            console.error('Error fetching course detail options:', error);
+                })
+                .catch((err) => console.error("Error fetching academic fields:", err));
         }
-    }
-    async function deleteCourseOption(optionId, optionDiv) {
-        try {
-            const response = await fetch(`/course-options/${optionId}`, {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                        'content'),
-                    'Accept': 'application/json',
+
+        async function fetchCourseDetailOptions() {
+            try {
+                const response = await fetch('/course-detail-options');
+                const result = await response.json();
+
+                if (result.success && Array.isArray(result.data)) {
+                    const container = document.getElementById('checkbox-options-container-expenses');
+
+                    // Remove existing checkbox-option elements before inserting new ones
+                    container.querySelectorAll('.checkbox-option').forEach(el => el.remove());
+
+                    result.data.forEach(option => {
+                        const optionDiv = document.createElement('div');
+                        optionDiv.className = 'checkbox-option';
+
+                        // Checkbox input
+                        const input = document.createElement('input');
+                        input.type = 'checkbox';
+                        input.id = `option-${option.id}`;
+                        input.name = 'course-details[options][]';
+                        input.value = option.label;
+
+                        // Label for checkbox
+                        const label = document.createElement('label');
+                        label.htmlFor = input.id;
+                        label.textContent = option.label;
+
+                        // P tag with only delete 'x'
+                        const p = document.createElement('p');
+                        p.style.display = 'inline-block';
+                        p.style.marginLeft = '10px';
+                        p.style.cursor = 'pointer';
+                        p.title = 'Delete this option';
+
+                        // Delete 'x' button
+                        const deleteBtn = document.createElement('span');
+                        deleteBtn.textContent = 'x';
+                        deleteBtn.style.cursor = 'pointer';
+
+                        deleteBtn.addEventListener('click', () => {
+                            if (confirm(`Are you sure you want to delete "${option.label}"?`)) {
+                                deleteCourseOption(option.id, optionDiv);
+                            }
+                        });
+
+                        p.appendChild(deleteBtn);
+
+                        // Append checkbox, label, and delete button
+                        optionDiv.appendChild(input);
+                        optionDiv.appendChild(label);
+                        optionDiv.appendChild(p);
+
+                        const addButton = document.getElementById('add-course-option-btn');
+                        container.insertBefore(optionDiv, addButton);
+                    });
+
                 }
-            });
-            if (response.ok) {
-                optionDiv.remove(); // Remove from DOM on success
-                alert('Option deleted successfully.');
-                fetchCourseDetailOptions();
-            } else {
-                alert('Failed to delete option.');
+            } catch (error) {
+                console.error('Error fetching course detail options:', error);
             }
-        } catch (error) {
-            console.error('Delete error:', error);
-            alert('An error occurred while deleting the option.');
         }
-    }
+        async function deleteCourseOption(optionId, optionDiv) {
+            try {
+                const response = await fetch(`/course-options/${optionId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content'),
+                        'Accept': 'application/json',
+                    }
+                });
+                if (response.ok) {
+                    optionDiv.remove(); // Remove from DOM on success
+                    alert('Option deleted successfully.');
+                    fetchCourseDetailOptions();
+                } else {
+                    alert('Failed to delete option.');
+                }
+            } catch (error) {
+                console.error('Delete error:', error);
+                alert('An error occurred while deleting the option.');
+            }
+        }
     </script>
 </body>
 

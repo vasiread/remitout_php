@@ -322,7 +322,7 @@
                     nbfcListContainer.innerHTML = '';
 
                     data.receivedData.forEach((item) => {
-                        console.log("NBFC item:", item); // Debug log
+                        // console.log("NBFC item:", item); // Debug log
 
                         const nbfcItemDiv = document.createElement('div');
                         nbfcItemDiv.classList.add('individualnbfclists-items');

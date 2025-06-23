@@ -127,8 +127,7 @@
         let students = [];
         let nbfcs = [];
         let adminChatMessages = JSON.parse(localStorage.getItem('adminChatMessages')) || {};
-        alert(students.length)
-
+ 
         const adminFileStorage = {};
 
         // Function to save messages to localStorage
@@ -196,15 +195,15 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        console.log("Student data retrieved successfully!", data);
+                        // console.log("Student data retrieved successfully!", data);
                         students = data.data.map(student => ({
                             ...student,
                             created_at: getValidDate(student.created_at).toISOString()
                         }));
-                        console.log("Student created_at values:", students.map(s => ({
-                            name: s.name,
-                            created_at: s.created_at
-                        })));
+                        // console.log("Student created_at values:", students.map(s => ({
+                        //     name: s.name,
+                        //     created_at: s.created_at
+                        // })));
                         initializeStudentChat(students);
                         updateStudentCount();
                     } else {
@@ -228,15 +227,15 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        console.log("NBFC data retrieved successfully!", data);
+                        // console.log("NBFC data retrieved successfully!", data);
                         nbfcs = data.data.map(nbfc => ({
                             ...nbfc,
                             created_at: getValidDate(nbfc.created_at).toISOString()
                         }));
-                        console.log("NBFC created_at values:", nbfcs.map(n => ({
-                            nbfc_name: n.nbfc_name,
-                            created_at: n.created_at
-                        })));
+                        // console.log("NBFC created_at values:", nbfcs.map(n => ({
+                        //     nbfc_name: n.nbfc_name,
+                        //     created_at: n.created_at
+                        // })));
                         initializeNbfcChat(nbfcs);
                         updateNbfcCount();
                     } else {
