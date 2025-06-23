@@ -2895,42 +2895,42 @@ class Admincontroller extends Controller
     }
 
 
-    public function uploadLogo(Request $request, $partnerId)
+    public function addLogo(Request $request, $partnerId)
     {
-        if (!$request->hasFile('file')) {
-            return response()->json(['error' => 'No file provided.'], 400);
+        try {
+            $request->validate([
+                'url' => 'required|max:2048',
+            ]);
+
+            $title = $request->input('title');
+            $fileUrl = $request->input('url');
+
+            $logo = PartnerLogo::create([
+                'partner_id' => $partnerId,
+                'title' => $title,
+                'content' => $fileUrl
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'url' => $fileUrl,
+                'logo' => $logo
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Logo upload failed', ['error' => $e->getMessage()]);
+            return response()->json([
+                'success' => false,
+                'message' => 'Error saving logo',
+                'error' => $e->getMessage()
+            ], 500);
         }
-
-        $file = $request->file('file');
-
-        // Generate file name like: logo.png
-        $extension = $file->getClientOriginalExtension();
-        $fileName = "logo.{$extension}";
-        $path = "cms_uploads/logopartner/{$partnerId}/{$fileName}";
-
-        // Upload to S3
-        Storage::disk('s3')->put($path, file_get_contents($file), [
-            'visibility' => 'public',
-            'ContentType' => $file->getMimeType(),
-        ]);
-
-        $fileUrl = Storage::disk('s3')->url($path);
-
-        // Save to DB (update if already exists for this partner)
-        $logo = PartnerLogo::updateOrCreate(
-            ['title' => 'Partner Logo ' . $partnerId, 'content' => $fileUrl]
-        );
-
-
-        return response()->json([
-            'success' => true,
-            'url' => $fileUrl,
-            'logo' => $logo
-        ]);
     }
 
 
-    public function listLogos($partnerId)
+
+
+
+    public function listLogos($partnerId)   
     {
         $directory = "cms_uploads/logopartner/{$partnerId}";
         $files = Storage::disk('s3')->files($directory);

@@ -596,12 +596,39 @@
 
     @php
 
-        $addressRaw = trim($landingpageContents[78]->content ?? '');
+        if (!function_exists('mapCmsContent')) {
+            function mapCmsContent($contents)
+            {
+                $map = [];
+                foreach ($contents as $item) {
+                    $map[$item->section][$item->title] = $item->content;
+                }
+                return $map;
+            }
+        }
+
+        $cms = mapCmsContent($landingpageContents);
+        $addressRaw = trim($cms['footer']['Company Description'] ?? '');
+
         $address =
-            $addressRaw ?:
-            "B/415DAMJI SHAMJI CORPORATE\nSQUARE BEHIND EVEREST GARDEN GM\nLINK RD GTK, Mumbai, Maharashtra,\nIndia, 400075";
+            $addressRaw !== ''
+                ? $addressRaw
+                : "B/415DAMJI SHAMJI CORPORATE\nSQUARE BEHIND EVEREST GARDEN GM\nLINK RD GTK, Mumbai, Maharashtra,\nIndia, 400075";
+
         $addressLines = explode("\n", strip_tags($address));
+
+        $socialLinks = json_decode($cms['footer']['Social Media Links'] ?? '{}', true);
+
+        // If decoding failed or returned empty, use default values
+        if (!is_array($socialLinks) || empty($socialLinks)) {
+            $socialLinks = [
+                'Twitter' => 'https://x.com/RemitoutL',
+                'Instagram' => 'https://www.instagram.com/remitout_india/',
+                'Facebook' => 'https://www.facebook.com/RemitoutIN/',
+            ];
+        }
     @endphp
+
 
     <footer class="footer-section">
         <div class="footer-container">
@@ -610,10 +637,11 @@
                 <div class="signup-content">
                     <div class="signup-text">
 
-                        <h5>{{ trim($landingpageContents[82]->content ?? '') ?: 'Sign Up with us Today!' }} </h5>
+                        <h5>{{ trim($cms['footer']['Signup Heading'] ?? '') ?: 'Sign Up with us Today!' }}</h5>
+                        <p>{{ trim($cms['footer']['Signup Description'] ?? '') ?: `Prepare yourself and let's explore this world.` }}
+                        </p>
 
 
-                        <p>Prepare yourself and let's explore this world.</p>
                     </div>
 
                     <form class="signup-form" id="signupForm" onsubmit="handleFooterSignup(event)">
@@ -621,15 +649,18 @@
                             <img src="assets/images/message-icon.png" class="email-icon" alt="email icon">
                             <input type="email" name="email" placeholder="Your Email" required>
                         </div>
-                        <button type="submit"
-                            class="footer-button"><span>{{ trim($landingpageContents[84]->content ?? '') ?: 'Register Now!' }}
+                        <button type="submit" class="footer-button"><span>
+                                {{ trim($cms['footer']['Register Button Text'] ?? '') ?: 'Register Now!' }}
+
                             </span></button>
                     </form>
 
                 </div>
                 <div class="signup-image">
                     <!-- Image content here if needed -->
-                    <img src="assets/images/Globe.WebP" class="footer-globe" alt="Globe image">
+                    <img src="{{ asset(trim($cms['footer']['Signup Background Image'] ?? 'assets/images/Globe.WebP')) }}"
+                        class="footer-globe" alt="Globe image">
+
                 </div>
             </div>
 
@@ -639,7 +670,8 @@
                 <div class="company-info">
 
                     <div class="footer-logo">
-                        <img src="assets/images/footer-logo.png" alt="Remitout" class="logo-img">
+                        <img src="{{ trim($cms['footer']['Footer Logo Image'] ?? 'assets/images/footer-logo.png') }}"
+                            alt="Remitout" class="logo-img">
                     </div>
                     <div class="company-info-container">
                         <div class="address-container">
@@ -653,32 +685,24 @@
                         <div class="phone-container">
                             <img src="assets/images/phone-icon.png" alt="Phone" class="icon">
                             <span style="color: rgba(233, 232, 234, 0.8);">
-                              {{ trim($landingpageContents[79]->content ?? '') ?: '+91 75784 75788' }}
-                              
+                                {{ trim($cms['footer']['Contact Number'] ?? '') ?: '+91 75784 75788' }}
+
+
                             </span>
                         </div>
                         <p>Reach us through other platforms!</p>
                         <div class="social-links">
-                            <a href="https://x.com/RemitoutL" class="social-link">
-                                <img src="assets/images/Twitter.png" alt="Twitter" class="social-icon"
-                                    style="width: 15px; height: 13px;">
-                                <span
-                                    style="font-family: 'Poppins', sans-serif; font-weight: normal; font-size: 11px;">Twitter</span>
-                            </a>
-                            <a href="https://www.instagram.com/remitout_india/" class="social-link">
-                                <img src="assets/images/Instagram.png" alt="Instagram" class="social-icon"
-                                    style="width: 15px; height: 13px;">
-                                <span
-                                    style="font-family: 'Poppins', sans-serif; font-weight: normal; font-size: 11px;">Instagram</span>
-                            </a>
-                            <a href="https://www.facebook.com/RemitoutIN/" class="social-link">
-                                <img src="assets/images/Facebook.png" alt="Facebook" class="social-icon"
-                                    style="width: 15px; height: 13px;">
-                                <span
-                                    style="font-family: 'Poppins', sans-serif; font-weight: normal; font-size: 11px;">Facebook</span>
-                            </a>
-
+                            @foreach ($socialLinks as $platform => $url)
+                                <a href="{{ $url }}" class="social-link" target="_blank" rel="noopener">
+                                    <img src="{{ asset('assets/images/' . $platform . '.png') }}"
+                                        alt="{{ $platform }}" class="social-icon"
+                                        style="width: 15px; height: 13px;">
+                                    <span
+                                        style="font-family: 'Poppins', sans-serif; font-weight: normal; font-size: 11px;">{{ $platform }}</span>
+                                </a>
+                            @endforeach
                         </div>
+
                     </div>
                 </div>
 
@@ -708,8 +732,8 @@
         </div>
 
         <div class="copyright">
-         
-            {{ trim($landingpageContents[87]->content ?? '') ?: 'All Rights reserved' }}
+
+            {{ trim($cms['footer']['Copyright Text'] ?? '') ?: 'All Rights reserved' }}
         </div>
     </footer>
 

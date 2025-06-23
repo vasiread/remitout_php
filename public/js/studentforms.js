@@ -1,15 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const studentFormMenuIcon = document.getElementById(
-        "student-form-menu-icon",
-    );
-    const studentFormNavLinks = document.getElementById(
-        "student-form-nav-links",
-    );
+    
 
-    studentFormMenuIcon.addEventListener("click", () => {
-        studentFormMenuIcon.classList.toggle("active");
-        studentFormNavLinks.classList.toggle("active");
-    });
+    const studentFormMenuIcon = document.getElementById("student-form-menu-icon-id");
+    const studentFormNavLinks = document.getElementById("student-form-nav-links");
+
+    if (studentFormMenuIcon && studentFormNavLinks) {
+        studentFormMenuIcon.addEventListener("click", () => {
+            studentFormMenuIcon.classList.toggle("active");
+            studentFormNavLinks.classList.toggle("active");
+        });
+    } else {
+        console.warn("Menu icon or nav links not found in the DOM.");
+    }
 
     function showToast(message, duration = 3000) {
         const toastContainer = document.getElementById("toast-container");
@@ -249,12 +251,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         isNavigating = false;
     }
-
-    nextButton.addEventListener("click", () => {
+    if (nextButton) {
+     nextButton.addEventListener("click", () => {
         if (areFieldsFilled()) {
             navigate("next");
         }
     });
+}
+   
 
     function updateUserIds() {
         const personalInfoId = document.getElementById(
@@ -838,9 +842,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    document
-        .getElementById("personal-info-name")
-        .addEventListener("input", function () {
+    document.getElementById("personal-info-name").addEventListener("input", function () {
             const personalInfoName =
                 document.getElementById("personal-info-name");
             const errorMessage = document.getElementById(
@@ -1026,8 +1028,7 @@ document.addEventListener("DOMContentLoaded", () => {
         sourceType = 'static',  // default value
         studentId = null
     ) {
-        alert(sourceType);
-        const fileInput = event.target;
+         const fileInput = event.target;
         const fileNameElement = document.getElementById(fileNameId);
         const uploadIcon = document.getElementById(uploadIconId);
         const removeIcon = document.getElementById(removeIconId);
@@ -1106,13 +1107,11 @@ document.addEventListener("DOMContentLoaded", () => {
             .forEach((documentElement) => {
                 documentElement.style.display = "block";
             });
-        alert(studentId)
-        if (studentId === null) {
+         if (studentId === null) {
             const userId = document.getElementById(
                 "personal-info-userid",
             ).value;
-            alert(userId)
-            await uploadFileToServer(file, userId, fileNameId, clearName,sourceType);
+             await uploadFileToServer(file, userId, fileNameId, clearName,sourceType);
         } else if (studentId !== null) {
             const userId = studentId;
             await uploadFileToServer(file, userId, fileNameId, clearName,sourceType);
@@ -1126,8 +1125,8 @@ document.addEventListener("DOMContentLoaded", () => {
         formDetailsData.append("file", file);
         formDetailsData.append("userId", userId);
         formDetailsData.append("fileNameId", fileNameId);
-        formDetailsData.append("clearName", clearName);  // send clearName here
-        formDetailsData.append("sourceType", sourceType);  // send clearName here
+        formDetailsData.append("clearName", clearName);  
+        formDetailsData.append("sourceType", sourceType);   
 
         const csrfToken = document
             .querySelector('meta[name="csrf-token"]')
@@ -1175,6 +1174,7 @@ document.addEventListener("DOMContentLoaded", () => {
         uploadIconId,
         removeIconId,
         studentId = null,
+        sourceType
     ) {
         const fileInput = document.getElementById(fileInputId);
         const fileNameElement = document.getElementById(fileNameId);
@@ -1202,26 +1202,28 @@ document.addEventListener("DOMContentLoaded", () => {
             const userId = document.getElementById(
                 "personal-info-userid",
             ).value;
-            await deleteFileToServer(userId, fileNameId);
+            await deleteFileToServer(userId, fileNameId, sourceType);
         } else if (studentId !== null) {
             const userId = studentId;
-            await deleteFileToServer(userId, fileNameId);
+            await deleteFileToServer(userId, fileNameId, sourceType);
         }
     }
 
-    function deleteFileToServer(userId, fileNameId) {
+    function deleteFileToServer(userId, fileNameId, sourceType = 'static') {
         fileNameId = fileNameId.replace(`-${userId}`, "");
         const csrfToken = document
             .querySelector('meta[name="csrf-token"]')
             .getAttribute("content");
-        if (!csrfToken) {
-            console.error("CSRF token not found");
-            return;
-        }
+
         const data = {
             userId: userId,
             fileNameId: fileNameId,
+            sourceType: sourceType,  
         };
+        // alert(userId);
+        // alert(fileNameId);
+        // alert(sourceType);
+
         fetch("/remove-each-documents", {
             method: "POST",
             headers: {
@@ -1231,30 +1233,22 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             body: JSON.stringify(data),
         })
-            .then((response) => {
+            .then(response => {
                 if (!response.ok) {
                     return response.json().then((errorData) => {
-                        throw new Error(
-                            errorData.message || "Network response was not ok",
-                        );
+                        throw new Error(errorData.message || "Network response was not ok");
                     });
                 }
                 return response.json();
             })
             .then((data) => {
-                if (data) {
-                    console.log("Files deleted successfully", data);
-                } else {
-                    console.error(
-                        "Error: No data returned from the server",
-                        data,
-                    );
-                }
+                console.log("Files deleted successfully", data);
             })
             .catch((error) => {
                 console.error("Error deleting file:", error);
             });
     }
+
 
     const borrowBloodRelative = document.querySelector(
         ".borrow-blood-relative",

@@ -43,7 +43,7 @@
                         "id": 5,
                         "page": "Landing Page",
                         "sectionType": "hero",
-                        "title": "Button",
+                        "title": "Buttonsecure",
                         "content": "Secure your Loan now!",
                         "status": "Active",
                         "maxlength": 22
@@ -846,14 +846,19 @@
                         "maxlength": 100
                     },
                     {
-                        "id": 82,
-                        "page": "Landing Page",
-                        "sectionType": "footer",
-                        "title": "Social Media Links",
+  "id": 82,
+  "page": "Landing Page",
+  "sectionType": "footer",
+  "title": "Social Media Links",
+  "status": "Active",
+  "maxlength": 200,
+  "content": {
+    "Twitter": "https://x.com/RemitoutL",
+    "Instagram": "https://www.instagram.com/remitout_india/",
+    "Facebook": "https://www.facebook.com/RemitoutIN/"
+  }
+},
 
-                        "status": "Active",
-                        "maxlength": 200
-                    },
                     {
                         "id": 83,
                         "page": "Landing Page",

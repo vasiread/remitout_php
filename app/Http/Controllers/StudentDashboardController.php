@@ -601,35 +601,36 @@ class StudentDashboardController extends Controller
         $request->validate([
             'userId' => 'required',
             'fileNameId' => 'required|string',
+            'sourceType' => 'required|string',
         ]);
 
         $userId = $request->input('userId');
         $fileNameId = $request->input('fileNameId');
+        $sourceType = $request->input('sourceType');
 
-        $fileDirectory = "$userId/$fileNameId";
+        $fileDirectory = "$userId/$sourceType/$fileNameId";
 
         $existingFiles = Storage::disk('s3')->files($fileDirectory);
 
         if (!empty($existingFiles)) {
-            // Attempt to delete the files
             $deleteResult = Storage::disk('s3')->delete($existingFiles);
 
-            // Ensure a proper JSON response
             if ($deleteResult) {
                 return response()->json([
                     'message' => 'Files deleted successfully!',
-                ], 200); // Ensure status code 200 for successful deletion
+                ], 200);
             } else {
                 return response()->json([
                     'message' => 'There was an error deleting the files.',
-                ], 500); // Internal server error if deletion fails
+                ], 500);
             }
         } else {
             return response()->json([
                 'message' => 'No files found to delete.',
-            ], 404); // Not found if no files exist
+            ], 404);
         }
     }
+
 
 
 

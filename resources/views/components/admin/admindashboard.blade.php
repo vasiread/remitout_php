@@ -466,7 +466,7 @@
                                 <div class="admin-city-filter-sort-container">
                                     <button class="admin-city-filter-btn" id="city-filter-btn">Filter <i
                                             class="fas fa-chevron-down"></i></button>
-                                    <!-- <button class="admin-city-sort-btn" id="city-sort-btn">Sort <i class="fas fa-chevron-down"></i></button> -->
+                                    <button class="admin-city-sort-btn" id="city-sort-btn">Sort <i class="fas fa-chevron-down"></i></button>  
                                 </div>
                             </div>
                             <table class="admin-city-table" id="city-table">

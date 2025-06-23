@@ -12,7 +12,7 @@
 <body>
     <nav class="nav">
         <div class="nav-container fullopacity">
-            <img onclick="window.location.href='{{ url('/') }}'" src="{{ asset('assets/images/Remitoutcolored.png') }}" alt="Logo" class="logo" id="profile-logo">
+            <img onclick="window.location.href='{{ url('/') }}'" src="{{ asset('assets/images/Remitoutcolored.png') }}" alt="Logo" class="logo" id="profile-logo" style="cursor:pointer;">
 
             @if(session()->has('user') || session()->has('scuser'))
                 <div class="nav-searchnotificationbars">

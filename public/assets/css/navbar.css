@@ -169,6 +169,7 @@
      align-items: center;
      position: relative;
      width: 100%;
+     cursor:pointer;
  }
 
  .nav-searchnotificationbars i {
