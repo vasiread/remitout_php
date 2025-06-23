@@ -373,12 +373,12 @@
                         <canvas id="ageratio-donutRegistrationChart"></canvas>
                         <div class="ageratio-donutgraphinfos">
                             @php
-                            $registrationSourceAnalysis = [
-                            ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
-                            ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
-                            ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
-                            ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
-                            ];
+$registrationSourceAnalysis = [
+    ['color' => 'rgba(111, 37, 206, 1)', 'studentRangeValue' => '16 - 20'],
+    ['color' => 'rgba(167, 121, 224, 1)', 'studentRangeValue' => '21 - 25'],
+    ['color' => 'rgba(203, 176, 237, 1)', 'studentRangeValue' => '26 - 30'],
+    ['color' => 'rgba(226, 211, 245, 1)', 'studentRangeValue' => '30 - 40'],
+];
                             @endphp
 
                             @foreach ($registrationSourceAnalysis as $source)
@@ -724,32 +724,17 @@
             initializeDonutGraphSource();
 
             fetchReferralAcceptedCounts();
-            initializePaginationAndFilters()
+            initializePaginationAndFilters();
             updateProfileCompletionByGender();
             initializeCitiesTable();
             initializeCountriesTable();
             initializePostgradDropdowns();
             updateVisibleReportsFromFilters();
 
-        
-
-            // Only initialize filter panel in mobile view
             const isMobileView = document.querySelector('.admindashboardcontainer-secondsection-mobile');
             if (isMobileView) {
-                console.log('Mobile view detected, initializing filter panel.');
                 initializeFilterPanel();
- 
-            } else {
-
-
-
-
-                console.log('Desktop view detected, skipping filter panel initialization.');
-
             }
-
-            // loadAgeRatioChart();
-
         } catch (error) {
             console.error('Initialization error:', error);
         }
@@ -841,7 +826,7 @@ if (mobButton) {
             })
             .then(response => response.json())
             .then(data => {
-                console.log('✅ Actual data from API:', data);
+                // console.log('✅ Actual data from API:', data);
 
                 if (!data.days_of_week || !data.registration_counts || data.days_of_week.length !== data
                     .registration_counts.length) {
@@ -1537,6 +1522,50 @@ if (mobButton) {
             applyFilter();
 
         });
+            // Sort state
+    let sortColumn = '';
+    let sortAscending = true;
+
+    // Sorting event listener for table headers
+    $$('th[data-sort]').forEach(th => {
+        th.addEventListener('click', () => {
+            const column = th.getAttribute('data-sort');
+            if (sortColumn === column) {
+                sortAscending = !sortAscending; // toggle sort direction
+            } else {
+                sortColumn = column;
+                sortAscending = true; // default ascending when new column is selected
+            }
+
+            filteredData.sort((a, b) => {
+                const valA = a[column];
+                const valB = b[column];
+
+                // String sort for 'country', numeric for others
+                if (typeof valA === 'string') {
+                    return sortAscending
+                        ? valA.localeCompare(valB)
+                        : valB.localeCompare(valA);
+                } else {
+                    return sortAscending
+                        ? valA - valB
+                        : valB - valA;
+                }
+            });
+
+            // Optional: Update sort icons
+            $$('th[data-sort] i').forEach(icon => {
+                icon.className = 'fas fa-sort'; // reset
+            });
+            const icon = th.querySelector('i');
+            if (icon) {
+                icon.className = sortAscending ? 'fas fa-sort-up' : 'fas fa-sort-down';
+            }
+
+            updateTable(filteredData.length);
+        });
+    });
+
     };
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -2291,7 +2320,7 @@ if (mobButton) {
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.show-all-admin-button-container') && dropdownOptions.classList.contains(
                     'show')) {
-                console.log('Closing dropdown due to outside click');
+                // console.log('Closing dropdown due to outside click');
                 dropdownOptions.classList.remove('show');
                 icon.classList.remove('show-all-admin-rotate-icon');
             }
@@ -2365,13 +2394,13 @@ if (mobButton) {
             const toggleCalendar = (e) => {
                 e.stopPropagation();
                 isCalendarOpen = !isCalendarOpen;
-                console.log(
-                    `Toggling calendar for ${config.buttonId}: ${isCalendarOpen ? 'open' : 'closed'}`
-                );
+                // console.log(
+                //     `Toggling calendar for ${config.buttonId}: ${isCalendarOpen ? 'open' : 'closed'}`
+                // );
                 calendarContainer.style.display = isCalendarOpen ? 'block' : 'none';
                 if (isCalendarOpen) {
                     if (config.isMobile) {
-                        console.log('Applying mobile view styles');
+                        // console.log('Applying mobile view styles');
                         calendarContainer.classList.add('mobile-visible');
                         setTimeout(() => {
                             calendarContainer.scrollIntoView({
@@ -2394,9 +2423,9 @@ if (mobButton) {
             };
 
             const renderCalendar = () => {
-                console.log(
-                    `Rendering calendar for ${currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}`
-                );
+                // console.log(
+                //     `Rendering calendar for ${currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}`
+                // );
                 const days = $$(`${config.wrapperClass} .calendar-day`);
                 days.forEach(el => el.remove());
 
@@ -2453,7 +2482,7 @@ if (mobButton) {
                 if (!classes.includes('calendar-other-month')) {
                     dayElement.addEventListener('click', e => {
                         e.stopPropagation();
-                        console.log(`Selected date: ${date.toLocaleDateString()}`);
+                        // console.log(`Selected date: ${date.toLocaleDateString()}`);
                         if (selectionMode === 'start') {
                             startDate = new Date(date);
                             if (endDate && endDate < startDate) endDate = null;
@@ -2509,7 +2538,7 @@ if (mobButton) {
             document.addEventListener('click', e => {
                 if (isCalendarOpen && !calendarContainer.contains(e.target) && e.target !==
                     calendarButton) {
-                    console.log('Closing calendar due to outside click');
+                    // console.log('Closing calendar due to outside click');
                     isCalendarOpen = false;
                     calendarContainer.style.display = 'none';
                     calendarContainer.classList.remove('mobile-visible');
@@ -2739,7 +2768,7 @@ if (mobButton) {
             return;
         }
 
-        console.log('Initializing filter panel for mobile view.');
+        // console.log('Initializing filter panel for mobile view.');
 
         const filterButton = $('#filterButton');
         const filterPanel = $('#filterPanel');
@@ -2824,13 +2853,13 @@ if (mobButton) {
         let bottomTags = [];
 
         const openFilterPanel = () => {
-            console.log('Opening filter panel');
+            // console.log('Opening filter panel');
             filterPanel.style.display = 'flex';
             renderTags();
         };
 
         const closeFilterPanel = () => {
-            console.log('Closing filter panel');
+            // console.log('Closing filter panel');
             filterPanel.style.display = 'none';
         };
 
@@ -2839,7 +2868,7 @@ if (mobButton) {
         };
 
         const updateVisibleReports = () => {
-            console.log('Updating visible reports based on active tags:', topTags.map(t => t.text));
+            // console.log('Updating visible reports based on active tags:', topTags.map(t => t.text));
             const activeTags = topTags.map(tag => tag.text.toLowerCase());
             const reportMapping = {
                 'registration reports': 'registration-reports',
@@ -2861,16 +2890,16 @@ if (mobButton) {
                 const reportId = report.getAttribute('data-report');
                 const tagText = Object.keys(reportMapping).find(key => reportMapping[key] === reportId);
                 const shouldShow = tagText && activeTags.includes(tagText.toLowerCase());
-                console.log(
-                    `Report ${reportId}: Tag "${tagText || 'N/A'}" ${shouldShow ? 'shown' : 'hidden'}`
-                );
+                // console.log(
+                //     `Report ${reportId}: Tag "${tagText || 'N/A'}" ${shouldShow ? 'shown' : 'hidden'}`
+                // );
                 report.style.display = shouldShow ? 'block' : 'none';
             });
         };
 
         const renderTags = () => {
-            console.log('Rendering tags - Top:', topTags.map(t => t.text), 'Bottom:', bottomTags.map(t => t
-                .text));
+            // console.log('Rendering tags - Top:', topTags.map(t => t.text), 'Bottom:', bottomTags.map(t => t
+            //     .text));
 
             topTagsContainer.innerHTML = '';
             bottomTagsContainer.innerHTML = '';
@@ -2895,8 +2924,8 @@ if (mobButton) {
             });
 
             // Log rendered HTML for debugging
-            console.log('Top tags HTML:', topTagsContainer.innerHTML);
-            console.log('Bottom tags HTML:', bottomTagsContainer.innerHTML);
+            // console.log('Top tags HTML:', topTagsContainer.innerHTML);
+            // console.log('Bottom tags HTML:', bottomTagsContainer.innerHTML);
 
             // Toggle collapsed section visibility
             if (bottomTags.length > 0) {
@@ -3093,7 +3122,7 @@ if (mobButton) {
 
 
     function funnelreport(degreeType = '') {
-        console.log("funnelreport working for:", degreeType);
+        // console.log("funnelreport working for:", degreeType);
 
         const url = degreeType ?
             `/retrievedashboarddetails?degree_type=${degreeType}` :
@@ -3140,9 +3169,9 @@ if (mobButton) {
     function fetchReferralAcceptedCounts() {
         fetch('/referralacceptedcounts')
             .then(response => response.json())
-            .then(data => {
-                console.log("Referral Accepted Counts:", data);
-            })
+            // .then(data => {
+            //     console.log("Referral Accepted Counts:", data);
+            // })
             .catch(error => {
                 console.error('Fetch failed:', error);
             });
@@ -3193,9 +3222,9 @@ if (mobButton) {
                 e.stopPropagation();
                 dropdownContent.classList.toggle('show');
                 icon.classList.toggle('rotate-icon');
-                console.log(
-                    `Dropdown ${dropdownContent.classList.contains('show') ? 'opened' : 'closed'} for`,
-                    button.id);
+                // console.log(
+                //     `Dropdown ${dropdownContent.classList.contains('show') ? 'opened' : 'closed'} for`,
+                //     button.id);
             };
 
             const closeDropdown = () => {
@@ -3217,7 +3246,7 @@ if (mobButton) {
                     }
 
                     closeDropdown();
-                    console.log(`Selected degree type: ${degreeType} for`, button.id);
+                    // console.log(`Selected degree type: ${degreeType} for`, button.id);
                 });
             });
 
@@ -3226,7 +3255,7 @@ if (mobButton) {
             document.addEventListener('click', (e) => {
                 if (!button.contains(e.target) && dropdownContent.classList.contains('show')) {
                     closeDropdown();
-                    console.log('Closed dropdown due to outside click for', button.id);
+                    // console.log('Closed dropdown due to outside click for', button.id);
                 }
             });
         });
@@ -3335,7 +3364,7 @@ if (mobButton) {
 
             searchInput.addEventListener('input', function() {
                 const query = this.value.trim().toLowerCase();
-                console.log('Search query:', query);
+                // console.log('Search query:', query);
 
                 // Get all report containers
                 const reports = document.querySelectorAll('[data-report]');
@@ -3349,24 +3378,24 @@ if (mobButton) {
                     reports.forEach(report => {
                         report.style.display = 'block';
                     });
-                    console.log('Search cleared, showing all reports');
+                    // console.log('Search cleared, showing all reports');
                     return;
                 }
 
                 // Find matching report names or aliases
                 const matchedReports = reportNames.filter(name => name.toLowerCase().includes(query));
-                console.log('Matched report names:', matchedReports);
+                // console.log('Matched report names:', matchedReports);
 
                 // Convert matched names to their data-report values (deduplicate)
                 const matchedReportIds = [...new Set(matchedReports.map(name => reportMapping[name.toLowerCase()]))];
-                console.log('Matched report IDs:', matchedReportIds);
+                // console.log('Matched report IDs:', matchedReportIds);
 
                 // Show/hide reports based on matches
                 reports.forEach(report => {
                     const reportId = report.getAttribute('data-report');
                     const shouldShow = matchedReportIds.includes(reportId);
                     report.style.display = shouldShow ? 'block' : 'none';
-                    console.log(`Report ${reportId}: ${shouldShow ? 'shown' : 'hidden'}`);
+                    // console.log(`Report ${reportId}: ${shouldShow ? 'shown' : 'hidden'}`);
                 });
             });
         }

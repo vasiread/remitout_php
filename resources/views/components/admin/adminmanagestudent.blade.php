@@ -208,7 +208,7 @@
         }
 
         const data = await response.json();
-        console.log('Fetched student data:', data);
+        // console.log('Fetched student data:', data);
 
         let studentData = data;
         if (data.data && Array.isArray(data.data)) {
@@ -334,7 +334,7 @@
         // Function to populate table with paginated data
         function populateManageStudentReportTable(data, page = 1) {
             try {
-                console.log('Populating table with data:', data.length, 'records, page:', page);
+                // console.log('Populating table with data:', data.length, 'records, page:', page);
                 const tableBody = document.getElementById('manage-student-report-table-body');
                 if (!tableBody) {
                     console.error('Table body not found');
@@ -582,7 +582,7 @@
                 // Fetch data from the API
                 fullData = await fetchStudentData();
                 filteredData = [...fullData];
-                console.log('Initialized with data:', fullData.length, 'records');
+                // console.log('Initialized with data:', fullData.length, 'records');
 
                 // Populate filters and table
                 populateFilterOptions(fullData);
@@ -610,7 +610,7 @@
         // Wait for DOM content to be fully loaded
         document.addEventListener('DOMContentLoaded', () => {
             try {
-                console.log('DOM loaded, initializing application');
+                // console.log('DOM loaded, initializing application');
 
                 // Initialize the app with API data
                 initializeApp();

@@ -2898,6 +2898,7 @@
             const addStudentButtons = document.querySelectorAll(".studentAddBySCuserPopup-footerpart button:nth-child(2), #dynamic-add-student-button"); // Fixed class name
             const studentFormContainer = document.querySelector(".studentAddBySCuserPopup-contentpart");
 
+            console.log(">>",studentFormContainer)
             if (!studentFormContainer) {
                 console.error("Student form container not found.");
                 return;

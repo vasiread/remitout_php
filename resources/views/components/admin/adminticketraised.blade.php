@@ -131,7 +131,7 @@
                 if (!response.ok) throw new Error('Network response was not ok');
 
                 const data = await response.json();
-                console.log('Fetched data:', data);
+                // console.log('Fetched data:', data);
 
                 if (data.success && Array.isArray(data.queries)) {
                     const ticketContainer = document.getElementById('ticket-raised-tickets-list');

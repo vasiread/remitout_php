@@ -326,7 +326,7 @@
                         return response.json();
                     })
                     .then(result => {
-                        console.log('API Response:', result);
+                        // console.log('API Response:', result);
                         let data = [];
                         if (Array.isArray(result)) {
                             data = result;
@@ -863,12 +863,12 @@
                 const linkContainerDiv = document.getElementById('linkContainer');
 
                 // Debugging to ensure elements are found
-                console.log('Change Button:', changeButton);
-                console.log('Remove Button:', removeButton);
-                console.log('Link Input:', linkInput);
-                console.log('Link Container:', linkContainer);
-                console.log('Insert Link Button:', insertLinkBtn);
-                console.log('Link Container Div:', linkContainerDiv);
+                // console.log('Change Button:', changeButton);
+                // console.log('Remove Button:', removeButton);
+                // console.log('Link Input:', linkInput);
+                // console.log('Link Container:', linkContainer);
+                // console.log('Insert Link Button:', insertLinkBtn);
+                // console.log('Link Container Div:', linkContainerDiv);
 
                 if (changeButton && removeButton && linkInput && linkContainer) {
                     changeButton.addEventListener('click', function () {

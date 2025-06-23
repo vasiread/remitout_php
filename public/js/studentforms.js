@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-    
-
-    const studentFormMenuIcon = document.getElementById("student-form-menu-icon-id");
-    const studentFormNavLinks = document.getElementById("student-form-nav-links");
+    const studentFormMenuIcon = document.getElementById(
+        "student-form-menu-icon-id",
+    );
+    const studentFormNavLinks = document.getElementById(
+        "student-form-nav-links",
+    );
 
     if (studentFormMenuIcon && studentFormNavLinks) {
         studentFormMenuIcon.addEventListener("click", () => {
@@ -187,11 +189,11 @@ document.addEventListener("DOMContentLoaded", () => {
             breadcrumbSections[currentBreadcrumbIndex].length - 1;
     }
 
-
     function updateBreadcrumbNavigation() {
         breadcrumbLinks.forEach((link, index) => {
             link.classList.toggle("active", index === currentBreadcrumbIndex);
-            link.style.color = index === currentBreadcrumbIndex ? "#E98635" : "";
+            link.style.color =
+                index === currentBreadcrumbIndex ? "#E98635" : "";
         });
     }
 
@@ -252,18 +254,26 @@ document.addEventListener("DOMContentLoaded", () => {
         isNavigating = false;
     }
     if (nextButton) {
-     nextButton.addEventListener("click", () => {
-        if (areFieldsFilled()) {
-            navigate("next");
-        }
-    });
-}
-   
+        nextButton.addEventListener("click", () => {
+            if (areFieldsFilled()) {
+                navigate("next");
+            }
+        });
+    }
 
     function updateUserIds() {
-        const personalInfoId = document.getElementById(
-            "personal-info-userid",
-        ).value;
+        const inputElement = document.getElementById("personal-info-userid");
+
+        // Exit early if the component doesn't exist
+        if (!inputElement) {
+            console.info(
+                "Skipping updateUserIds(): #personal-info-userid not found.",
+            );
+            return;
+        }
+
+        const personalInfoId = inputElement.value;
+
         fetch("/updatedetailsinfo", {
             method: "POST",
             headers: {
@@ -390,51 +400,73 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateUserPersonalInfo(event) {
         event.preventDefault();
 
-        const personalInfoId = document.getElementById("personal-info-userid").value;
-        const personalInfoName = document.getElementById("personal-info-name").value;
-        const personalInfoPhone = document.getElementById("personal-info-phone").value;
-        const personalInfoEmail = document.getElementById("personal-info-email").value;
-        const personalInfoCity = document.getElementById("personal-info-city").value;
-        const personalInfoReferral = document.getElementById("personal-info-referral").value;
-        const personalInfoState = document.getElementById("personal-info-state").value;
-        const personalInfoDob = document.getElementById("personal-info-dob").value;
-        const genderOptions = document.getElementById("gender-personal-info").value;
+        const personalInfoId = document.getElementById(
+            "personal-info-userid",
+        ).value;
+        const personalInfoName =
+            document.getElementById("personal-info-name").value;
+        const personalInfoPhone = document.getElementById(
+            "personal-info-phone",
+        ).value;
+        const personalInfoEmail = document.getElementById(
+            "personal-info-email",
+        ).value;
+        const personalInfoCity =
+            document.getElementById("personal-info-city").value;
+        const personalInfoReferral = document.getElementById(
+            "personal-info-referral",
+        ).value;
+        const personalInfoState = document.getElementById(
+            "personal-info-state",
+        ).value;
+        const personalInfoDob =
+            document.getElementById("personal-info-dob").value;
+        const genderOptions = document.getElementById(
+            "gender-personal-info",
+        ).value;
         const personalInfoFindOut = selectedValue;
-        
 
         // ✅ Collect dynamic fields
         const dynamicFields = {};
 
-         document.querySelectorAll('input[name^="dynamic_fields["], select[name^="dynamic_fields["]').forEach(input => {
-            const name = input.getAttribute('name'); 
-            const multipleMatch = name.match(/^dynamic_fields\[(\d+)\]\[\]$/);
-            const singleMatch = name.match(/^dynamic_fields\[(\d+)\]$/);
+        document
+            .querySelectorAll(
+                'input[name^="dynamic_fields["], select[name^="dynamic_fields["]',
+            )
+            .forEach((input) => {
+                const name = input.getAttribute("name");
+                const multipleMatch = name.match(
+                    /^dynamic_fields\[(\d+)\]\[\]$/,
+                );
+                const singleMatch = name.match(/^dynamic_fields\[(\d+)\]$/);
 
-            if (multipleMatch) {
-                const fieldId = multipleMatch[1];
-                if (!dynamicFields[fieldId]) {
-                    dynamicFields[fieldId] = [];
-                }
-                // For checkboxes, only add if checked
-                if ((input.type === 'checkbox' || input.type === 'radio') && input.checked) {
-                    dynamicFields[fieldId].push(input.value);
-                }
-            } else if (singleMatch) {
-                const fieldId = singleMatch[1];
-                if (input.type === 'checkbox' || input.type === 'radio') {
-                    if (input.checked) {
+                if (multipleMatch) {
+                    const fieldId = multipleMatch[1];
+                    if (!dynamicFields[fieldId]) {
+                        dynamicFields[fieldId] = [];
+                    }
+                    // For checkboxes, only add if checked
+                    if (
+                        (input.type === "checkbox" || input.type === "radio") &&
+                        input.checked
+                    ) {
+                        dynamicFields[fieldId].push(input.value);
+                    }
+                } else if (singleMatch) {
+                    const fieldId = singleMatch[1];
+                    if (input.type === "checkbox" || input.type === "radio") {
+                        if (input.checked) {
+                            dynamicFields[fieldId] = input.value;
+                        }
+                    } else if (input.tagName.toLowerCase() === "select") {
+                        dynamicFields[fieldId] = input.value;
+                    } else {
                         dynamicFields[fieldId] = input.value;
                     }
-                } else if (input.tagName.toLowerCase() === 'select') {
-                    dynamicFields[fieldId] = input.value;
-                } else {
-                    dynamicFields[fieldId] = input.value;
                 }
-            }
-        });
+            });
 
         console.log(dynamicFields);
-
 
         // ✅ Validate required fields (as you already do)
         if (
@@ -455,7 +487,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 personalInfoState,
                 personalInfoReferral,
                 personalInfoFindOut,
-                dynamic_fields: dynamicFields 
+                dynamic_fields: dynamicFields,
             };
 
             fetch("/update-personalinfo", {
@@ -473,7 +505,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (data.success) {
                         showToast("Details have been saved successfully");
                     } else {
-                        console.error("Failed to update personal info:", data.message);
+                        console.error(
+                            "Failed to update personal info:",
+                            data.message,
+                        );
                     }
                 })
                 .catch((error) => {
@@ -508,42 +543,55 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateUserCourseInfo(event) {
         event.preventDefault();
 
-        const personalInfoId = document.getElementById("personal-info-userid").value;
-        const selectedDegreeType = document.querySelector('#course-info-degreetype input[name="degree_type"]:checked')?.value;
-        const expenseType = getSelectedExpenseType();  // Custom method you already use
-        const loanAmount = getLoanAmount();            // Custom method you already use
+        const personalInfoId = document.getElementById(
+            "personal-info-userid",
+        ).value;
+        const selectedDegreeType = document.querySelector(
+            '#course-info-degreetype input[name="degree_type"]:checked',
+        )?.value;
+        const expenseType = getSelectedExpenseType(); // Custom method you already use
+        const loanAmount = getLoanAmount(); // Custom method you already use
         const courseDuration = getSelectedCourseDuration(); // Custom method
         const studyLocations = getSelectedStudyLocations(); // Custom method
 
         // ✅ Collect dynamic fields (same logic as in personal info)
         const dynamicFields = {};
 
-        document.querySelectorAll('input[name^="dynamic_fields["], select[name^="dynamic_fields["]').forEach(input => {
-            const name = input.getAttribute('name'); // e.g. dynamic_fields[5], dynamic_fields[5][]
-            const multipleMatch = name.match(/^dynamic_fields\[(\d+)\]\[\]$/);
-            const singleMatch = name.match(/^dynamic_fields\[(\d+)\]$/);
+        document
+            .querySelectorAll(
+                'input[name^="dynamic_fields["], select[name^="dynamic_fields["]',
+            )
+            .forEach((input) => {
+                const name = input.getAttribute("name"); // e.g. dynamic_fields[5], dynamic_fields[5][]
+                const multipleMatch = name.match(
+                    /^dynamic_fields\[(\d+)\]\[\]$/,
+                );
+                const singleMatch = name.match(/^dynamic_fields\[(\d+)\]$/);
 
-            if (multipleMatch) {
-                const fieldId = multipleMatch[1];
-                if (!dynamicFields[fieldId]) {
-                    dynamicFields[fieldId] = [];
-                }
-                if ((input.type === 'checkbox' || input.type === 'radio') && input.checked) {
-                    dynamicFields[fieldId].push(input.value);
-                }
-            } else if (singleMatch) {
-                const fieldId = singleMatch[1];
-                if (input.type === 'checkbox' || input.type === 'radio') {
-                    if (input.checked) {
+                if (multipleMatch) {
+                    const fieldId = multipleMatch[1];
+                    if (!dynamicFields[fieldId]) {
+                        dynamicFields[fieldId] = [];
+                    }
+                    if (
+                        (input.type === "checkbox" || input.type === "radio") &&
+                        input.checked
+                    ) {
+                        dynamicFields[fieldId].push(input.value);
+                    }
+                } else if (singleMatch) {
+                    const fieldId = singleMatch[1];
+                    if (input.type === "checkbox" || input.type === "radio") {
+                        if (input.checked) {
+                            dynamicFields[fieldId] = input.value;
+                        }
+                    } else if (input.tagName.toLowerCase() === "select") {
+                        dynamicFields[fieldId] = input.value;
+                    } else {
                         dynamicFields[fieldId] = input.value;
                     }
-                } else if (input.tagName.toLowerCase() === 'select') {
-                    dynamicFields[fieldId] = input.value;
-                } else {
-                    dynamicFields[fieldId] = input.value;
                 }
-            }
-        });
+            });
 
         const courseInfoData = {
             personalInfoId,
@@ -552,10 +600,8 @@ document.addEventListener("DOMContentLoaded", () => {
             course_duration: courseDuration,
             plan_to_study: studyLocations,
             course_details: expenseType,
-            dynamic_fields: dynamicFields
+            dynamic_fields: dynamicFields,
         };
-
-
 
         // ✅ Send data to backend
         fetch("/update-courseinfo", {
@@ -574,14 +620,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     showToast("Details have been saved successfully");
                     navigate("next");
                 } else {
-                    console.error("Failed to update course info:", data.message);
+                    console.error(
+                        "Failed to update course info:",
+                        data.message,
+                    );
                 }
             })
             .catch((error) => {
                 console.error("Error updating course info:", error);
             });
     }
-
 
     // Function to validate a single score field and update its error message
     function validateScore(fieldId, scoreValue, minScore, errorMessagePrefix) {
@@ -656,50 +704,72 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateAcademicsCourseInfo(event) {
         event.preventDefault();
 
-        const personalInfoId = document.getElementById("personal-info-userid").value;
-        const selectedAcademicGap = document.querySelector('input[name="academics-gap"]:checked')?.value;
-        const reasonForGap = document.querySelector(".academic-reason textarea")?.value;
-        const selectedAdmitOption = document.querySelector('input[name="admit-option"]:checked')?.value;
-        const selectedWorkOption = document.querySelector('input[name="work-option"]:checked')?.value;
+        const personalInfoId = document.getElementById(
+            "personal-info-userid",
+        ).value;
+        const selectedAcademicGap = document.querySelector(
+            'input[name="academics-gap"]:checked',
+        )?.value;
+        const reasonForGap = document.querySelector(
+            ".academic-reason textarea",
+        )?.value;
+        const selectedAdmitOption = document.querySelector(
+            'input[name="admit-option"]:checked',
+        )?.value;
+        const selectedWorkOption = document.querySelector(
+            'input[name="work-option"]:checked',
+        )?.value;
         const ieltsScore = document.getElementById("admit-ielts")?.value;
         const greScore = document.getElementById("admit-gre")?.value;
         const toeflScore = document.getElementById("admit-toefl")?.value;
-        const otherExamName = document.getElementById("admit-others-name")?.value;
-        const otherExamScore = document.getElementById("admit-others-score")?.value;
-        const universityName = document.getElementById("universityschoolid")?.value;
+        const otherExamName =
+            document.getElementById("admit-others-name")?.value;
+        const otherExamScore =
+            document.getElementById("admit-others-score")?.value;
+        const universityName =
+            document.getElementById("universityschoolid")?.value;
         const courseName = document.getElementById("educationcourseid")?.value;
 
-         if (!validateAllScores(ieltsScore, greScore, toeflScore)) {
+        if (!validateAllScores(ieltsScore, greScore, toeflScore)) {
             return; // Stop submission if validation fails
         }
 
-         const dynamicFields = {};
-        document.querySelectorAll('input[name^="dynamic_fields["], select[name^="dynamic_fields["]').forEach(input => {
-            const name = input.getAttribute('name');
-            const multipleMatch = name.match(/^dynamic_fields\[(\d+)\]\[\]$/);
-            const singleMatch = name.match(/^dynamic_fields\[(\d+)\]$/);
+        const dynamicFields = {};
+        document
+            .querySelectorAll(
+                'input[name^="dynamic_fields["], select[name^="dynamic_fields["]',
+            )
+            .forEach((input) => {
+                const name = input.getAttribute("name");
+                const multipleMatch = name.match(
+                    /^dynamic_fields\[(\d+)\]\[\]$/,
+                );
+                const singleMatch = name.match(/^dynamic_fields\[(\d+)\]$/);
 
-            if (multipleMatch) {
-                const fieldId = multipleMatch[1];
-                if (!dynamicFields[fieldId]) {
-                    dynamicFields[fieldId] = [];
-                }
-                if ((input.type === 'checkbox' || input.type === 'radio') && input.checked) {
-                    dynamicFields[fieldId].push(input.value);
-                }
-            } else if (singleMatch) {
-                const fieldId = singleMatch[1];
-                if (input.type === 'checkbox' || input.type === 'radio') {
-                    if (input.checked) {
+                if (multipleMatch) {
+                    const fieldId = multipleMatch[1];
+                    if (!dynamicFields[fieldId]) {
+                        dynamicFields[fieldId] = [];
+                    }
+                    if (
+                        (input.type === "checkbox" || input.type === "radio") &&
+                        input.checked
+                    ) {
+                        dynamicFields[fieldId].push(input.value);
+                    }
+                } else if (singleMatch) {
+                    const fieldId = singleMatch[1];
+                    if (input.type === "checkbox" || input.type === "radio") {
+                        if (input.checked) {
+                            dynamicFields[fieldId] = input.value;
+                        }
+                    } else {
                         dynamicFields[fieldId] = input.value;
                     }
-                } else {
-                    dynamicFields[fieldId] = input.value;
                 }
-            }
-        });
+            });
 
-         const academicDetails = {
+        const academicDetails = {
             personalInfoId,
             selectedAcademicGap,
             reasonForGap,
@@ -710,14 +780,14 @@ document.addEventListener("DOMContentLoaded", () => {
             toeflScore,
             others: {
                 otherExamName,
-                otherExamScore
+                otherExamScore,
             },
             universityName,
             courseName,
-            dynamic_fields: dynamicFields
+            dynamic_fields: dynamicFields,
         };
 
-         fetch("/update-academicsinfo", {
+        fetch("/update-academicsinfo", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -733,7 +803,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     showToast("Details have been saved successfully");
                     navigate("next");
                 } else {
-                    console.error("Failed to update academic info:", data.message);
+                    console.error(
+                        "Failed to update academic info:",
+                        data.message,
+                    );
                 }
             })
             .catch((error) => {
@@ -741,37 +814,35 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 
-
     prevButton.addEventListener("click", () => navigate("prev"));
 
     if (nextBreadcrumbButton) {
-         nextBreadcrumbButton.addEventListener("click", () => {
-        if (
-            currentContainerIndex ===
-            breadcrumbSections[currentBreadcrumbIndex].length - 1
-        ) {
-            if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
-                breadcrumbSections[currentBreadcrumbIndex].forEach(
-                    (container) => (container.style.display = "none"),
-                );
-                currentBreadcrumbIndex++;
-                currentContainerIndex = 0;
-                breadcrumbSections[currentBreadcrumbIndex].forEach(
-                    (container, index) => {
-                        container.style.display =
-                            index === 0 ? "block" : "none";
-                    },
-                );
-                updateBreadcrumbNavigation();
-                updateNavigationButtons();
-                updateDots();
-                updateMobileHeading(currentBreadcrumbIndex);
-                showToast("Details have been saved successfully");
+        nextBreadcrumbButton.addEventListener("click", () => {
+            if (
+                currentContainerIndex ===
+                breadcrumbSections[currentBreadcrumbIndex].length - 1
+            ) {
+                if (currentBreadcrumbIndex < breadcrumbSections.length - 1) {
+                    breadcrumbSections[currentBreadcrumbIndex].forEach(
+                        (container) => (container.style.display = "none"),
+                    );
+                    currentBreadcrumbIndex++;
+                    currentContainerIndex = 0;
+                    breadcrumbSections[currentBreadcrumbIndex].forEach(
+                        (container, index) => {
+                            container.style.display =
+                                index === 0 ? "block" : "none";
+                        },
+                    );
+                    updateBreadcrumbNavigation();
+                    updateNavigationButtons();
+                    updateDots();
+                    updateMobileHeading(currentBreadcrumbIndex);
+                    showToast("Details have been saved successfully");
+                }
             }
-        }
-    });
+        });
     }
-   
 
     if (nextCourseButton) {
         nextCourseButton.addEventListener("click", () => {
@@ -842,7 +913,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    document.getElementById("personal-info-name").addEventListener("input", function () {
+    document
+        .getElementById("personal-info-name")
+        .addEventListener("input", function () {
             const personalInfoName =
                 document.getElementById("personal-info-name");
             const errorMessage = document.getElementById(
@@ -1025,10 +1098,10 @@ document.addEventListener("DOMContentLoaded", () => {
         uploadIconId,
         removeIconId,
         clearName = null,
-        sourceType = 'static',  // default value
-        studentId = null
+        sourceType = "static", // default value
+        studentId = null,
     ) {
-         const fileInput = event.target;
+        const fileInput = event.target;
         const fileNameElement = document.getElementById(fileNameId);
         const uploadIcon = document.getElementById(uploadIconId);
         const removeIcon = document.getElementById(removeIconId);
@@ -1107,26 +1180,43 @@ document.addEventListener("DOMContentLoaded", () => {
             .forEach((documentElement) => {
                 documentElement.style.display = "block";
             });
-         if (studentId === null) {
+        if (studentId === null) {
             const userId = document.getElementById(
                 "personal-info-userid",
             ).value;
-             await uploadFileToServer(file, userId, fileNameId, clearName,sourceType);
+            await uploadFileToServer(
+                file,
+                userId,
+                fileNameId,
+                clearName,
+                sourceType,
+            );
         } else if (studentId !== null) {
             const userId = studentId;
-            await uploadFileToServer(file, userId, fileNameId, clearName,sourceType);
+            await uploadFileToServer(
+                file,
+                userId,
+                fileNameId,
+                clearName,
+                sourceType,
+            );
         }
     }
 
-    
-    function uploadFileToServer(file, userId, fileNameId, clearName,sourceType) {
+    function uploadFileToServer(
+        file,
+        userId,
+        fileNameId,
+        clearName,
+        sourceType,
+    ) {
         fileNameId = fileNameId.replace(`-${userId}`, "");
         const formDetailsData = new FormData();
         formDetailsData.append("file", file);
         formDetailsData.append("userId", userId);
         formDetailsData.append("fileNameId", fileNameId);
-        formDetailsData.append("clearName", clearName);  
-        formDetailsData.append("sourceType", sourceType);   
+        formDetailsData.append("clearName", clearName);
+        formDetailsData.append("sourceType", sourceType);
 
         const csrfToken = document
             .querySelector('meta[name="csrf-token"]')
@@ -1174,7 +1264,7 @@ document.addEventListener("DOMContentLoaded", () => {
         uploadIconId,
         removeIconId,
         studentId = null,
-        sourceType
+        sourceType,
     ) {
         const fileInput = document.getElementById(fileInputId);
         const fileNameElement = document.getElementById(fileNameId);
@@ -1209,7 +1299,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function deleteFileToServer(userId, fileNameId, sourceType = 'static') {
+    function deleteFileToServer(userId, fileNameId, sourceType = "static") {
         fileNameId = fileNameId.replace(`-${userId}`, "");
         const csrfToken = document
             .querySelector('meta[name="csrf-token"]')
@@ -1218,7 +1308,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = {
             userId: userId,
             fileNameId: fileNameId,
-            sourceType: sourceType,  
+            sourceType: sourceType,
         };
         // alert(userId);
         // alert(fileNameId);
@@ -1233,10 +1323,12 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             body: JSON.stringify(data),
         })
-            .then(response => {
+            .then((response) => {
                 if (!response.ok) {
                     return response.json().then((errorData) => {
-                        throw new Error(errorData.message || "Network response was not ok");
+                        throw new Error(
+                            errorData.message || "Network response was not ok",
+                        );
                     });
                 }
                 return response.json();
@@ -1248,7 +1340,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error("Error deleting file:", error);
             });
     }
-
 
     const borrowBloodRelative = document.querySelector(
         ".borrow-blood-relative",
