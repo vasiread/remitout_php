@@ -1064,9 +1064,8 @@
 }
 .remove-testimonial svg{
         background: none;
-        border: 1px solid #ff6b2b;
-        cursor: pointer;
-        color:#ff6b2b;
+         cursor: pointer;
+        color:#721c24;
 }
 
 .testimonial-row .remove-testimonial:hover svg,

@@ -2719,11 +2719,16 @@ class Admincontroller extends Controller
             ], 404);
         }
 
+        // Delete image from S3 if it exists
+        if ($testimonial->image && Storage::disk('s3')->exists($testimonial->image)) {
+            Storage::disk('s3')->delete($testimonial->image);
+        }
+
         $testimonial->delete();
 
         return response()->json([
             'status' => true,
-            'message' => 'Testimonial deleted successfully'
+            'message' => 'Testimonial and image deleted successfully'
         ]);
     }
     public function storeTestimonial(Request $request)
@@ -2800,18 +2805,18 @@ class Admincontroller extends Controller
     public function updateCmsImageContent(Request $request)
     {
         $request->validate([
-            'file' => 'required|image', // ✅ image only
+            'file' => 'required|image',
             'title' => 'required|string'
         ]);
 
         $file = $request->file('file');
-        $title = Str::slug($request->input('title')); // folder name
-        $originalTitle = $request->input('title');     // exact title for DB match
+        $title = Str::slug($request->input('title')); // Used for folder naming
+        $originalTitle = $request->input('title');     // Used for DB matching
 
         $fileName = $file->getClientOriginalName();
         $fileDirectory = "cms_uploads/{$title}";
 
-        // Remove existing files in that folder
+        // Remove existing files
         $existingFiles = Storage::disk('s3')->files($fileDirectory);
         if (!empty($existingFiles)) {
             Storage::disk('s3')->delete($existingFiles);
@@ -2829,7 +2834,27 @@ class Admincontroller extends Controller
 
         $fileUrl = Storage::disk('s3')->url($filePath);
 
-        // Find CMS content by title
+        // Check if this is a Partner Logo upload
+        if (stripos($originalTitle, 'Partner Logo') === 0) {
+            // Match by title (case-insensitive, partial)
+            $partnerLogo = PartnerLogo::where('title', $originalTitle)->first();
+
+            if (!$partnerLogo) {
+                return response()->json([
+                    'message' => "Partner Logo with title '{$originalTitle}' not found."
+                ], 404);
+            }
+
+            $partnerLogo->content = $fileUrl;
+            $partnerLogo->save();
+
+            return response()->json([
+                'message' => 'Partner logo updated successfully!',
+                'file_url' => $fileUrl,
+            ], 200);
+        }
+
+        // Handle regular CMS content
         $cmsContent = CmsContent::where('title', $originalTitle)->first();
 
         if (!$cmsContent) {
@@ -2838,7 +2863,6 @@ class Admincontroller extends Controller
             ], 404);
         }
 
-        // Update the content with new file URL
         $cmsContent->content = $fileUrl;
         $cmsContent->save();
 
@@ -2848,6 +2872,7 @@ class Admincontroller extends Controller
         ], 200);
     }
 
+    
 
 
     public function storeFaq(Request $request)
@@ -2895,21 +2920,24 @@ class Admincontroller extends Controller
     }
 
 
-    public function addLogo(Request $request, $partnerId)
+    public function addLogo(Request $request)
     {
         try {
             $request->validate([
                 'url' => 'required|max:2048',
             ]);
 
-            $title = $request->input('title');
             $fileUrl = $request->input('url');
 
+            // First, create the logo with a temporary title
             $logo = PartnerLogo::create([
-                'partner_id' => $partnerId,
-                'title' => $title,
+                'title' => '', // will be updated next
                 'content' => $fileUrl
             ]);
+
+            // Now update the title using the auto-generated ID
+            $logo->title = 'Partner Logo ' . $logo->id;
+            $logo->save();
 
             return response()->json([
                 'success' => true,
@@ -2930,6 +2958,9 @@ class Admincontroller extends Controller
 
 
 
+
+
+
     public function listLogos($partnerId)   
     {
         $directory = "cms_uploads/logopartner/{$partnerId}";
@@ -2939,17 +2970,56 @@ class Admincontroller extends Controller
 
         return response()->json(['files' => $urls]);
     }
-    public function deleteLogo($partnerId)
+    public function deleteLogo($logoId)
     {
-        $fileName = 'logo.png'; // assuming consistent filename
-        $path = "cms_uploads/logopartner/{$partnerId}/{$fileName}";
+        $logo = PartnerLogo::find($logoId);
 
-        if (!Storage::disk('s3')->exists($path)) {
-            return response()->json(['error' => 'File not found.'], 404);
+        if (!$logo) {
+            return response()->json(['error' => 'Logo not found.'], 404);
         }
 
-        Storage::disk('s3')->delete($path);
+        $logo->delete();
 
-        return response()->json(['success' => true, 'message' => 'File deleted successfully.']);
+        return response()->json(['success' => true, 'message' => 'Logo deleted successfully.']);
     }
+
+    public function updateTestimonialImage(Request $request, $id)
+    {
+        $request->validate([
+            'file' => 'required|image|max:2048' // Max 2MB, adjust if needed
+        ]);
+
+        $file = $request->file('file');
+        $fileName = time() . '-' . $file->getClientOriginalName();
+        $directory = "testimonialprofile/{$id}";
+
+        // Delete existing images in the folder (optional)
+        $existingFiles = Storage::disk('s3')->files($directory);
+        if (!empty($existingFiles)) {
+            Storage::disk('s3')->delete($existingFiles);
+        }
+
+        // Upload new image
+        $filePath = $file->storeAs($directory, $fileName, [
+            'disk' => 's3',
+            'visibility' => 'public',
+        ]);
+
+        $fileUrl = Storage::disk('s3')->url($filePath);
+
+        // Update testimonial image URL in DB (assuming you have a Testimonial model)
+        $testimonial = Testimonial::find($id);
+        if (!$testimonial) {
+            return response()->json(['message' => 'Testimonial not found.'], 404);
+        }
+
+        $testimonial->image = $fileUrl;
+        $testimonial->save();
+
+        return response()->json([
+            'message' => 'Image uploaded and testimonial updated successfully.',
+            'url' => $fileUrl,
+        ]);
+    }
+
 }
