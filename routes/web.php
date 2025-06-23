@@ -330,6 +330,7 @@ Route::post('/update-cms-imageupload', [Admincontroller::class, 'updateCmsImageC
 Route::get('/gettestimonials', [Admincontroller::class, 'TestimonialCMS']);
 
 
+Route::post('/testimonial/upload-image/{id}', [Admincontroller::class, 'updateTestimonialImage']);
 
 Route::post('/testimonial/update/{id}', [Admincontroller::class, 'updateTestimonial']);
 Route::delete('/testimonial/delete/{id}', [Admincontroller::class, 'deleteTestimonial']);
@@ -344,7 +345,7 @@ Route::post('/faq/store', [Admincontroller::class, 'storeFaq']);
 Route::post('/faq/update/{id}', [Admincontroller::class, 'updateFaq']);
 Route::delete('/faq/delete/{id}', [Admincontroller::class, 'deleteFaq']);
 
-Route::post('/logo/store/{partnerId}', [AdminController::class, 'addLogo']);
+Route::post('/logo/store', [AdminController::class, 'addLogo']);
 Route::post('/logo/update/{partnerId}', [AdminController::class, 'updateLogo']);
 Route::get('/logo/show/{partnerId}', [AdminController::class, 'listLogos']);
-Route::delete('/logo/delete/{partnerId}', [AdminController::class, 'deleteLogo']);
+Route::delete('/logo/delete/{logoId}', [AdminController::class, 'deleteLogo']);

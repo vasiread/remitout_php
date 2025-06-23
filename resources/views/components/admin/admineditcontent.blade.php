@@ -1493,27 +1493,41 @@
 
 
             async addNewLogo(item) {
-                const newTitle = `Partner Logo ${this.data.filter(d => d.sectionType === 'logo').length + 1}`;
-
-                const response = await fetch(`/api/partner/${item.partnerId}/add-logo`, {
+                const response = await fetch(`/logo/store`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
                     },
                     body: JSON.stringify({
-                        url: '/api/placeholder/200/100', // or real uploaded content
-                        title: newTitle
+                        url: '/api/placeholder/200/100'
                     })
                 });
 
                 const data = await response.json();
 
                 if (data.success) {
+                    const newId = data.logo.id;
+                    const newTitle = `Partner Logo ${newId}`;
+
+                    // Update title
+                    await fetch(`/logo/update-title/${newId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+                        },
+                        body: JSON.stringify({
+                            title: newTitle
+                        })
+                    });
+
+                    // Add to front-end data
                     this.data.push({
-                        id: data.logo.id,
+                        id: newId,
                         page: item.page,
                         sectionType: 'logo',
-                        title: data.logo.title,
+                        title: newTitle,
                         content: data.logo.content,
                         status: 'Active',
                         isMedia: true,
@@ -1523,6 +1537,7 @@
                             height: 100
                         }
                     });
+                    this.renderTable();
 
                     const currentSection = document.getElementById('sectionSelect').value;
                     this.handlePageChange(item.page, currentSection);
@@ -1534,25 +1549,42 @@
             }
 
 
-            removeLogo(id) {
-                const logos = this.data.filter(item => item.sectionType === 'logo');
-                if (logos.length <= 1) {
-                    this.showToast('At least one logo is required', true);
-                    return;
-                }
-                const index = this.data.findIndex(item => item.id === id);
-                if (index !== -1) {
-                    this.data.splice(index, 1);
-                    const remainingLogos = this.data.filter(item => item.sectionType === 'logo');
-                    remainingLogos.forEach((logo, idx) => {
-                        logo.title = `Partner Logo ${idx + 1}`;
+
+
+            async removeLogo(id) {
+                try {
+                    const response = await fetch(`/logo/delete/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content
+                        }
                     });
+
+                    const result = await response.json();
+
+                    if (!response.ok) {
+                        this.showToast(`❌ ${result.error || 'Delete failed'}`, true);
+                        return;
+                    }
+
+                    // Remove from local data
+                    this.data = this.data.filter(item => item.id !== id);
+
+                    // Refresh table
                     const currentSection = document.getElementById('sectionSelect').value;
-                    this.handlePageChange(this.data.find(item => item.sectionType === 'logo')?.page || 'Landing Page',
-                        currentSection);
-                    this.showToast('Logo removed');
+                    const item = this.data.find(item => item.sectionType === 'logo');
+                    this.handlePageChange(item?.page || 'L  anding Page', currentSection);
+
+                    this.showToast('✅ Logo removed');
+                } catch (error) {
+                    console.error('Error deleting logo:', error);
+                    this.showToast('❌ Server error', true);
                 }
             }
+
+
+
+
 
             handlePageChange(page, section = 'all') {
                 console.log('handlePageChange called with page:', page, 'and section:', section);
@@ -1844,157 +1876,155 @@
                 tbody.innerHTML = '';
 
                 const logos = this.filteredData.filter(d => d.sectionType === 'logo');
-                const isLastLogo = logos[logos.length - 1]?.id === item.id;
 
                 const startIndex = (this.currentPage - 1) * this.rowsPerPage;
                 const endIndex = Math.min(startIndex + this.rowsPerPage, this.filteredData.length);
                 const paginatedData = this.filteredData.slice(startIndex, endIndex);
 
-                let rowCounter = startIndex + 1; // Start numbering from the correct index based on pagination
+                let rowCounter = startIndex + 1;
 
                 paginatedData.forEach((item, index) => {
-                        const row = document.createElement('tr');
-                        row.dataset.id = item.id;
-                        row.dataset.originalSno = rowCounter; // Store original S.No
-                        row.setAttribute('data-id', item.id);
+                    const row = document.createElement('tr');
+                    row.dataset.id = item.id;
+                    row.dataset.originalSno = rowCounter;
+                    row.setAttribute('data-id', item.id);
 
-                        if (item.isMedia || item.sectionType === 'logo') {
-                            row.innerHTML = `
-                                <td>${rowCounter++}</td>
-                                <td>${item.page}</td>
-                                <td class="editable-cell">
-                                    <div class="editable-content" contenteditable="true">${item.title}</div>
-                                </td>
-                                <td>
-                                    <div class="media-container">
-                                        <div class="media-preview">
-                                            ${item.mediaConstraints.formats.includes('mp4') || item.mediaConstraints.formats.includes('webm') ?
-                                                `<video src="${item.content}" controls width="200"></video>` :
-                                                `<img src="${item.content}" alt="Media preview">`}
-                                            <span class="close-btn">×</span>
-                                        </div>
-                                        <div class="media-actions">
-                                            <input type="file" class="file-input hidden-input" accept="${item.mediaConstraints?.formats.map(format => `.${format}`).join(',') || 'image/*'}">
-                                            <div class="upload-trigger">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                                    <polyline points="17 8 12 3 7 8"/>
-                                                    <line x1="12" y1="3" x2="12" y2="15"/>
-                                                </svg>
-                                                Replace ${item.sectionType === 'logo' ? 'Logo' : 'Media'}
+                    if (item.isMedia || item.sectionType === 'logo') {
+                        const logos = this.filteredData.filter(d => d.sectionType === 'logo');
+                        const isLastLogo = logos.length && logos[logos.length - 1] === item;
+
+                        row.innerHTML = `
+                                    <td>${rowCounter++}</td>
+                                    <td>${item.page}</td>
+                                    <td class="editable-cell">
+                                        <div class="editable-content" contenteditable="true">${item.title}</div>
+                                    </td>
+                                    <td>
+                                        <div class="media-container">
+                                            <div class="media-preview">
+                                                ${item.mediaConstraints.formats.includes('mp4') || item.mediaConstraints.formats.includes('webm') ?
+                                                    `<video src="${item.content}" controls width="200"></video>` :
+                                                    `<img src="${item.content}" alt="Media preview">`}
+                                                <span class="close-btn">×</span>
+                                            </div>
+                                            <div class="media-actions">
+                                                <input type="file" class="file-input hidden-input" accept="${item.mediaConstraints?.formats.map(format => `.${format}`).join(',') || 'image/*'}">
+                                                <div class="upload-trigger">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                                        <polyline points="17 8 12 3 7 8"/>
+                                                        <line x1="12" y1="3" x2="12" y2="15"/>
+                                                    </svg>
+                                                    Replace ${item.sectionType === 'logo' ? 'Logo' : 'Media'}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td><span class="edit-contents-cms-status">${item.status}</span></td>
-                               <td>
-  <button class="edit-contents-cms-update">Update</button>
-  ${item.sectionType === 'logo' ? `
-    <button class="remove-logo" title="Remove Logo">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    </td>
+                                    <td><span class="edit-contents-cms-status">${item.status}</span></td>
+                                    <td>
+                                        <button class="edit-contents-cms-update">Update</button>
+                                        ${item.sectionType === 'logo' ? `
+                                                    <button class="remove-logo" title="Remove Logo"
+    style="background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 4px; padding: 6px 10px; margin-right: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="18" y1="6" x2="6" y2="18"></line>
         <line x1="6" y1="6" x2="18" y2="18"></line>
-      </svg>
-    </button>
+    </svg>
+ </button>
 
-    ${
-      this.filteredData.filter(d => d.sectionType === 'logo').findIndex(d => d === item) === 
-      this.filteredData.filter(d => d.sectionType === 'logo').length - 1
-        ? `
-          <button class="add-logo" title="Add Logo">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-          </button>
-        `
-        : ''
-    }
-  ` : ''}
-</td>
+                                                    ${isLastLogo ? `
+                                           <button class="add-logo" title="Add Logo"
+    style="background: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 4px; padding: 6px 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+    </svg>
+     
+</button>
+                                            ` : ''}
+                                                ` : ''}
+                                    </td>
+                                `;
 
-                        `;
-                            tbody.appendChild(row);
+                        tbody.appendChild(row);
 
-                            const editableContents = row.querySelectorAll('.editable-cell .editable-content');
-                            editableContents.forEach((editableContent) => {
-                                editableContent.addEventListener('input', () => {
-                                    const charCount = editableContent.parentElement.querySelector(
-                                        '.char-count');
-                                    if (charCount) {
-                                        const maxLength = parseInt(charCount.getAttribute(
-                                            'data-max'));
-                                        charCount.textContent =
-                                            `
-                        $ {
-                            editableContent.textContent.length
-                        }
-                        /${maxLength}`;
-                    charCount.classList.toggle('hidden', editableContent
-                        .textContent.length <= maxLength);
-                    charCount.classList.toggle('error', editableContent
-                        .textContent.length > maxLength);
-                }
-            });
-        editableContent.addEventListener('focus', () => {
-            const charCount = editableContent.parentElement.querySelector(
-                '.char-count');
-            if (charCount) {
-                const maxLength = parseInt(charCount.getAttribute(
-                    'data-max'));
-                charCount.textContent =
-                    `${editableContent.textContent.length}/${maxLength}`;
-                charCount.classList.remove('hidden');
-            }
-        });
-        editableContent.addEventListener('blur', () => {
-            const charCount = editableContent.parentElement.querySelector(
-                '.char-count');
-            if (charCount) {
-                charCount.classList.add('hidden');
-            }
-        });
-    });
+                        // Setup editable content
+                        const editableContents = row.querySelectorAll('.editable-cell .editable-content');
+                        editableContents.forEach((editableContent) => {
+                            editableContent.addEventListener('input', () => {
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
+                                if (charCount) {
+                                    const maxLength = parseInt(charCount.getAttribute(
+                                        'data-max'));
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
+                                    charCount.classList.toggle('hidden', editableContent
+                                        .textContent.length <= maxLength);
+                                    charCount.classList.toggle('error', editableContent
+                                        .textContent.length > maxLength);
+                                }
+                            });
+                            editableContent.addEventListener('focus', () => {
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
+                                if (charCount) {
+                                    const maxLength = parseInt(charCount.getAttribute(
+                                        'data-max'));
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
+                                    charCount.classList.remove('hidden');
+                                }
+                            });
+                            editableContent.addEventListener('blur', () => {
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
+                                if (charCount) {
+                                    charCount.classList.add('hidden');
+                                }
+                            });
+                        });
 
-    const updateButton = row.querySelector('.edit-contents-cms-update');
-    updateButton.addEventListener('click', async () => {
-        const titleElement = row.querySelector(
-            '.editable-cell:nth-child(3) .editable-content');
-        const title = titleElement.textContent.trim();
-        const file = window.selectedFilePerTitle[title];
-        if (file) {
-            const uploadedUrl = await this.updateCmsContent(title, file);
-            if (uploadedUrl) {
-                item.content = uploadedUrl;
-                delete window.selectedFilePerTitle[title];
-                this.renderTable();
-                this.showToast('✅ Image updated');
-            }
-        }
-    });
-    }
-    else if (item.sectionType === 'logo') {
-        const row = document.createElement('tr');
-        row.classList.add('logo-row');
-        row.setAttribute('data-id', item.id);
+                        // Setup update button
+                        const updateButton = row.querySelector('.edit-contents-cms-update');
+                        updateButton.addEventListener('click', async () => {
+                            const titleElement = row.querySelector(
+                                '.editable-cell:nth-child(3) .editable-content');
+                            const title = titleElement.textContent.trim();
+                            const file = window.selectedFilePerTitle[title];
+                            if (file) {
+                                      const uploadedUrl = await updateCmsContent(title, file);
 
-        // If this is a seed item that has multiple logos
-        const isMultiLogoArray = Array.isArray(item.content);
-        const logo = isMultiLogoArray ? item.content[0] : {
-            id: item.id,
-            image: item.content,
-            title: item.title,
-            mediaConstraints: item.mediaConstraints || {
-                formats: ['png'],
-                width: 200,
-                height: 100
-            },
-            isProtected: item.isProtected || false
-        };
+                                if (uploadedUrl) {
+                                    item.content = uploadedUrl;
+                                    delete window.selectedFilePerTitle[title];
+                                    this.renderTable();
+                                    this.showToast('✅ Image updated');
+                                }
+                            }
+                        });
+                    } else if (item.sectionType === 'logo') {
+                        const row = document.createElement('tr');
+                        row.classList.add('logo-row');
+                        row.setAttribute('data-id', item.id);
 
-        row.innerHTML = `
+                        // If this is a seed item that has multiple logos
+                        const isMultiLogoArray = Array.isArray(item.content);
+                        const logo = isMultiLogoArray ? item.content[0] : {
+                            id: item.id,
+                            image: item.content,
+                            title: item.title,
+                            mediaConstraints: item.mediaConstraints || {
+                                formats: ['png'],
+                                width: 200,
+                                height: 100
+                            },
+                            isProtected: item.isProtected || false
+                        };
+
+                        row.innerHTML = `
                                         <td>${rowCounter++}</td>
                                         <td>${item.page || '-'}</td>
                                         <td class="editable-cell">
@@ -2018,16 +2048,17 @@
                                         </td>
                                     `;
 
-        tbody.appendChild(row);
-    } else if (item.isTestimonialArray) {
-        const testimonials = JSON.parse(item.content);
-        testimonials.forEach((testimonial, idx) => {
-            const testimonialRow = document.createElement('tr');
-            testimonialRow.dataset.id = `${item.id}-${idx}`;
-            testimonialRow.dataset.originalSno = rowCounter; // Store original S.No
-            testimonialRow.classList.add('testimonial-row');
-            const testimonialTitle = `Testimonial ${idx + 1}`;
-            testimonialRow.innerHTML = `
+                        tbody.appendChild(row);
+                    } else if (item.isTestimonialArray) {
+                        const testimonials = JSON.parse(item.content);
+                        testimonials.forEach((testimonial, idx) => {
+                            const testimonialRow = document.createElement('tr');
+                            testimonialRow.dataset.id = `${item.id}-${idx}`;
+                            testimonialRow.dataset.originalSno = rowCounter; 
+                            testimonialRow.dataset.testimonialId = testimonial.id; 
+                            testimonialRow.classList.add('testimonial-row');
+                            const testimonialTitle = `Testimonial ${idx + 1}`;
+                            testimonialRow.innerHTML = `
                                     <td>${rowCounter++}</td>
                                     <td>${item.page}</td>
                                     <td class="editable-cell no-border">
@@ -2042,22 +2073,22 @@
                                         <button class="edit-contents-cms-edit">✏️</button>
                                     </td>
                                 `;
-            tbody.appendChild(testimonialRow);
+                            tbody.appendChild(testimonialRow);
 
-            const editButton = testimonialRow.querySelector('.edit-contents-cms-edit');
-            editButton.addEventListener('click', () => {
-                testimonialRow.classList.toggle('edit-mode');
-                if (testimonialRow.classList.contains('edit-mode')) {
-                    const originalSno = testimonialRow.dataset
-                        .originalSno; // Use stored S.No
-                    const maxLengthIndicatorName =
-                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.name || 20}">${testimonial.name.length}/${item.maxLengthConstraints?.name || 20}</div>`;
-                    const maxLengthIndicatorDesignation =
-                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.designation || 20}">${testimonial.designation.length}/${item.maxLengthConstraints?.designation || 20}</div>`;
-                    const maxLengthIndicatorDescription =
-                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.description || 160}">${testimonial.description.length}/${item.maxLengthConstraints?.description || 160}</div>`;
+                            const editButton = testimonialRow.querySelector('.edit-contents-cms-edit');
+                            editButton.addEventListener('click', () => {
+                                testimonialRow.classList.toggle('edit-mode');
+                                if (testimonialRow.classList.contains('edit-mode')) {
+                                    const originalSno = testimonialRow.dataset
+                                        .originalSno; // Use stored S.No
+                                    const maxLengthIndicatorName =
+                                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.name || 20}">${testimonial.name.length}/${item.maxLengthConstraints?.name || 20}</div>`;
+                                    const maxLengthIndicatorDesignation =
+                                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.designation || 20}">${testimonial.designation.length}/${item.maxLengthConstraints?.designation || 20}</div>`;
+                                    const maxLengthIndicatorDescription =
+                                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.description || 160}">${testimonial.description.length}/${item.maxLengthConstraints?.description || 160}</div>`;
 
-                    testimonialRow.innerHTML = `
+                                    testimonialRow.innerHTML = `
                                             <td>${originalSno}</td>
                                             <td>${item.page}</td>
                                             <td class="editable-cell no-border">
@@ -2106,233 +2137,244 @@
                                             <td>
                                                 <button class="edit-contents-cms-update">Update</button>
                                                 <button class="edit-contents-cms-edit">✏️</button>
-                                                <button class="remove-testimonial" title="Remove Testimonial">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                                                        <path d="M9 3V4H4V6H5V19C5 20.11 5.9 21 7 21H17C18.11 21 19 20.11 19 19V6H20V4H15V3H9M7 6H17V19H7V6Z" />
-                                                    </svg>
-                                                </button>
+                                              <button class="remove-testimonial" title="Remove Testimonial"
+    style="background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 4px; padding: 6px 10px; margin-right: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M9 3V4H4V6H5V19C5 20.11 5.9 21 7 21H17C18.11 21 19 20.11 19 19V6H20V4H15V3H9M7 6H17V19H7V6Z" />
+    </svg>
+   
+</button>
+
                                                 ${idx === testimonials.length - 1 ? `
-                                                                                <button class="add-testimonial" title="Add Testimonial">
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                                                    </svg>
-                                                                                </button>
-                                                                            ` : ''}
+                                                                                                                   <button class="add-testimonial" title="Add Testimonial"
+    style="background: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 4px; padding: 6px 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+    </svg>
+    
+</button>
+
+                                                                                                                ` : ''}
                                             </td>
                                         `;
 
-                    const editableContents = testimonialRow.querySelectorAll(
-                        '.editable-content');
-                    editableContents.forEach((editableContent) => {
-                        if (testimonial.isProtected) {
-                            editableContent.contentEditable = "false";
-                            editableContent.classList.add(
-                                "disabled-edit");
-                            return;
-                        }
-                        editableContent.addEventListener('input',
-                            () => {
-                                const maxLength = parseInt(
-                                    editableContent
-                                    .getAttribute(
-                                        'data-max-length'));
-                                const charCount = editableContent
-                                    .parentElement.querySelector(
-                                        '.char-count');
-                                if (charCount) {
-                                    charCount.textContent =
-                                        `${editableContent.textContent.length}/${maxLength}`;
-                                    charCount.classList.toggle(
-                                        'hidden',
-                                        editableContent
-                                        .textContent.length <=
-                                        maxLength);
-                                    charCount.classList.toggle(
-                                        'error', editableContent
-                                        .textContent.length >
-                                        maxLength);
-                                }
-                            });
-                        editableContent.addEventListener('focus',
-                            () => {
-                                const maxLength = parseInt(
-                                    editableContent
-                                    .getAttribute(
-                                        'data-max-length'));
-                                const charCount = editableContent
-                                    .parentElement.querySelector(
-                                        '.char-count');
-                                if (charCount) {
-                                    charCount.textContent =
-                                        `${editableContent.textContent.length}/${maxLength}`;
-                                    charCount.classList.remove(
-                                        'hidden');
-                                }
-                            });
-                        editableContent.addEventListener('blur', () => {
-                            const charCount = editableContent
-                                .parentElement.querySelector(
-                                    '.char-count');
-                            if (charCount) {
-                                charCount.classList.add(
-                                    'hidden');
-                            }
-                        });
-                    });
-
-                    const fileInput = testimonialRow.querySelector(
-                        '.file-input');
-                    const uploadTrigger = testimonialRow.querySelector(
-                        '.upload-trigger');
-                    uploadTrigger.addEventListener('click', () => fileInput
-                        .click());
-                    fileInput.addEventListener('change', (e) => {
-                        const file = e.target.files[0];
-                        if (file) {
-                            const reader = new FileReader();
-                            reader.onload = (event) => {
-                                const img = new Image();
-                                img.onload = () => {
-                                    if (img.width ===
-                                        testimonial
-                                        .mediaConstraints
-                                        .width && img.height ===
-                                        testimonial
-                                        .mediaConstraints.height
-                                    ) {
-                                        testimonial.image =
-                                            event.target.result;
-                                        item.content = JSON
-                                            .stringify(
-                                                testimonials);
-                                        this.renderTable();
-                                    } else {
-                                        this.resizeImage(event
-                                            .target.result,
-                                            testimonial
-                                            .mediaConstraints
-                                            .width,
-                                            testimonial
-                                            .mediaConstraints
-                                            .height, (
-                                                resizedImage
-                                            ) => {
-                                                testimonial
-                                                    .image =
-                                                    resizedImage;
-                                                item.content =
-                                                    JSON
-                                                    .stringify(
-                                                        testimonials
-                                                    );
-                                                this
-                                                    .renderTable();
+                                    const editableContents = testimonialRow.querySelectorAll(
+                                        '.editable-content');
+                                    editableContents.forEach((editableContent) => {
+                                        if (testimonial.isProtected) {
+                                            editableContent.contentEditable = "false";
+                                            editableContent.classList.add(
+                                                "disabled-edit");
+                                            return;
+                                        }
+                                        editableContent.addEventListener('input',
+                                            () => {
+                                                const maxLength = parseInt(
+                                                    editableContent
+                                                    .getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.toggle(
+                                                        'hidden',
+                                                        editableContent
+                                                        .textContent.length <=
+                                                        maxLength);
+                                                    charCount.classList.toggle(
+                                                        'error', editableContent
+                                                        .textContent.length >
+                                                        maxLength);
+                                                }
                                             });
+                                        editableContent.addEventListener('focus',
+                                            () => {
+                                                const maxLength = parseInt(
+                                                    editableContent
+                                                    .getAttribute(
+                                                        'data-max-length'));
+                                                const charCount = editableContent
+                                                    .parentElement.querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList.remove(
+                                                        'hidden');
+                                                }
+                                            });
+                                        editableContent.addEventListener('blur', () => {
+                                            const charCount = editableContent
+                                                .parentElement.querySelector(
+                                                    '.char-count');
+                                            if (charCount) {
+                                                charCount.classList.add(
+                                                    'hidden');
+                                            }
+                                        });
+                                    });
+
+                                    const fileInput = testimonialRow.querySelector(
+                                        '.file-input');
+                                    const uploadTrigger = testimonialRow.querySelector(
+                                        '.upload-trigger');
+                                    uploadTrigger.addEventListener('click', () => fileInput
+                                        .click());
+                                    fileInput.addEventListener('change', async (e) => {
+                                        const file = e.target.files[0];
+                                        if (file) {
+                                            const formData = new FormData();
+                                            formData.append('file', file);
+
+                                            // Get CSRF token from meta tag
+                                            const csrfToken = document
+                                                .querySelector(
+                                                    'meta[name="csrf-token"]')
+                                                .getAttribute('content');
+
+                                            const testimonialId = testimonialRow
+                                                .dataset.testimonialId;
+                                               
+
+                                            try {
+                                                const response = await fetch(
+                                                    `/testimonial/upload-image/${testimonialId}`, {
+                                                        method: 'POST',
+                                                        headers: {
+                                                            'X-CSRF-TOKEN': csrfToken,
+                                                        },
+                                                        body: formData
+                                                    });
+
+                                                const result = await response
+                                                    .json();
+
+                                                if (response.ok && result.url) {
+                                                    testimonial.image = result.url;
+                                                    item.content = JSON.stringify(
+                                                        testimonials);
+                                                    this.renderTable();
+                                                    this.showToast(
+                                                        '✅ Image uploaded successfully'
+                                                    );
+                                                } else {
+                                                    this.showToast(
+                                                        '❌ Failed to upload image',
+                                                        true);
+                                                }
+                                            } catch (error) {
+                                                console.error('Image upload error:',
+                                                    error);
+                                                this.showToast(
+                                                    '⚠️ An error occurred while uploading the image',
+                                                    true);
+                                            }
+                                        }
+                                    });
+
+
+
+                                    const updateButton = testimonialRow.querySelector(
+                                        '.edit-contents-cms-update');
+                                    updateButton.addEventListener('click', () => {
+                                        const nameElement = testimonialRow
+                                            .querySelector(
+                                                '.testimonial-field:nth-child(1) .editable-content'
+                                            );
+                                        const designationElement = testimonialRow
+                                            .querySelector(
+                                                '.testimonial-field:nth-child(2) .editable-content'
+                                            );
+                                        const ratingElement = testimonialRow
+                                            .querySelector('.testimonial-rating');
+                                        const descriptionElement = testimonialRow
+                                            .querySelector(
+                                                '.testimonial-field:nth-child(4) .editable-content'
+                                            );
+
+                                        const maxLengthName = parseInt(nameElement
+                                            .getAttribute('data-max-length'));
+                                        const maxLengthDesignation = parseInt(
+                                            designationElement.getAttribute(
+                                                'data-max-length'));
+                                        const maxLengthDescription = parseInt(
+                                            descriptionElement.getAttribute(
+                                                'data-max-length'));
+
+                                        if (nameElement.textContent.length >
+                                            maxLengthName) {
+                                            this.showToast(
+                                                `Name exceeds maximum length of ${maxLengthName} characters`,
+                                                true);
+                                            return;
+                                        }
+                                        if (designationElement.textContent.length >
+                                            maxLengthDesignation) {
+                                            this.showToast(
+                                                `Designation exceeds maximum length of ${maxLengthDesignation} characters`,
+                                                true);
+                                            return;
+                                        }
+                                        if (descriptionElement.textContent.length >
+                                            maxLengthDescription) {
+                                            this.showToast(
+                                                `Description exceeds maximum length of ${maxLengthDescription} characters`,
+                                                true);
+                                            return;
+                                        }
+
+                                        testimonial.name = nameElement.textContent;
+                                        testimonial.designation = designationElement
+                                            .textContent;
+                                        testimonial.rating = parseInt(ratingElement
+                                            .value);
+                                        testimonial.description = descriptionElement
+                                            .textContent;
+                                        item.content = JSON.stringify(testimonials);
+                                        testimonialRow.classList.remove('edit-mode');
+                                        this.updateTestimonial(item, idx);
+                                        this.renderTable();
+                                    });
+
+                                    if (testimonial.isProtected) {
+                                        updateButton.disabled = true;
+                                        updateButton.title =
+                                            "This testimonial is protected and cannot be updated.";
+                                        updateButton.classList.add("disabled-update");
                                     }
-                                };
-                                img.src = event.target.result;
-                            };
-                            reader.readAsDataURL(file);
-                        }
-                    });
 
-                    const updateButton = testimonialRow.querySelector(
-                        '.edit-contents-cms-update');
-                    updateButton.addEventListener('click', () => {
-                        const nameElement = testimonialRow
-                            .querySelector(
-                                '.testimonial-field:nth-child(1) .editable-content'
-                            );
-                        const designationElement = testimonialRow
-                            .querySelector(
-                                '.testimonial-field:nth-child(2) .editable-content'
-                            );
-                        const ratingElement = testimonialRow
-                            .querySelector('.testimonial-rating');
-                        const descriptionElement = testimonialRow
-                            .querySelector(
-                                '.testimonial-field:nth-child(4) .editable-content'
-                            );
+                                    const removeButton = testimonialRow.querySelector(
+                                        '.remove-testimonial');
+                                    removeButton.addEventListener('click', () => {
+                                        this.removeTestimonial(item, idx);
+                                    });
 
-                        const maxLengthName = parseInt(nameElement
-                            .getAttribute('data-max-length'));
-                        const maxLengthDesignation = parseInt(
-                            designationElement.getAttribute(
-                                'data-max-length'));
-                        const maxLengthDescription = parseInt(
-                            descriptionElement.getAttribute(
-                                'data-max-length'));
-
-                        if (nameElement.textContent.length >
-                            maxLengthName) {
-                            this.showToast(
-                                `Name exceeds maximum length of ${maxLengthName} characters`,
-                                true);
-                            return;
-                        }
-                        if (designationElement.textContent.length >
-                            maxLengthDesignation) {
-                            this.showToast(
-                                `Designation exceeds maximum length of ${maxLengthDesignation} characters`,
-                                true);
-                            return;
-                        }
-                        if (descriptionElement.textContent.length >
-                            maxLengthDescription) {
-                            this.showToast(
-                                `Description exceeds maximum length of ${maxLengthDescription} characters`,
-                                true);
-                            return;
-                        }
-
-                        testimonial.name = nameElement.textContent;
-                        testimonial.designation = designationElement
-                            .textContent;
-                        testimonial.rating = parseInt(ratingElement
-                            .value);
-                        testimonial.description = descriptionElement
-                            .textContent;
-                        item.content = JSON.stringify(testimonials);
-                        testimonialRow.classList.remove('edit-mode');
-                        this.updateTestimonial(item, idx);
-                        this.renderTable();
-                    });
-
-                    if (testimonial.isProtected) {
-                        updateButton.disabled = true;
-                        updateButton.title =
-                            "This testimonial is protected and cannot be updated.";
-                        updateButton.classList.add("disabled-update");
-                    }
-
-                    const removeButton = testimonialRow.querySelector(
-                        '.remove-testimonial');
-                    removeButton.addEventListener('click', () => {
-                        this.removeTestimonial(item, idx);
-                    });
-
-                    if (idx === testimonials.length - 1) {
-                        const addButton = testimonialRow.querySelector(
-                            '.add-testimonial');
-                        addButton.addEventListener('click', () => {
-                            this.addNewTestimonial(item);
+                                    if (idx === testimonials.length - 1) {
+                                        const addButton = testimonialRow.querySelector(
+                                            '.add-testimonial');
+                                        addButton.addEventListener('click', () => {
+                                            this.addNewTestimonial(item);
+                                        });
+                                    }
+                                } else {
+                                    this.renderTable();
+                                }
+                            });
                         });
-                    }
-                } else {
-                    this.renderTable();
-                }
-            });
-        });
-    } else if (item.isFaqArray) {
-        const faqs = JSON.parse(item.content);
-        faqs.forEach((faq, idx) => {
-            const faqRow = document.createElement('tr');
-            faqRow.dataset.id = `${item.id}-${idx}`;
-            faqRow.dataset.originalSno = rowCounter;
-            faqRow.classList.add('faq-row');
-            const faqTitle = `FAQ ${idx + 1}`;
-            faqRow.innerHTML = `
+                    } else if (item.isFaqArray) {
+                        const faqs = JSON.parse(item.content);
+                        faqs.forEach((faq, idx) => {
+                            const faqRow = document.createElement('tr');
+                            faqRow.dataset.id = `${item.id}-${idx}`;
+                            faqRow.dataset.originalSno = rowCounter;
+                            faqRow.classList.add('faq-row');
+                            const faqTitle = `FAQ ${idx + 1}`;
+                            faqRow.innerHTML = `
                                     <td>${rowCounter++}</td>
                                     <td>${item.page}</td>
                                     <td class="editable-cell no-border">
@@ -2347,21 +2389,21 @@
                                         <button class="edit-contents-cms-edit">✏️</button>
                                     </td>
                                 `;
-            tbody.appendChild(faqRow);
+                            tbody.appendChild(faqRow);
 
-            const editButton = faqRow.querySelector(
-                '.edit-contents-cms-edit');
-            editButton.addEventListener('click', () => {
-                faqRow.classList.toggle('edit-mode');
-                if (faqRow.classList.contains('edit-mode')) {
-                    const originalSno = faqRow.dataset
-                        .originalSno; // Use stored S.No
-                    let maxLengthIndicatorQuestion =
-                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.question || 100}">${faq.question.length}/${item.maxLengthConstraints?.question || 100}</div>`;
-                    let maxLengthIndicatorAnswer =
-                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.answer || 200}">${faq.answer.length}/${item.maxLengthConstraints?.answer || 200}</div>`;
+                            const editButton = faqRow.querySelector(
+                                '.edit-contents-cms-edit');
+                            editButton.addEventListener('click', () => {
+                                faqRow.classList.toggle('edit-mode');
+                                if (faqRow.classList.contains('edit-mode')) {
+                                    const originalSno = faqRow.dataset
+                                        .originalSno; // Use stored S.No
+                                    let maxLengthIndicatorQuestion =
+                                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.question || 100}">${faq.question.length}/${item.maxLengthConstraints?.question || 100}</div>`;
+                                    let maxLengthIndicatorAnswer =
+                                        `<div class="char-count hidden" data-max="${item.maxLengthConstraints?.answer || 200}">${faq.answer.length}/${item.maxLengthConstraints?.answer || 200}</div>`;
 
-                    faqRow.innerHTML = `
+                                    faqRow.innerHTML = `
                                                 <td>${rowCounter - 1}</td>
                                                 <td>${item.page}</td>
                                                 <td class="editable-cell no-border">
@@ -2392,163 +2434,163 @@
                                                         </svg>
                                                     </button>
                                                     ${idx === faqs.length - 1 ? `
-                                                                                                                                                                                                                                                                                                                                                <button class="add-faq" title="Add FAQ">
-                                                                                                                                                                                                                                                                                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                                                                                                                                                                                                                                                                                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                                                                                                                                                                                                                                                                                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                                                                                                                                                                                                                                                                                                                    </svg>
-                                                                                                                                                                                                                                                                                                                                                </button>
-                                                                                                                                                                                                                                                                                                                                            ` : ''}
+                                                                                                                                                                                                                                                                                                                                                                                    <button class="add-faq" title="Add FAQ">
+                                                                                                                                                                                                                                                                                                                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                                                                                                                                                                                                                                                                                                                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                                                                                                                                                                                                                                                                                                                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                                                                                                                                                                                                                                                                                                                                        </svg>
+                                                                                                                                                                                                                                                                                                                                                                                    </button>
+                                                                                                                                                                                                                                                                                                                                                                                ` : ''}
                                                 </td>
                                             `;
 
-                    const editableContents = faqRow
-                        .querySelectorAll(
-                            '.editable-content');
-                    editableContents.forEach((editableContent) => {
-                        editableContent.addEventListener(
-                            'input',
-                            () => {
-                                const maxLength =
-                                    parseInt(
-                                        editableContent
-                                        .getAttribute(
-                                            'data-max-length'
-                                        ));
-                                const charCount =
-                                    editableContent
-                                    .parentElement
-                                    .querySelector(
-                                        '.char-count');
-                                if (charCount) {
-                                    charCount
-                                        .textContent =
-                                        `${editableContent.textContent.length}/${maxLength}`;
-                                    charCount.classList
-                                        .toggle(
-                                            'hidden',
-                                            editableContent
-                                            .textContent
-                                            .length <=
-                                            maxLength);
-                                    charCount.classList
-                                        .toggle(
-                                            'error',
-                                            editableContent
-                                            .textContent
+                                    const editableContents = faqRow
+                                        .querySelectorAll(
+                                            '.editable-content');
+                                    editableContents.forEach((editableContent) => {
+                                        editableContent.addEventListener(
+                                            'input',
+                                            () => {
+                                                const maxLength =
+                                                    parseInt(
+                                                        editableContent
+                                                        .getAttribute(
+                                                            'data-max-length'
+                                                        ));
+                                                const charCount =
+                                                    editableContent
+                                                    .parentElement
+                                                    .querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount
+                                                        .textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList
+                                                        .toggle(
+                                                            'hidden',
+                                                            editableContent
+                                                            .textContent
+                                                            .length <=
+                                                            maxLength);
+                                                    charCount.classList
+                                                        .toggle(
+                                                            'error',
+                                                            editableContent
+                                                            .textContent
+                                                            .length >
+                                                            maxLength);
+                                                }
+                                            });
+                                        editableContent.addEventListener(
+                                            'focus',
+                                            () => {
+                                                const maxLength =
+                                                    parseInt(
+                                                        editableContent
+                                                        .getAttribute(
+                                                            'data-max-length'
+                                                        ));
+                                                const charCount =
+                                                    editableContent
+                                                    .parentElement
+                                                    .querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount
+                                                        .textContent =
+                                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                    charCount.classList
+                                                        .remove(
+                                                            'hidden');
+                                                }
+                                            });
+                                        editableContent.addEventListener(
+                                            'blur', () => {
+                                                const charCount =
+                                                    editableContent
+                                                    .parentElement
+                                                    .querySelector(
+                                                        '.char-count');
+                                                if (charCount) {
+                                                    charCount.classList
+                                                        .add(
+                                                            'hidden');
+                                                }
+                                            });
+                                    });
+
+                                    const updateButton = faqRow.querySelector(
+                                        '.edit-contents-cms-update');
+                                    updateButton.addEventListener('click', () => {
+                                        const questionElement = faqRow
+                                            .querySelector(
+                                                '.faq-field:nth-child(1) .editable-content'
+                                            );
+                                        const answerElement = faqRow
+                                            .querySelector(
+                                                '.faq-field:nth-child(2) .editable-content'
+                                            );
+
+                                        const maxLengthQuestion = parseInt(
+                                            questionElement
+                                            .getAttribute(
+                                                'data-max-length'));
+                                        const maxLengthAnswer = parseInt(
+                                            answerElement
+                                            .getAttribute(
+                                                'data-max-length'));
+
+                                        if (questionElement.textContent
                                             .length >
-                                            maxLength);
+                                            maxLengthQuestion) {
+                                            this.showToast(
+                                                `Question exceeds maximum length of ${maxLengthQuestion} characters`,
+                                                true);
+                                            return;
+                                        }
+                                        if (answerElement.textContent
+                                            .length >
+                                            maxLengthAnswer) {
+                                            this.showToast(
+                                                `Answer exceeds maximum length of ${maxLengthAnswer} characters`,
+                                                true);
+                                            return;
+                                        }
+
+                                        faq.question = questionElement
+                                            .textContent;
+                                        faq.answer = answerElement
+                                            .textContent;
+                                        item.content = JSON.stringify(faqs);
+                                        this.updateFAQ(item, idx);
+                                        faqRow.classList.remove(
+                                            'edit-mode');
+
+                                        this.renderTable();
+                                        this.showToast('FAQ updated');
+                                    });
+
+                                    const removeButton = faqRow.querySelector(
+                                        '.remove-faq');
+                                    removeButton.addEventListener('click', () => {
+                                        this.removeFAQ(item, idx);
+                                    });
+
+                                    if (idx === faqs.length - 1) {
+                                        const addButton = faqRow.querySelector(
+                                            '.add-faq');
+                                        addButton.addEventListener('click', () => {
+                                            this.addNewFAQ(item);
+                                        });
+                                    }
+                                } else {
+                                    this.renderTable();
                                 }
                             });
-                        editableContent.addEventListener(
-                            'focus',
-                            () => {
-                                const maxLength =
-                                    parseInt(
-                                        editableContent
-                                        .getAttribute(
-                                            'data-max-length'
-                                        ));
-                                const charCount =
-                                    editableContent
-                                    .parentElement
-                                    .querySelector(
-                                        '.char-count');
-                                if (charCount) {
-                                    charCount
-                                        .textContent =
-                                        `${editableContent.textContent.length}/${maxLength}`;
-                                    charCount.classList
-                                        .remove(
-                                            'hidden');
-                                }
-                            });
-                        editableContent.addEventListener(
-                            'blur', () => {
-                                const charCount =
-                                    editableContent
-                                    .parentElement
-                                    .querySelector(
-                                        '.char-count');
-                                if (charCount) {
-                                    charCount.classList
-                                        .add(
-                                            'hidden');
-                                }
-                            });
-                    });
-
-                    const updateButton = faqRow.querySelector(
-                        '.edit-contents-cms-update');
-                    updateButton.addEventListener('click', () => {
-                        const questionElement = faqRow
-                            .querySelector(
-                                '.faq-field:nth-child(1) .editable-content'
-                            );
-                        const answerElement = faqRow
-                            .querySelector(
-                                '.faq-field:nth-child(2) .editable-content'
-                            );
-
-                        const maxLengthQuestion = parseInt(
-                            questionElement
-                            .getAttribute(
-                                'data-max-length'));
-                        const maxLengthAnswer = parseInt(
-                            answerElement
-                            .getAttribute(
-                                'data-max-length'));
-
-                        if (questionElement.textContent
-                            .length >
-                            maxLengthQuestion) {
-                            this.showToast(
-                                `Question exceeds maximum length of ${maxLengthQuestion} characters`,
-                                true);
-                            return;
-                        }
-                        if (answerElement.textContent
-                            .length >
-                            maxLengthAnswer) {
-                            this.showToast(
-                                `Answer exceeds maximum length of ${maxLengthAnswer} characters`,
-                                true);
-                            return;
-                        }
-
-                        faq.question = questionElement
-                            .textContent;
-                        faq.answer = answerElement
-                            .textContent;
-                        item.content = JSON.stringify(faqs);
-                        this.updateFAQ(item, idx);
-                        faqRow.classList.remove(
-                            'edit-mode');
-
-                        this.renderTable();
-                        this.showToast('FAQ updated');
-                    });
-
-                    const removeButton = faqRow.querySelector(
-                        '.remove-faq');
-                    removeButton.addEventListener('click', () => {
-                        this.removeFAQ(item, idx);
-                    });
-
-                    if (idx === faqs.length - 1) {
-                        const addButton = faqRow.querySelector(
-                            '.add-faq');
-                        addButton.addEventListener('click', () => {
-                            this.addNewFAQ(item);
                         });
-                    }
-                } else {
-                    this.renderTable();
-                }
-            });
-        });
-    } else {
-        row.innerHTML = `
+                    } else {
+                        row.innerHTML = `
             <td>${rowCounter++}</td>
             <td>${item.page}</td>
             <td class="editable-cell">
@@ -2563,56 +2605,56 @@
                 <button class="edit-contents-cms-edit">✏️</button>
             </td>
         `;
-        tbody.appendChild(row);
+                        tbody.appendChild(row);
 
-        const editableContents = row.querySelectorAll('.editable-content');
-        editableContents.forEach((editableContent) => {
-            editableContent.addEventListener('input', () => {
-                const maxLength = parseInt(editableContent.getAttribute(
-                    'data-max-length'));
-                const charCount = editableContent.parentElement.querySelector(
-                    '.char-count');
-                if (charCount) {
-                    charCount.textContent =
-                        `${editableContent.textContent.length}/${maxLength}`;
-                    charCount.classList.toggle('hidden', editableContent
-                        .textContent.length <= maxLength);
-                    charCount.classList.toggle('error', editableContent
-                        .textContent.length > maxLength);
-                }
-            });
-            editableContent.addEventListener('focus', () => {
-                const maxLength = parseInt(editableContent.getAttribute(
-                    'data-max-length'));
-                const charCount = editableContent.parentElement.querySelector(
-                    '.char-count');
-                if (charCount) {
-                    charCount.textContent =
-                        `${editableContent.textContent.length}/${maxLength}`;
-                    charCount.classList.remove('hidden');
-                }
-            });
-            editableContent.addEventListener('blur', () => {
-                const charCount = editableContent.parentElement.querySelector(
-                    '.char-count');
-                if (charCount) {
-                    charCount.classList.add('hidden');
-                }
-            });
-        });
+                        const editableContents = row.querySelectorAll('.editable-content');
+                        editableContents.forEach((editableContent) => {
+                            editableContent.addEventListener('input', () => {
+                                const maxLength = parseInt(editableContent.getAttribute(
+                                    'data-max-length'));
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
+                                if (charCount) {
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
+                                    charCount.classList.toggle('hidden', editableContent
+                                        .textContent.length <= maxLength);
+                                    charCount.classList.toggle('error', editableContent
+                                        .textContent.length > maxLength);
+                                }
+                            });
+                            editableContent.addEventListener('focus', () => {
+                                const maxLength = parseInt(editableContent.getAttribute(
+                                    'data-max-length'));
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
+                                if (charCount) {
+                                    charCount.textContent =
+                                        `${editableContent.textContent.length}/${maxLength}`;
+                                    charCount.classList.remove('hidden');
+                                }
+                            });
+                            editableContent.addEventListener('blur', () => {
+                                const charCount = editableContent.parentElement.querySelector(
+                                    '.char-count');
+                                if (charCount) {
+                                    charCount.classList.add('hidden');
+                                }
+                            });
+                        });
 
-        const editButton = row.querySelector('.edit-contents-cms-edit');
-        editButton.addEventListener('click', () => {
-            row.classList.toggle('edit-mode');
-            if (row.classList.contains('edit-mode')) {
-                const originalSno = row.querySelector('td').textContent;
-                const maxLength = item.maxLength || 100;
-                const maxLengthIndicator = `
+                        const editButton = row.querySelector('.edit-contents-cms-edit');
+                        editButton.addEventListener('click', () => {
+                            row.classList.toggle('edit-mode');
+                            if (row.classList.contains('edit-mode')) {
+                                const originalSno = row.querySelector('td').textContent;
+                                const maxLength = item.maxLength || 100;
+                                const maxLengthIndicator = `
                     <div class="char-count hidden" data-max="${maxLength}">
                         ${item.content.length}/${maxLength}
                     </div>`;
 
-                row.innerHTML = `
+                                row.innerHTML = `
                     <td>${originalSno}</td>
                     <td>${item.page}</td>
                     <td class="editable-cell">
@@ -2629,358 +2671,365 @@
                     </td>
                 `;
 
-                const newEditableContents = row.querySelectorAll('.editable-content');
-                newEditableContents.forEach((editableContent) => {
-                    editableContent.addEventListener('input', () => {
-                        const maxLength = parseInt(editableContent
-                            .getAttribute('data-max-length'));
-                        const charCount = editableContent.parentElement
-                            .querySelector('.char-count');
-                        if (charCount) {
-                            charCount.textContent =
-                                `${editableContent.textContent.length}/${maxLength}`;
-                            charCount.classList.toggle('hidden',
-                                editableContent.textContent
-                                .length <= maxLength);
-                            charCount.classList.toggle('error',
-                                editableContent.textContent.length >
-                                maxLength);
-                        }
-                    });
-                    editableContent.addEventListener('focus', () => {
-                        const maxLength = parseInt(editableContent
-                            .getAttribute('data-max-length'));
-                        const charCount = editableContent.parentElement
-                            .querySelector('.char-count');
-                        if (charCount) {
-                            charCount.textContent =
-                                `${editableContent.textContent.length}/${maxLength}`;
-                            charCount.classList.remove('hidden');
-                        }
-                    });
-                    editableContent.addEventListener('blur', () => {
-                        const charCount = editableContent.parentElement
-                            .querySelector('.char-count');
-                        if (charCount) {
-                            charCount.classList.add('hidden');
-                        }
-                    });
-                });
+                                const newEditableContents = row.querySelectorAll('.editable-content');
+                                newEditableContents.forEach((editableContent) => {
+                                    editableContent.addEventListener('input', () => {
+                                        const maxLength = parseInt(editableContent
+                                            .getAttribute('data-max-length'));
+                                        const charCount = editableContent.parentElement
+                                            .querySelector('.char-count');
+                                        if (charCount) {
+                                            charCount.textContent =
+                                                `${editableContent.textContent.length}/${maxLength}`;
+                                            charCount.classList.toggle('hidden',
+                                                editableContent.textContent
+                                                .length <= maxLength);
+                                            charCount.classList.toggle('error',
+                                                editableContent.textContent.length >
+                                                maxLength);
+                                        }
+                                    });
+                                    editableContent.addEventListener('focus', () => {
+                                        const maxLength = parseInt(editableContent
+                                            .getAttribute('data-max-length'));
+                                        const charCount = editableContent.parentElement
+                                            .querySelector('.char-count');
+                                        if (charCount) {
+                                            charCount.textContent =
+                                                `${editableContent.textContent.length}/${maxLength}`;
+                                            charCount.classList.remove('hidden');
+                                        }
+                                    });
+                                    editableContent.addEventListener('blur', () => {
+                                        const charCount = editableContent.parentElement
+                                            .querySelector('.char-count');
+                                        if (charCount) {
+                                            charCount.classList.add('hidden');
+                                        }
+                                    });
+                                });
 
-                const updateButton = row.querySelector('.edit-contents-cms-update');
-                updateButton.addEventListener('click', () => {
-                    const titleElement = row.querySelector(
-                        '.editable-cell:nth-child(3) .editable-content');
-                    const contentElement = row.querySelector(
-                        '.editable-cell:nth-child(4) .editable-content');
-                    const maxLength = parseInt(contentElement.getAttribute(
-                        'data-max-length'));
+                                const updateButton = row.querySelector('.edit-contents-cms-update');
+                                updateButton.addEventListener('click', () => {
+                                    const titleElement = row.querySelector(
+                                        '.editable-cell:nth-child(3) .editable-content');
+                                    const contentElement = row.querySelector(
+                                        '.editable-cell:nth-child(4) .editable-content');
+                                    const maxLength = parseInt(contentElement.getAttribute(
+                                        'data-max-length'));
 
-                    if (contentElement.textContent.length > maxLength) {
-                        this.showToast(
-                            `Content exceeds maximum length of ${maxLength} characters`,
-                            true);
-                        return;
+                                    if (contentElement.textContent.length > maxLength) {
+                                        this.showToast(
+                                            `Content exceeds maximum length of ${maxLength} characters`,
+                                            true);
+                                        return;
+                                    }
+
+                                    item.title = titleElement.textContent;
+                                    item.content = contentElement.textContent;
+                                    this.updateHeroContentToAPI(item);
+                                    row.classList.remove('edit-mode');
+                                    this.renderTable();
+                                    this.showToast('Content updated');
+                                });
+                            }
+                        });
                     }
 
-                    item.title = titleElement.textContent;
-                    item.content = contentElement.textContent;
-                    this.updateHeroContentToAPI(item);
-                    row.classList.remove('edit-mode');
-                    this.renderTable();
-                    this.showToast('Content updated');
-                });
-            }
-        });
-    }
 
 
 
-
-    const fileInputs = row.querySelectorAll('.file-input');
-    fileInputs.forEach((fileInput, idx) => {
-        const uploadTrigger = fileInput.parentElement.querySelector(
-            '.upload-trigger');
-        uploadTrigger.addEventListener('click', () => {
-            fileInput.click();
-        });
-        fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    const img = new Image();
-                    img.onload = () => {
-                        const constraints = item
-                            .mediaConstraints || (
-                                item.isTestimonialArray ?
-                                JSON.parse(
-                                    item.content)[idx]
-                                ?.mediaConstraints : null);
-                        if (img.width === constraints
-                            ?.width && img
-                            .height === constraints?.height
-                        ) {
-                            if (item.isTestimonialArray) {
-                                const testimonials = JSON
-                                    .parse(item
-                                        .content);
-                                testimonials[idx].image =
-                                    event.target
-                                    .result;
-                                item.content = JSON
-                                    .stringify(
-                                        testimonials);
-                            } else {
-                                item.content = event.target
-                                    .result;
+                    const fileInputs = row.querySelectorAll('.file-input');
+                    fileInputs.forEach((fileInput, idx) => {
+                        const uploadTrigger = fileInput.parentElement.querySelector(
+                            '.upload-trigger');
+                        uploadTrigger.addEventListener('click', () => {
+                            fileInput.click();
+                        });
+                        fileInput.addEventListener('change', (e) => {
+                            const file = e.target.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = (event) => {
+                                    const img = new Image();
+                                    img.onload = () => {
+                                        const constraints = item
+                                            .mediaConstraints || (
+                                                item.isTestimonialArray ?
+                                                JSON.parse(
+                                                    item.content)[idx]
+                                                ?.mediaConstraints : null);
+                                        if (img.width === constraints
+                                            ?.width && img
+                                            .height === constraints?.height
+                                        ) {
+                                            if (item.isTestimonialArray) {
+                                                const testimonials = JSON
+                                                    .parse(item
+                                                        .content);
+                                                testimonials[idx].image =
+                                                    event.target
+                                                    .result;
+                                                item.content = JSON
+                                                    .stringify(
+                                                        testimonials);
+                                            } else {
+                                                item.content = event.target
+                                                    .result;
+                                            }
+                                            this.renderTable();
+                                        } else {
+                                            this.resizeImage(event.target
+                                                .result,
+                                                constraints?.width,
+                                                constraints
+                                                ?.height, (
+                                                    resizedImage) => {
+                                                    if (item
+                                                        .isTestimonialArray
+                                                    ) {
+                                                        const
+                                                            testimonials =
+                                                            JSON
+                                                            .parse(item
+                                                                .content
+                                                            );
+                                                        testimonials[
+                                                                idx]
+                                                            .image =
+                                                            resizedImage;
+                                                        item.content =
+                                                            JSON
+                                                            .stringify(
+                                                                testimonials
+                                                            );
+                                                    } else {
+                                                        item.content =
+                                                            resizedImage;
+                                                    }
+                                                    this.renderTable();
+                                                });
+                                        }
+                                    };
+                                    img.src = event.target.result;
+                                };
+                                reader.readAsDataURL(file);
                             }
-                            this.renderTable();
-                        } else {
-                            this.resizeImage(event.target
-                                .result,
-                                constraints?.width,
-                                constraints
-                                ?.height, (
-                                    resizedImage) => {
-                                    if (item
-                                        .isTestimonialArray
-                                    ) {
-                                        const
-                                            testimonials =
-                                            JSON
-                                            .parse(item
-                                                .content
-                                            );
-                                        testimonials[
-                                                idx]
-                                            .image =
-                                            resizedImage;
-                                        item.content =
-                                            JSON
-                                            .stringify(
-                                                testimonials
-                                            );
-                                    } else {
-                                        item.content =
-                                            resizedImage;
-                                    }
-                                    this.renderTable();
-                                });
-                        }
-                    };
-                    img.src = event.target.result;
-                };
-                reader.readAsDataURL(file);
+                        });
+                    });
+
+                    row.querySelectorAll('.remove-logo').forEach((button) => {
+                        button.addEventListener('click', () => {
+                            const rowId = parseInt(button.closest('tr').getAttribute(
+                                'data-id'));
+                            this.removeLogo(rowId); // call with actual logo ID
+                        });
+                    });
+
+                    // Add Logo Button
+                    row.querySelectorAll('.add-logo').forEach((button) => {
+                        button.addEventListener('click', () => {
+                            const rowId = parseInt(button.closest('tr').getAttribute(
+                                'data-id'));
+                            const logoItem = this.filteredData.find(i => i.id === rowId);
+                            if (logoItem) {
+                                this.addNewLogo(logoItem);
+                            }
+                        });
+                    });
+
+
+
+                    initializeFileInputs();
+                    initializeUpdateButtons();
+                });
+
+                this.renderPagination();
             }
-        });
-    });
-
-    row.querySelectorAll('.remove-logo').forEach((button) => {
-        button.addEventListener('click', () => {
-            const rowId = parseInt(button.closest('tr').getAttribute(
-                'data-id'));
-            this.removeLogo(rowId); // call with actual logo ID
-        });
-    });
-
-    // Add Logo Button
-    row.querySelectorAll('.add-logo').forEach((button) => {
-        button.addEventListener('click', () => {
-            const rowId = parseInt(button.closest('tr').getAttribute(
-                'data-id'));
-            const logoItem = this.filteredData.find(i => i.id === rowId);
-            if (logoItem) {
-                this.addNewLogo(logoItem);
-            }
-        });
-    });
-
-
-    initializeFileInputs();
-    initializeUpdateButtons();
-    });
-
-    this.renderPagination();
-    }
 
 
 
 
-    renderPagination() {
-        const totalItems = this.filteredData.length;
-        const totalPages = Math.ceil(totalItems / this.rowsPerPage);
-        const paginationControls = document.getElementById('paginationControls');
-        paginationControls.innerHTML = '';
+            renderPagination() {
+                const totalItems = this.filteredData.length;
+                const totalPages = Math.ceil(totalItems / this.rowsPerPage);
+                const paginationControls = document.getElementById('paginationControls');
+                paginationControls.innerHTML = '';
 
-        if (totalItems === 0) {
-            paginationControls.innerHTML = '<span>No data available</span>';
-            return;
-        }
+                if (totalItems === 0) {
+                    paginationControls.innerHTML = '<span>No data available</span>';
+                    return;
+                }
 
-        const paginationContainer = document.createElement('div');
-        paginationContainer.classList.add('pagination-container');
+                const paginationContainer = document.createElement('div');
+                paginationContainer.classList.add('pagination-container');
 
-        const prevButton = document.createElement('button');
-        prevButton.innerHTML = `
+                const prevButton = document.createElement('button');
+                prevButton.innerHTML = `
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="15 18 9 12 15 6"></polyline>
                             </svg>
                         `;
-        prevButton.disabled = this.currentPage === 1;
-        prevButton.addEventListener('click', () => {
-            if (this.currentPage > 1) {
-                this.currentPage--;
-                this.renderTable();
-            }
-        });
-        paginationContainer.appendChild(prevButton);
+                prevButton.disabled = this.currentPage === 1;
+                prevButton.addEventListener('click', () => {
+                    if (this.currentPage > 1) {
+                        this.currentPage--;
+                        this.renderTable();
+                    }
+                });
+                paginationContainer.appendChild(prevButton);
 
-        const startIndex = (this.currentPage - 1) * this.rowsPerPage + 1;
-        const endIndex = Math.min(this.currentPage * this.rowsPerPage, totalItems);
-        const paginationText = document.createElement('span');
-        paginationText.textContent = `${startIndex}-${endIndex} of ${totalItems}`;
-        paginationContainer.appendChild(paginationText);
+                const startIndex = (this.currentPage - 1) * this.rowsPerPage + 1;
+                const endIndex = Math.min(this.currentPage * this.rowsPerPage, totalItems);
+                const paginationText = document.createElement('span');
+                paginationText.textContent = `${startIndex}-${endIndex} of ${totalItems}`;
+                paginationContainer.appendChild(paginationText);
 
-        const nextButton = document.createElement('button');
-        nextButton.innerHTML = `
+                const nextButton = document.createElement('button');
+                nextButton.innerHTML = `
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
                         `;
-        nextButton.disabled = this.currentPage === totalPages;
-        nextButton.addEventListener('click', () => {
-            if (this.currentPage < totalPages) {
-                this.currentPage++;
-                this.renderTable();
+                nextButton.disabled = this.currentPage === totalPages;
+                nextButton.addEventListener('click', () => {
+                    if (this.currentPage < totalPages) {
+                        this.currentPage++;
+                        this.renderTable();
+                    }
+                });
+                paginationContainer.appendChild(nextButton);
+
+                paginationControls.appendChild(paginationContainer);
             }
-        });
-        paginationContainer.appendChild(nextButton);
 
-        paginationControls.appendChild(paginationContainer);
-    }
-
-    handleSave() {
-        this.showLoading();
-        setTimeout(() => {
-            this.originalData = JSON.parse(JSON.stringify(this.data));
-            this.hideLoading();
-            this.showToast('Changes saved successfully');
-        }, 1000);
-    }
-    }
+            handleSave() {
+                this.showLoading();
+                setTimeout(() => {
+                    this.originalData = JSON.parse(JSON.stringify(this.data));
+                    this.hideLoading();
+                    this.showToast('Changes saved successfully');
+                }, 1000);
+            }
+        }
 
 
 
 
-    document.addEventListener('DOMContentLoaded', () => {
-        renderContent(contentData);
+        document.addEventListener('DOMContentLoaded', () => {
+            renderContent(contentData);
 
-        const dropdownToggle = document.querySelector('.admin-edit-dropdown-toggle');
-        const dropdownMenu = document.querySelector('.admin-edit-dropdown-menu');
-        const dropdownItems = document.querySelectorAll('.admin-edit-dropdown-item');
+            const dropdownToggle = document.querySelector('.admin-edit-dropdown-toggle');
+            const dropdownMenu = document.querySelector('.admin-edit-dropdown-menu');
+            const dropdownItems = document.querySelectorAll('.admin-edit-dropdown-item');
 
-        dropdownToggle.addEventListener('click', () => {
-            dropdownMenu.classList.toggle('show');
-        });
+            dropdownToggle.addEventListener('click', () => {
+                dropdownMenu.classList.toggle('show');
+            });
 
-        dropdownItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const sortValue = item.getAttribute('data-value');
-                let sortedData = [...contentData];
-                if (sortValue === 'name') {
-                    sortedData.sort((a, b) => a.name.localeCompare(b.name));
-                } else if (sortValue === 'role') {
-                    sortedData.sort((a, b) => b.name.localeCompare(a.name));
-                } else if (sortValue === 'email-new') {
-                    sortedData.sort((a, b) => b.sections - a.sections);
-                } else if (sortValue === 'email-old') {
-                    sortedData.sort((a, b) => a.sections - b.sections);
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const sortValue = item.getAttribute('data-value');
+                    let sortedData = [...contentData];
+                    if (sortValue === 'name') {
+                        sortedData.sort((a, b) => a.name.localeCompare(b.name));
+                    } else if (sortValue === 'role') {
+                        sortedData.sort((a, b) => b.name.localeCompare(a.name));
+                    } else if (sortValue === 'email-new') {
+                        sortedData.sort((a, b) => b.sections - a.sections);
+                    } else if (sortValue === 'email-old') {
+                        sortedData.sort((a, b) => a.sections - b.sections);
+                    }
+                    renderContent(sortedData);
+                    dropdownMenu.classList.remove('show');
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                    dropdownMenu.classList.remove('show');
                 }
-                renderContent(sortedData);
-                dropdownMenu.classList.remove('show');
             });
         });
 
-        document.addEventListener('click', (e) => {
-            if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
-                dropdownMenu.classList.remove('show');
-            }
-        });
+        function initializeFileInputs() {
+            document.querySelectorAll('.file-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    const file = this.files[0];
+                    if (!file || !file.type.startsWith('image/')) {
+                        alert('Only image files allowed');
+                        return;
+                    }
+
+                    const title = this.closest('tr')?.querySelector('.editable-content')
+                        ?.innerText
+                        ?.trim(); // if input is in row
+                    if (!title) {
+                        alert('Missing title to associate with file');
+                        return;
+                    }
+
+                    window.selectedFilePerTitle[title] = file;
+                    console.log('✅ Stored file for title:', title, file);
+                });
+            });
+        }
+
+
+
+
+   // ✅ Declare globally or in your module scope
+async function updateCmsContent(title, file) {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('title', title);
+
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    const response = await fetch('/update-cms-imageupload', {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        body: formData
     });
 
-    function initializeFileInputs() {
-        document.querySelectorAll('.file-input').forEach(input => {
-            input.addEventListener('change', function() {
-                const file = this.files[0];
-                if (!file || !file.type.startsWith('image/')) {
-                    alert('Only image files allowed');
-                    return;
-                }
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.message || 'Upload failed');
 
-                const title = this.closest('tr')?.querySelector('.editable-content')
-                    ?.innerText
-                    ?.trim(); // if input is in row
-                if (!title) {
-                    alert('Missing title to associate with file');
-                    return;
-                }
+    return result.file_url;
+}
 
-                window.selectedFilePerTitle[title] = file;
-                console.log('✅ Stored file for title:', title, file);
-            });
-        });
-    }
+
+   // ...
 
 
 
 
-    async function updateCmsContent(title, file) {
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('title', title);
-
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-        const response = await fetch('/update-cms-imageupload', {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': csrfToken
-            },
-            body: formData
-        });
-
-        const result = await response.json();
-        if (!response.ok) throw new Error(result.message || 'Upload failed');
-
-        return result.file_url;
-    }
 
 
+        function initializeUpdateButtons() {
+            document.querySelectorAll('.edit-contents-cms-update').forEach(button => {
+                if (button.dataset.listenerAttached === 'true') return;
 
+                button.addEventListener('click', async function() {
+                    const row = this.closest('tr');
+                    const title = row.querySelector('.editable-content')?.innerText?.trim();
 
-    function initializeUpdateButtons() {
-        document.querySelectorAll('.edit-contents-cms-update').forEach(button => {
-            if (button.dataset.listenerAttached === 'true') return;
+                    const file = window.selectedFilePerTitle[title];
 
-            button.addEventListener('click', async function() {
-                const row = this.closest('tr');
-                const title = row.querySelector('.editable-content')?.innerText?.trim();
+                    if (!file) {
+                        alert('Please select an image file first');
+                        return;
+                    }
 
-                const file = window.selectedFilePerTitle[title];
+                    const uploadedUrl = await updateCmsContent(title, file);
+                    if (uploadedUrl) {
+                        delete window.selectedFilePerTitle[title];
 
-                if (!file) {
-                    alert('Please select an image file first');
-                    return;
-                }
-
-                const uploadedUrl = await updateCmsContent(title, file);
-                if (uploadedUrl) {
-                    delete window.selectedFilePerTitle[title];
-
-                    const preview = row.querySelector('.media-preview');
-                    if (preview) {
-                        preview.innerHTML = `<img src="${uploadedUrl}" width="200">`;
+                        const preview = row.querySelector('.media-preview');
+                        if (preview) {
+                            preview.innerHTML = `<img src="${uploadedUrl}" width="200">`;
                         }
                         window.cmsEditor.showToast('✅ Image uploaded!');
                     }
