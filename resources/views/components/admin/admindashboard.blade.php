@@ -307,10 +307,10 @@
                         <div style="position: relative; display: inline-block;">
                             <button id="calendar-trigger-button"
                                 style="position: relative; z-index: 1;width: 100px;
-    height: 28px;
-    font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 4px;border:1px solid rgba(82, 82, 82, 0.24);background:transparent;color:rgba(93, 92, 92, 1);font-weight: 500;display:flex;justify-content: space-between;align-items: center;">
+                                    height: 28px;
+                                    font-size: 12px;
+                                    padding: 2px 6px;
+                                    border-radius: 4px;border:1px solid rgba(82, 82, 82, 0.24);background:transparent;color:rgba(93, 92, 92, 1);font-weight: 500;display:flex;justify-content: space-between;align-items: center;">
                                 Calendar <img src={{asset('assets/images/stat_minus_black.png')}} alt="">
                             </button>
                             <input type="month" id="date-picker-linegraph" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -3047,7 +3047,7 @@ if (mobButton) {
                         });
 
                         // Optional: Show text notice on chart area
-                        document.getElementById('ageratio-header').textContent = "No age ratio data available";
+                        document.getElementById('ageratio-header').textContent = "No age ratio<br> data available";
                     } else {
                         const ageColors = [
                             'rgba(111, 37, 206, 1)',

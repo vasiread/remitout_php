@@ -40,10 +40,10 @@
 
 
 
-  
-@include('components.faqsection', [
-    'combinedFaqs' => $combinedFaqs
-])
+        
+        @include('components.faqsection', [
+            'combinedFaqs' => $combinedFaqs
+        ])
 
          @endsection
 

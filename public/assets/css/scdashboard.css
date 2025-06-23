@@ -71,7 +71,8 @@
     padding: 2rem 25px 17px 2rem;
     max-width: 100%;
     width: 100%;
-    box-shadow: 0px 0px 20px 0px rgba(26, 2, 57, 0.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -194,7 +195,8 @@
 .scdashboard-studentapplication {
     max-width: 100%;
     width: 100%;
-    box-shadow: 0px 0px 20px 0px #1a02390d;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
     margin-top: 2rem;
     padding: 2rem 25px 17px 2rem;
     background-color: white;
@@ -403,7 +405,7 @@
 
 /* -----------------------------SC profile----------------------------------- */
 .scdashboard-inboxcontent {
-    margin: 9% 1% 0% 18.5%;
+    margin: 9% 1% 0% 20%;
     /* width: fit-content; */
     /* display: flex; */
     display: none;
@@ -421,7 +423,7 @@
     padding: 1.5rem;
     background-color: #ffffff;
     border-radius: 0.6rem;
-    box-shadow: 0px 8px 23px 0px #1a023908;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .scmember-profilecontainer #studentcounsellor-profile {
@@ -632,7 +634,7 @@
     max-width: 66.52%;
     width: 100%;
     height: fit-content;
-    box-shadow: 0px 8px 20px 0px #1a023908;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
     padding: 20px 24px;
     gap: 30px;
@@ -846,12 +848,13 @@
 .scdashboard-applicationstatus {
     display: none;
     padding: 20px 24px;
-    box-shadow: 0px 0px 20px 0px #1a02390d;
-        max-width: 71.84%;
-            width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    max-width: 71.84%;
+    width: 100%;
     gap: 20px;
     flex-direction: column;
-    margin: 8.5% 1% 0% 24%;
+    margin: 8.5% 1% 0% 23%;
 }
 
 .studentapplicationstatusreports-inscdashboard {
@@ -1253,6 +1256,7 @@ display: grid;
     padding: 20px 24px;
     gap: 17px;
     z-index: 1000;
+    border-radius: 8px;
 }
 
 /* 
@@ -1640,14 +1644,13 @@ display: grid;
 /* -------------------------------------------Media Queries-------------------------------------------------------------- */
 @media (max-width: 1200px) {
     .scdashboard-container {
-        margin: 5% 0% 0% 20.5%;
+       margin-top: 2rem;
     }
 
     .scdashboard-dashboardcontent {
-        width: 100%;
-
-        margin-top: 2rem;
-        margin-left: 2rem;
+        max-width: 100vh;
+        margin-top: 4rem;
+        margin-left: 0rem;
     }
 
     .scdashboard-applicationstatus {
@@ -1656,15 +1659,18 @@ display: grid;
     }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1020px) {
     .scdashboard-container {
-        margin: 5% 12% 0% 16.5%;
+        max-width: 100vh;
+        width: 70vh;
+        margin: 3rem auto;
+        padding: 1rem;
+        margin-left: 0 !important;
     }
 
     .scdashboard-dashboardcontent {
         width: 78vw;
         margin-top: 2rem;
-        margin-left: 2rem;
     }
 
     .scmember-rowfirst h1 {
@@ -1683,10 +1689,9 @@ display: grid;
 
 @media (max-width: 980px) {
     .scdashboard-dashboardcontent {
-        max-width: 100%;
-        width: 78vw;
+        max-width: 100vh;
+        width: 100vh;
         margin-top: 3rem;
-        padding: 2rem;
     }
 
     .scmember-profilecontainer {
@@ -1826,7 +1831,7 @@ display: grid;
 
 
     .scdashboard-applicationstatus {
-        padding: 0.5rem;
+        padding: 20px;
     }
 }
 
@@ -1871,6 +1876,9 @@ display: grid;
         padding-top: 1.3rem;
         width: 100vw;
         max-width: 100%;
+    }
+    .application-buttoncontainer{
+        display:none !important;
     }
 
     .studentAddByScuserPopup-footerpart button:nth-child(2) {
@@ -1951,13 +1959,14 @@ display: grid;
     }
 
     .scmember-profilecontainer {
-        /* max-width: 60%; */
         max-width: 90%;
         margin-top: 6rem;
+        padding: 20px !important;
     }
 
     .scdashboard-performancecontainer {
-        max-width: 100%;
+        max-width: 90%;
+        padding: 20px !important;
         width: 100%;
     }
 

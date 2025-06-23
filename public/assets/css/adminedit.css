@@ -217,7 +217,7 @@
 /* Mobile and Tablet responsive styles */
 @media screen and (max-width: 1024px) {
     .edit-content-container {
-        display: flex;
+        display: none;
         border-radius: 8px;
         margin: 0 auto;
         flex-direction: column;
@@ -461,7 +461,6 @@
     font-size: 12px;
     line-height: 18px;
     color: #5d5c5c;  
-    white-space: nowrap;
 
 }
 

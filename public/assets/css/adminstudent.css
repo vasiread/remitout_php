@@ -251,7 +251,7 @@
 
 @media screen and (max-width: 1024px) {
     .student-listcontainer {
-        display: flex;
+        display: none;
         border-radius: 8px;
         margin: 0 auto;
         flex-direction: column;

@@ -293,21 +293,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </section>
 
 <div class="smart-banner-image">
@@ -536,3 +521,5 @@
         </div>
     </div>
 </div>
+
+

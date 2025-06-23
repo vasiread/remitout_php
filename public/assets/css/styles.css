@@ -397,6 +397,12 @@ html, body {
    right: 13%;
    bottom: 65%;
  }
+ @media screen and (max-width: 1024px) {
+ .study-loans-graphview {
+  display:none;
+}
+
+}
 
  
   
@@ -1576,7 +1582,11 @@ html, body {
 @media screen and (max-width: 1024px) {
     .inner-container {
         margin-top: 200px;
+        padding-bottom: 60px;
     }
+    .outer-container {
+     padding-bottom: 0px;
+  }
 
     .logo-container {
         gap: 80px;
@@ -3425,6 +3435,7 @@ html, body {
     .faq-background {
         width: 100%;
         height: auto;
+        margin-top: 60px;
     }
 
     .faq-item {
