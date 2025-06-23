@@ -115,7 +115,7 @@
 
 
                     <div class="calendar-wrapper">
-                        <button id="calender-buttongroups"> Calendar <img src="assets/images/Icons/calendar_month.png"
+                        <button id="calender-buttongroups" style="display:none"> Calendar <img src="assets/images/Icons/calendar_month.png"
                                 alt=""></button>
                         <button id="download-buttongroups">Download Report</button>
 
