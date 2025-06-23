@@ -97,84 +97,74 @@ class NbfcController extends Controller
 
     public function sendProposalsWithFiles(Request $request)
     {
-        // Validate incoming request
+        // Step 1: Validate the incoming request
         $request->validate([
             'file' => 'required|file',
             'userId' => 'required|string',
             'nbfcId' => 'required|string',
-            'remarks' => 'string'
+            'remarks' => 'required|string',
         ]);
 
         $userId = $request->input('userId');
         $nbfcId = $request->input('nbfcId');
         $remarks = $request->input('remarks');
-        $fileDirectory = "ProposalDocuments By Nbfc's/$userId/$nbfcId"; // Folder name for each user
+
         $file = $request->file('file');
+        $fileDirectory = "ProposalDocuments By Nbfc's/$userId/$nbfcId"; // Folder for user files
 
-        // Check if a file is uploaded
-        if (!$file) {
-            return response()->json(['message' => 'No file uploaded'], 400);
-        }
-
-        // Generate a unique file name to avoid overwriting files
-        $fileName = time() . '-' . $file->getClientOriginalName();
-
-        // Check for existing files in the folder for this user and delete them
+        // Step 2: Delete any existing files for this user/NBFC combo
         $existingFiles = Storage::disk('s3')->files($fileDirectory);
-
-        // Delete existing files in the user folder if any (only the files for this user, not other users)
         if (!empty($existingFiles)) {
             foreach ($existingFiles as $existingFile) {
-                // Delete the existing files for the user
                 Storage::disk('s3')->delete($existingFile);
             }
         }
 
         try {
-            // Perform update to progress
-            $updateSuccess = Requestprogress::where('user_id', $userId)
-                ->where('nbfc_id', $nbfcId)
-                ->update(['type' => 'proposal']);
-            $pushProposalTable = Proposals::updateOrCreate(
+            // Step 3: Upload the new file
+            $fileName = time() . '-' . $file->getClientOriginalName();
+            $filePath = $file->storeAs(
+                $fileDirectory,
+                $fileName,
                 [
-                    'student_id' => $userId,
-                    'nbfc_id' => $nbfcId
-                ],
-                [
-                    'remarks' => $remarks,
-                    'status_modified_by_students' => Proposals::PENDING
+                    'disk' => 's3',
+                    'visibility' => 'public', // Make it public if needed
                 ]
             );
 
-            if ($updateSuccess && $pushProposalTable) {
-                $filePath = $file->storeAs(
-                    $fileDirectory,
-                    $fileName,
-                    [
-                        'disk' => 's3',
-                        'visibility' => 'public', // Make it public
-                    ]
-                );
+            $fileUrl = Storage::disk('s3')->url($filePath);
 
-                // Get the URL for the uploaded file
-                $fileUrl = Storage::disk('s3')->url($filePath);
+            // Step 4: Update progress
+            Requestprogress::where('user_id', $userId)
+                ->where('nbfc_id', $nbfcId)
+                ->update(['type' => Requestprogress::TYPE_PROPOSAL]);
 
-                // Return the success response with file details
-                return response()->json([
-                    'message' => 'Proposal Sent Successfully!',
-                    'file_name' => $fileName,
-                    'file_path' => $fileUrl,
-                ]);
-            } else {
-                // Handle failure to update progress
-                return response()->json(['message' => 'Failed to update progress'], 500);
-            }
+            // Step 5: Update or create proposal
+            Proposals::updateOrCreate(
+                [
+                    'student_id' => $userId,
+                    'nbfc_id' => $nbfcId,
+                ],
+                [
+                    'remarks' => $remarks,
+                    'status_modified_by_students' => Proposals::PENDING,
+                ]
+            );
 
+            // Step 6: Return response
+            return response()->json([
+                'message' => 'Proposal Sent Successfully!',
+                'file_name' => $fileName,
+                'file_path' => $fileUrl,
+            ]);
         } catch (\Exception $e) {
-            // Handle error during file upload
-            return response()->json(['message' => 'Failed to upload file', 'error' => $e->getMessage()], 500);
+            return response()->json([
+                'message' => 'Failed to upload file',
+                'error' => $e->getMessage(),
+            ], 500);
         }
     }
+
     public function getProposalFileUrl(Request $request)
     {
         // Validate incoming request

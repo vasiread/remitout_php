@@ -30,8 +30,10 @@
             $courseDetailsJson = json_encode($courseDetails);
             $nbfcdata = [];
 
-            $studyLocations = $courseDetails[0]->{'plan-to-study'} ?? [];
-            $studyLocationsString = implode(', ', $studyLocations);
+            $studyLocationsRaw = $courseDetails[0]->{'plan-to-study'} ?? [];
+$studyLocations = is_array($studyLocationsRaw) ? $studyLocationsRaw : [$studyLocationsRaw];
+$studyLocationsString = implode(', ', $studyLocations);
+
 
         @endphp
         <div class="studentdashboardprofile-togglesidebar">
@@ -324,24 +326,27 @@
 
 
                     <div class="checkbox-group-edit" id="selected-study-location-edit">
-                        @php
-                            $studyLocations = $courseDetails[0]->{'plan-to-study'} ?? [];
-                        @endphp
+    @php
+        $rawStudyLocations = $courseDetails[0]->{'plan-to-study'} ?? [];
+        $studyLocations = is_array($rawStudyLocations) ? $rawStudyLocations : explode(',', $rawStudyLocations);
+        $studyLocations = array_map('trim', $studyLocations); // remove extra spaces
+    @endphp
 
-                        @foreach (['USA', 'UK', 'Ireland', 'New Zealand', 'Germany', 'France', 'Sweden', 'Italy', 'Canada', 'Australia'] as $country)
-                            <label>
-                                <input type="checkbox" name="study-location-edit" value="{{ $country }}"
-                                    @if (in_array($country, $studyLocations)) checked @endif disabled> {{ $country }}
-                            </label>
-                        @endforeach
+    @foreach (['USA', 'UK', 'Ireland', 'New Zealand', 'Germany', 'France', 'Sweden', 'Italy', 'Canada', 'Australia'] as $country)
+        <label>
+            <input type="checkbox" name="study-location-edit" value="{{ $country }}"
+                @if (in_array($country, $studyLocations)) checked @endif disabled> {{ $country }}
+        </label>
+    @endforeach
 
-                        <label>
-                            <div class="add-country-box-edit">
-                                <input type="text" id="country-edit" class="custom-country-edit"
-                                    placeholder="Add Country" disabled>
-                            </div>
-                        </label>
-                    </div>
+    <label>
+        <div class="add-country-box-edit">
+            <input type="text" id="country-edit" class="custom-country-edit"
+                placeholder="Add Country" disabled>
+        </div>
+    </label>
+</div>
+
                 </div>
 
 

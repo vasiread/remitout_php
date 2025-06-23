@@ -202,7 +202,7 @@ Route::get('/nbfc-chat-members', [Admincontroller::class, 'initializeChatNbfc'])
 Route::get('/get-messages-adminnbfc/{nbfc_id}/{admin_id}', [ChatController::class, 'getMessagesForAdminNbfc']);
 Route::get('/get-messages-adminstudent/{student_id}/{admin_id}', [ChatController::class, 'getMessagesForAdminStudent']);
 Route::post('/send-message-from-adminnbfc', [ChatController::class, 'sendMessageFromAdminNbfc']);
-Route::post('/send-message-from-adminstudent', action: [ChatController::class, 'sendMessageFromAdminStudent']);
+Route::post('/send-message-from-adminstudent', [ChatController::class, 'sendMessageFromAdminStudent']);
 Route::get('/getrecipients', [Admincontroller::class, 'fetchRecipients']);
 
 
@@ -301,7 +301,7 @@ Route::get('/reset-password', function (Request $request) {
 Route::post('/send-reset-link', [LoginController::class, 'sendResetLink']);
 Route::post('/mark-query', [AdminController::class, 'markQuery']);
 Route::get('/count-deactive-queries', [Admincontroller::class, 'countDeactiveQueries']);
-                  
+
 
 Route::get('/reports/user-profile', [Admincontroller::class, 'downloadUserProfileReportPDF'])->name('download.user.profile');
 Route::post('/getprofilecompletionbygender', [Admincontroller::class, 'getProfileCompletionByGenderAndDegree']);

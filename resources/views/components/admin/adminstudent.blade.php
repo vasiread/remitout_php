@@ -600,7 +600,7 @@
                     <label><input type="checkbox" name="study-location-edit" value="France" disabled> France</label>
                     <label><input type="checkbox" name="study-location-edit" value="Sweden" disabled> Sweden</label>
                     <label><input type="checkbox" name="study-location-edit" value="Other" id="other-checkbox-edit"
-                            disabled> Other</label>
+                            disabled style="display:none"> Other</label>
                     <label>
                         <div class="add-country-box-edit">
                             <input type="text" id="country-edit" class="custom-country-edit" placeholder="Add Country"
@@ -1383,8 +1383,7 @@
             document.querySelector('.savecancelbuttoncontainer').style.display = 'flex';
 
             document.getElementById('edit-profile-btn').style.display = 'none';
-            document.getElementById('save-profile-btn').style.display = 'block'; // <-- show save
-
+ 
             const inputs = [
                 'edit-name', 'edit-phone', 'edit-email', 'edit-state',
                 'edit-course', 'edit-university',

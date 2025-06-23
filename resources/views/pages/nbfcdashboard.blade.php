@@ -1455,30 +1455,31 @@
                 const handleSendProposalProcess = (studentId) => {
                     const sendProposalTrigger = document.querySelector(
                         ".myapplication-nbfcapprovalcolumn #sendproposal-trigger");
-                    const sendProposalTriggerMob = document.getElementById(
-                        "sendproposaltrigger-mob");
+                    const sendProposalTriggerMob = document.getElementById("sendproposaltrigger-mob");
 
                     if (sendProposalTrigger) {
                         const newTrigger = sendProposalTrigger.cloneNode(true);
                         sendProposalTrigger.parentNode.replaceChild(newTrigger, sendProposalTrigger);
 
                         newTrigger.addEventListener("click", () => {
-                            console.log("Clicked");
+                            console.log("Clicked (desktop)");
                             console.log(studentId);
-                            openModal(studentId);
+                            openModal(studentId); // Pass the value, not the element!
                         });
                     }
-                    if (sendProposalTriggerMob) {
-                        const newTrigger = sendProposalTrigger.cloneNode(true);
-                        sendProposalTrigger.parentNode.replaceChild(newTrigger, sendProposalTrigger);
 
-                        newTrigger.addEventListener("click", () => {
-                            console.log("Clicked");
+                    if (sendProposalTriggerMob) {
+                        const newTriggerMob = sendProposalTriggerMob.cloneNode(true);
+                        sendProposalTriggerMob.parentNode.replaceChild(newTriggerMob, sendProposalTriggerMob);
+
+                        newTriggerMob.addEventListener("click", () => {
+                            console.log("Clicked (mobile)");
                             console.log(studentId);
                             openModal(studentId);
                         });
                     }
                 };
+
 
 
 
@@ -1985,16 +1986,36 @@
             });
             // Attach send button click once
             const sendProposalTrigger = document.querySelector(".nbfc-send-proposal-send-button");
+            alert(sendProposalTrigger)
             if (sendProposalTrigger) {
                 const user = @json(session('nbfcuser'));
                 const nbfcId = user.nbfc_id;
 
-                sendProposalTrigger.addEventListener('click', () => {
-                    const placeHolder = document.querySelector(".nbfc-send-proposal-remarks-textarea");
-                    if (selectedFile && selectedStudentId && nbfcId && placeHolder) {
-                        sendProposalByNbfc(selectedFile, selectedStudentId, nbfcId, placeHolder);
-                    }
-                });
+
+               sendProposalTrigger.addEventListener('click', () => {
+    const placeHolder = document.querySelector(".nbfc-send-proposal-remarks-textarea");
+    const fileInput = document.querySelector(".nbfc-send-proposal-attachment-input");
+    const selectedFile = fileInput?.files?.[0]; 
+
+    if (!selectedFile) {
+        alert("Please select a file before sending the proposal.");
+        return;
+    }
+
+    if (!selectedStudentId || !nbfcId) {
+        alert("Missing student or NBFC ID.");
+        return;
+    }
+
+    if (!placeHolder || !placeHolder.value.trim()) {
+        alert("Please provide remarks before sending the proposal.");
+        return;
+    }
+
+    // All validations passed, send the proposal
+    sendProposalByNbfc(selectedFile, selectedStudentId, nbfcId, placeHolder.value.trim());
+});
+
             }
 
             // Open modal function
@@ -3383,7 +3404,7 @@
                     await initialiseAllViews(userId);
                     await initialiseProfileView(userId);
                     await downloadDocuments(userId);
-                    
+
 
 
                     console.log("Profile loaded for user:", userId);
@@ -5368,7 +5389,7 @@
                     console.error("CSRF token or User ID is missing");
                     return Promise.reject("Missing CSRF/User ID");
                 }
-                   resetAllDocumentFields(); 
+                resetAllDocumentFields();
 
 
 
@@ -5418,21 +5439,22 @@
                         return {};
                     });
             };
+
             function resetAllDocumentFields() {
-            endpoints.forEach(endpoint => {
-                const element = document.querySelector(endpoint.selector);
-                if (element) {
-                    element.textContent = 'No file selected'; // Reset filename
-                }
+                endpoints.forEach(endpoint => {
+                    const element = document.querySelector(endpoint.selector);
+                    if (element) {
+                        element.textContent = 'No file selected'; // Reset filename
+                    }
 
-                const eyeIcon = document.getElementById(endpoint.eyeIconId);
-                if (eyeIcon) {
-                    eyeIcon.style.display = 'none'; 
-                }
-    });
+                    const eyeIcon = document.getElementById(endpoint.eyeIconId);
+                    if (eyeIcon) {
+                        eyeIcon.style.display = 'none';
+                    }
+                });
 
-     Object.keys(documentUrls).forEach(key => delete documentUrls[key]);
-}
+                Object.keys(documentUrls).forEach(key => delete documentUrls[key]);
+            }
 
 
             const initialiseProfileView = (userId) => {
