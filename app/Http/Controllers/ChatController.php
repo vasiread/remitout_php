@@ -51,7 +51,6 @@ class ChatController extends Controller
     public function sendMessageFromAdminNbfc(Request $request)
     {
         try {
-            
             $validated = $request->validate([
                 'id' => 'required|string',
                 'admin_id' => 'required|string',
@@ -61,36 +60,33 @@ class ChatController extends Controller
                 'is_read' => 'boolean'
             ]);
 
-             $conversation = Conversationadmin_nbfc::firstOrCreate([
+            $conversation = Conversationadmin_nbfc::firstOrCreate([
                 'nbfc_id' => $validated['id'],
                 'admin_id' => $validated['admin_id'],
             ]);
 
-             Messageadminnbfc::create([
+            Messageadminnbfc::create([
                 'conversation_id' => $conversation->id,
                 'sender_id' => $validated['sender_id'],
                 'receiver_id' => $validated['receiver_id'],
                 'message' => $validated['message'],
-                'is_read' => $validated['is_read']
+                'is_read' => $validated['is_read'] ?? false,
             ]);
 
             return response()->json(['message' => 'Message sent successfully'], 200);
-
         } catch (\Illuminate\Validation\ValidationException $e) {
-            
             return response()->json(['error' => 'Validation failed', 'details' => $e->errors()], 422);
-
         } catch (\Exception $e) {
-            
             return response()->json(['error' => 'Something went wrong', 'details' => $e->getMessage()], 500);
         }
     }
+
+
     public function sendMessageFromAdminStudent(Request $request)
     {
         try {
-            
             $validated = $request->validate([
-                'id' => 'required|string',
+                'student_id' => 'required|string',
                 'admin_id' => 'required|string',
                 'sender_id' => 'required|string',
                 'receiver_id' => 'required|string',
@@ -98,29 +94,28 @@ class ChatController extends Controller
                 'is_read' => 'boolean'
             ]);
 
-             $conversation = Conversationadmin_student::firstOrCreate([
-                'student_id' => $validated['id'],
+            $conversation = Conversationadmin_student::firstOrCreate([
+                'student_id' => $validated['student_id'],
                 'admin_id' => $validated['admin_id'],
             ]);
-             Messageadminstudent::create([
+
+            Messageadminstudent::create([
                 'conversation_id' => $conversation->id,
                 'sender_id' => $validated['sender_id'],
                 'receiver_id' => $validated['receiver_id'],
                 'message' => $validated['message'],
-                'is_read' => $validated['is_read']
+                'is_read' => $validated['is_read'] ?? false,
             ]);
 
             return response()->json(['message' => 'Message sent successfully'], 200);
-
         } catch (\Illuminate\Validation\ValidationException $e) {
-            
             return response()->json(['error' => 'Validation failed', 'details' => $e->errors()], 422);
-
         } catch (\Exception $e) {
-            
             return response()->json(['error' => 'Something went wrong', 'details' => $e->getMessage()], 500);
         }
     }
+
+
 
     public function getMessages($nbfc_id, $student_id)
     {

@@ -330,7 +330,10 @@ class StudentDashboardController extends Controller
                     ->first();
 
                 if ($record) {
-                    $record->update(['remarks' => $remarks]);
+                    Rejectedbynbfc::where('user_id', $userID)
+                    ->where('nbfc_id', $nbfcID)
+                    ->update(['remarks' => $remarks]);
+
                     \Log::info('Rejectedbynbfc record updated.');
                 } else {
                     Rejectedbynbfc::create([
@@ -920,34 +923,41 @@ class StudentDashboardController extends Controller
 
         $response = [];
 
-        // Step 1: Retrieve requested static fileTypes
+        // Step 1: Static file types
         foreach ($fileTypes as $fileType) {
-            $cleanType = str_replace('static/', '', $fileType); // 👈 Remove static prefix
+            $cleanType = str_replace('static/', '', $fileType);
             $staticPath = "$userId/static/$cleanType";
 
             $staticFiles = $disk->files($staticPath);
 
             if (!empty($staticFiles)) {
-                $response[$fileType] = $disk->url($staticFiles[0]);
+                $filePath = $staticFiles[0];
+                $response[$fileType] = [
+                    'url' => $disk->url($filePath),
+                    'name' => basename($filePath)
+                ];
             } else {
                 $response[$fileType] = null;
             }
         }
 
-        // Step 2: Get dynamic folders and one file from each
+        // Step 2: Dynamic folders
         $allDirectories = $disk->directories($userId);
 
         foreach ($allDirectories as $folderPath) {
             $folderName = basename($folderPath);
 
-            // Skip folders that are already processed in static list
             if (in_array($folderName, $fileTypes)) {
                 continue;
             }
 
             $filesInFolder = $disk->files($folderPath);
             if (!empty($filesInFolder)) {
-                $response[$folderName] = $disk->url($filesInFolder[0]);
+                $filePath = $filesInFolder[0];
+                $response[$folderName] = [
+                    'url' => $disk->url($filePath),
+                    'name' => basename($filePath)
+                ];
             }
         }
 

@@ -23,7 +23,8 @@
                 <img src="assets/images/admin-logo.png" alt="Remitout Logo" class="admin-nav-logo-img">
             </div>
             <div class="back-button">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
                     <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" />
                     <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -37,87 +38,87 @@
         <div class="admin-mobile-menu">
             <ul class="admin-mobile-menu-list">
                 <?php
-$sidebarController = new \App\Http\Controllers\SidebarHandlingController();
-$sidebarItems = $sidebarController->admindashboardItems();
-$index = 0;
-$adjustedItems = [];
-foreach ($sidebarItems as $item) {
-    if ($item['name'] === 'Student') {
-        $adjustedItems[] = [
-            'name' => 'Student',
-            'icon' => $item['icon'],
-            'active' => $item['active'],
-            'has_dropdown' => true,
-            'index' => $index++,
-        ];
-        $adjustedItems[] = [
-            'name' => 'Student List',
-            'icon' => $item['icon'], // Reuse Student icon or specify a new one
-            'active' => false,
-            'parent' => 'Student',
-            'has_dropdown' => false,
-            'index' => $index++,
-        ];
-        $adjustedItems[] = [
-            'name' => 'Application',
-            'icon' => $item['icon'], // Reuse Student icon or specify a new one
-            'active' => false,
-            'parent' => 'Student',
-            'has_dropdown' => false,
-            'index' => $index++,
-        ];
-    } elseif ($item['name'] === 'Student Counsellor') {
-        $adjustedItems[] = [
-            'name' => 'Student Counsellor',
-            'icon' => $item['icon'],
-            'active' => $item['active'],
-            'has_dropdown' => true,
-            'index' => $index++,
-        ];
-        $adjustedItems[] = [
-            'name' => 'Counsellor List',
-            'icon' => $item['icon'], // Reuse Student Counsellor icon or specify a new one
-            'active' => false,
-            'parent' => 'Student Counsellor',
-            'has_dropdown' => false,
-            'index' => $index++,
-        ];
-        $adjustedItems[] = [
-            'name' => 'Ticket Raised',
-            'icon' => $item['icon'], // Reuse Student Counsellor icon or specify a new one
-            'active' => false,
-            'parent' => 'Student Counsellor',
-            'has_dropdown' => false,
-            'index' => $index++,
-        ];
-        $adjustedItems[] = [
-            'name' => 'Add Counsellor',
-            'icon' => $item['icon'], // Reuse Student Counsellor icon or specify a new one
-            'active' => false,
-            'parent' => 'Student Counsellor',
-            'has_dropdown' => false,
-            'index' => $index++,
-        ];
-    } else {
-        $adjustedItems[] = [
-            'name' => $item['name'],
-            'icon' => $item['icon'],
-            'active' => $item['active'],
-            'has_dropdown' => false,
-            'index' => $index++,
-        ];
-    }
-}
-
-foreach ($adjustedItems as $item) {
-    $activeClass = $item['active'] ? 'active' : '';
-    $dropdownClass = $item['has_dropdown'] ? 'has-dropdown' : '';
-    $parentAttr = isset($item['parent']) ? "data-parent='{$item['parent']}'" : '';
-    echo "<li class='admin-mobile-menu-item $activeClass $dropdownClass' data-index='{$item['index']}' $parentAttr>";
-    echo "<img src='{$item['icon']}' alt='{$item['name']} icon' class='admin-mobile-menu-icon'>";
-    echo "<span>{$item['name']}</span>";
-    echo "</li>";
-}
+                $sidebarController = new \App\Http\Controllers\SidebarHandlingController();
+                $sidebarItems = $sidebarController->admindashboardItems();
+                $index = 0;
+                $adjustedItems = [];
+                foreach ($sidebarItems as $item) {
+                    if ($item['name'] === 'Student') {
+                        $adjustedItems[] = [
+                            'name' => 'Student',
+                            'icon' => $item['icon'],
+                            'active' => $item['active'],
+                            'has_dropdown' => true,
+                            'index' => $index++,
+                        ];
+                        $adjustedItems[] = [
+                            'name' => 'Student List',
+                            'icon' => $item['icon'], // Reuse Student icon or specify a new one
+                            'active' => false,
+                            'parent' => 'Student',
+                            'has_dropdown' => false,
+                            'index' => $index++,
+                        ];
+                        $adjustedItems[] = [
+                            'name' => 'Application',
+                            'icon' => $item['icon'], // Reuse Student icon or specify a new one
+                            'active' => false,
+                            'parent' => 'Student',
+                            'has_dropdown' => false,
+                            'index' => $index++,
+                        ];
+                    } elseif ($item['name'] === 'Student Counsellor') {
+                        $adjustedItems[] = [
+                            'name' => 'Student Counsellor',
+                            'icon' => $item['icon'],
+                            'active' => $item['active'],
+                            'has_dropdown' => true,
+                            'index' => $index++,
+                        ];
+                        $adjustedItems[] = [
+                            'name' => 'Counsellor List',
+                            'icon' => $item['icon'], // Reuse Student Counsellor icon or specify a new one
+                            'active' => false,
+                            'parent' => 'Student Counsellor',
+                            'has_dropdown' => false,
+                            'index' => $index++,
+                        ];
+                        $adjustedItems[] = [
+                            'name' => 'Ticket Raised',
+                            'icon' => $item['icon'], // Reuse Student Counsellor icon or specify a new one
+                            'active' => false,
+                            'parent' => 'Student Counsellor',
+                            'has_dropdown' => false,
+                            'index' => $index++,
+                        ];
+                        $adjustedItems[] = [
+                            'name' => 'Add Counsellor',
+                            'icon' => $item['icon'], // Reuse Student Counsellor icon or specify a new one
+                            'active' => false,
+                            'parent' => 'Student Counsellor',
+                            'has_dropdown' => false,
+                            'index' => $index++,
+                        ];
+                    } else {
+                        $adjustedItems[] = [
+                            'name' => $item['name'],
+                            'icon' => $item['icon'],
+                            'active' => $item['active'],
+                            'has_dropdown' => false,
+                            'index' => $index++,
+                        ];
+                    }
+                }
+                
+                foreach ($adjustedItems as $item) {
+                    $activeClass = $item['active'] ? 'active' : '';
+                    $dropdownClass = $item['has_dropdown'] ? 'has-dropdown' : '';
+                    $parentAttr = isset($item['parent']) ? "data-parent='{$item['parent']}'" : '';
+                    echo "<li class='admin-mobile-menu-item $activeClass $dropdownClass' data-index='{$item['index']}' $parentAttr>";
+                    echo "<img src='{$item['icon']}' alt='{$item['name']} icon' class='admin-mobile-menu-icon'>";
+                    echo "<span>{$item['name']}</span>";
+                    echo '</li>';
+                }
                 ?>
             </ul>
             <!-- Bottom Menu Items -->
@@ -132,15 +133,16 @@ foreach ($adjustedItems as $item) {
         </div>
 
         <div class="admin-nav-right">
-        <button class="admin-nav-search" aria-label="Search">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M11 19C15.4183 19 19 11 19 6.58172C19 3 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-            </svg>
-        </button>
+            <button class="admin-nav-search" aria-label="Search">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M11 19C15.4183 19 19 11 19 6.58172C19 3 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
 
 
             <button class="admin-nav-notification">
@@ -167,8 +169,8 @@ foreach ($adjustedItems as $item) {
                     xmlns="http://www.w3.org/2000/svg">
                     <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                 </svg>
-                <svg class="close-icon" style="display: none;" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
+                <svg class="close-icon" style="display: none;" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" />
                 </svg>
@@ -181,6 +183,7 @@ foreach ($adjustedItems as $item) {
         <div class="admin-detailedviewcontainer">
             <x-admin.admindashboard />
             <x-admin.adminstudent :userDetails="$userDetails" />
+            
             <x-admin.adminstudentcounsellor />
             <x-admin.adminnbfc />
             <x-admin.adminindex />
@@ -188,8 +191,9 @@ foreach ($adjustedItems as $item) {
             <x-admin.adminticketraised />
             <x-admin.adminmanagestudent />
             <x-admin.adminrolemanagement />
-            <x-admin.adminpromotionalemail />
             <x-admin.adminstudapplication />
+            <x-admin.adminpromotionalemail />
+
         </div>
     </div>
 
@@ -295,7 +299,8 @@ foreach ($adjustedItems as $item) {
             }
 
             // Elements for both desktop and mobile
-            const adminSidebarItems = document.querySelectorAll("#commonsidebar-admin .commonsidebar-sidebarlists-top li");
+            const adminSidebarItems = document.querySelectorAll(
+                "#commonsidebar-admin .commonsidebar-sidebarlists-top li");
             const triggeredSideBar = document.getElementById("commonsidebar-admin");
             const img = document.querySelector("#commonsidebar-admin img");
             const adminPropertyOne = document.querySelector(".admindashboard-container");
@@ -303,9 +308,11 @@ foreach ($adjustedItems as $item) {
             const sidebarStudentCounsellorChevronUpDown = document.querySelector("#expand-icon-StudentCounsellor");
             const manageStudentSwitch = document.getElementById("manage-student-admindashboard");
             const expandedStudentFromAdmin = document.getElementById("expanded-student-admin-side");
-            const expandedStudentCounsellorFromAdmin = document.getElementById("expanded-studentcounsellor-admin-side");
+            const expandedStudentCounsellorFromAdmin = document.getElementById(
+                "expanded-studentcounsellor-admin-side");
             const studentFirstListChild = document.querySelector("#expanded-student-admin-side li:first-child");
-            const studentCounsellorFirstListChild = document.querySelector("#expanded-studentcounsellor-admin-side li:first-child");
+            const studentCounsellorFirstListChild = document.querySelector(
+                "#expanded-studentcounsellor-admin-side li:first-child");
             const adminCounsellorAdd = document.querySelector(".add-studentcounsellor-adminside");
             const studentListContainer = document.querySelector(".student-listcontainer");
             const studentApplication = document.querySelector("#admin-student-form-edit-container");
@@ -319,7 +326,8 @@ foreach ($adjustedItems as $item) {
             const adminRoleManagement = document.querySelector("#role-management-container-admin-id");
             const adminPromotionalEmail = document.querySelector("#promotional-composer-main-section-id");
             const nbfcAdminsideAddAuthority = document.querySelector(".add-nbfc-datasection");
-            const studentProfileContainerAdminSide = document.querySelector("#studentprofile-section-adminsideview");
+            const studentProfileContainerAdminSide = document.querySelector(
+            "#studentprofile-section-adminsideview");
             const addCounsellorModelTrigger = document.getElementById("switch-addcounsellor");
             const adminsideScDashboard = document.querySelector("#scdashboard-profile-adminside");
 
@@ -342,7 +350,9 @@ foreach ($adjustedItems as $item) {
 
             // Unified click handler for both desktop and mobile
             function handleItemClick(item, index, isMobile = false, isDropdownToggle = false) {
-                console.log(`Item clicked: index=${index}, isMobile=${isMobile}, isDropdownToggle=${isDropdownToggle}, name=${item.querySelector('span')?.textContent || 'Unknown'}`);
+                console.log(
+                    `Item clicked: index=${index}, isMobile=${isMobile}, isDropdownToggle=${isDropdownToggle}, name=${item.querySelector('span')?.textContent || 'Unknown'}`
+                    );
 
                 if (!isDropdownToggle) {
                     currentIndex = index;
@@ -398,25 +408,31 @@ foreach ($adjustedItems as $item) {
                 if (index === 0) {
                     if (adminPropertyOne) adminPropertyOne.style.display = "flex";
                     if (sidebarChevronUpDown) sidebarChevronUpDown.classList.add("fa-chevron-down");
-                    if (sidebarStudentCounsellorChevronUpDown) sidebarStudentCounsellorChevronUpDown.classList.add("fa-chevron-down");
+                    if (sidebarStudentCounsellorChevronUpDown) sidebarStudentCounsellorChevronUpDown.classList.add(
+                        "fa-chevron-down");
                     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
-                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
+                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display =
+                        "none";
                 } else if (index === 1) {
                     if (studentIndexAdmin) studentIndexAdmin.style.display = "flex";
                     if (adminPropertyOne) adminPropertyOne.style.display = "none";
                     if (sidebarChevronUpDown) sidebarChevronUpDown.classList.add("fa-chevron-down");
-                    if (sidebarStudentCounsellorChevronUpDown) sidebarStudentCounsellorChevronUpDown.classList.add("fa-chevron-down");
+                    if (sidebarStudentCounsellorChevronUpDown) sidebarStudentCounsellorChevronUpDown.classList.add(
+                        "fa-chevron-down");
                     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
-                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
+                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display =
+                        "none";
                 } else if (index === 2 || index === 3) {
                     if (adminPropertyOne) adminPropertyOne.style.display = "none";
                     if (sidebarChevronUpDown) {
                         sidebarChevronUpDown.classList.remove("fa-chevron-down");
                         sidebarChevronUpDown.classList.add("fa-chevron-up");
                     }
-                    if (sidebarStudentCounsellorChevronUpDown) sidebarStudentCounsellorChevronUpDown.classList.add("fa-chevron-down");
+                    if (sidebarStudentCounsellorChevronUpDown) sidebarStudentCounsellorChevronUpDown.classList.add(
+                        "fa-chevron-down");
                     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "flex";
-                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
+                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display =
+                        "none";
                     if (studentListContainer) studentListContainer.style.display = "flex";
                     if (studentApplication) studentApplication.style.display = "none";
                 } else if (index === 4) {
@@ -425,9 +441,11 @@ foreach ($adjustedItems as $item) {
                         sidebarChevronUpDown.classList.remove("fa-chevron-down");
                         sidebarChevronUpDown.classList.add("fa-chevron-up");
                     }
-                    if (sidebarStudentCounsellorChevronUpDown) sidebarStudentCounsellorChevronUpDown.classList.add("fa-chevron-down");
+                    if (sidebarStudentCounsellorChevronUpDown) sidebarStudentCounsellorChevronUpDown.classList.add(
+                        "fa-chevron-down");
                     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "flex";
-                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
+                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display =
+                        "none";
                     if (studentApplication) studentApplication.style.display = "flex";
                     if (studentListContainer) studentListContainer.style.display = "none";
                 } else if (index === 5 || index === 6) {
@@ -437,7 +455,8 @@ foreach ($adjustedItems as $item) {
                     }
                     if (sidebarChevronUpDown) sidebarChevronUpDown.classList.add("fa-chevron-down");
                     if (adminPropertyOne) adminPropertyOne.style.display = "none";
-                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "flex";
+                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display =
+                        "flex";
                     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
                     if (studentCounsellorList) studentCounsellorList.style.display = "flex";
                     if (studentTicketRaised) studentTicketRaised.style.display = "none";
@@ -449,7 +468,8 @@ foreach ($adjustedItems as $item) {
                     }
                     if (sidebarChevronUpDown) sidebarChevronUpDown.classList.add("fa-chevron-down");
                     if (adminPropertyOne) adminPropertyOne.style.display = "none";
-                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "flex";
+                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display =
+                        "flex";
                     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
                     if (studentTicketRaised) studentTicketRaised.style.display = "flex";
                     if (studentCounsellorList) studentCounsellorList.style.display = "none";
@@ -461,7 +481,8 @@ foreach ($adjustedItems as $item) {
                     }
                     if (sidebarChevronUpDown) sidebarChevronUpDown.classList.add("fa-chevron-down");
                     if (adminPropertyOne) adminPropertyOne.style.display = "none";
-                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "flex";
+                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display =
+                        "flex";
                     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
                     if (adminCounsellorAdd) adminCounsellorAdd.style.display = "flex";
                     if (studentCounsellorList) studentCounsellorList.style.display = "none";
@@ -469,30 +490,36 @@ foreach ($adjustedItems as $item) {
                 } else if (index === 9) {
                     if (studentNBFCList) studentNBFCList.style.display = "flex";
                     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
-                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
+                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display =
+                        "none";
                 } else if (index === 10) {
                     if (adminManageStudent) adminManageStudent.style.display = "flex";
                     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
-                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
+                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display =
+                        "none";
                 } else if (index === 11) {
                     if (adminRoleManagement) adminRoleManagement.style.display = "flex";
                     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
-                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
+                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display =
+                        "none";
                 } else if (index === 12) {
                     if (editContainerAdmin) editContainerAdmin.style.display = "flex";
                     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
-                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
+                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display =
+                        "none";
                 } else if (index === 13) {
                     if (adminPromotionalEmail) adminPromotionalEmail.style.display = "flex";
                     if (expandedStudentFromAdmin) expandedStudentFromAdmin.style.display = "none";
-                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display = "none";
+                    if (expandedStudentCounsellorFromAdmin) expandedStudentCounsellorFromAdmin.style.display =
+                        "none";
                 }
 
                 if (index !== 0 && adminPropertyOne) adminPropertyOne.style.display = "none";
                 if (index !== 1 && studentIndexAdmin) studentIndexAdmin.style.display = "none";
                 if (index !== 2 && index !== 3 && studentListContainer) studentListContainer.style.display = "none";
                 if (index !== 4 && studentApplication) studentApplication.style.display = "none";
-                if (index !== 5 && index !== 6 && studentCounsellorList) studentCounsellorList.style.display = "none";
+                if (index !== 5 && index !== 6 && studentCounsellorList) studentCounsellorList.style.display =
+                    "none";
                 if (index !== 7 && studentTicketRaised) studentTicketRaised.style.display = "none";
                 if (index !== 8 && adminCounsellorAdd) adminCounsellorAdd.style.display = "none";
                 if (index !== 9 && studentNBFCList) studentNBFCList.style.display = "none";
@@ -642,7 +669,8 @@ foreach ($adjustedItems as $item) {
                 saveButton.addEventListener('click', () => {
                     const currentPassword = document.getElementById('adminside-current-password')?.value;
                     const newPassword = document.getElementById('adminside-new-password')?.value;
-                    const confirmPassword = document.getElementById('adminside-confirm-new-password')?.value;
+                    const confirmPassword = document.getElementById('adminside-confirm-new-password')
+                    ?.value;
 
                     const currentError = document.getElementById('adminside-current-password-error');
                     const newError = document.getElementById('adminside-new-password-error');
@@ -683,7 +711,8 @@ foreach ($adjustedItems as $item) {
             const searchInput = document.querySelector('#searchInput');
 
             function updateBackButtonVisibility() {
-                const isCMSVisible = cmsContainer && (cmsContainer.style.display === 'block' || editContentContainer?.dataset.inCmsMode === 'true');
+                const isCMSVisible = cmsContainer && (cmsContainer.style.display === 'block' || editContentContainer
+                    ?.dataset.inCmsMode === 'true');
                 if (backButton) backButton.style.display = isCMSVisible ? 'flex' : 'none';
             }
 
@@ -720,8 +749,8 @@ foreach ($adjustedItems as $item) {
             }
 
 
-            const originalRenderContent = window.renderContent || function () { };
-            window.renderContent = function (data) {
+            const originalRenderContent = window.renderContent || function() {};
+            window.renderContent = function(data) {
                 originalRenderContent(data);
                 setupEditButtonHandlers();
             };
@@ -818,7 +847,7 @@ foreach ($adjustedItems as $item) {
             const initialiseEightcolumn = () => {
                 const section = document.querySelector(".eightcolumn-firstsection");
 
-                section.addEventListener("click", function () {
+                section.addEventListener("click", function() {
                     if (section.style.height === "") {
                         section.style.height = "fit-content";
                     } else {
@@ -829,7 +858,7 @@ foreach ($adjustedItems as $item) {
             const initialiseSeventhcolumn = () => {
                 const section = document.querySelector(".seventhcolum-firstsection");
 
-                section.addEventListener("click", function () {
+                section.addEventListener("click", function() {
                     if (section.style.height === "") {
                         section.style.height = "fit-content";
                     } else {
@@ -842,7 +871,7 @@ foreach ($adjustedItems as $item) {
                     ".seventhcolumn-additional-firstcolumn"
                 );
 
-                section.addEventListener("click", function () {
+                section.addEventListener("click", function() {
                     if (section.style.height === "") {
                         section.style.height = "fit-content";
                     } else {
@@ -853,7 +882,7 @@ foreach ($adjustedItems as $item) {
             const initialiseNinthcolumn = () => {
 
                 const section = document.querySelector('.ninthcolumn-firstsection');
-                section.addEventListener('click', function () {
+                section.addEventListener('click', function() {
                     if (section.style.height === '') {
                         section.style.height = 'fit-content';
                     } else {
@@ -862,19 +891,20 @@ foreach ($adjustedItems as $item) {
                 });
 
             }
-            
+
             function logoutadmin() {
                 const logoutButton = document.getElementById('logout-admin-side');
                 if (logoutButton) {
                     logoutButton.addEventListener('click', () => {
                         fetch('/api/logout', {
-                            method: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                                'Content-Type': 'application/json'
-                            },
-                            credentials: 'include'
-                        })
+                                method: 'POST',
+                                headers: {
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                        .getAttribute('content'),
+                                    'Content-Type': 'application/json'
+                                },
+                                credentials: 'include'
+                            })
                             .then(response => {
                                 if (response.ok) {
                                     window.location.href = '/login';
@@ -894,7 +924,7 @@ foreach ($adjustedItems as $item) {
 
             const initialiseTenthcolumn = () => {
                 const section = document.querySelector(".tenthcolumn-firstsection");
-                section.addEventListener("click", function () {
+                section.addEventListener("click", function() {
                     if (section.style.height === "") {
                         section.style.height = "fit-content";
                     } else {
@@ -934,10 +964,11 @@ foreach ($adjustedItems as $item) {
             const saveButton = document.getElementById('adminside-password-change-save');
             if (!saveButton) return;
 
-            saveButton.addEventListener('click', function () {
+            saveButton.addEventListener('click', function() {
                 const currentPassword = document.getElementById('adminside-current-password').value.trim();
                 const newPassword = document.getElementById('adminside-new-password').value.trim();
-                const confirmNewPassword = document.getElementById('adminside-confirm-new-password').value.trim();
+                const confirmNewPassword = document.getElementById('adminside-confirm-new-password').value
+                .trim();
                 const passwordChangeContainer = document.getElementById('adminside-password-change-container');
 
                 clearErrorMessages();
@@ -969,7 +1000,8 @@ foreach ($adjustedItems as $item) {
                     return;
                 }
 
-                const superAdminEmail = document.querySelector('meta[name="superadmin-email"]')?.getAttribute('content');
+                const superAdminEmail = document.querySelector('meta[name="superadmin-email"]')?.getAttribute(
+                    'content');
                 if (admin.email === superAdminEmail) {
                     alert("This is a super admin account. You cannot change the password.");
                     return;
@@ -984,13 +1016,14 @@ foreach ($adjustedItems as $item) {
                 Loader.show();
 
                 fetch("/admin/passwordchange", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-                    },
-                    body: JSON.stringify(payload),
-                })
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute(
+                                'content') || ''
+                        },
+                        body: JSON.stringify(payload),
+                    })
                     .then(async res => {
                         const contentType = res.headers.get("content-type");
 
@@ -1041,8 +1074,10 @@ foreach ($adjustedItems as $item) {
                 }
             });
         }
+
         function passwordForgotAdmin() {
-            const forgotMailTrigger = document.querySelector("#adminside-password-change-container .footer-passwordchange p");
+            const forgotMailTrigger = document.querySelector(
+                "#adminside-password-change-container .footer-passwordchange p");
 
             if (forgotMailTrigger) {
                 forgotMailTrigger.addEventListener('click', () => {
@@ -1060,13 +1095,16 @@ foreach ($adjustedItems as $item) {
 
 
                     fetch("/forgot-passwordmailsentsc", {
-                        method: "POST",
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({ email: email })
-                    })
+                            method: "POST",
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                    'content')
+                            },
+                            body: JSON.stringify({
+                                email: email
+                            })
+                        })
                         .then(response => response.json())
                         .then(data => {
                             console.log(data);
@@ -1081,10 +1119,6 @@ foreach ($adjustedItems as $item) {
                 });
             }
         }
-
-
-
-
     </script>
 </body>
 
