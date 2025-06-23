@@ -149,7 +149,7 @@ html, body {
  }
 
  #second-diagonal {
-   top: 43%;
+   top: 45%;
    position: absolute;
    left: 17.5%;
    height: 85px;
@@ -209,10 +209,10 @@ html, body {
  }
 
  #second-diagonal-content {
-   position: absolute;
-   left: 21%;
-   top: 47%;
-   z-index: 2;
+      position: absolute;
+        left: 21.5%;
+        top: 49%;
+        z-index: 2;
  }
 
  .study-loans-graphthirdbox {
@@ -398,11 +398,7 @@ html, body {
    bottom: 65%;
  }
 
- @media screen and (max-width: 768px) {
- .study-loans-graphview{
-    display:none; 
-   }
-  }
+ 
   
   
 @media screen and (max-width: 768px) {
@@ -1675,10 +1671,10 @@ html, body {
 
  .study-loans-text h3 {
    font-family: 'Poppins', sans-serif;
-   font-weight: 600;
+   font-weight: 700;
    font-style: normal;
    font-size: 32px;
-   color: #1B1525;
+   color: rgba(27, 21, 37, 1);
  }
 
  .study-loans-text p {
@@ -1917,6 +1913,8 @@ html, body {
     .mobile-loan-container {
         display: none;
     }
+
+
 }
 
 @media screen and (min-width: 768px) and (max-width: 1199px) {
@@ -2137,6 +2135,7 @@ html, body {
         height: auto;
         padding: 0 20px;
     }
+
 
     .smart-lending-section {
         height: auto;
@@ -3688,4 +3687,13 @@ html, body {
 
 .input-error {
     border-color: #ff3333 !important;
+}
+
+
+
+
+@media (max-width:1200px){
+    .study-loans-graphview {
+        display: none;
+      }
 }

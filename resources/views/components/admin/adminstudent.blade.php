@@ -619,21 +619,21 @@
                 <div class="degreetypescheckboxes">
                     <label class="custom-radio">
                         <input type="radio" name="education-level" value="Bachelors"
-                            onclick="toggleOtherDegreeInput(event)" disabled>
+                            onclick="toggleOtherDegreeInput(event)" disabled style="display:none">
                         <span class="radio-button"></span>
                         <p>Bachelors (only secured loan)</p>
                     </label>
                     <br>
                     <label class="custom-radio">
                         <input type="radio" name="education-level" value="Masters"
-                            onclick="toggleOtherDegreeInput(event)" disabled>
+                            onclick="toggleOtherDegreeInput(event)" disabled style="display:none" >
                         <span class="radio-button"></span>
                         <p>Masters</p>
                     </label>
                     <br>
                     <label class="custom-radio">
                         <input type="radio" name="education-level" value="Others"
-                            onclick="toggleOtherDegreeInput(event)" disabled>
+                            onclick="toggleOtherDegreeInput(event)" disabled style="display:none">
                         <span class="radio-button"></span>
                         <p>Others</p>
                     </label>

@@ -767,7 +767,12 @@ input[type="file"] {
 
     color: rgba(144, 144, 144, 1);
 }
-
+.course_name_input,.university_name_input{
+    outline: none;
+        padding: 0.2rem;
+        border: 1px solid #c1c1c5;
+        color: rgb(99 96 96 / 70%);
+}
 .individual-bankmessages-buttoncontainer .bankmessage-buttoncontainer-reject {
     color: #ff7a00;
     border: 1px solid #e2e2e2;

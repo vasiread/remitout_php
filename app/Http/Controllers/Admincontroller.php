@@ -12,6 +12,7 @@ use App\Models\CoBorrowerInfo;
 use App\Models\CourseDetailOption;
 use App\Models\CourseDuration;
 use App\Models\CourseInfo;
+use App\Models\PartnerLogo;
 use App\Models\Degree;
 use App\Models\DocumentType;
 use App\Models\Faq;
@@ -2561,8 +2562,9 @@ class Admincontroller extends Controller
         $study_loan = StudyLoanStep::all();
         $testimonialIndex = CmsContent::where("title", "Testimonials")->first();
         $landingpageContents = CmsContent::get();
+        
 
-        // Parse the CMS content field (initial testimonials)
+        // 1. Parse CMS testimonials
         $initialProfiles = [];
         if ($testimonialIndex && !empty($testimonialIndex->content)) {
             $decoded = json_decode($testimonialIndex->content, true);
@@ -2571,7 +2573,7 @@ class Admincontroller extends Controller
             }
         }
 
-        // Convert DB testimonials to array
+        // 2. DB Testimonials
         $dbTestimonials = $testimonials->map(function ($item) {
             return [
                 'name' => $item->name,
@@ -2582,14 +2584,11 @@ class Admincontroller extends Controller
             ];
         })->toArray();
 
-        // Merge initial + DB testimonials
         $combinedTestimonials = array_merge($initialProfiles, $dbTestimonials);
 
-
-        // ✅ Now handle the FAQ part
+        // 3. FAQs: CMS + DB
         $faqContent = CmsContent::where("title", "Landing Page")->first();
         $initialFaqs = [];
-
         if ($faqContent && !empty($faqContent->field_78)) {
             $decodedFaqs = json_decode($faqContent->field_78, true);
             if (is_array($decodedFaqs)) {
@@ -2597,27 +2596,57 @@ class Admincontroller extends Controller
             }
         }
 
-        // Get DB FAQs and convert to array
         $dbFaqs = Faq::all()->map(function ($faq) {
             return [
                 'question' => $faq->question,
                 'answer' => $faq->answer,
+                'date' => $faq->created_at->format('Y-m-d')
             ];
         })->toArray();
 
-        // Merge initial + DB FAQs
         $combinedFaqs = array_merge($initialFaqs, $dbFaqs);
 
+        // ✅ 4. Logos: CMS + DB
+        $logoContent = CmsContent::where("title", "seedPartnerLogo")->first();
 
-        // Return to view
+        $initialLogos = [];
+
+        if ($logoContent) {
+            $initialLogos[] = [
+                'url' => $logoContent->content,
+                'title' => $logoContent->title,
+                'id' => $logoContent->id // No DB ID for CMS entry
+            ];
+        }
+
+        // Now fetch all partner logos from DB
+        $dbLogos = PartnerLogo::all()->map(function ($logo) {
+            return [
+                'url' => $logo->content,
+                'title' => $logo->title,
+                'id' => $logo->id,
+            ];
+        })->toArray();
+
+        // Merge both
+        $combinedLogos = array_merge($initialLogos, $dbLogos);
+
+
+        // ✅ Return to view
         return view('pages.landing', compact(
             'testimonials',
             'study_loan',
             'testimonialIndex',
             'combinedTestimonials',
             'landingpageContents',
-            'combinedFaqs'   
+            'combinedFaqs',
+            'combinedLogos'
         ));
+
+        // return response()->json([
+      
+        //     'combinedLogos' => $combinedLogos
+        // ]);
     }
 
 
@@ -2642,6 +2671,15 @@ class Admincontroller extends Controller
         return response()->json([
             'status' => true,
             'data' => $faqs
+        ]);
+    }
+    public function CMSLogos()
+    {
+        $Logos = PartnerLogo::all();
+
+        return response()->json([
+            'status' => true,
+            'data' => $Logos
         ]);
     }
     public function updateTestimonial(Request $request, $id)
@@ -2854,5 +2892,64 @@ class Admincontroller extends Controller
         $faq->delete();
 
         return response()->json(['status' => true, 'message' => 'FAQ deleted successfully']);
+    }
+
+
+    public function addLogo(Request $request, $partnerId)
+    {
+        try {
+            $request->validate([
+                'url' => 'required|max:2048',
+            ]);
+
+            $title = $request->input('title');
+            $fileUrl = $request->input('url');
+
+            $logo = PartnerLogo::create([
+                'partner_id' => $partnerId,
+                'title' => $title,
+                'content' => $fileUrl
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'url' => $fileUrl,
+                'logo' => $logo
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Logo upload failed', ['error' => $e->getMessage()]);
+            return response()->json([
+                'success' => false,
+                'message' => 'Error saving logo',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+
+
+
+    public function listLogos($partnerId)   
+    {
+        $directory = "cms_uploads/logopartner/{$partnerId}";
+        $files = Storage::disk('s3')->files($directory);
+
+        $urls = array_map(fn ($file) => Storage::disk('s3')->url($file), $files);
+
+        return response()->json(['files' => $urls]);
+    }
+    public function deleteLogo($partnerId)
+    {
+        $fileName = 'logo.png'; // assuming consistent filename
+        $path = "cms_uploads/logopartner/{$partnerId}/{$fileName}";
+
+        if (!Storage::disk('s3')->exists($path)) {
+            return response()->json(['error' => 'File not found.'], 404);
+        }
+
+        Storage::disk('s3')->delete($path);
+
+        return response()->json(['success' => true, 'message' => 'File deleted successfully.']);
     }
 }

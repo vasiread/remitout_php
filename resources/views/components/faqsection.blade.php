@@ -66,83 +66,87 @@
 
 <script>
 
-// FAQ Data
+ 
+// const faqData = [
+//     {
+//         question: "How can I apply for a loan with Remitout?",
+//         answer: "You can easily apply online by visiting our [application page] and filling out a short form with your basic information. Once submitted, our team will review your application and reach out with the next steps.",
+//         date: new Date('2024-01-01')
+//     },
+//     {
+//         question: "What are the eligibility criteria for a loan?",
+//         answer: "Our eligibility criteria includes age requirements, income verification, and credit history assessment. Please contact our support team for detailed information specific to your situation.",
+//         date: new Date('2024-01-15')
+//     },
+//     {
+//         question: "How long does the loan approval process take?",
+//         answer: "The loan approval process typically takes 2-3 business days, depending on the completeness of your application and required documentation.",
+//         date: new Date('2024-02-01')
+//     },
+//     {
+//         question: "What documents are required to apply for a loan?",
+//         answer: "Required documents typically include government-issued ID, proof of income, bank statements, and proof of address. Specific requirements may vary based on the loan type.",
+//         date: new Date('2024-02-15')
+//     },
+//     {
+//         question: "Can I apply for a loan if I have bad credit?",
+//         answer: "While bad credit may impact your eligibility, we assess applications on a case-by-case basis. Reach out to our support team to discuss potential options for your situation.",
+//         date: new Date('2024-03-01')
+//     },
+//     {
+//         question: "How do I track my loan application status?",
+//         answer: "You can track the status of your loan application by logging into your account on our website. Additionally, our team will notify you of any updates via email or phone.",
+//         date: new Date('2024-03-10')
+//     },
+//     {
+//         question: "Can I use my loan for any purpose?",
+//         answer: "Our loans are designed primarily for educational expenses. While most loans can be used for tuition, living costs, and study-related expenses, check the loan terms for any specific restrictions.",
+//         date: new Date('2024-03-20')
+//     },
+//     {
+//         question: "What is the repayment schedule for my loan?",
+//         answer: "Repayment terms are customized based on your loan amount, tenure, and educational institution. You'll be informed about your repayment schedule at the time of loan approval.",
+//         date: new Date('2024-04-01')
+//     },
+//     {
+//         question: "How do I choose the best loan offer for me?",
+//         answer: "Once your profile is assessed, we provide personalized loan offers. You can compare these offers based on your eligibility, interest rates, and repayment options to select the one that best suits your needs.",
+//         date: new Date('2024-04-10')
+//     },
+//     {
+//         question: "Can I pay off my loan early?",
+//         answer: "Yes, you can pay off your loan early without any prepayment penalties. Early repayment may also help you save on interest charges.",
+//         date: new Date('2024-04-20')
+//     },
+//     {
+//         question: "What happens if I miss a loan payment?",
+//         answer: "If you miss a loan payment, please contact us immediately. We may offer alternative arrangements or extend your payment period. It's important to keep us informed to avoid negative impacts on your credit score.",
+//         date: new Date('2024-05-01')
+//     },
+//     {
+//         question: "How fast can I receive my loan disbursement?",
+//         answer: "Once approved, your loan will be disbursed directly to your educational institution in a timely manner, ensuring there are no delays in securing your admission.",
+//         date: new Date('2024-05-10')
+//     }
+// ];
+  const faqData = {!! json_encode($combinedFaqs) !!};
 
-const faqData = [
-    {
-        question: "How can I apply for a loan with Remitout?",
-        answer: "You can easily apply online by visiting our [application page] and filling out a short form with your basic information. Once submitted, our team will review your application and reach out with the next steps.",
-        date: new Date('2024-01-01')
-    },
-    {
-        question: "What are the eligibility criteria for a loan?",
-        answer: "Our eligibility criteria includes age requirements, income verification, and credit history assessment. Please contact our support team for detailed information specific to your situation.",
-        date: new Date('2024-01-15')
-    },
-    {
-        question: "How long does the loan approval process take?",
-        answer: "The loan approval process typically takes 2-3 business days, depending on the completeness of your application and required documentation.",
-        date: new Date('2024-02-01')
-    },
-    {
-        question: "What documents are required to apply for a loan?",
-        answer: "Required documents typically include government-issued ID, proof of income, bank statements, and proof of address. Specific requirements may vary based on the loan type.",
-        date: new Date('2024-02-15')
-    },
-    {
-        question: "Can I apply for a loan if I have bad credit?",
-        answer: "While bad credit may impact your eligibility, we assess applications on a case-by-case basis. Reach out to our support team to discuss potential options for your situation.",
-        date: new Date('2024-03-01')
-    },
-    {
-        question: "How do I track my loan application status?",
-        answer: "You can track the status of your loan application by logging into your account on our website. Additionally, our team will notify you of any updates via email or phone.",
-        date: new Date('2024-03-10')
-    },
-    {
-        question: "Can I use my loan for any purpose?",
-        answer: "Our loans are designed primarily for educational expenses. While most loans can be used for tuition, living costs, and study-related expenses, check the loan terms for any specific restrictions.",
-        date: new Date('2024-03-20')
-    },
-    {
-        question: "What is the repayment schedule for my loan?",
-        answer: "Repayment terms are customized based on your loan amount, tenure, and educational institution. You'll be informed about your repayment schedule at the time of loan approval.",
-        date: new Date('2024-04-01')
-    },
-    {
-        question: "How do I choose the best loan offer for me?",
-        answer: "Once your profile is assessed, we provide personalized loan offers. You can compare these offers based on your eligibility, interest rates, and repayment options to select the one that best suits your needs.",
-        date: new Date('2024-04-10')
-    },
-    {
-        question: "Can I pay off my loan early?",
-        answer: "Yes, you can pay off your loan early without any prepayment penalties. Early repayment may also help you save on interest charges.",
-        date: new Date('2024-04-20')
-    },
-    {
-        question: "What happens if I miss a loan payment?",
-        answer: "If you miss a loan payment, please contact us immediately. We may offer alternative arrangements or extend your payment period. It's important to keep us informed to avoid negative impacts on your credit score.",
-        date: new Date('2024-05-01')
-    },
-    {
-        question: "How fast can I receive my loan disbursement?",
-        answer: "Once approved, your loan will be disbursed directly to your educational institution in a timely manner, ensuring there are no delays in securing your admission.",
-        date: new Date('2024-05-10')
-    }
-];
+     const formattedFaqData = faqData.map(item => ({
+        ...item,
+        date: new Date(item.date)
+    }));
 
+    console.log(formattedFaqData);
+    
 const ITEMS_PER_PAGE = 4;
 let currentPage = 0;
 let currentSort = 'az';
-let filteredData = [...faqData]; // Track filtered data separately
+let filteredData = [...formattedFaqData]; 
 
-// Main function to refresh the display
-function displayFAQs(data) {
-    // Use filtered data or default to full FAQ data
-    const dataToDisplay = data || filteredData;
+ function displayFAQs(data) {
+     const dataToDisplay = data || filteredData;
     
-    // Calculate start and end for current page
-    const startIndex = currentPage * ITEMS_PER_PAGE;
+     const startIndex = currentPage * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
     const pageData = dataToDisplay.slice(startIndex, endIndex);
 

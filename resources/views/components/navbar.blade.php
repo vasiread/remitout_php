@@ -12,12 +12,13 @@
 <body>
     <nav class="nav">
         <div class="nav-container fullopacity">
-            <img onclick="window.location.href='{{ url('/') }}'" src="{{ asset('assets/images/Remitoutcolored.png') }}" alt="Logo" class="logo" id="profile-logo">
+            <img onclick="window.location.href='{{ url('/') }}'" src="{{ asset('assets/images/Remitoutcolored.png') }}" alt="Logo" class="logo" id="profile-logo" style="cursor:pointer;">
 
             @if(session()->has('user') || session()->has('scuser'))
                 <div class="nav-searchnotificationbars">
                     <div class="unread-notify-container">
                         <img src="{{ asset('assets/images/notifications_unread.png') }}" class="unread-notify" id="userNotification" alt="">
+                        <p></p>
                     </div>
                     <div class="nav-profilecontainer" id="notification-userprofile-section">
                         <img src="{{ asset('assets/images/Icons/account_circle.png') }}" id="nav-profile-photo-id" class="nav-profileimg" alt="Profile Image">
@@ -582,13 +583,14 @@
                 passwordTrigger.addEventListener('click', () => {
                     if (passwordChangeContainer) {
                         passwordChangeContainer.style.display = 'flex';
+                         popupPassword.style.display = 'none';
                     }
                     if (passwordChangeOverlay) {
                         passwordChangeOverlay.style.display = 'block';
                     }
-                    if (popupPassword) {
-                        popupPassword.style.display = 'none';
-                    }
+                    // if (popupPassword) {
+                       
+                    // }
                     if (arrowUp && arrowUp.classList.contains('fa-chevron-up')) {
                         arrowUp.classList.remove('fa-chevron-up');
                         arrowUp.classList.add('fa-chevron-down');

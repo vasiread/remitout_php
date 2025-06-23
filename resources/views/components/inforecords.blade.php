@@ -1,4 +1,16 @@
 @php
+
+    function mapCmsContent($contents)
+    {
+        $map = [];
+        foreach ($contents as $item) {
+            $map[$item->section][$item->title] = $item->content;
+        }
+        return $map;
+    }
+
+    $cms = mapCmsContent($landingpageContents);
+
     function smartBreak($text)
     {
         $text = trim($text);
@@ -58,9 +70,15 @@
     }
 
     // Fallback static if content is missing
-    $subText = trim($landingpageContents[14]->content ?? '') ?: '   ';
+    $subText =
+        trim($cms['study-loan']['Graph Subheading'] ?? '') !== ''
+            ? smartSplitText($cms['study-loan']['Graph Subheading'], 5)
+            : smartSplitText('Bespoke Loan Options from Trusted NBFCs for Your International Education.', 5);
 
-    $heading = trim($landingpageContents[13]->content ?? '') ?: 'Your Smart Route to Study Loans';
+    $heading =
+        trim($cms['study-loan']['Graph Heading'] ?? '') !== ''
+            ? smartSplitText($cms['study-loan']['Graph Heading'], 4)
+            : 'Your Smart Route to  <br> Study Loans';
 @endphp
 
 
@@ -70,10 +88,10 @@
         <!-- Left Section -->
         <div class="study-loans-left">
             <div class="study-loans-text">
-                <h3>{!! smartSplitHeading($heading) !!}</h3>
+                <h3>{!! $heading !!}</h3>
 
                 <p>
-                <p>{!! smartSplitText($subText) !!}</p>
+                <p>{!! $subText !!}</p>
             </div>
         </div>
         <!-- Right Section -->
@@ -87,11 +105,14 @@
 
 <div class="study-loans-graphview">
     <div class="study-loans-graphfirstbox">
-        <h3>{{ trim($landingpageContents[20]->content ?? '') ?: 'Get Matched with Top NBFCs' }}</h3>
+        <h3>{{ trim($cms['study-loan']['Step 2 Header: Get Matched with Top NBFCs'] ?? 'Get Matched with Top NBFCs') }}
+        </h3>
 
-        <p>{{ trim($landingpageContents[21]->content ?? '') ?:
-            'We connect you with
-                                                            multiple non-banking financial companies (NBFCs) offering competitive study loans.' }}
+        <p>{{ trim(
+            $cms['study-loan']['Step 2 Content: Get Matched with Top NBFCs'] ??
+                'We connect you with
+                        multiple non-banking financial companies (NBFCs) offering competitive study loans.',
+        ) }}
         </p>
     </div>
     <img src="{{ asset('assets/images/graphvectors/verticalGraphline.png') }}" alt="" id="firstverticalline">
@@ -101,9 +122,10 @@
     </div>
     <img src="{{ asset('assets/images/graphvectors/perfectmatchvector.png') }}" alt="" id="first-diagonal">
     <p id="first-diagonal-header" class="global-diagonal-content">
-        {!! trim($landingpageContents[23]->content ?? '') !== ''
-            ? smartBreak($landingpageContents[23]->content)
+        {!! trim($cms['study-loan']['Diagonal Label: Perfect Match'] ?? '') !== ''
+            ? smartBreak($cms['study-loan']['Diagonal Label: Perfect Match'])
             : 'Perfect <br> Match' !!}
+
     </p>
 
 
@@ -114,22 +136,25 @@
             alt="">
 
         <h3 class="global-header-graph" style="text-align:left">
-            {{ trim($landingpageContents[16]->content ?? '') ?: 'Profile Assessment' }}
+            {{ trim($cms['study-loan']['Step 1 Header: Profile Assessment'] ?? 'Profile Assessment') }}
         </h3>
         <p class="global-content-graph" style="text-align:left">
-            {{ trim($landingpageContents[17]->content ?? '') ?:
-                'Our experts assess your academic and financial
-                                                                                    profile to determine the best loan options for your
-                                                                                    overseas education.' }}
+            {{ trim(
+                $cms['study-loan']['Step 1 Content: Profile Assessment'] ??
+                    'Our experts assess your academic and financial
+                            profile to determine the best loan options for your
+                            overseas education.',
+            ) }}
 
         </p>
     </div>
     <img src="{{ asset('assets/images/graphvectors/profileassesmentvector.png') }}" id="second-diagonal"
         alt="">
     <p id="second-diagonal-content" class="global-diagonal-content">
-        {!! trim($landingpageContents[19]->content ?? '') !== ''
-            ? smartBreak($landingpageContents[19]->content)
+        {!! trim($cms['study-loan']['Diagonal Label: Profile Assessment'] ?? '') !== ''
+            ? smartBreak($cms['study-loan']['Diagonal Label: Profile Assessment'])
             : 'Profile <br> Assessment' !!}
+
 
     </p>
 
@@ -142,9 +167,11 @@
         id="vertical-shortsecond">
     <img src="{{ asset('assets/images/graphvectors/loanchoicesvector.png') }}" alt="" id="third-diagonal">
     <p id="third-diagonal-content" class="global-diagonal-content">
-        {!! trim($landingpageContents[27]->content ?? '') !== ''
-            ? smartBreak($landingpageContents[19]->content)
+        {!! trim($cms['study-loan']['Diagonal Label: Loan Choices'] ?? '') !== ''
+            ? smartBreak($cms['study-loan']['Diagonal Label: Loan Choices'])
             : 'Loan <br> Choices' !!}
+
+
 
     </p>
     <img src="{{ asset('assets/images/graphvectors/verticalGraphlinesecond.png') }}" alt=""
@@ -154,16 +181,16 @@
     <div class="study-loans-graphthirdbox">
 
         <h3 class="global-header-graph" style="text-align:left;width: 110% ;">
-            {!! trim($landingpageContents[24]->content ?? '') !== ''
-                ? smartBreak($landingpageContents[24]->content)
-                : 'Choose Your  <br> Loan Offers' !!}
+            {!! trim($cms['study-loan']['Step 3 Header: Choose Your Loan Offers'] ?? '') !== ''
+                ? smartBreak($cms['study-loan']['Step 3 Header: Choose Your Loan Offers'])
+                : 'Choose Your <br> Loan Offers' !!}
+
         </h3>
         <p class="global-content-graph" style="text-align:left">
 
-            {{ trim($landingpageContents[25]->content ?? '') ?:
-                'Browse and compare personalized loan offers based on
-                                                                                    your eligibility
-                                                                                    and repayment preferences.' }}
+
+
+            {{ trim($cms['study-loan']['Step 3 Content: Choose Your Loan Offers'] ?? 'Browse and compare personalized loan offers based on your eligibility and repayment preferences.') }}
 
 
         </p>
@@ -172,9 +199,10 @@
     <p id="sixth-diagonal-content" class="global-diagonal-content">
 
 
-        {!! trim($landingpageContents[39]->content ?? '') !== ''
-            ? smartBreak($landingpageContents[39]->content)
-            : 'Guaranteed  <br> Disbursement' !!}
+        {!! trim($cms['study-loan']['Diagonal Label: Guaranteed Disbursement'] ?? '') !== ''
+            ? smartBreak($cms['study-loan']['Diagonal Label: Guaranteed Disbursement'])
+            : 'Guaranteed <br> Disbursement' !!}
+
 
     </p>
 
@@ -182,9 +210,10 @@
     <img src="{{ asset('assets/images/graphvectors/additionalvector.png') }}" id="second-additional-vector"
         alt="">
     <p id="fifth-diagonal-content" class="global-diagonal-content">
-        {!! trim($landingpageContents[31]->content ?? '') !== ''
-            ? smartBreak($landingpageContents[31]->content)
-            : 'Easy  <br> Process' !!}
+        {!! trim($cms['study-loan']['Diagonal Label: Easy Process'] ?? '') !== ''
+            ? smartBreak($cms['study-loan']['Diagonal Label: Easy Process'])
+            : 'Easy <br> Process' !!}
+
 
     </p>
     <img src="{{ asset('assets/images/graphvectors/verticalGraphline.png') }}" id="verticallinethird" alt="">
@@ -198,26 +227,29 @@
         alt="">
     <img src="{{ asset('assets/images/graphvectors/horizontalfirst.png') }}" id="horizontalsecond" alt="">
     <p id="fourth-diagonal-content" class="global-diagonal-content" style="width:82px">
-        {!! trim($landingpageContents[35]->content ?? '') !== ''
-            ? smartBreak($landingpageContents[35]->content)
-            : ' Fast-Track </br>
-                                                Approval' !!}
+        {!! trim($cms['study-loan']['Diagonal Label: Fast-Track Approval'] ?? '') !== ''
+            ? smartBreak($cms['study-loan']['Diagonal Label: Fast-Track Approval'])
+            : 'Fast-Track <br> Approval' !!}
+
 
     </p>
     <div class="study-loans-graphfourthbox">
         <h3 class="global-header-graph" style="text-align:left;">
-            {!! trim($landingpageContents[28]->content ?? '') !== ''
-                ? smartBreak($landingpageContents[28]->content)
+            {!! trim($cms['study-loan']['Step 4 Header: Submit Documents With Ease'] ?? '') !== ''
+                ? smartBreak($cms['study-loan']['Step 4 Header: Submit Documents With Ease'])
                 : 'Submit Documents<br>With Ease' !!}
+
 
 
         </h3>
         <p class="global-content-graph" style="text-align:left;width: 120% ;">
 
-            {{ trim($landingpageContents[29]->content ?? '') ?:
-                'Upload your required documents
-                                                                                    securely through our
-                                                                                    platform for a seamless process.' }}
+            {{ trim(
+                $cms['study-loan']['Step 4 Content: Submit Documents With Ease'] ??
+                    'Upload your required documents
+                                                                                                            securely through our
+                                                                                                            platform for a seamless process.',
+            ) }}
 
 
         </p>
@@ -226,27 +258,29 @@
     <div class="study-loans-graphfifthbox">
 
         <h3 class="global-header-graph" style="text-align:right;width:100%">
-            {{ trim($landingpageContents[32]->content ?? '') ?: 'Fast-Track Approval' }}
+            {{ trim($cms['study-loan']['Diagonal Label: Fast-Track Approval'] ?? 'Fast-Track Approval') }}
 
         </h3>
         <p class="global-content-graph" style="text-align:right;width:100%">
-            {{ trim($landingpageContents[33]->content ?? '') ?: 'Experience quick approvals with minimal delays, ensuring you stay on track for your educational goals.' }}
+            {{ trim($cms['study-loan']['Step 5 Content: Fast-Track Approval'] ?? '') ?:
+                'Experience quick approvals with minimal delays, ensuring you stay on track for your educational goals.' }}
 
         </p>
     </div>
     <div class="study-loans-graphsixthbox">
 
         <h3 class="global-header-graph" style="text-align:left">
-            {!! trim($landingpageContents[36]->content ?? '') !== ''
-                ? smartBreak($landingpageContents[36]->content)
-                : 'Guaranteed  <br> Disbursement' !!}
+            {!! trim($cms['study-loan']['Step 6 Header: Guaranteed Disbursement'] ?? '') !== ''
+                ? smartBreak($cms['study-loan']['Step 6 Header: Guaranteed Disbursement'])
+                : 'Guaranteed <br> Disbursement' !!}
 
 
         </h3>
         <p class="global-content-graph" style="text-align:left">
 
 
-            {{ trim($landingpageContents[37]->content ?? '') ?: 'Once approved, your loan is disbursed directly to your institution on time, securing your admission.' }}
+            {{ trim($cms['study-loan']['Step 6 Content: Guaranteed Disbursement'] ?? '') ?:
+                'Once approved, your loan is disbursed directly to your institution on time, securing your admission.' }}
 
 
 
@@ -283,47 +317,52 @@
             <!-- Left Content -->
             <div class="smart-left-content">
                 <h1 class="main-heading">
-                    {!! trim($landingpageContents[40]->content ?? '') !== ''
-                        ? smartBreak($landingpageContents[40]->content)
-                        : 'Where your safety meets smart lending' !!}
-
-
-
+                    {!! trim($cms['secure-loan']['Main Heading'] ?? '') !== ''
+                        ? smartSplitText($cms['secure-loan']['Main Heading'], 4)
+                        : smartSplitText('Where your safety meets smart lending', 4) !!}
                 </h1>
+
 
                 <div class="mobile-right-image-smart-lending">
 
-                    <img src="assets/images/tablet-group-image.png" alt="Smart Lending Image">
+                    <img src="{{ trim($cms['secure-loan']['Mobile Image'] ?? '') !== ''
+                        ? trim($cms['secure-loan']['Mobile Image'])
+                        : asset('assets/images/tablet-group-image.png') }}"
+                        alt="Smart Lending Image">
 
                 </div>
 
 
                 <div class="features-list">
                     <div class="feature-item">
-                        <img src="assets/images/icon-1.png" alt="Support Icon">
+                        <img src="{{ trim($cms['secure-loan']['Feature 1 Icon'] ?? '') !== ''
+                            ? trim($cms['secure-loan']['Feature 1 Icon'])
+                            : asset('assets/images/icon-1.png') }}"
+                            alt="Support Icon">
                         <div class="feature-content">
                             <h4>
-                                {{ trim($landingpageContents[42]->content ?? '') ?: 'Integrated Support, Anytime, Anywhere' }}
+                                {{ trim($cms['secure-loan']['Feature 1 Title'] ?? '') ?: 'Integrated Support, Anytime, Anywhere' }}
 
 
                             </h4>
                             <p>
 
-                                {{ trim($landingpageContents[43]->content ?? '') ?: 'Instant support builds trust and enhances experience!' }}
+                                {{ trim($cms['secure-loan']['Feature 1 Description'] ?? '') ?: 'Instant support builds trust and enhances experience!' }}
                             </p>
                         </div>
                     </div>
 
                     <div class="feature-item">
-                        <img src="assets/images/icon-2.png" alt="Processing Icon">
+                        <img src="{{ trim($cms['secure-loan']['Feature 2 Icon'] ?? 'assets/images/icon-2.png') }}"
+                            alt="Processing Icon">
                         <div class="feature-content">
                             <h4>
-                                {{ trim($landingpageContents[45]->content ?? '') ?: 'Rapid Processing' }}
+                                {{ trim($cms['secure-loan']['Feature 2 Title'] ?? 'Rapid Processing') }}
 
 
                             </h4>
                             <p>
-                                {{ trim($landingpageContents[46]->content ?? '') ?: 'Easy student remittance in just a few steps!' }}
+                                {{ trim($cms['secure-loan']['Feature 2 Description'] ?? 'Easy student remittance in just a few steps!') }}
 
 
                             </p>
@@ -332,32 +371,34 @@
                     </div>
 
                     <div class="feature-item">
-                        <img src="assets/images/icon-3.png" alt="Price Icon">
+                        <img src="{{ trim($cms['secure-loan']['Feature 3 Icon'] ?? 'assets/images/icon-3.png') }}"
+                            alt="Price Icon">
                         <div class="feature-content">
                             <h4>
-                                {{ trim($landingpageContents[48]->content ?? '') ?: 'Best Price Commitment' }}
+                                {{ trim($cms['secure-loan']['Feature 3 Title'] ?? 'Best Price Commitment') }}
 
                             </h4>
                             <p>
 
-                                {{ trim($landingpageContents[49]->content ?? '') ?: 'Transparent, competitive exchange rates guaranteed!' }}
+                                {{ trim($cms['secure-loan']['Feature 3 Description'] ?? 'Transparent, competitive exchange rates guaranteed!') }}
 
                             </p>
                         </div>
                     </div>
 
                     <div class="feature-item">
-                        <img src="assets/images/iocn-4.png" alt="Protection Icon">
+                        <img src="{{ asset(trim($cms['secure-loan']['Feature 4 Icon'] ?? 'assets/images/icon-4.png')) }}"
+                            alt="Protection Icon">
                         <div class="feature-content">
                             <h4>
-                                {{ trim($landingpageContents[51]->content ?? '') ?: 'Absolutely Protected' }}
+                                {{ trim($cms['secure-loan']['Feature 4 Title'] ?? 'Absolutely Protected') }}
 
 
 
                             </h4>
                             <p>
 
-                                {{ trim($landingpageContents[52]->content ?? '') ?: 'Instant transfers, no fees, 24/7 support!' }}
+                                {{ trim($cms['secure-loan']['Feature 4 Description'] ?? 'Instant transfers, no fees, 24/7 support!') }}
 
                             </p>
                         </div>
@@ -365,7 +406,7 @@
                 </div>
 
                 <button class="cta-button" id="loanButton" onclick="handleLoanRedirect()">
-                    {{ trim($landingpageContents[54]->content ?? '') ?: 'Secure your loan now!' }}
+                    {{ trim($cms['secure-loan']['CTA Button Text'] ?? 'Secure your loan now!') }}
 
                 </button>
             </div>
@@ -373,60 +414,67 @@
             <!-- Right Content -->
             <div class="smart-right-content">
                 <div class="loading-container">
-                    <img src="assets/images/Circle.png" alt="Loading animation" class="loading-dots">
+                    <img src="{{ trim($cms['secure-loan']['Loading Animation'] ?? 'assets/images/Circle.png') }}"
+                        alt="Loading animation" class="loading-dots">
                 </div>
                 <div class="radcliffe-brand">
-                    <img src="assets/images/over-icon.png" alt="Radcliffe Camera icon">
+                    <img src="{{ trim($cms['secure-loan']['Radcliffe Icon'] ?? 'assets/images/over-icon.png') }}"
+                        alt="Radcliffe Camera icon">
                 </div>
                 <div class="radcliffe-image">
-                    <img src="assets/images/image-1.png" alt="Radcliffe Camera">
+                    <img src="{{ trim($cms['secure-loan']['Radcliffe Image'] ?? 'assets/images/image-1.png') }}"
+                        alt="Radcliffe Camera">
                 </div>
                 <div class="students-image">
-                    <img src="assets/images/image-2.png" alt="Students with Tablet">
+                    <img src="{{ trim($cms['secure-loan']['Students Image'] ?? 'assets/images/image-2.png') }}"
+                        alt="Students with Tablet">
                 </div>
                 <div class="graduation-image">
-                    <img src="assets/images/image-3.png" alt="Graduation Celebration">
+                    <img src="{{ trim($cms['secure-loan']['Graduation Image'] ?? 'assets/images/image-3.png') }}"
+                        alt="Graduation Celebration">
                 </div>
             </div>
         </div>
     </section>
 
 
-   <?php
- $stats = [
-    'students' => trim($landingpageContents[68]->counts ?? '') ?: '500+',
-    'nbfcs' => trim($landingpageContents[88]->counts ?? '') ?: '100',
-    'countries' => trim($landingpageContents[72]->counts ?? '') ?: '40+',
-    'customers' => trim($landingpageContents[74]->counts ?? '') ?: '2k+',
-];
-
-$labels = [
-    'students' => trim($landingpageContents[69]->content ?? '') ?: 'Students',
-    'nbfcs' => trim($landingpageContents[88]->content ?? '') ?: 'NBFCs',
-    'countries' => trim($landingpageContents[73]->content ?? '') ?: 'Countries',
-    'customers' => trim($landingpageContents[75]->content ?? '') ?: 'Happy customers',
-];
-
-$icons = [
-    'students' => trim($landingpageContents[60]->icon_url ?? '') ?: 'assets/images/icon-students.png',
-    'nbfcs' => trim($landingpageContents[61]->icon_url ?? '') ?: 'assets/images/icon-nbfcs.png',
-    'countries' => trim($landingpageContents[62]->icon_url ?? '') ?: 'assets/images/icon-countries.png',
-    'customers' => trim($landingpageContents[63]->icon_url ?? '') ?: 'assets/images/icon-customers.png',
-];
-?>
+    <?php
+    $stats = [
+        'students' => trim($cms['global-transfer']['Students Stat Value'] ?? '') ?: '500+',
+        'nbfcs' => trim($cms['global-transfer']['NBFCs Stat Value'] ?? '') ?: '100',
+        'countries' => trim($cms['global-transfer']['Countries Stat Value'] ?? '') ?: '40+',
+        'customers' => trim($cms['global-transfer']['Customers Stat Value'] ?? '') ?: '2k+',
+    ];
+    
+    $labels = [
+        'students' => trim($cms['global-transfer']['Students Stat Label'] ?? '') ?: 'Students',
+        'nbfcs' => trim($cms['global-transfer']['NBFCs Stat Label'] ?? '') ?: 'NBFCs',
+        'countries' => trim($cms['global-transfer']['Countries Stat Label'] ?? '') ?: 'Countries',
+        'customers' => trim($cms['global-transfer']['Customers Stat Label'] ?? '') ?: 'Happy customers',
+    ];
+    
+    $icons = [
+        'students' => trim($cms['global-transfer']['Students Icon'] ?? '') ?: 'assets/images/account_circle-grid.png',
+        'nbfcs' => trim($cms['global-transfer']['NBFCs Icon'] ?? '') ?: 'assets/images/account_balance.png',
+        'countries' => trim($cms['global-transfer']['Countries Icon'] ?? '') ?: 'assets/images/flag.png',
+        'customers' => trim($cms['global-transfer']['Customers Icon'] ?? '') ?: 'assets/images/sentiment_very_satisfied.png',
+    ];
+    ?>
 
 
     <div class="effort-section">
         <!-- Background Image -->
-        <img src="assets/images/effort-banner.png" alt="Background Image" class="effort-background-image">
+        <img src="{{ trim($cms['global-transfer']['Background Image'] ?? '') ?: asset('assets/images/effort-banner.png') }}"
+            alt="Background Image" class="effort-background-image">
 
         <div class="effort-container">
             <div class="effort-content">
                 <!-- Left Column with Image -->
                 <div class="effort-image-column">
                     <div class="effort-image-wrapper">
-                        <img src="assets/images/girl-image-with-banner.png" alt="Student with backpack"
-                            class="effort-main-image">
+                        <img src="{{ trim($cms['global-transfer']['Main Image'] ?? '') ?: asset('assets/images/girl-image-with-banner.png') }}"
+                            alt="Student with backpack" class="effort-main-image">
+
                     </div>
                 </div>
 
@@ -435,17 +483,19 @@ $icons = [
                     <div class="effort-heading">
 
                         <h1>
-                            {!! trim($landingpageContents[62]->content ?? '') !== ''
-                                ? smartSplitHeading($landingpageContents[62]->content, 3)
+                            {!! trim($cms['global-transfer']['Heading'] ?? '') !== ''
+                                ? smartSplitHeading($cms['global-transfer']['Heading'], 3)
                                 : 'Effortless and affordable <br>global transfers!' !!}
+
                         </h1>
 
 
                         <p>
-                            {{ trim($landingpageContents[63]->content ?? '') ?:
+                            {{ trim($cms['global-transfer']['Description'] ?? '') ?:
                                 'Support loved ones abroad by sending money from India for education and expenses.
-                                                        Transfer to 40+ countries with real exchange rates, no hidden fees.
-                                                        Sign up easily online with your PAN and address.' }}
+                                Transfer to 40+ countries with real exchange rates, no hidden fees.
+                                Sign up easily online with your PAN and address.' }}
+
 
                         </p>
                     </div>
@@ -454,23 +504,30 @@ $icons = [
 
                     <!-- Stats Grid -->
                     <div class="effort-icons-image">
-                        <img src="assets/images/account_circle-grid.png" alt="Students Icon" class="effort-icon">
-                        <img src="assets/images/account_balance.png" alt="NBFCs Icon" class="effort-icon">
-                        <img src="assets/images/flag.png" alt="Countries Icon" class="effort-icon">
-                        <img src="assets/images/sentiment_very_satisfied.png" alt="Customers Icon"
-                            class="effort-icon">
+                        <img src="{{ trim($cms['global-transfer']['Students Icon'] ?? '') ?: 'assets/images/account_circle-grid.png' }}"
+                            alt="Students Icon" class="effort-icon">
+
+                        <img src="{{ trim($cms['global-transfer']['NBFCs Icon'] ?? '') ?: 'assets/images/account_balance.png' }}"
+                            alt="NBFCs Icon" class="effort-icon">
+
+                        <img src="{{ trim($cms['global-transfer']['Countries Icon'] ?? '') ?: 'assets/images/flag.png' }}"
+                            alt="Countries Icon" class="effort-icon">
+
+                        <img src="{{ trim($cms['global-transfer']['Customers Icon'] ?? '') ?: 'assets/images/sentiment_very_satisfied.png' }}"
+                            alt="Customers Icon" class="effort-icon">
                     </div>
+
 
 
                     <div class="effort-stats-grid">
                         <?php
                         foreach ($stats as $key => $value) {
                             echo "
-                            <div class=\"effort-stat-card\">
-                                <div class=\"effort-stat-value\">{$value}</div>
-                                <div class=\"effort-stat-label\">{$labels[$key]}</div>
-                            </div>
-                            ";
+                                                                            <div class=\"effort-stat-card\">
+                                                                                <div class=\"effort-stat-value\">{$value}</div>
+                                                                                <div class=\"effort-stat-label\">{$labels[$key]}</div>
+                                                                            </div>
+                                                                            ";
                         }
                         ?>
                     </div>

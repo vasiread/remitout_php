@@ -169,6 +169,7 @@
      align-items: center;
      position: relative;
      width: 100%;
+     cursor:pointer;
  }
 
  .nav-searchnotificationbars i {
@@ -190,8 +191,7 @@
 
  .nav-searchnotificationbars .unread-notify::after {
      content: '';
-     background-color: red;
-     position: absolute;
+      position: absolute;
      top: -4px;
      right: -4px;
      width: 10px;
@@ -208,17 +208,18 @@
      content: '';
      background-color: #FF7A00;
      position: absolute;
-     top: -1px;
+     top: -6px;
      right: 18px;
      display: none;
      align-items: center;
      justify-content: center;
-     width: 15px;
-     height: 15px;
+     width: 1rem;
+     height: 1rem;
      z-index: 5;
      font-size: 9px;
      border-radius: 50%;
      color: #fff;
+     padding:10px
  }
 
  .nav-searchnotificationbars .nav-profileimg {

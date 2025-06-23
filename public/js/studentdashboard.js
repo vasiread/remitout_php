@@ -17,7 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
     passwordForgot();
     displayEducationDetails();
  
-
+   
+        
     // const sessionLogout = document.querySelector(".studentdashboardprofile-sidebarlists-bottom .logoutBtn");
     // if (sessionLogout) {
     //     sessionLogout.addEventListener('click', () => {
@@ -72,15 +73,25 @@ document.addEventListener('DOMContentLoaded', function () {
     const courseDetails = JSON.parse(courseDetailsElement.getAttribute('data-course-details'));
     console.log(courseDetails)
     const firstItem = courseDetails[0];
+   
     let selectedCountries = [];
 
     try {
-        const raw = firstItem["plan-to-study"]; // Note: dash (-), not underscore (_)
-        selectedCountries = JSON.parse(raw);
+        const raw = firstItem["plan-to-study"];
+
+        if (Array.isArray(raw)) {
+            selectedCountries = raw;
+        } else if (typeof raw === 'string') {
+            selectedCountries = raw.split(',').map(c => c.trim());
+        } else {
+            console.warn("Unexpected format for plan-to-study:", raw);
+        }
+
         console.log("Selected countries:", selectedCountries);
     } catch (e) {
         console.error("Could not parse plan-to-study:", e);
     }
+
 
     // Set checkboxes
     document.querySelectorAll('input[name="study-location-edit"]').forEach(checkbox => {
@@ -138,7 +149,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     setInterval(() => {
-        // console.log("Calling fetchUnreadCount every 3 seconds");
         try {
             fetchUnreadCount();
         } catch (err) {
@@ -149,51 +159,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
- 
 async function displayEducationDetails() {
-    const userIdElement = document.querySelector(
-        ".personalinfo-secondrow .personal_info_id"
-    );
-    const userId = userIdElement ? userIdElement.textContent.trim() : ""; 
- 
+    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const userId = userIdElement ? userIdElement.textContent.trim() : "";
+
     try {
-         const url = `/api/education?user_id=${encodeURIComponent(userId)}`;
+        const url = `/api/education?user_id=${encodeURIComponent(userId)}`;
         const response = await fetch(url, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-             },
+            headers: { 'Content-Type': 'application/json' },
         });
 
         const data = await response.json();
 
         if (data.success) {
             const educationSection = document.querySelector('.studentdashboardprofile-educationeditsection');
-            if (!educationSection) {
-                console.error('Education section not found');
-                return;
-            }
-
             const secondRow = educationSection.querySelector('.educationeditsection-secondrow');
-            if (!secondRow) {
-                console.error('Second row not found');
-                return;
-            }
+            const secondRowEdit = educationSection.querySelector('.educationeditsection-secondrow-edit');
 
-          
-            secondRow.innerHTML = '';
+            // View mode
+            secondRow.innerHTML = `
+                <p>Course: ${data.data.course_name || 'N/A'}</p>
+                <p>University: ${data.data.university_school_name || 'N/A'}</p>
+            `;
 
-             const degreeType = document.createElement('p');
-            degreeType.textContent = ` ${data.data.degree_type || 'N/A'}`;
-            secondRow.appendChild(degreeType);
-
-            const universityName = document.createElement('p');
-            universityName.textContent = `${data.data.university_school_name || 'N/A'}`;
-            secondRow.appendChild(universityName);
-
-            const courseName = document.createElement('p');
-            courseName.textContent = ` ${data.data.course_name || 'N/A'}`;
-            secondRow.appendChild(courseName);
+            // Edit mode inputs
+            secondRowEdit.innerHTML = `
+                <input type="text" class="course_name_input" value="${data.data.course_name || ''}" placeholder="Enter course name">
+                <input type="text" class="university_name_input" value="${data.data.university_school_name || ''}" placeholder="Enter university/school name">
+            `;
         } else {
             console.error('Failed to fetch education details:', data.error);
         }
@@ -201,6 +195,8 @@ async function displayEducationDetails() {
         console.error('Error fetching education details:', error);
     }
 }
+
+
 
 function handleIndividualCards(mode = 'index1') {
     const checkInterval = setInterval(() => {
@@ -272,6 +268,7 @@ const initializeSideBarTabs = () => {
     const testScoresEditSection = document.querySelector(
         ".studentdashboardprofile-testscoreseditsection",
     );
+   
 
      
    
@@ -282,11 +279,14 @@ const initializeSideBarTabs = () => {
             item.classList.add("active");
 
             if (index === 1) {
-                // console.log('Inbox tab selected');
                 const personalDivContainer = document.querySelector(".personalinfo-secondrow");
                 const personalDivContainerEdit = document.querySelector(".personalinfosecondrow-editsection");
                 const academicsMarksDivEdit = document.querySelector(".testscoreseditsection-secondrow-editsection");
                 const academicsMarksDiv = document.querySelector(".testscoreseditsection-secondrow");
+                const adminMsgContainer = document.querySelector(".admin-msg-container");
+                if (adminMsgContainer) {
+                    adminMsgContainer.style.display = "block";
+                }
 
                 personalDivContainerEdit.style.display = "none";
                 personalDivContainer.style.display = "flex";
@@ -313,6 +313,10 @@ const initializeSideBarTabs = () => {
                 profileImgEditIcon.style.display = "none";
                 educationEditSection.style.display = "none";
                 testScoresEditSection.style.display = "none";
+                const adminMsgContainer = document.querySelector(".admin-msg-container");
+                if (adminMsgContainer) {
+                    adminMsgContainer.style.display = "none";
+                }
 
                 const personalDivContainer = document.querySelector(".personalinfo-secondrow");
                 const personalDivContainerEdit = document.querySelector(".personalinfosecondrow-editsection");
@@ -1213,6 +1217,7 @@ function initializeSimpleChat() {
                                         word-wrap: break-word;
                                         font-family: 'Poppins', sans-serif;
                                         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+                                        color:rgb(102, 102, 102);
                                     `;
                                 if (message.message.match(/\.(pdf|docx?|txt)$/i)) {
                                     // Show file download style
@@ -3166,6 +3171,10 @@ const saveChangesFunctionality = () => {
     const personalDivContainerEdit = document.querySelector(".personalinfosecondrow-editsection");
     const academicsMarksDivEdit = document.querySelector(".testscoreseditsection-secondrow-editsection");
     const academicsMarksDiv = document.querySelector(".testscoreseditsection-secondrow");
+    const otherExamName = document.querySelector(".other_exam_name_input")?.value || '';
+    const otherExamScore = document.querySelector(".other_exam_score_input")?.value || '';
+
+
 
     const planToStudy = document.getElementById("plan-to-study-edit");
 
@@ -3179,6 +3188,23 @@ const saveChangesFunctionality = () => {
         personalDivContainer.style.display = "none";
         academicsMarksDivEdit.style.display = "flex";
         academicsMarksDiv.style.display = "none";
+        document.querySelector(".educationeditsection-secondrow").style.display = "none";
+        document.querySelector(".educationeditsection-secondrow-edit").style.display = "flex";
+      
+        document.getElementById("plan-to-study-edit").disabled = false;
+        document.getElementById("country-edit").disabled = false;
+
+        document.querySelectorAll('input[name="study-location-edit"]').forEach(cb => cb.disabled = false);
+        document.querySelectorAll('input[name="education-level"]').forEach(rb => rb.disabled = false);
+
+        document.getElementById("otherDegreeInput").disabled = false;
+
+        document.querySelector(".myapplication-fourthcolumn-additional input").disabled = false;
+        document.querySelector(".myapplication-fourthcolumn input").disabled = false;
+
+        document.querySelector(".myapplication-fifthcolumn input").disabled = false;
+
+
     };
 
     if (saveChangesButton) {
@@ -3201,6 +3227,9 @@ const saveChangesFunctionality = () => {
                 personalDivContainerEdit.style.display = "none";
                 academicsMarksDivEdit.style.display = "none";
                 academicsMarksDiv.style.display = "flex";
+                document.querySelector(".educationeditsection-secondrow").style.display = "flex";
+                document.querySelector(".educationeditsection-secondrow-edit").style.display = "none";
+
 
                 const editedName = document.querySelector(".personalinfosecondrow-editsection .personal_info_name input").value;
                 const editedPhone = document.querySelector(".personalinfosecondrow-editsection .personal_info_phone input").value;
@@ -3209,6 +3238,8 @@ const saveChangesFunctionality = () => {
                 const iletsScore = document.querySelector(".testscoreseditsection-secondrow-editsection .ilets_score").value;
                 const greScore = document.querySelector(".testscoreseditsection-secondrow-editsection .gre_score").value;
                 const tofelScore = document.querySelector(".testscoreseditsection-secondrow-editsection .tofel_score").value;
+                const otherExamName = document.querySelector('.other_exam_name_input')?.value;
+                const otherExamScore = document.querySelector('.other_exam_score_input')?.value;
 
                 const oldPlanToStudy = document.getElementById("plan-to-study-edit").value;
                 const oldPlanToStudyArray = oldPlanToStudy ? oldPlanToStudy.split(',').map(item => item.trim()) : [];
@@ -3243,6 +3274,9 @@ const saveChangesFunctionality = () => {
                 const otherDegreeInput = document.getElementById('otherDegreeInput').value;
 
                 const updatedDegreeType = selectedDegree === 'Others' ? otherDegreeInput : selectedDegree;
+                const editedCourseName = document.querySelector(".educationeditsection-secondrow-edit .course_name_input")?.value || '';
+                const editedUniversityName = document.querySelector(".educationeditsection-secondrow-edit .university_name_input")?.value || '';
+
 
                 const updatedData = {
                     degreeType: updatedDegreeType
@@ -3260,7 +3294,13 @@ const saveChangesFunctionality = () => {
                     courseDuration: courseDuration,
                     loanAmount: loanAmount,
                     degreeType: updatedData.degreeType,
-                    userId: userId
+                    userId: userId,
+                    courseName: editedCourseName,
+                    universitySchoolName: editedUniversityName,
+                    others: {
+                        otherExamName: otherExamName,
+                        otherExamScore: otherExamScore
+                    }
                 };
 
                 console.log(updatedInfos);
@@ -3283,8 +3323,83 @@ const saveChangesFunctionality = () => {
                         if (editedName) {
                             document.querySelector("#referenceNameId p").textContent = editedName;
                             document.getElementById("personal_state_id").textContent = editedState;
+                            if (editedName) {
+                                document.querySelector("#referenceNameId p").textContent = editedName;
+                            }
+                            if (editedState) {
+                                document.getElementById("personal_state_id").textContent = editedState;
+                            }
+
+                            // ✅ Update academic info section dynamically
+                            if (editedCourseName) {
+                                document.querySelector(".educationeditsection-secondrow p:nth-child(2)").textContent = `2. ${editedCourseName}`;
+                            }
+                            if (editedUniversityName) {
+                                document.querySelector(".educationeditsection-secondrow p:nth-child(1)").textContent = `1. ${editedUniversityName}`;
+                            }
+
+                            // ✅ Exit edit mode
+                            isEditing = false;
+
+                            saveChangesButton.textContent = 'Edit';
+                            saveChangesButton.style.backgroundColor = "transparent";
+                            saveChangesButton.style.color = "#260254";
+
+                            personalDivContainer.style.display = "flex";
+                            personalDivContainerEdit.style.display = "none";
+                            academicsMarksDivEdit.style.display = "none";
+                            academicsMarksDiv.style.display = "flex";
+                            document.querySelector(".educationeditsection-secondrow").style.display = "flex";
+                            document.querySelector(".educationeditsection-secondrow-edit").style.display = "none";
+                            const scoresContainer = document.querySelector(".testscoreseditsection-secondrow");
+                            // Disable inputs again after saving
+                            document.getElementById("plan-to-study-edit").disabled = true;
+                            document.getElementById("country-edit").disabled = true;
+
+                            document.querySelectorAll('input[name="study-location-edit"]').forEach(cb => cb.disabled = true);
+                            document.querySelectorAll('input[name="education-level"]').forEach(rb => rb.disabled = true);
+
+                            document.getElementById("otherDegreeInput").disabled = true;
+
+                            document.querySelector(".myapplication-fourthcolumn-additional input").disabled = true;
+                            document.querySelector(".myapplication-fourthcolumn input").disabled = true;
+
+                            document.querySelector(".myapplication-fifthcolumn input").disabled = true;
+
+
+                            // Clear existing scores
+                            // Clear existing scores
+                            scoresContainer.innerHTML = "";
+
+                            let scoreCounter = 1;
+
+                            // IELTS
+                            if (iletsScore && !isNaN(iletsScore)) {
+                                scoresContainer.innerHTML += `<p>${scoreCounter++}. IELTS <span class="ilets_score">${iletsScore}</span></p>`;
+                            }
+
+                            // GRE
+                            if (greScore && !isNaN(greScore)) {
+                                scoresContainer.innerHTML += `<p>${scoreCounter++}. GRE <span class="gre_score">${greScore}</span></p>`;
+                            }
+
+                            // TOEFL
+                            if (tofelScore && !isNaN(tofelScore)) {
+                                scoresContainer.innerHTML += `<p>${scoreCounter++}. TOEFL <span class="tofel_score">${tofelScore}</span></p>`;
+                            }
+
+                            // ✅ Other Exam
+                            if (otherExamName && otherExamScore && !isNaN(otherExamScore)) {
+                                scoresContainer.innerHTML += `<p>${scoreCounter++}. ${otherExamName} <span>${otherExamScore}</span></p>`;
+                            }
+
+
+                            
+
+
 
                         }
+                        
 
                         if (data.errors) {
                             console.error('Validation errors:', data.errors);
@@ -3342,6 +3457,7 @@ function loadSavedMessages() {
                 border-radius: 8px;
                 word-wrap: break-word;
                 font-family: 'Poppins', sans-serif;
+                color:rgb(102, 102, 102);
             `;
             messageContent.textContent = content;
 
@@ -3371,6 +3487,7 @@ function loadSavedMessages() {
                 align-items: center;
                 gap: 8px;
                 position: relative;
+                color:rgb(102, 102, 102);
             `;
 
             // Create download link for the file
@@ -3425,7 +3542,7 @@ function loadSavedMessages() {
 function fetchUnreadCount() {
     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
     const userId = userIdElement ? userIdElement.textContent.trim() : '';
-    const receiverId = userId;
+     const receiverId = userId;
 
     if (!receiverId) return;
 
@@ -3441,7 +3558,6 @@ function fetchUnreadCount() {
         .then(data => {
             const countNotify = document.querySelector(".unread-notify-container p");
             if (data.success && data.count > 0 && countNotify) {
-                console.log(data.count);
                 countNotify.style.display = "flex";
                 countNotify.textContent = data.count;
             } else if (countNotify) {
@@ -4383,6 +4499,7 @@ async function createAdminChatStudent() {
     adminMsgContainer.classList.add('admin-msg-container');
     adminMsgContainer.style.cssText = `
         border: 1px solid #ddd;
+        display:none;
         border-radius: 10px;
         margin: 20px 0;
         overflow: hidden;
@@ -4394,14 +4511,14 @@ async function createAdminChatStudent() {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: #f8f8f8;
+        background: transparent;
         padding: 12px 16px;
         border-bottom: 1px solid #eee;
     `;
 
     const title = document.createElement('div');
-    title.innerHTML = `<strong>Admin</strong><br><small>Support & Communication Desk</small>`;
-    title.style.cssText = `font-size: 14px; color: #444`;
+    title.innerHTML = `Admin<br><p style="color:rgba(144, 144, 144, 1)">Support & Communication Desk</p>`;
+    title.style.cssText = `font-size: 14px; color: rgba(93, 92, 92, 1)`;
 
     const btnGroup = document.createElement('div');
 
@@ -4411,14 +4528,13 @@ async function createAdminChatStudent() {
         background-color: #6f25ce;
         color: white;
         border: none;
-        padding: 8px 16px;
+        padding: 7px 22px;
         border-radius: 4px;
         cursor: pointer;
         font-family: "Poppins", sans-serif;
         font-size: 14px;
         transition: background-color 0.3s ease;
-            margin-right: 15px;
-    `;
+     `;
 
     btnGroup.append(toggleBtn);
     header.append(title, btnGroup);
@@ -4646,6 +4762,7 @@ async function createAdminChatStudent() {
                     word-wrap: break-word;
                     font-family: 'Poppins', sans-serif;
                     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                    color:rgb(102, 102, 102);
                 `;
 
                 let isFileUrl = false;
@@ -4664,7 +4781,7 @@ async function createAdminChatStudent() {
                     link.href = msg.message;
                     link.target = "_blank";
                     link.innerHTML = `<i class="fa-solid fa-file"></i> ${fileName}`;
-                    link.style.cssText = `color: #333; text-decoration: none;`;
+                    link.style.cssText = `color: rgb(102, 102, 102); text-decoration: none;`;
                     bubble.appendChild(link);
                 } else {
                     bubble.textContent = msg.message;

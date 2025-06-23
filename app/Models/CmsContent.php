@@ -9,7 +9,7 @@ class CmsContent extends Model
 {
     use HasFactory;
      protected $fillable = [
-        'page', 'section', 'title', 'key_name', 'content',
+        'id','page', 'section', 'title', 'key_name', 'content',
         'status', 'type', 'constraints'
     ];
 
