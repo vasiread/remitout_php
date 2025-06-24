@@ -147,7 +147,7 @@ html {
         padding: 1.25rem;
         padding-left: clamp(3rem, 10vw, 6.25rem);
         padding-right: 1.25rem;
-        text-align: center;
+        text-align: left;
         border-bottom: 1px solid #dedee0;
         width:100%;
         margin: 0 auto;
@@ -295,7 +295,7 @@ html {
 }
 
 .registration-section {
-    background-image: url("../images/student-dashboard.png");
+    background-image: url("../images/student-dashboard.webp");
     background-size: cover;
     background-position: center;
     padding: 1.5rem 5rem 1.5rem 0.8rem;
@@ -331,7 +331,7 @@ html {
 
 @media (min-width: 768px) and (max-width: 1024px) {
     .registration-section {
-        background-image: url("../images/student-dashboard.png");
+        background-image: url("../images/student-dashboard.webp");
         background-size: cover;
         background-position: center;
         max-width: 100%;
@@ -359,7 +359,7 @@ html {
 
 @media (max-width: 767px) {
     .registration-section {
-        background-image: url("../images/student-dash-mobile.png");
+        background-image: url("../images/student-dash-mobile.webp");
         background-size: cover;
         background-position: center;
         max-width: 100%;
@@ -389,7 +389,7 @@ html {
 @media (max-width: 1025px) {
     .registration-section {
         max-width: 100vw;
-        padding: clamp(1.75rem, 3.5vw, 2.5rem) clamp(4rem, 6vw, 6rem);
+       padding-left: 12%;
     }
 
     .registration-title {
@@ -550,7 +550,7 @@ html {
         width: 100%;
         text-align: center;
         margin: 10px auto;
-        margin-bottom: -2px;
+        margin-bottom: -34px;
     }
 
     .breadcrumb a .desktop-text {
@@ -569,6 +569,7 @@ html {
 
     .breadcrumb a {
         text-align: center;
+        width:120px;
     }
 }
 
@@ -840,7 +841,7 @@ form {
         color: #ff7a00;
         font-family: "Poppins", sans-serif;
         text-align: center;
-        margin: 30px 0;
+        margin: 20px 0;
     }
 
     /* Centering the container */
@@ -908,26 +909,24 @@ form {
     .input-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 20px;
         justify-content: center;
     }
 
     .input-group {
         width: 100%;
-        max-width: 430px;
-        height: auto;
+        max-width: 100%;
+        height: 35px;
         margin: 0 auto;
     }
 
     .input-content {
         width: 100%;
-        max-width: 420px;
+        max-width: 100%;
         margin: 0 auto;
     }
 
     .input-group input {
         width: 100%;
-        padding: 14px;
         font-size: 16px;
         padding-left: 40px;
     }
@@ -1001,7 +1000,8 @@ form {
         position: relative;
         display: flex;
         align-items: center;
-        gap: 0;
+        gap: 0; 
+        margin-bottom: 20px;
     }
 
     .step-header h2 {
@@ -1215,8 +1215,10 @@ form {
         background-color: #fff;
         margin-bottom: 30px;
         text-align: left;
-        margin-left: 0px;
     }
+    .next-btn {
+      margin-top: 200px;
+     }
 
     .input-container {
         flex-direction: column;
@@ -1495,7 +1497,8 @@ input[type="number"]::-webkit-inner-spin-button {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding-left: 0;
+            padding-left: 0; 
+            margin-bottom: 20px;
         }
     
         .navigation .button {
@@ -1981,7 +1984,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .course-duration-container .step-header h2 {
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 500;
     color: #191825;
     padding-bottom: 20px;
 }
@@ -2237,7 +2240,6 @@ h2 {
     border: 1px solid #ddd;
     border-radius: 4px;
     width: 283px;
-    height: 30px;
     margin-top: 20px;
 }
 
@@ -2299,7 +2301,6 @@ h2 {
 
     .left-section {
         margin-left: 0;
-        margin-top: -28px;
         gap: 20px;
     }
 
@@ -2372,8 +2373,7 @@ h2 {
         border-radius: 5px;
         font-size: 16px;
         cursor: pointer;
-        margin-top: 300px;
-
+        margin-top: 350px;
         margin-right: 100px;
         position: absolute;
         right: 0;
@@ -3006,11 +3006,14 @@ p {
         border-radius: 5px;
         font-size: 16px;
         cursor: pointer;
-        margin-top: 55.56%;
+        margin-top: 40%;
         margin-right: 120px;
         position: absolute;
         right: 0;
         z-index: 10;
+    }  
+    .admit-right-section {
+        gap:0px;
     }
 }
 
@@ -3555,6 +3558,7 @@ p {
     .monthly-liability-option input[type="text"] {
         width: 300px;
     }
+   
 }
 
 @media (max-width: 767px) {
@@ -4018,7 +4022,8 @@ input[type="file"] {
 
     .work-experience-row {
         flex-direction: column;
-        gap: 15px;
+        gap: 15px;   
+        grid-template-columns: repeat(1, 1fr);
     }
 
     .work-experience-box {
@@ -4329,9 +4334,9 @@ input[type="file"] {
         border-radius: 5px;
         font-size: 16px;
         cursor: pointer;
-        margin-top: 133px;
+        margin-top: 150px;
         margin-bottom: 100px;
-        margin-right: 70px;
+        margin-right: 90px;
         position: absolute;
         right: 0;
         z-index: 10;
@@ -4465,12 +4470,12 @@ div.salary-sub p {
     display: flex;
     align-items: center;
     position: relative;
-    width: 300px;
+    width: 100%;
     justify-content: space-between;
 }
 .dropdown-gender-header {
     width: 100%;
-    max-width: 280px;
+    max-width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -4493,7 +4498,7 @@ div.salary-sub p {
     position: absolute;
     top: 100%;
     margin-top: 8px;
-    width: 100%;
+    width: 300px;
     margin-left: -10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -4548,4 +4553,10 @@ div.salary-sub p {
 .toast.show {
     opacity: 1;
     transform: translateY(0);
+}
+@media (max-width: 1020px) {
+    .dropdown-options-gender {
+        width:100%;
+
+    }
 }

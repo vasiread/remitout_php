@@ -668,13 +668,8 @@ body {
         display: block;
     }
 
-    /*  .nbfc-mobile-sidebar {
-                display: none;
-    }*/
-
     .nbfc-mobile-sidebar.active {
         display: flex;
-        /* Show only when active */
     }
 
     .nbfc-mobile-menu-top {
@@ -704,18 +699,39 @@ body {
     .myapplication-nbfcapprovalcolumn {
         display: none;
     } 
+    .studentdashboardprofile-educationeditsection,
+    .studentdashboardprofile-testscoreseditsection{
+        display:none !important;
+    }
+    .personal_info_name,
+    .personal_info_phone,
+    .personal_info_email,
+    .personal_info_state{
+        display: none !important;
+    }
+    #profilesection-nbfcapprovalcolumn .nbfcapprovalcolumnrightaligned button {
+        width: 100%;
+        gap: 12px;
+    }
+    .studentdashboardprofile-personalinfo {
+    max-width: 100%;
+
+    }
     .wholeapplicationprofile {
         display:flex;
         flex-direction: column;
+        gap:0;
     }
     #nbfc-list-of-student-profilesections{
         width:95%;
         margin-left: 0;
+        gap:0;
     }
    
 
     #profilesection-nbfcapprovalcolumn {
         display: flex;
+        gap:20px;
     }
 
     #nbfc-student-profile-details {
@@ -3456,4 +3472,5 @@ body {
         font-size: 11px;
         text-align: right;
     }
+    
 }

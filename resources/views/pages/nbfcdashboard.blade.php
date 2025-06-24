@@ -2872,7 +2872,6 @@
         justify-content: space-between;
         align-items: center;
         background: transparent;
-        padding: 12px 16px;
     `;
 
                 const title = document.createElement('div');
