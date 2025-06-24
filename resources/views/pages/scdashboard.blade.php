@@ -1482,20 +1482,14 @@ $studentDocumentDetailsInfo = [
                 return;
             }
 
-            if (typeof CryptoJS === "undefined") {
-                console.error("CryptoJS library is not loaded. Please include it in your HTML.");
-                return;
-            }
-
             const referralCode = referralCodeElement.textContent.trim();
             if (!referralCode) {
                 console.error("Referral code is empty or not found");
                 return;
             }
 
-            const encryptedRef = CryptoJS.AES.encrypt(referralCode, secretKey).toString();
-            const encodedEncryptedRef = encodeURIComponent(encryptedRef);
-            const referralLink = `${baseUrl}?ref=${encodedEncryptedRef}`;
+            const referralLink = `${baseUrl}?ref=${encodeURIComponent(referralCode)}`;
+
 
             const removeExistingListeners = (element, event, handler) => {
                 element.removeEventListener(event, handler);

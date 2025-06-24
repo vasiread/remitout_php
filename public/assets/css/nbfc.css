@@ -2774,9 +2774,7 @@ body {
 
 
 @media (min-width: 1700px) {
-    .index-student-details-container {
-        max-width: 1200px;
-    }
+
 
     .index-student-card {
         padding: 20px 10px;
@@ -3485,4 +3483,37 @@ body {
         text-align: right;
     }
     
+}
+/* Desktop view */
+.btn-mobile {
+    display: none;
+}
+.btn-desktop {
+    display: inline;
+}
+
+@media (max-width: 768px) {
+    .admin-btn-group {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-desktop {
+        display: none;
+      }
+    
+      .btn-mobile {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+      }
+    
+      .admin-btn-group button img,
+      .admin-btn-group button i {
+        width: 20px;
+        height: 20px;
+        font-size: 40px;
+        
+      }
 }
