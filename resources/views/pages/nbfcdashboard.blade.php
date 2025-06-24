@@ -160,6 +160,7 @@
                     <div class="dashboard-student-list" id="dashboard-request-list">
                         <!-- Dynamically populated list for Requests goes here -->
                     </div>
+                   
                 </section>
 
                 <section class="dashboard-section">
@@ -191,6 +192,10 @@
                     <div class="dashboard-student-list" id="dashboard-proposal-list">
                         <!-- Dynamically populated list for Proposals goes here -->
                     </div>
+                    <div class="viewmore-button" id="viewmore-proposals">
+  <p>View More</p>
+  <img src="assets/images/Icons/stat_minus_1.png" style="margin-left: 6px; width: 12px;" />
+</div>
                 </section>
             </div>
 
@@ -715,14 +720,10 @@
                     <div class="index-student-details-container">
 
                     </div>
-                    <div class="viewmore-messagenbfc">
-                        <p>view more</p> <img src="{{ asset('assets/images/Icons/stat_minus_1.png') }}"
-                            style="margin-top: 9px;
-                        margin-left: 8px;
-                        width: 12px;
-                        height: 7px;"
-                            alt="">
-                    </div>
+                  <div class="viewmore-button" id="viewmore-inbox">
+  <p>View More</p>
+  <img src="assets/images/Icons/stat_minus_1.png" style="margin-left: 6px; width: 12px;" />
+</div>
             </section>
 
 
@@ -1257,6 +1258,55 @@
                     }
                 };
 
+                function handleToggleViewMobileOnly(containerSelector, buttonSelector, maxItems = 4) {
+    const container = document.querySelector(containerSelector);
+    const button = document.querySelector(buttonSelector);
+    if (!container || !button) return;
+
+    let isExpanded = false;
+
+    function updateView() {
+        const items = Array.from(container.children);
+        const isMobile = window.innerWidth <= 768;
+
+        if (!isMobile || items.length <= maxItems) {
+            items.forEach(item => item.style.display = '');
+            button.style.display = 'none';
+            return;
+        }
+
+        button.style.display = 'flex';
+
+        items.forEach((item, index) => {
+            if (isExpanded || index < maxItems) {
+                item.style.display = ''; // preserve original layout (e.g., flex)
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // Toggle button label and icon
+        const textEl = button.querySelector('p');
+        const imgEl = button.querySelector('img');
+        if (textEl) textEl.textContent = isExpanded ? 'View Less' : 'View More';
+        if (imgEl) imgEl.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+
+    button.addEventListener('click', () => {
+        isExpanded = !isExpanded;
+        updateView();
+    });
+
+    window.addEventListener('resize', updateView);
+    updateView();
+}
+
+
+// Call for both Proposals and Inbox
+handleToggleViewMobileOnly('#dashboard-proposal-list', '#viewmore-proposals');
+handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox');
+
+
                 function resetStudentProfileView() {
                     // Reset image
 
@@ -1295,6 +1345,11 @@
                     });
                 }
 
+                // Delay toggle visibility for view more button logic until DOM is updated
+                setTimeout(() => {
+                    handleToggleViewMobileOnly('#dashboard-proposal-list', '#viewmore-proposals');
+                    handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox');
+                }, 100); 
 
 
 
