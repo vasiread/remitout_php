@@ -814,7 +814,7 @@
 
                 function toggleMobileSidebar() {
 
-                    if (window.innerWidth <= 768) {
+                    if (window.innerWidth <= 1020) {
                         mobileSidebar.classList.toggle('active');
                         mobileOverlay.classList.toggle('active');
 
@@ -838,7 +838,7 @@
                     mobileSidebar.classList.remove('active');
                     mobileOverlay.classList.remove('active');
 
-                    if (window.innerWidth <= 768) { // Show nav-right again only on mobile
+                    if (window.innerWidth <= 1020) { // Show nav-right again only on mobile
                         nbfcNavRight.classList.remove('hidden');
                     }
 

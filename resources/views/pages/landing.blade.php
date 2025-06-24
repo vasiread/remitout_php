@@ -29,14 +29,12 @@
         'landingpageContents'=>$landingpageContents
 
         ])
-      @include('components.inforecords', [
-        'study_loan' => $study_loan,
+      
+      @include('components.graphflow', [
         'landingpageContents'=>$landingpageContents
         ])
-           @include('components.faqsection', [
-            'combinedFaqs' => $combinedFaqs
-        ])
-      @include('components.graphflow', [
+        @include('components.inforecords', [
+        'study_loan' => $study_loan,
         'landingpageContents'=>$landingpageContents
         ])
       
