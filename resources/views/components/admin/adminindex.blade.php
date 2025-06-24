@@ -666,7 +666,7 @@
 
             // Toggle emoji picker
             function toggleEmojiPicker(chatId, chatContainer, messageInput, type) {
-                const emojis = ['😊', '👍', '😀', '🙂', '👋', '❤️', '👌', '✨'];
+                const emojis = ['😊', '👍', '😀', '🙂', '👋', '👌', '✨'];
                 const existingPicker = document.querySelector(`.emoji-picker[data-chat-id="${chatId}"]`);
                 if (existingPicker) {
                     existingPicker.remove();

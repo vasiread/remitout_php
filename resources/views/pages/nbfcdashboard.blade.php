@@ -62,7 +62,9 @@
                 @if (session()->has('nbfcuser'))
                     @php $nbfcuser = session('nbfcuser'); @endphp
                     <div class="nbfc-profile">
-                        <div class="nbfc-avatar"></div>
+<div class="nbfc-avatar">
+    <img src="{{ asset('assets/images/bank.png') }}" alt="Bank Profile">
+</div>
                         <span class="nbfc-profile-text">{{ $nbfcuser->nbfc_name }}</span>
                         <div class="nbfc-dropdown-icon"></div>
                     </div>
@@ -1658,7 +1660,7 @@
                 if (smileIcon) {
                     smileIcon.addEventListener("click", function(e) {
                         e.stopPropagation();
-                        const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
+                        const emojis = ["😊", "👍", "😀", "🙂", "👋", "👌", "✨"];
 
                         const existingPicker = document.querySelector(".emoji-picker");
                         if (existingPicker) {
@@ -1986,7 +1988,7 @@
             });
             // Attach send button click once
             const sendProposalTrigger = document.querySelector(".nbfc-send-proposal-send-button");
-            alert(sendProposalTrigger)
+            // alert(sendProposalTrigger)
             if (sendProposalTrigger) {
                 const user = @json(session('nbfcuser'));
                 const nbfcId = user.nbfc_id;
@@ -2744,7 +2746,7 @@
                         smileIcons.forEach(smileIcon => {
                             smileIcon.addEventListener('click', function(e) {
                                 e.stopPropagation();
-                                const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
+                                const emojis = ["😊", "👍", "😀", "🙂", "👋", "👌", "✨"];
                                 const existingPicker = container.querySelector(".emoji-picker");
                                 if (existingPicker) {
                                     existingPicker.remove();
@@ -2940,50 +2942,50 @@
         position: relative;
     `;
 
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.placeholder = 'Send message';
-                input.classList.add('nbfc-message-input');
-                input.style.cssText = `
-        flex: 1;
-        padding: 8px 12px;
-        border-radius: 20px;
-        border: 1px solid #ccc;
-        margin-right: 10px;
+                  const input = document.createElement('input');
+                  input.type = 'text';
+                  input.placeholder = 'Send message';
+                  input.classList.add('nbfc-message-input');
+                  input.style.cssText = `
+          flex: 1;
+          padding: 8px 12px;
+          border-radius: 20px;
+          border: 1px solid #ccc;
+          margin-right: 10px;
     `;
 
-                const emoji = document.createElement('i');
-                emoji.classList.add('fa-regular', 'fa-face-smile');
-                emoji.style.cssText = `font-size: 18px; margin-right: 8px; color: #888; cursor: pointer;`;
+                  const emoji = document.createElement('i');
+                  emoji.classList.add('fa-regular', 'fa-face-smile');
+                  emoji.style.cssText = `font-size: 18px; margin-right: 8px; color: #888; cursor: pointer;`;
 
-                const paperclip = document.createElement('i');
-                paperclip.classList.add('fa-solid', 'fa-paperclip');
-                paperclip.style.cssText = `font-size: 18px; margin-right: 8px; color: #888; cursor: pointer;`;
+                  const paperclip = document.createElement('i');
+                  paperclip.classList.add('fa-solid', 'fa-paperclip');
+                  paperclip.style.cssText = `font-size: 18px; margin-right: 8px; color: #888; cursor: pointer;`;
 
-                const sendIcon = document.createElement('img');
-                sendIcon.src = 'assets/images/send-nbfc.png';
-                sendIcon.alt = 'send icon';
-                sendIcon.style.cssText = `width: 22px; height: 22px; cursor: pointer;`;
+                  const sendIcon = document.createElement('img');
+                  sendIcon.src = 'assets/images/send-nbfc.png';
+                  sendIcon.alt = 'send icon';
+                  sendIcon.style.cssText = `width: 22px; height: 22px; cursor: pointer;`;
 
                 // Emoji Picker
                 const emojiPicker = document.createElement('div');
                 emojiPicker.style.cssText = `
-        position: absolute;
-        bottom: 45px;
-        left: 10px;
-        background: white;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 10px;
-        display: none;
-        max-width: 200px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        z-index: 1000;
-        font-size: 20px;
+                    position: absolute;
+                    bottom: 45px;
+                    left: 10px;
+                    background: white;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    padding: 10px;
+                    display: none;
+                    max-width: 200px;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                    z-index: 1000;
+                      font-size: 20px;
     `;
 
-                const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
-                emojis.forEach(char => {
+                  const emojis = ["😊", "👍", "😀", "🙂", "👋", "👌", "✨"];
+                  emojis.forEach(char => {
                     const span = document.createElement('span');
                     span.textContent = char;
                     span.style.cssText = `cursor: pointer; padding: 5px; display: inline-block;`;
@@ -2993,10 +2995,10 @@
                         input.focus();
                     };
                     emojiPicker.appendChild(span);
-                });
+                  });
 
                 // File Upload
-                paperclip.addEventListener("click", () => {
+                  paperclip.addEventListener("click", () => {
                     const fileInput = document.createElement("input");
                     fileInput.type = "file";
                     fileInput.accept = ".pdf,.doc,.docx,.txt";
@@ -3033,16 +3035,15 @@
 
                     document.body.appendChild(fileInput);
                     fileInput.click();
-                });
+                  });
 
-                inputContainer.append(input, emoji, paperclip, sendIcon, emojiPicker);
+                  inputContainer.append(input, emoji, paperclip, sendIcon, emojiPicker);
 
-                // Append all
-                adminMsgContainer.append(header, chatWrapper, inputContainer);
-                container.appendChild(adminMsgContainer);
+                  adminMsgContainer.append(header, chatWrapper, inputContainer);
+                  container.appendChild(adminMsgContainer);
 
-                // Load Messages
-                async function loadMessages() {
+                 
+                  async function loadMessages() {
                     chatWrapper.innerHTML = '';
                     try {
                         const res = await fetch(`/get-messages-adminnbfc/${nbfc_id}/${admin_id}`);
@@ -5631,7 +5632,7 @@
 
                         var user = @json(session('nbfcuser'));
                         const email = user.nbfc_email;
-                        alert(email);
+                        // alert(email);
 
 
 

@@ -105,6 +105,7 @@ body {
     gap: 20px;
     padding: 6px 12px;
     cursor: pointer;
+    
     transition: background-color 0.3s ease;
 }
 
@@ -112,13 +113,24 @@ body {
     width: 37px;
     height: 37px;
     border-radius: 50%;
-    background-color: #e98635;
-    display: flex;
+     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-weight: 500;
-}
+    position:relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.nbfc-avatar img{
+    position:absolute;
+    top:10%;
+    left:10%;
+    width: 100%;
+    border-radius: 50%;
+ }
 
 .nbfc-profile-text {
     color: #260254;
