@@ -923,46 +923,39 @@ class StudentDashboardController extends Controller
 
         $response = [];
 
-        // Step 1: Static file types
+    
         foreach ($fileTypes as $fileType) {
-            $cleanType = str_replace('static/', '', $fileType);
+            $cleanType = str_replace('static/', '', $fileType);  
             $staticPath = "$userId/static/$cleanType";
 
             $staticFiles = $disk->files($staticPath);
 
             if (!empty($staticFiles)) {
-                $filePath = $staticFiles[0];
-                $response[$fileType] = [
-                    'url' => $disk->url($filePath),
-                    'name' => basename($filePath)
-                ];
+                $response[$fileType] = $disk->url($staticFiles[0]);
             } else {
                 $response[$fileType] = null;
             }
         }
 
-        // Step 2: Dynamic folders
+        // Step 2: Get dynamic folders and one file from each
         $allDirectories = $disk->directories($userId);
 
         foreach ($allDirectories as $folderPath) {
             $folderName = basename($folderPath);
 
+            // Skip folders that are already processed in static list
             if (in_array($folderName, $fileTypes)) {
                 continue;
             }
 
             $filesInFolder = $disk->files($folderPath);
             if (!empty($filesInFolder)) {
-                $filePath = $filesInFolder[0];
-                $response[$folderName] = [
-                    'url' => $disk->url($filePath),
-                    'name' => basename($filePath)
-                ];
+                $response[$folderName] = $disk->url($filesInFolder[0]);
             }
         }
 
         return response()->json(['staticFiles' => $response], 200);
-    }
+    } 
 
 
 

@@ -1039,7 +1039,7 @@ function initializeSimpleChat() {
         if (smileIcon) {
             smileIcon.addEventListener('click', function (e) {
                 e.stopPropagation();
-                const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
+                const emojis = ["😊", "👍", "😀", "🙂", "👋", "👌", "✨"];
 
                 const existingPicker = document.querySelector(".emoji-picker");
                 if (existingPicker) {
@@ -4604,7 +4604,7 @@ async function createAdminChatStudent() {
     emoji.addEventListener('click', function (e) {
         e.stopPropagation();
 
-        const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
+        const emojis = ["😊", "👍", "😀", "🙂", "👋", "👌", "✨"];
         const existingPicker = document.querySelector(".emoji-picker");
         if (existingPicker) {
             existingPicker.remove();
