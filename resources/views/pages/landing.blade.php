@@ -37,12 +37,12 @@
         'study_loan' => $study_loan,
         'landingpageContents'=>$landingpageContents
         ])
+
+          @include('components.faqsection', [
+        'combinedFaqs' => $combinedFaqs,
+       
+        ])
       
-
-
-
-        
-     
 
          @endsection
 
