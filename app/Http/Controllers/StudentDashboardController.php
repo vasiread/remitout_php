@@ -21,6 +21,9 @@ use Illuminate\Support\Facades\Storage; // Correct import for Storage facade
 use Illuminate\Support\Facades\DB;
 use App\Models\PersonalInfo;
 use App\Models\CourseInfo;
+use App\Models\DocumentType;
+use App\Models\UserDocument;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use ZipStream\Option\Archive as ArchiveOptions;
 use ZipStream\ZipStream;
@@ -465,6 +468,7 @@ class StudentDashboardController extends Controller
             $userData = array_filter([
                 'name' => $validated['editedName'] ?? null,
                 'email' => $validated['editedEmail'] ?? null,
+                'referral_code' => $validated['referralCode'] ?? null,
             ]);
             $user->update($userData);
 
@@ -474,7 +478,6 @@ class StudentDashboardController extends Controller
                 'email' => $validated['editedEmail'] ?? null,
                 'phone' => $validated['editedPhone'] ?? null,
                 'state' => $validated['editedState'] ?? null,
-                'referral_code' => $validated['referralCode'] ?? null,
             ]);
 
             if ($personalInfo) {
@@ -910,6 +913,8 @@ class StudentDashboardController extends Controller
     //         'message' => 'No profile picture found for this user.',
     //     ], 404);
     // }
+
+
     public function retrieveFile(Request $request)
     {
         $request->validate([
@@ -923,39 +928,48 @@ class StudentDashboardController extends Controller
 
         $response = [];
 
-    
+        // Static files
         foreach ($fileTypes as $fileType) {
-            $cleanType = str_replace('static/', '', $fileType);  
+            $cleanType = str_replace('static/', '', $fileType);
             $staticPath = "$userId/static/$cleanType";
 
             $staticFiles = $disk->files($staticPath);
 
             if (!empty($staticFiles)) {
-                $response[$fileType] = $disk->url($staticFiles[0]);
+                $file = $staticFiles[0];
+                $response[$fileType] = [
+                    'url' => $disk->url($file),
+                    'size' => $disk->size($file), // Size in bytes
+                ];
             } else {
                 $response[$fileType] = null;
             }
         }
 
-        // Step 2: Get dynamic folders and one file from each
+        // Dynamic folders
         $allDirectories = $disk->directories($userId);
 
         foreach ($allDirectories as $folderPath) {
             $folderName = basename($folderPath);
 
-            // Skip folders that are already processed in static list
             if (in_array($folderName, $fileTypes)) {
                 continue;
             }
 
             $filesInFolder = $disk->files($folderPath);
             if (!empty($filesInFolder)) {
-                $response[$folderName] = $disk->url($filesInFolder[0]);
+                $file = $filesInFolder[0];
+                $response[$folderName] = [
+                    'url' => $disk->url($file),
+                    'size' => $disk->size($file), // Size in bytes
+                ];
             }
         }
 
         return response()->json(['staticFiles' => $response], 200);
-    } 
+    }
+
+
 
 
 
@@ -970,28 +984,31 @@ class StudentDashboardController extends Controller
         $userId = $request->input('userId');
         $folderPath = "$userId/static";
 
-        // 🔹 Static files logic — DO NOT TOUCH
+        // Static
         $files = Storage::disk("s3")->allFiles($folderPath);
         $documentCount = count($files);
 
-        // 🔹 Dynamic files (inside userId/dynamic/)
+        // Dynamic
         $dynamicFolderPath = "$userId/dynamic";
         $dynamicFiles = Storage::disk("s3")->allFiles($dynamicFolderPath);
         $dynamicDocumentCount = count($dynamicFiles);
 
+        // Direct UserDocument count (if no relationship)
+        $userDocumentCount = DocumentType::count(); // add ->where('user_id', $userId) if needed
+
+        // Total
+        $totalDocuments = $documentCount + $dynamicDocumentCount + $userDocumentCount + 22;
+
         return response()->json([
             'message' => 'Documents counts retrieved successfully',
-
-            // ✅ Original, don't touch
             'documentscount' => $documentCount,
-
-            // ✅ New but matches static path explicitly
             'staticDocuments' => $documentCount,
-
-            // ✅ New for dynamic path
             'dynamicDocuments' => $dynamicDocumentCount,
+            'userDocumentCount' => $userDocumentCount,
+            'totalDocuments' => $totalDocuments,
         ], 200);
     }
+
 
 
     public function getRemainingNonUploadedFiles(Request $request)
@@ -1222,7 +1239,7 @@ class StudentDashboardController extends Controller
             return response()->json(['error' => 'user_id is required'], 400);
         }
 
-        // Define tables and columns to check for profile completion
+        // Tables and profile fields to check
         $tablesAndColumns = [
             'users' => ['email', 'phone'],
             'personal_infos' => ['full_name', 'referral_code', 'state', 'linked_through', 'gender'],
@@ -1250,7 +1267,7 @@ class StudentDashboardController extends Controller
                 continue;
 
             $data = ($table === 'users')
-                ? DB::table($table)->where('unique_id', $userId)->first()
+            ? DB::table($table)->where('unique_id', $userId)->first()
                 : DB::table($table)->where('user_id', $userId)->first();
 
             foreach ($columns as $column) {
@@ -1264,17 +1281,24 @@ class StudentDashboardController extends Controller
             }
         }
 
-        // Document logic
+        // ✅ Document logic
+        $dynamicDocumentCount = DocumentType::count(); // Document types count
+        $documents_expected = 22 + $dynamicDocumentCount;
+
         $folderPath = "$userId";
         $files = Storage::disk("s3")->allFiles($folderPath);
         $rawDocumentCount = count($files);
-        $adjustedDocumentCount = max(0, $rawDocumentCount - 1); // Minimum of 0 to avoid negative
-        $documentPercentage = ($adjustedDocumentCount / 22) * 100;
+        $adjustedDocumentCount = max(0, $rawDocumentCount - 1); // Avoid negative
 
-        // Profile percentage
-        $profilePercentage = ($totalColumns > 0) ? ($filledColumns / $totalColumns) * 100 : 0;
+        // ✅ Use updated expected count
+        $documentPercentage = ($documents_expected > 0)
+            ? ($adjustedDocumentCount / $documents_expected) * 100
+            : 0;
 
-        // Overall percentage (average of both)
+        $profilePercentage = ($totalColumns > 0)
+            ? ($filledColumns / $totalColumns) * 100
+            : 0;
+
         $overallPercentage = ($profilePercentage + $documentPercentage) / 2;
 
         return response()->json([
@@ -1283,15 +1307,15 @@ class StudentDashboardController extends Controller
             'profile_fields_filled' => $filledColumns,
             'profile_completion_percentage' => round($profilePercentage, 2),
 
-            'documents_expected' => 22,
+            'documents_expected' => $documents_expected,
             'documents_uploaded_raw' => $rawDocumentCount,
             'documents_counted' => $adjustedDocumentCount,
             'document_completion_percentage' => round($documentPercentage, 2),
 
-
-            'overall_completion_percentage' => (int) round($overallPercentage)  // Convert to an integer
+            'overall_completion_percentage' => (int) round($overallPercentage)
         ]);
     }
+
 
     public function loanStatusCount(Request $request)
     {
@@ -1358,6 +1382,17 @@ class StudentDashboardController extends Controller
         }
     }
 
+
+    public function markAllAsRead(Request $request)
+    {
+        $userId = $request->input('userId');  
+
+        Message::where('receiver_id', $userId)
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
+
+        return response()->json(['status' => 'success']);
+    }
 
 
 

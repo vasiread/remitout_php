@@ -62,7 +62,9 @@
                 @if (session()->has('nbfcuser'))
                     @php $nbfcuser = session('nbfcuser'); @endphp
                     <div class="nbfc-profile">
-                        <div class="nbfc-avatar"></div>
+                        <div class="nbfc-avatar">
+                            <img src="{{ asset('assets/images/bank.png') }}" alt="Bank Profile">
+                        </div>
                         <span class="nbfc-profile-text">{{ $nbfcuser->nbfc_name }}</span>
                         <div class="nbfc-dropdown-icon"></div>
                     </div>
@@ -751,7 +753,6 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                // Define globally
 
                 const mobileMenuBtn = document.getElementById('nbfcMobileMenuBtn');
                 const mobileSidebar = document.querySelector('.nbfc-mobile-sidebar');
@@ -788,6 +789,7 @@
                 initializeSecuredAdmissionDocumentUpload();
                 initializeWorkExperienceDocumentUpload();
                 // downloadDocuments();
+
 
                 //toggle function
                 // Select the Dashboard and Inbox menu items
@@ -1388,6 +1390,9 @@ handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox'
                     viewButton.addEventListener("click", async () => {
                         if (isProfileLoading || isProfileVisible) return;
 
+                        isProfileLoading = true;
+                        isProfileVisible = true;
+
                         const wholeContainer = document.querySelector(".wholeapplicationprofile");
                         const requestSendContainer = document.querySelector(
                             ".dashboard-sections-container");
@@ -1418,6 +1423,7 @@ handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox'
                         } finally {
                             Loader.hide();
                             isProfileLoading = false;
+                            isProfileVisible = false;
                         }
                     });
 
@@ -2044,12 +2050,31 @@ handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox'
                 const user = @json(session('nbfcuser'));
                 const nbfcId = user.nbfc_id;
 
+
                 sendProposalTrigger.addEventListener('click', () => {
                     const placeHolder = document.querySelector(".nbfc-send-proposal-remarks-textarea");
-                    if (selectedFile && selectedStudentId && nbfcId && placeHolder) {
-                        sendProposalByNbfc(selectedFile, selectedStudentId, nbfcId, placeHolder);
+                    const fileInput = document.querySelector(".nbfc-send-proposal-attachment-input");
+                    const selectedFile = fileInput?.files?.[0];
+
+                    if (!selectedFile) {
+                        alert("Please select a file before sending the proposal.");
+                        return;
                     }
+
+                    if (!selectedStudentId || !nbfcId) {
+                        alert("Missing student or NBFC ID.");
+                        return;
+                    }
+
+                    if (!placeHolder || !placeHolder.value.trim()) {
+                        alert("Please provide remarks before sending the proposal.");
+                        return;
+                    }
+
+                    // All validations passed, send the proposal
+                    sendProposalByNbfc(selectedFile, selectedStudentId, nbfcId, placeHolder.value.trim());
                 });
+
             }
 
             // Open modal function
@@ -2981,11 +3006,11 @@ handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox'
                 input.placeholder = 'Send message';
                 input.classList.add('nbfc-message-input');
                 input.style.cssText = `
-        flex: 1;
-        padding: 8px 12px;
-        border-radius: 20px;
-        border: 1px solid #ccc;
-        margin-right: 10px;
+          flex: 1;
+          padding: 8px 12px;
+          border-radius: 20px;
+          border: 1px solid #ccc;
+          margin-right: 10px;
     `;
 
                 const emoji = document.createElement('i');
@@ -3004,21 +3029,21 @@ handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox'
                 // Emoji Picker
                 const emojiPicker = document.createElement('div');
                 emojiPicker.style.cssText = `
-        position: absolute;
-        bottom: 45px;
-        left: 10px;
-        background: white;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 10px;
-        display: none;
-        max-width: 200px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        z-index: 1000;
-        font-size: 20px;
-    `;
+                                position: absolute;
+                                bottom: 45px;
+                                left: 10px;
+                                background: white;
+                                border: 1px solid #ddd;
+                                border-radius: 8px;
+                                padding: 10px;
+                                display: none;
+                                max-width: 200px;
+                                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                                z-index: 1000;
+                                font-size: 20px;
+                `;
 
-                const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
+                const emojis = ["😊", "👍", "😀", "🙂", "👋", "👌", "✨"];
                 emojis.forEach(char => {
                     const span = document.createElement('span');
                     span.textContent = char;
@@ -3031,7 +3056,7 @@ handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox'
                     emojiPicker.appendChild(span);
                 });
 
-                // File Upload
+
                 paperclip.addEventListener("click", () => {
                     const fileInput = document.createElement("input");
                     fileInput.type = "file";
@@ -3073,11 +3098,10 @@ handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox'
 
                 inputContainer.append(input, emoji, paperclip, sendIcon, emojiPicker);
 
-                // Append all
                 adminMsgContainer.append(header, chatWrapper, inputContainer);
                 container.appendChild(adminMsgContainer);
 
-                // Load Messages
+
                 async function loadMessages() {
                     chatWrapper.innerHTML = '';
                     try {
@@ -5424,9 +5448,8 @@ handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox'
                     console.error("CSRF token or User ID is missing");
                     return Promise.reject("Missing CSRF/User ID");
                 }
-                   resetAllDocumentFields(); 
 
-
+                resetAllDocumentFields(); // Clear all before populating
 
                 const fileTypes = endpoints.map(ep => ep.fileType);
 
@@ -5446,34 +5469,55 @@ handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox'
                     .then(data => {
                         const allFiles = data.staticFiles || data;
 
-                        Object.entries(allFiles).forEach(([fileType, fileUrl]) => {
-                            if (fileUrl) {
-                                documentUrls[fileType] = fileUrl;
-                                const fileName = decodeURIComponent(fileUrl.split("/").pop());
+                        Object.entries(allFiles).forEach(([fileType, fileData]) => {
+                            if (fileData && fileData.url) {
+                                documentUrls[fileType] = fileData.url;
+
+                                const fileName = decodeURIComponent(fileData.url.split("/").pop());
+                                const fileSizeMB = fileData.size ? (fileData.size / (1024 * 1024)).toFixed(2) :
+                                    null;
 
                                 const endpoint = endpoints.find(ep => ep.fileType === fileType);
                                 if (endpoint) {
-                                    const element = document.querySelector(endpoint.selector);
-                                    if (element) {
-                                        element.textContent = fileName;
-                                    } else {
-                                        console.warn(`Selector missing: ${endpoint.selector}`);
+                                    const nameElement = document.querySelector(endpoint.selector);
+                                    if (nameElement) {
+                                        nameElement.textContent = fileName;
                                     }
+
+                                    // Match file block container (based on category)
+                                    const statusElement = nameElement?.closest(
+                                        ".individualkycdocuments, " +
+                                        ".individualmarksheetdocuments, " +
+                                        ".individual-coborrower-kyc-documents, " +
+                                        ".individual-secured-admission-documents, " +
+                                        ".individual-work-experiencecolumn-documents"
+                                    )?.querySelector(".document-status");
+
+                                    if (statusElement) {
+                                        statusElement.textContent = fileSizeMB ?
+                                            `${fileSizeMB} MB uploaded` :
+                                            "Not uploaded";
+                                    }
+                                } else {
+                                    console.warn(`⚠️ No endpoint config for: ${fileType}`);
                                 }
 
-                                console.log(`✅ ${fileType}: ${fileUrl}`);
+                                console.log(`✅ Loaded: ${fileType} → ${fileData.url}`);
                             } else {
-                                console.log(`⚠️ No file for ${fileType}`);
+                                console.log(`⚠️ No file data for: ${fileType}`);
                             }
                         });
 
                         return documentUrls;
                     })
                     .catch(error => {
-                        console.error("❌ Error fetching files:", error);
+                        console.error("❌ Error retrieving file info:", error);
                         return {};
                     });
             };
+
+
+
             function resetAllDocumentFields() {
             endpoints.forEach(endpoint => {
                 const element = document.querySelector(endpoint.selector);

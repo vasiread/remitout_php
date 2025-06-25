@@ -75,11 +75,11 @@
     "title": "Testimonials",
     "content": [
       {
-        "name": "Mark Debrovski",
-        "designation": "Designation",
+        "name": "Trushna Garad",
+        "designation": "",
         "rating": 5,
-        "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.",
-        "image": "/api/placeholder/100/100",
+        "description": "Great service with a smooth and hassle-free process for opening a block account. Highly professional and responsive support throughout.",
+        "image": "https://lh3.googleusercontent.com/a-/ALV-UjVDDaMKL96W8tMQsBI1f4yU8vDowSanYGeWLoZLVSsjH47CDRA=w72-h72-p-rp-mo-br100",
         "mediaConstraints": {
           "formats": ["png", "jpg", "jpeg"],
           "width": 100,
@@ -624,7 +624,7 @@
                         "page": "Landing Page",
                         "sectionType": "global-transfer",
                         "title": "Background Image",
-                        "content": "assets/images/effort-banner.png",
+                        "content": "assets/images/effort-banner.webp",
                         "status": "Active",
                         "isMedia": true,
                         "mediaConstraints": {
@@ -638,7 +638,7 @@
                         "page": "Landing Page",
                         "sectionType": "global-transfer",
                         "title": "Main Image",
-                        "content": "assets/images/girl-image-with-banner.png",
+                        "content": "assets/images/girl-image-with-banner.webp",
                         "status": "Active",
                         "isMedia": true,
                         "mediaConstraints": {
@@ -652,7 +652,7 @@
                         "page": "Landing Page",
                         "sectionType": "global-transfer",
                         "title": "Heading",
-                        "content": "Effortless and affordable <br>global transfers!",
+                        "content": "Effortless and affordable global transfers!",
                         "status": "Active",
                         "maxlength": 50
                     },

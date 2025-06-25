@@ -448,23 +448,20 @@
 
 
     <div class="effort-section">
-        <!-- Background Image -->
-        <img src="{{ trim($cms['global-transfer']['Background Image'] ?? '') ?: asset('assets/images/effort-banner.png') }}"
+       
+        <img src="{{ trim($cms['global-transfer']['Background Image'] ?? '') ?: asset('assets/images/effort-banner.webp') }}"
             alt="Background Image" class="effort-background-image">
 
         <div class="effort-container">
             <div class="effort-content">
-                <!-- Left Column with Image -->
-                <div class="effort-image-column">
+                 <div class="effort-image-column">
                     <div class="effort-image-wrapper">
-                        <img src="{{ trim($cms['global-transfer']['Main Image'] ?? '') ?: asset('assets/images/girl-image-with-banner.png') }}"
-                            alt="Student with backpack" class="effort-main-image">
-
+                        <img src="{{ trim($cms['global-transfer']['Main Image'] ?? '') ?: asset('assets/images/girl-image-with-banner.webp') }}"
+                        alt="Student with backpack" class="effort-main-image">
                     </div>
                 </div>
 
-                <!-- Right Column with Content -->
-                <div class="effort-content-column">
+                 <div class="effort-content-column">
                     <div class="effort-heading">
 
                         <h1>

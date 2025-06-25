@@ -1360,6 +1360,7 @@
             document.getElementById("course-duration").value = userProfile.course_duration || '';
             document.getElementById("loan-amount").value = userProfile.loan_amount || '';
             document.getElementById("referral-code").value = userProfile.referral_code || '';
+          
 
             document.getElementById("course-details-container").setAttribute('data-course-details', JSON.stringify({
                 planToStudy: planToStudyArray,

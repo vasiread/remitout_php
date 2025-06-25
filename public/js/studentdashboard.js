@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
 
- 
+
     bankListedThroughNBFC();
     initializeProgressRing();
     saveChangesFunctionality();
@@ -16,9 +16,9 @@ document.addEventListener('DOMContentLoaded', function () {
     loanStatusCount();
     passwordForgot();
     displayEducationDetails();
- 
-   
-        
+
+
+
     // const sessionLogout = document.querySelector(".studentdashboardprofile-sidebarlists-bottom .logoutBtn");
     // if (sessionLogout) {
     //     sessionLogout.addEventListener('click', () => {
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
         initialiseAllViews(),
     ])
         .then(() => {
- 
+
             initializeKycDocumentUpload();
             initializeMarksheetUpload();
             initializeSecuredAdmissionDocumentUpload();
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const courseDetails = JSON.parse(courseDetailsElement.getAttribute('data-course-details'));
     console.log(courseDetails)
     const firstItem = courseDetails[0];
-   
+
     let selectedCountries = [];
 
     try {
@@ -100,13 +100,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Set text input field
     const textInput = document.getElementById('plan-to-study-edit');
     if (textInput) {
         textInput.value = selectedCountries.join(', ');
     }
 
-    // Handle "Other"
+
     if (selectedCountries.includes("Other")) {
         document.getElementById("other-checkbox-edit").checked = true;
         document.querySelector('.add-country-box-edit').style.display = 'block';
@@ -117,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // const acceptTriggers = document.querySelectorAll(".user-accept-trigger");
     // const rejectTriggers = document.querySelectorAll(".bankmessage-buttoncontainer-reject");
 
-      
+
 
     // document.querySelectorAll('input[name="study-location-edit"]').forEach(checkbox => {
     //     if (selectedCountries.includes(checkbox.value)) {
@@ -203,7 +202,7 @@ function handleIndividualCards(mode = 'index1') {
         const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
 
         if (individualCards.length > 0) {
-            // console.log('Cards are now available for', mode);
+
             clearInterval(checkInterval);
 
             individualCards.forEach((card) => {
@@ -218,7 +217,7 @@ function handleIndividualCards(mode = 'index1') {
                         groupButtonContainer.style.display = "none";
                     }
                 } else if (mode === 'index0') {
-                     card.style.height = "fit-content";
+                    card.style.height = "fit-content";
 
                     if (individualBankMessageInput) {
                         individualBankMessageInput.style.display = "none";
@@ -236,9 +235,7 @@ function handleIndividualCards(mode = 'index1') {
 }
 
 
-const triggerView = () => {
 
-}
 
 const initializeSideBarTabs = () => {
     const sideBarTopItems = document.querySelectorAll(
@@ -268,14 +265,14 @@ const initializeSideBarTabs = () => {
     const testScoresEditSection = document.querySelector(
         ".studentdashboardprofile-testscoreseditsection",
     );
-   
 
-     
-   
+
+
+
 
     sideBarTopItems.forEach((item, index) => {
         item.addEventListener("click", () => {
-             sideBarTopItems.forEach((i) => i.classList.remove("active"));
+            sideBarTopItems.forEach((i) => i.classList.remove("active"));
             item.classList.add("active");
 
             if (index === 1) {
@@ -304,8 +301,8 @@ const initializeSideBarTabs = () => {
 
                 handleIndividualCards("index1");
                 dynamicHeader.textContent = "Inbox";
+                seenMessage();
             } else if (index === 0) {
-                // console.log('Loan Proposals tab selected');
                 lastTabHiddenDiv.style.display = "flex";
                 lastTabVisibleDiv.style.display = "none";
                 communityJoinCard.style.display = "flex";
@@ -323,7 +320,7 @@ const initializeSideBarTabs = () => {
                 const academicsMarksDivEdit = document.querySelector(".testscoreseditsection-secondrow-editsection");
                 const academicsMarksDiv = document.querySelector(".testscoreseditsection-secondrow");
 
-               
+
 
                 personalDivContainerEdit.style.display = "none";
                 personalDivContainer.style.display = "flex";
@@ -332,11 +329,11 @@ const initializeSideBarTabs = () => {
 
                 handleIndividualCards("index0");
                 dynamicHeader.textContent = "Loan Proposals";
-               
+
 
             } else if (index === 2) {
-                
-             
+
+
                 const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
                 saveChangesButton.textContent = 'Edit';
                 saveChangesButton.style.backgroundColor = "transparent";
@@ -363,14 +360,14 @@ function sendDocumenttoEmail(event) {
         ? uniqueIdElement.textContent || uniqueIdElement.innerHTML
         : null;
 
-   
+
 
     const userNameElement = document.querySelector("#referenceNameId p");
     const name = userNameElement
         ? userNameElement.textContent || userNameElement.innerHTML
         : null;
 
-    if (userId  && name) {
+    if (userId && name) {
         // console.log("Unique ID:", userId, "Email:", email, "Name:", name);
     } else {
         console.error("Error: Could not retrieve unique ID, email, or name.");
@@ -440,7 +437,7 @@ function addUserToRequest(userId) {
         });
 }
 
- 
+
 
 // Global object to store document URLs
 
@@ -1122,9 +1119,9 @@ function initializeSimpleChat() {
                                     const fileUrl = data.fileUrl;
 
                                     var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
- 
+
                                     messageInputNbfcids = messageInputNbfcids[index].textContent;
- 
+
 
                                     const fileName = file.name;
                                     const fileSize = (file.size / 1024 / 1024).toFixed(2);
@@ -1135,7 +1132,7 @@ function initializeSimpleChat() {
                                     sendMessageToBackend(fileUrl, messageInputNbfcids);
 
 
-                                    
+
                                 } else {
                                     alert("File upload failed.");
                                 }
@@ -1156,7 +1153,7 @@ function initializeSimpleChat() {
 
 
 
-       
+
 
         const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
         // console.log(savedMessages)
@@ -1927,7 +1924,7 @@ const initializeMarksheetUpload = () => {
 
 
 
- 
+
 
 const initializeSecuredAdmissionDocumentUpload = () => {
     const securedAdmissionDocuments = document.querySelectorAll(
@@ -2299,7 +2296,7 @@ function truncateFileName(fileName) {
     return name.slice(0, 16) + "..." + extension;
 }
 
- 
+
 
 
 const initializeWorkExperienceDocumentUpload = () => {
@@ -3020,7 +3017,7 @@ function truncateFileName(fileName) {
 
 
 
- 
+
 
 function truncateFileName(fileName) {
     if (fileName.length <= 20) return fileName;
@@ -3031,7 +3028,7 @@ function truncateFileName(fileName) {
     return name.slice(0, 16) + "..." + extension;
 }
 
-  
+
 
 function toggleOtherDegreeInput(event) {
     const otherDegreeInput = document.getElementById("otherDegreeInput");
@@ -3100,6 +3097,7 @@ const initialisedocumentsCount = () => {
     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
     const userId = userIdElement ? userIdElement.textContent.trim() : '';
     const documentCountText = document.querySelector(".profilestatus-graph-secondsection .profilestatus-noofdocuments-section p");
+    const overAll = document.querySelector(".profilestatus-graph-secondsection .profilestatus-noofdocuments-section span");
 
     if (!userId || !documentCountText) {
         console.error("User ID or count element not found.");
@@ -3120,7 +3118,9 @@ const initialisedocumentsCount = () => {
         .then(data => {
             if (data && typeof data.documentscount === 'number') {
                 const count = data.documentscount;
+                const totalDoc = data.totalDocuments;
 
+                // 🔹 Set formatted document count
                 if (count >= 0 && count < 10) {
                     documentCountText.textContent = "0" + count;
                 } else if (count >= 10) {
@@ -3128,10 +3128,13 @@ const initialisedocumentsCount = () => {
                 } else {
                     documentCountText.textContent = "00";
                 }
-            } else if (data.error) {
-                console.error("Server Error:", data.error);
-            } else {
-                console.error("Unexpected response format:", data);
+
+                // 🔹 Set total documents value
+                if (typeof totalDoc === 'number') {
+                    overAll.textContent = "/" + totalDoc;
+                } else {
+                    overAll.textContent = "00"; // fallback
+                }
             }
         })
         .catch(error => {
@@ -3190,7 +3193,7 @@ const saveChangesFunctionality = () => {
         academicsMarksDiv.style.display = "none";
         document.querySelector(".educationeditsection-secondrow").style.display = "none";
         document.querySelector(".educationeditsection-secondrow-edit").style.display = "flex";
-      
+
         document.getElementById("plan-to-study-edit").disabled = false;
         document.getElementById("country-edit").disabled = false;
 
@@ -3217,9 +3220,10 @@ const saveChangesFunctionality = () => {
             isEditing = !isEditing;
 
             if (isEditing) {
-                toggleSaveState();  
+                toggleSaveState();
             }
             else {
+                Loader.show();
                 saveChangesButton.textContent = 'Edit';
                 saveChangesButton.style.backgroundColor = "transparent";
                 saveChangesButton.style.color = "#260254";
@@ -3276,6 +3280,7 @@ const saveChangesFunctionality = () => {
                 const updatedDegreeType = selectedDegree === 'Others' ? otherDegreeInput : selectedDegree;
                 const editedCourseName = document.querySelector(".educationeditsection-secondrow-edit .course_name_input")?.value || '';
                 const editedUniversityName = document.querySelector(".educationeditsection-secondrow-edit .university_name_input")?.value || '';
+                const updatedScRef = document.querySelector(".myapplication-fifthcolumn input")?.value || '';
 
 
                 const updatedData = {
@@ -3293,6 +3298,7 @@ const saveChangesFunctionality = () => {
                     planToStudy: mergedPlanToStudy,
                     courseDuration: courseDuration,
                     loanAmount: loanAmount,
+                    referralCode: updatedScRef,
                     degreeType: updatedData.degreeType,
                     userId: userId,
                     courseName: editedCourseName,
@@ -3303,7 +3309,6 @@ const saveChangesFunctionality = () => {
                     }
                 };
 
-                console.log(updatedInfos);
 
 
 
@@ -3319,7 +3324,9 @@ const saveChangesFunctionality = () => {
                     .then(response => response.json())
                     .then(data => {
                         console.log("Response Data:", data);
-                        alert("Student Details Updated Successfully")
+
+                        alert("Student Details Updated Successfully");
+                        Loader.hide();
                         if (editedName) {
                             document.querySelector("#referenceNameId p").textContent = editedName;
                             document.getElementById("personal_state_id").textContent = editedState;
@@ -3394,14 +3401,15 @@ const saveChangesFunctionality = () => {
                             }
 
 
-                            
+
 
 
 
                         }
-                        
+
 
                         if (data.errors) {
+                            Loader.hide();
                             console.error('Validation errors:', data.errors);
                         } else {
                             console.log("Success", data);
@@ -3542,7 +3550,7 @@ function loadSavedMessages() {
 function fetchUnreadCount() {
     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
     const userId = userIdElement ? userIdElement.textContent.trim() : '';
-     const receiverId = userId;
+    const receiverId = userId;
 
     if (!receiverId) return;
 
@@ -3602,7 +3610,25 @@ function sessionLogoutInitial() {
 }
 
 
-
+function seenMessage() {
+    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+    fetch('/messages/mark-all-read', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ userId })
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Messages marked as read:', data);
+        })
+        .catch(error => {
+            console.error('Error marking messages as read:', error);
+        });
+}
 
 
 function markAsRead() {
@@ -3656,6 +3682,7 @@ function markAsRead() {
                     behavior: 'smooth'
                 });
             }
+            seenMessage();
         });
     }
 }
@@ -4446,7 +4473,7 @@ const loanStatusCount = () => {
         })
         .catch(error => {
             console.error("Error fetching loan status:", error);
-            
+
         });
 };
 
@@ -4472,7 +4499,7 @@ const passwordForgot = () => {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);  
+                    console.log(data);
                     if (data.message) {
                         alert(data.message);
                     }
@@ -4673,7 +4700,7 @@ async function createAdminChatStudent() {
             formData.append('file', file);
             formData.append('chatId', chatId);
 
- 
+
             try {
                 const res = await fetch('/upload-documents-chat', {
                     method: 'POST',
@@ -4809,13 +4836,15 @@ async function createAdminChatStudent() {
         const studentIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
         const student_id = studentIdElement ? studentIdElement.textContent.trim() : "";
 
+
+
         if (!student_id) {
             alert("Student ID not found");
             return;
         }
 
         const payload = {
-            id: student_id,
+            student_id: student_id,
             admin_id: admin_id,
             sender_id: student_id,
             receiver_id: admin_id,
