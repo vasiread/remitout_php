@@ -27,13 +27,13 @@
 
             <div class="loginsignupcontainer">
                 <div class="loginsingupcontainer-leftpanel">
-                    <img class="loginsingupmainimg" src="<?php echo $loginSignupImage; ?>" alt="">
-                    <img class="profileCardVector-white" src="assets/images/profileCardVector-white.png" alt="">
+                    <img class="loginsingupmainimg" src="<?php echo $loginSignupImage; ?>" alt="Login or signup illustration">
+                    <img class="profileCardVector-white" src="assets/images/profileCardVector-white.png" alt="Profile card vector graphic">
                     <h1 class="loginsingupimagecontainer-header">Lorem ipsum dolor sit amet, <br>consectur adipiscing elit</h1>
                 </div>
 
                 <div class="loginsingupcontainer-rightpanel" style="display:flex;">
-                    <img src="assets/images/loginsinguprightsideimg.png" class="rightsidevector-img" alt="">
+                    <img src="assets/images/loginsinguprightsideimg.png" class="rightsidevector-img" alt="User onboarding illustration">
                     <h1>Get Started Now</h1>
                     <form class="loginsingupcontainer-rightpanel-inside" id="signupForm" onsubmit="submitForm(event)">
                         <div class="rightpanel-namecontainer">
@@ -78,7 +78,7 @@
                         <p class="or-divider">or</p>
                         <div class="googlesigninbuttoncontainer">
                             <button class="googlesigninbutton" onclick="window.location.href='{{ route('google.login') }}'">
-                                <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
+                                <img src="{{ asset('assets/images/googleicon.png') }}"alt="Sign in using Google"> Sign in with Google
                             </button>
                         </div>
                         <!-- New User Sign Up Option -->
@@ -92,7 +92,7 @@
                 <!-- OTP Section -->
                 <div class="loginsignupcontainer-otppanel" style="display:none">
                     <div class="loginsignupcontainer-otppanel-inside">
-                        <img src="assets/images/loginsinguprightsideimg.png" class="rightsidevector-img-otp" alt="">
+                        <img src="assets/images/loginsinguprightsideimg.png" class="rightsidevector-img-otp" alt="OTP verification illustration">
                         <h1>Enter the OTP</h1>
                         <div class="otppanel-mainsection">
                             <p>Do not share your OTP!</p>

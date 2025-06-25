@@ -70,13 +70,13 @@
                         <p class="or-divider">or</p>
                         <div class="googlesigninbuttoncontainer">
                             <button class="googlesigninbutton" onclick="window.location.href='/auth/google'">
-                                <img src="{{ asset('assets/images/googleicon.png') }}"> Sign in with Google
+                                <img src="{{ asset('assets/images/googleicon.png') }}" alt="Google logo"> Sign in with Google
 
                             </button>
 
                             <!-- <button class="iossigninbutton">
-                                                        <img src="http://localhost:8000/assets/images/appleicon.png" alt="Apple logo"> Sign in with Apple
-                                                    </button> -->
+                                    <img src="http://localhost:8000/assets/images/appleicon.png" alt="Apple logo"> Sign in with Apple
+                                </button> -->
                         </div>
 
                         <!-- New User Sign Up Option -->
