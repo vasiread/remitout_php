@@ -95,7 +95,7 @@ html {
 .student-form-menu-icon {
     display: none;
     flex-direction: column;
-    gap: 0.3125rem;
+    gap: 0.35rem;
     cursor: pointer;
 }
 
@@ -547,7 +547,7 @@ html {
     }
 }
 
-@media (max-width: 1025px) and (min-width: 551px) {
+@media (max-width: 1200px) and (min-width: 551px) {
     .breadcrumb {
         display: flex;
         width: 100%;
@@ -763,17 +763,8 @@ form {
     background-color: #f5f5f5;
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
-    .mobile-heading {
-        display: block;
-        font-size: 30px;
-        font-weight: 700;
-        color: #ff7a00;
-        font-family: "Poppins", sans-serif;
-        text-align: center;
-        margin: 20px 0;
-    }
-
+@media (min-width: 768px) and (max-width: 1200px) {
+    
     .registration-container {
         width: 80%;
         margin: auto;
@@ -889,6 +880,16 @@ form {
 }
 
 @media screen and (max-width: 768px) {
+    .mobile-heading {
+        display: block;
+        font-size: 30px;
+        font-weight: 700;
+        color: #ff7a00;
+        font-family: "Poppins", sans-serif;
+        text-align: center;
+        margin: 20px 0;
+    }
+
     .input-group .validation-message {
         font-size: 10px;
         bottom: -15px;
@@ -1121,7 +1122,7 @@ form {
 }
 
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1200px) {
     .section-02-container {
         gap: 20px;
     }
@@ -1781,7 +1782,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1200px) {
     
     .course-details,
     .course-degree  {
@@ -1975,7 +1976,7 @@ input[type="number"]::-webkit-inner-spin-button {
     background-color: #f3f3f3;
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1200px) {
     
     .course-duration-container  {
         max-width: 100%;
@@ -2157,7 +2158,7 @@ h2 {
     right: -1px;
     z-index: 10;
 }
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1200px) {
     .course-details-container {
         max-width: 100%;
         padding: 30px 30px 50px 30px;
@@ -2396,7 +2397,7 @@ textarea::placeholder {
     color: #838383;
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1200px) {
     
     .academic-container{
         max-width: 100%;
@@ -2500,7 +2501,7 @@ textarea::placeholder {
     outline: none;
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1200px) {
     
     .academic-details {
         max-width: 100%;
@@ -2743,7 +2744,7 @@ p {
     z-index: 10;
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1200px) {
     
     .admit-form-container {
         max-width:100%;
@@ -3032,7 +3033,7 @@ p {
 .borrow-option.open .borrow-option-icon::after {
     transform: rotate(-135deg);
 }
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1200px) {
     
     .borrow-container-section{
         max-width: 100%;
@@ -3187,7 +3188,7 @@ p {
 }
 
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1200px) {
     .income-co-borrower {
         max-width: 100%;
         padding: 30px 30px 50px 30px;
@@ -3367,7 +3368,7 @@ p {
 }
 
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+@media screen and (min-width: 768px) and (max-width: 1200px) {
     .monthly-container {
         width: 100%;
         margin-left: 0;
@@ -3649,7 +3650,7 @@ input[type="file"] {
 
 
 
-@media screen and (min-width: 769px) and (max-width: 1024px) {
+@media screen and (min-width: 769px) and (max-width: 1200px) {
     .kyc-section-document {
         max-width: 100%;
 
@@ -3798,7 +3799,7 @@ input[type="file"] {
     text-align: left;
 }
 
-@media screen and (min-width: 769px) and (max-width: 1024px) {
+@media screen and (min-width: 769px) and (max-width: 1200px) {
     .work-experience {
         max-width: 100%;
         padding: 30px 30px 50px 30px;
@@ -3960,7 +3961,7 @@ input[type="file"] {
 }
 
 
-@media screen and (min-width: 769px) and (max-width: 1024px) {
+@media screen and (min-width: 769px) and (max-width: 1200px) {
     .salary-upload {
         max-width: 100%;
       
