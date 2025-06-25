@@ -1389,6 +1389,7 @@ body {
     border-bottom: 1px solid #f0f0f0;
 }
 
+
 .dashboard-student-info {
     display: flex;
     flex-direction: column;
@@ -1490,21 +1491,6 @@ body {
     opacity: 0.5;
 }
 
-.viewmore-messagenbfc {
-    display: none;
-    justify-content: flex-end;
-    margin-right: 10px;
-
-
-}
-
-.viewmore-messagenbfc p {
-    color: rgba(93, 92, 92, 1);
-    font-family: "Poppins";
-    font-weight: 600;
-    font-size: 0.85rem;
-
-}
 
 /* Tablet view of dashboard */
 @media (max-width: 1024px) {
@@ -1550,15 +1536,38 @@ body {
         opacity: 0.5;
     }
 }
+.viewmore-button {
+    display: none;
+    justify-content: end;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6f25ce;
+    cursor: pointer;
+    margin-top: 12px;
+    background-color: white;
+    padding: 18px;
+    gap: 6px;
+  }
+  
+  @media (max-width: 768px) {
+    .viewmore-button {
+      display: flex !important;
+    }
+  }
+  
+
+@media(max-width:700px){
+    .dashboard-student-item{
+        display: flex;
+        flex-direction:row;
+    }
+}
 
 /* Mobile view of dashboard */
 @media (max-width: 767px) {
     .dashboard-nbfc-search-container {
         display: block;
-    }
-
-    .viewmore-messagenbfc {
-        display: flex;
     }
 
     .dashboard-nbfc-search-input {
@@ -2774,9 +2783,7 @@ body {
 
 
 @media (min-width: 1700px) {
-    .index-student-details-container {
-        max-width: 1200px;
-    }
+
 
     .index-student-card {
         padding: 20px 10px;
@@ -3485,4 +3492,37 @@ body {
         text-align: right;
     }
     
+}
+/* Desktop view */
+.btn-mobile {
+    display: none;
+}
+.btn-desktop {
+    display: inline;
+}
+
+@media (max-width: 768px) {
+    .admin-btn-group {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-desktop {
+        display: none;
+      }
+    
+      .btn-mobile {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+      }
+    
+      .admin-btn-group button img,
+      .admin-btn-group button i {
+        width: 20px;
+        height: 20px;
+        font-size: 40px;
+        
+      }
 }

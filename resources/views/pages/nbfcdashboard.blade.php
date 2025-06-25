@@ -62,9 +62,7 @@
                 @if (session()->has('nbfcuser'))
                     @php $nbfcuser = session('nbfcuser'); @endphp
                     <div class="nbfc-profile">
-<div class="nbfc-avatar">
-    <img src="{{ asset('assets/images/bank.png') }}" alt="Bank Profile">
-</div>
+                        <div class="nbfc-avatar"></div>
                         <span class="nbfc-profile-text">{{ $nbfcuser->nbfc_name }}</span>
                         <div class="nbfc-dropdown-icon"></div>
                     </div>
@@ -162,6 +160,7 @@
                     <div class="dashboard-student-list" id="dashboard-request-list">
                         <!-- Dynamically populated list for Requests goes here -->
                     </div>
+                   
                 </section>
 
                 <section class="dashboard-section">
@@ -193,6 +192,10 @@
                     <div class="dashboard-student-list" id="dashboard-proposal-list">
                         <!-- Dynamically populated list for Proposals goes here -->
                     </div>
+                    <div class="viewmore-button" id="viewmore-proposals">
+  <p>View More</p>
+  <img src="assets/images/Icons/stat_minus_1.png" style="margin-left: 6px; width: 12px;" />
+</div>
                 </section>
             </div>
 
@@ -717,14 +720,10 @@
                     <div class="index-student-details-container">
 
                     </div>
-                    <div class="viewmore-messagenbfc">
-                        <p>view more</p> <img src="{{ asset('assets/images/Icons/stat_minus_1.png') }}"
-                            style="margin-top: 9px;
-                        margin-left: 8px;
-                        width: 12px;
-                        height: 7px;"
-                            alt="">
-                    </div>
+                  <div class="viewmore-button" id="viewmore-inbox">
+  <p>View More</p>
+  <img src="assets/images/Icons/stat_minus_1.png" style="margin-left: 6px; width: 12px;" />
+</div>
             </section>
 
 
@@ -816,7 +815,7 @@
 
                 function toggleMobileSidebar() {
 
-                    if (window.innerWidth <= 1020) {
+                    if (window.innerWidth <= 768) {
                         mobileSidebar.classList.toggle('active');
                         mobileOverlay.classList.toggle('active');
 
@@ -840,7 +839,7 @@
                     mobileSidebar.classList.remove('active');
                     mobileOverlay.classList.remove('active');
 
-                    if (window.innerWidth <= 1020) { // Show nav-right again only on mobile
+                    if (window.innerWidth <= 768) { // Show nav-right again only on mobile
                         nbfcNavRight.classList.remove('hidden');
                     }
 
@@ -1259,6 +1258,55 @@
                     }
                 };
 
+                function handleToggleViewMobileOnly(containerSelector, buttonSelector, maxItems = 4) {
+    const container = document.querySelector(containerSelector);
+    const button = document.querySelector(buttonSelector);
+    if (!container || !button) return;
+
+    let isExpanded = false;
+
+    function updateView() {
+        const items = Array.from(container.children);
+        const isMobile = window.innerWidth <= 768;
+
+        if (!isMobile || items.length <= maxItems) {
+            items.forEach(item => item.style.display = '');
+            button.style.display = 'none';
+            return;
+        }
+
+        button.style.display = 'flex';
+
+        items.forEach((item, index) => {
+            if (isExpanded || index < maxItems) {
+                item.style.display = ''; // preserve original layout (e.g., flex)
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // Toggle button label and icon
+        const textEl = button.querySelector('p');
+        const imgEl = button.querySelector('img');
+        if (textEl) textEl.textContent = isExpanded ? 'View Less' : 'View More';
+        if (imgEl) imgEl.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+
+    button.addEventListener('click', () => {
+        isExpanded = !isExpanded;
+        updateView();
+    });
+
+    window.addEventListener('resize', updateView);
+    updateView();
+}
+
+
+// Call for both Proposals and Inbox
+handleToggleViewMobileOnly('#dashboard-proposal-list', '#viewmore-proposals');
+handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox');
+
+
                 function resetStudentProfileView() {
                     // Reset image
 
@@ -1297,6 +1345,11 @@
                     });
                 }
 
+                // Delay toggle visibility for view more button logic until DOM is updated
+                setTimeout(() => {
+                    handleToggleViewMobileOnly('#dashboard-proposal-list', '#viewmore-proposals');
+                    handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox');
+                }, 100); 
 
 
 
@@ -1457,31 +1510,30 @@
                 const handleSendProposalProcess = (studentId) => {
                     const sendProposalTrigger = document.querySelector(
                         ".myapplication-nbfcapprovalcolumn #sendproposal-trigger");
-                    const sendProposalTriggerMob = document.getElementById("sendproposaltrigger-mob");
+                    const sendProposalTriggerMob = document.getElementById(
+                        "sendproposaltrigger-mob");
 
                     if (sendProposalTrigger) {
                         const newTrigger = sendProposalTrigger.cloneNode(true);
                         sendProposalTrigger.parentNode.replaceChild(newTrigger, sendProposalTrigger);
 
                         newTrigger.addEventListener("click", () => {
-                            console.log("Clicked (desktop)");
+                            console.log("Clicked");
                             console.log(studentId);
-                            openModal(studentId); // Pass the value, not the element!
+                            openModal(studentId);
                         });
                     }
-
                     if (sendProposalTriggerMob) {
-                        const newTriggerMob = sendProposalTriggerMob.cloneNode(true);
-                        sendProposalTriggerMob.parentNode.replaceChild(newTriggerMob, sendProposalTriggerMob);
+                        const newTrigger = sendProposalTrigger.cloneNode(true);
+                        sendProposalTrigger.parentNode.replaceChild(newTrigger, sendProposalTrigger);
 
-                        newTriggerMob.addEventListener("click", () => {
-                            console.log("Clicked (mobile)");
+                        newTrigger.addEventListener("click", () => {
+                            console.log("Clicked");
                             console.log(studentId);
                             openModal(studentId);
                         });
                     }
                 };
-
 
 
 
@@ -1660,7 +1712,7 @@
                 if (smileIcon) {
                     smileIcon.addEventListener("click", function(e) {
                         e.stopPropagation();
-                        const emojis = ["😊", "👍", "😀", "🙂", "👋", "👌", "✨"];
+                        const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
 
                         const existingPicker = document.querySelector(".emoji-picker");
                         if (existingPicker) {
@@ -1988,36 +2040,16 @@
             });
             // Attach send button click once
             const sendProposalTrigger = document.querySelector(".nbfc-send-proposal-send-button");
-            // alert(sendProposalTrigger)
             if (sendProposalTrigger) {
                 const user = @json(session('nbfcuser'));
                 const nbfcId = user.nbfc_id;
 
-
-               sendProposalTrigger.addEventListener('click', () => {
-    const placeHolder = document.querySelector(".nbfc-send-proposal-remarks-textarea");
-    const fileInput = document.querySelector(".nbfc-send-proposal-attachment-input");
-    const selectedFile = fileInput?.files?.[0]; 
-
-    if (!selectedFile) {
-        alert("Please select a file before sending the proposal.");
-        return;
-    }
-
-    if (!selectedStudentId || !nbfcId) {
-        alert("Missing student or NBFC ID.");
-        return;
-    }
-
-    if (!placeHolder || !placeHolder.value.trim()) {
-        alert("Please provide remarks before sending the proposal.");
-        return;
-    }
-
-    // All validations passed, send the proposal
-    sendProposalByNbfc(selectedFile, selectedStudentId, nbfcId, placeHolder.value.trim());
-});
-
+                sendProposalTrigger.addEventListener('click', () => {
+                    const placeHolder = document.querySelector(".nbfc-send-proposal-remarks-textarea");
+                    if (selectedFile && selectedStudentId && nbfcId && placeHolder) {
+                        sendProposalByNbfc(selectedFile, selectedStudentId, nbfcId, placeHolder);
+                    }
+                });
             }
 
             // Open modal function
@@ -2746,7 +2778,7 @@
                         smileIcons.forEach(smileIcon => {
                             smileIcon.addEventListener('click', function(e) {
                                 e.stopPropagation();
-                                const emojis = ["😊", "👍", "😀", "🙂", "👋", "👌", "✨"];
+                                const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
                                 const existingPicker = container.querySelector(".emoji-picker");
                                 if (existingPicker) {
                                     existingPicker.remove();
@@ -2874,6 +2906,7 @@
         justify-content: space-between;
         align-items: center;
         background: transparent;
+        padding: 12px 16px;
     `;
 
                 const title = document.createElement('div');
@@ -2884,6 +2917,7 @@
     color: #5d5c5c;`;
 
                 const btnGroup = document.createElement('div');
+                btnGroup.classList.add('admin-btn-group');
 
                 const messageBtn = document.createElement('button');
                 messageBtn.textContent = 'Message';
@@ -2942,50 +2976,50 @@
         position: relative;
     `;
 
-                  const input = document.createElement('input');
-                  input.type = 'text';
-                  input.placeholder = 'Send message';
-                  input.classList.add('nbfc-message-input');
-                  input.style.cssText = `
-          flex: 1;
-          padding: 8px 12px;
-          border-radius: 20px;
-          border: 1px solid #ccc;
-          margin-right: 10px;
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.placeholder = 'Send message';
+                input.classList.add('nbfc-message-input');
+                input.style.cssText = `
+        flex: 1;
+        padding: 8px 12px;
+        border-radius: 20px;
+        border: 1px solid #ccc;
+        margin-right: 10px;
     `;
 
-                  const emoji = document.createElement('i');
-                  emoji.classList.add('fa-regular', 'fa-face-smile');
-                  emoji.style.cssText = `font-size: 18px; margin-right: 8px; color: #888; cursor: pointer;`;
+                const emoji = document.createElement('i');
+                emoji.classList.add('fa-regular', 'fa-face-smile');
+                emoji.style.cssText = `font-size: 18px; margin-right: 8px; color: #888; cursor: pointer;`;
 
-                  const paperclip = document.createElement('i');
-                  paperclip.classList.add('fa-solid', 'fa-paperclip');
-                  paperclip.style.cssText = `font-size: 18px; margin-right: 8px; color: #888; cursor: pointer;`;
+                const paperclip = document.createElement('i');
+                paperclip.classList.add('fa-solid', 'fa-paperclip');
+                paperclip.style.cssText = `font-size: 18px; margin-right: 8px; color: #888; cursor: pointer;`;
 
-                  const sendIcon = document.createElement('img');
-                  sendIcon.src = 'assets/images/send-nbfc.png';
-                  sendIcon.alt = 'send icon';
-                  sendIcon.style.cssText = `width: 22px; height: 22px; cursor: pointer;`;
+                const sendIcon = document.createElement('img');
+                sendIcon.src = 'assets/images/send-nbfc.png';
+                sendIcon.alt = 'send icon';
+                sendIcon.style.cssText = `width: 22px; height: 22px; cursor: pointer;`;
 
                 // Emoji Picker
                 const emojiPicker = document.createElement('div');
                 emojiPicker.style.cssText = `
-                    position: absolute;
-                    bottom: 45px;
-                    left: 10px;
-                    background: white;
-                    border: 1px solid #ddd;
-                    border-radius: 8px;
-                    padding: 10px;
-                    display: none;
-                    max-width: 200px;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-                    z-index: 1000;
-                      font-size: 20px;
+        position: absolute;
+        bottom: 45px;
+        left: 10px;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        display: none;
+        max-width: 200px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        z-index: 1000;
+        font-size: 20px;
     `;
 
-                  const emojis = ["😊", "👍", "😀", "🙂", "👋", "👌", "✨"];
-                  emojis.forEach(char => {
+                const emojis = ["😊", "👍", "😀", "🙂", "👋", "❤️", "👌", "✨"];
+                emojis.forEach(char => {
                     const span = document.createElement('span');
                     span.textContent = char;
                     span.style.cssText = `cursor: pointer; padding: 5px; display: inline-block;`;
@@ -2995,10 +3029,10 @@
                         input.focus();
                     };
                     emojiPicker.appendChild(span);
-                  });
+                });
 
                 // File Upload
-                  paperclip.addEventListener("click", () => {
+                paperclip.addEventListener("click", () => {
                     const fileInput = document.createElement("input");
                     fileInput.type = "file";
                     fileInput.accept = ".pdf,.doc,.docx,.txt";
@@ -3035,15 +3069,16 @@
 
                     document.body.appendChild(fileInput);
                     fileInput.click();
-                  });
+                });
 
-                  inputContainer.append(input, emoji, paperclip, sendIcon, emojiPicker);
+                inputContainer.append(input, emoji, paperclip, sendIcon, emojiPicker);
 
-                  adminMsgContainer.append(header, chatWrapper, inputContainer);
-                  container.appendChild(adminMsgContainer);
+                // Append all
+                adminMsgContainer.append(header, chatWrapper, inputContainer);
+                container.appendChild(adminMsgContainer);
 
-                 
-                  async function loadMessages() {
+                // Load Messages
+                async function loadMessages() {
                     chatWrapper.innerHTML = '';
                     try {
                         const res = await fetch(`/get-messages-adminnbfc/${nbfc_id}/${admin_id}`);
@@ -3404,7 +3439,7 @@
                     await initialiseAllViews(userId);
                     await initialiseProfileView(userId);
                     await downloadDocuments(userId);
-
+                    
 
 
                     console.log("Profile loaded for user:", userId);
@@ -5389,7 +5424,7 @@
                     console.error("CSRF token or User ID is missing");
                     return Promise.reject("Missing CSRF/User ID");
                 }
-                resetAllDocumentFields();
+                   resetAllDocumentFields(); 
 
 
 
@@ -5439,22 +5474,21 @@
                         return {};
                     });
             };
-
             function resetAllDocumentFields() {
-                endpoints.forEach(endpoint => {
-                    const element = document.querySelector(endpoint.selector);
-                    if (element) {
-                        element.textContent = 'No file selected'; // Reset filename
-                    }
+            endpoints.forEach(endpoint => {
+                const element = document.querySelector(endpoint.selector);
+                if (element) {
+                    element.textContent = 'No file selected'; // Reset filename
+                }
 
-                    const eyeIcon = document.getElementById(endpoint.eyeIconId);
-                    if (eyeIcon) {
-                        eyeIcon.style.display = 'none';
-                    }
-                });
+                const eyeIcon = document.getElementById(endpoint.eyeIconId);
+                if (eyeIcon) {
+                    eyeIcon.style.display = 'none'; 
+                }
+    });
 
-                Object.keys(documentUrls).forEach(key => delete documentUrls[key]);
-            }
+     Object.keys(documentUrls).forEach(key => delete documentUrls[key]);
+}
 
 
             const initialiseProfileView = (userId) => {
@@ -5632,7 +5666,7 @@
 
                         var user = @json(session('nbfcuser'));
                         const email = user.nbfc_email;
-                        // alert(email);
+                        alert(email);
 
 
 
