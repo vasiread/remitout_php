@@ -895,7 +895,7 @@
                         <input type="file" id="pan-card" accept=".jpg, .png, .pdf"
                             onchange="handleFileUpload(event, 'pan-card-name', 'pan-card-upload-icon', 'pan-card-remove-icon','static')">
                        <span id="pan-card-remove-icon" class="remove-icon" style="display: none;"
-   onclick="removeFile('pan-card', 'pan-card-name', 'pan-card-upload-icon', 'pan-card-remove-icon', null, 'static')">✖</span>
+                    onclick="removeFile('pan-card', 'pan-card-name', 'pan-card-upload-icon', 'pan-card-remove-icon', null, 'static')">✖</span>
                     </div>
                     <div class="info">
                         <span class="help-trigger" data-target="pan-card-help">ⓘ Help</span>

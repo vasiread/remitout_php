@@ -6,6 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
         "student-form-nav-links",
     );
 
+    const studentId = document.getElementById("personal-info-userid")?.value;
+    if (studentId) {
+        initialiseStudentUploads(studentId);
+        initialiseStaticUploadedFiles();
+    }
+
     if (studentFormMenuIcon && studentFormNavLinks) {
         studentFormMenuIcon.addEventListener("click", () => {
             studentFormMenuIcon.classList.toggle("active");
@@ -1341,6 +1347,91 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 
+    async function initialiseStudentUploads(userId) {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content");
+        if (!csrfToken || !userId) {
+            console.error("Missing CSRF token or userId");
+            return;
+        }
+
+        const fileTypes = [
+            "aadhar-card-name",
+            "pan-card-name",
+            "passport-card-name",
+            "tenth-grade-name",
+            "twelfth-grade-name",
+            "graduation-grade-name",
+            "secured-tenth-name",
+            "secured-twelfth-name",
+            "secured-graduation-name",
+            "co-pan-card-name",
+            "co-aadhar-card-name",
+            "co-addressproof"
+        ];
+
+        try {
+            const response = await fetch("/retrieve-file", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ userId, fileTypes })
+            });
+
+            const data = await response.json();
+            const allFiles = data.staticFiles || data;
+
+            fileTypes.forEach(fileType => {
+                const fileData = allFiles[fileType];
+                if (!fileData) return;
+
+                const fileNameId = `${fileType}-${userId}`;
+                const uploadIconId = `upload-${fileType}-${userId}`;
+                const removeIconId = `remove-${fileType}-${userId}`;
+                const fileNameElement = document.getElementById(fileNameId);
+                const uploadIcon = document.getElementById(uploadIconId);
+                const removeIcon = document.getElementById(removeIconId);
+                const formatInfo = fileNameElement?.parentElement?.nextElementSibling?.querySelector("span:last-child");
+
+                if (fileNameElement && fileData.url && fileData.name) {
+                    renderUploadedFileUI(fileNameElement, fileData, uploadIcon, removeIcon, formatInfo);
+                }
+            });
+        } catch (error) {
+            console.error("Error fetching uploaded files:", error);
+        }
+    }
+    function renderUploadedFileUI(fileNameElement, fileData, uploadIcon, removeIcon, formatInfo) {
+        const fileName = fileData.name;
+        const fileExtension = fileName.slice(fileName.lastIndexOf(".")).toLowerCase();
+        const truncatedFileName = fileName.length > 30 ? fileName.slice(0, 27) + "..." : fileName;
+
+        fileNameElement.innerHTML = truncatedFileName;
+
+        const fileIcon = document.createElement("img");
+        fileIcon.style.width = "20px";
+        fileIcon.style.height = "20px";
+        fileIcon.style.marginRight = "10px";
+
+        fileIcon.src = [".jpg", ".jpeg", ".png"].includes(fileExtension)
+            ? "/assets/images/image-upload.png"
+            : "/assets/images/image-pdf.png";
+
+        const existingIcon = fileNameElement.querySelector("img");
+        if (existingIcon) existingIcon.remove();
+
+        fileNameElement.prepend(fileIcon);
+
+        if (uploadIcon) uploadIcon.style.display = "none";
+        if (removeIcon) removeIcon.style.display = "inline";
+        if (formatInfo) formatInfo.textContent = "File uploaded";
+
+        fileNameElement.style.display = "block";
+    }
+
+
     const borrowBloodRelative = document.querySelector(
         ".borrow-blood-relative",
     );
@@ -2495,4 +2586,84 @@ document.addEventListener("DOMContentLoaded", () => {
         item.addEventListener("click", genderHandleSelection);
     });
     document.addEventListener("click", genderHandleOutsideClick);
+
+    function initialiseStaticUploadedFiles() {
+        const userId = document.getElementById("personal-info-userid")?.value;
+        if (!userId) {
+            console.warn("User ID not found.");
+            return;
+        }
+
+        const staticFileTypes = [
+            // KYC Documents
+            { fileType: "pan-card-name", inputId: "pan-card" },
+            { fileType: "aadhar-card-name", inputId: "aadhar-card" },
+            { fileType: "passport-card-name", inputId: "passport" },
+
+            // Academic Mark Sheets
+            { fileType: "tenth-grade-name", inputId: "tenth-grade" },
+            { fileType: "twelfth-grade-name", inputId: "twelfth-grade" },
+            { fileType: "graduation-grade-name", inputId: "graduation-grade" },
+
+            // Secured Admission
+            { fileType: "secured-tenth-name", inputId: "secured-tenth" },
+            { fileType: "secured-twelfth-name", inputId: "secured-twelfth" },
+            { fileType: "secured-graduation-name", inputId: "secured-graduation" },
+
+            // Work Experience
+            { fileType: "work-experience-experience-letter", inputId: "work-experience-tenth" },
+            { fileType: "work-experience-monthly-slip", inputId: "work-experience-twelfth" },
+            { fileType: "work-experience-office-id", inputId: "work-experience-graduation" },
+            { fileType: "work-experience-joining-letter", inputId: "work-experience-fourth" },
+
+            // ✅ Co-Borrower KYC
+            { fileType: "co-pan-card-name", inputId: "co-pan-card", uploadIconId: "co-upload-icon", removeIconId: "co-remove-icon" },
+            { fileType: "co-aadhar-card-name", inputId: "co-aadhar-card", uploadIconId: "co-aadhar-upload-icon", removeIconId: "co-aadhar-remove-icon" },
+            { fileType: "co-addressproof", inputId: "co-passport", uploadIconId: "co-passport-upload-icon", removeIconId: "co-passport-remove-icon" }
+        ];
+
+        const fileTypes = staticFileTypes.map(file => `static/${file.fileType}`);
+
+        fetch("/retrieve-file", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({ userId, fileTypes })
+        })
+            .then(res => res.json())
+            .then(data => {
+                const files = data.staticFiles || {};
+
+                staticFileTypes.forEach(item => {
+                    const fileData = files[`static/${item.fileType}`];
+                    if (!fileData || !fileData.url) return;
+
+                    const fileName = fileData.url.split("/").pop();
+                    const nameEl = document.getElementById(item.fileType);
+                    const removeIcon = document.getElementById(item.removeIconId || `${item.inputId}-remove-icon`);
+                    const uploadIcon = document.getElementById(item.uploadIconId || `${item.inputId}-upload-icon`);
+
+                    if (nameEl) {
+                        const fileExtension = fileName.slice(fileName.lastIndexOf(".")).toLowerCase();
+                        let iconSrc = "assets/images/image-upload.png"; // default
+
+                        if (fileExtension === ".pdf") {
+                            iconSrc = "assets/images/image-pdf.png";
+                        }
+
+                        nameEl.innerHTML = `<img src="${iconSrc}" width="20" style="vertical-align:middle; margin-right: 5px;"> ${fileName}`;
+                    }
+
+                    if (removeIcon) removeIcon.style.display = "inline";
+                    if (uploadIcon) uploadIcon.style.display = "none";
+                });
+            })
+            .catch(err => console.error("Error loading static uploads:", err));
+    }
+
+
+
+
 });

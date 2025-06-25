@@ -15,6 +15,6 @@ class Conversationadmin_student extends Model
     use HasFactory;
     public function messages()
     {
-        return $this->hasMany(Messageadminstudent::class, 'conversation_id');  // Specify the foreign key column explicitly if needed
+        return $this->hasMany(Messageadminstudent::class, 'conversation_id');   
     }
 }

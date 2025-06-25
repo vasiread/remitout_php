@@ -601,25 +601,24 @@
                         }
                         return response.json();
                     })
-                    .then(data => {
-                        messagesWrapper.innerHTML = '';
+                   .then(data => {
+                    messagesWrapper.innerHTML = '';
+                    const type = id.includes("NBFC") ? 'nbfc' : 'student';
+                        document.getElementById(`admin-${type}-input-${chatId}`).style.display = 'flex';
+                        document.getElementById(`admin-${type}-clear-container-${chatId}`).style.display = 'flex';
 
-                        if (Array.isArray(data.messages) && data.messages.length > 0) {
-                            data.messages.forEach(msg => {
-                                const messageElement = createMessageElement(msg);
-                                messagesWrapper.appendChild(messageElement);
-                            });
-                            messagesWrapper.style.display = 'block';
+                    if (Array.isArray(data.messages) && data.messages.length > 0) {
+                        data.messages.forEach(msg => {
+                            const messageElement = createMessageElement(msg);
+                            messagesWrapper.appendChild(messageElement);
+                        });
+                        messagesWrapper.style.display = 'block';
 
-                            const type = id.includes("NBFC") ? 'nbfc' : 'student';
-                            document.getElementById(`admin-${type}-input-${chatId}`).style.display = 'flex';
-                            document.getElementById(`admin-${type}-clear-container-${chatId}`).style.display =
-                                'flex';
-                        } else {
-                            // No messages yet, not an error
-                            messagesWrapper.innerHTML =
-                                '<div style="text-align:center; color:gray;">No conversation found.</div>';
-                        }
+                    
+                    } else {
+                        messagesWrapper.innerHTML =
+                            '<div style="text-align:center; color:gray;">No conversation found.</div>';
+                    }
 
                         // Scroll to the bottom of the chat
                         const messageContainer = document.getElementById(
