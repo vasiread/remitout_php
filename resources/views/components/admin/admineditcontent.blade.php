@@ -270,7 +270,7 @@
 
 
 
-                    // Logo Section
+                    
                     {
                         id: 9,
                         page: 'Landing Page',
@@ -419,6 +419,7 @@
                         content: 'Browse and compare personalized loan offers based on your eligibility and repayment preferences.',
                         status: 'Active',
                         maxLength: 150
+                        
                     },
                     {
                         id: 27,
@@ -1852,7 +1853,7 @@
                         headers: {
                             'Content-Type': 'application/json',
                             'Accept': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken // 🔐 Include CSRF token
+                            'X-CSRF-TOKEN': csrfToken  
                         },
                         body: JSON.stringify(payload)
                     });
@@ -1897,7 +1898,7 @@
                                     <td>${rowCounter++}</td>
                                     <td>${item.page}</td>
                                     <td class="editable-cell">
-                                        <div class="editable-content" contenteditable="true">${item.title}</div>
+                                        <div class="editable-content" contenteditable="false">${item.title}</div>
                                     </td>
                                     <td>
                                         <div class="media-container">
@@ -2028,7 +2029,7 @@
                                         <td>${rowCounter++}</td>
                                         <td>${item.page || '-'}</td>
                                         <td class="editable-cell">
-                                            <div class="editable-content" contenteditable="true">${logo.title}</div>
+                                            <div class="editable-content" contenteditable="false">${logo.title}</div>
                                         </td>
                                         <td>
                                             <div class="media-container">
@@ -2062,10 +2063,10 @@
                                     <td>${rowCounter++}</td>
                                     <td>${item.page}</td>
                                     <td class="editable-cell no-border">
-                                        <div class="editable-content" contenteditable="true">${testimonialTitle}</div>
+                                        <div class="editable-content" contenteditable="false">${testimonialTitle}</div>
                                     </td>
                                     <td class="editable-cell content-cell">
-                                        <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.name || 20}">${testimonial.name}</div>
+                                        <div class="editable-content" contenteditable="false" data-max-length="${item.maxLengthConstraints?.name || 20}">${testimonial.name}</div>
                                         <div class="char-count hidden" data-max="${item.maxLengthConstraints?.name || 20}">${testimonial.name.length}/${item.maxLengthConstraints?.name || 20}</div>
                                     </td>
                                     <td><span class="edit-contents-cms-status">${item.status}</span></td>
@@ -2092,7 +2093,7 @@
                                             <td>${originalSno}</td>
                                             <td>${item.page}</td>
                                             <td class="editable-cell no-border">
-                                                <div class="editable-content" contenteditable="true">${testimonialTitle}</div>
+                                                <div class="editable-content" contenteditable="false">${testimonialTitle}</div>
                                             </td>
                                             <td class="editable-cell content-cell">
                                                 <div class="testimonial-details">
@@ -2251,28 +2252,22 @@
                                                         body: formData
                                                     });
 
-                                                const result = await response
-                                                    .json();
+                                                const result = await response.json();
 
                                                 if (response.ok && result.url) {
                                                     testimonial.image = result.url;
                                                     item.content = JSON.stringify(
                                                         testimonials);
-                                                    this.renderTable();
+                                                    // this.renderTable();
                                                     this.showToast(
                                                         '✅ Image uploaded successfully'
                                                     );
                                                 } else {
-                                                    this.showToast(
-                                                        '❌ Failed to upload image',
-                                                        true);
+                                                    this.showToast('❌ Failed to upload image',true);
                                                 }
                                             } catch (error) {
-                                                console.error('Image upload error:',
-                                                    error);
-                                                this.showToast(
-                                                    '⚠️ An error occurred while uploading the image',
-                                                    true);
+                                                console.error('Image upload error:',error);
+                                                this.showToast('⚠️ An error occurred while uploading the image',true);
                                             }
                                         }
                                     });
@@ -2378,10 +2373,10 @@
                                     <td>${rowCounter++}</td>
                                     <td>${item.page}</td>
                                     <td class="editable-cell no-border">
-                                        <div class="editable-content" contenteditable="true">${faqTitle}</div>
+                                        <div class="editable-content" contenteditable="false">${faqTitle}</div>
                                     </td>
                                     <td class="editable-cell content-cell">
-                                        <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.question || 100}">${faq.question}</div>
+                                        <div class="editable-content" contenteditable="false" data-max-length="${item.maxLengthConstraints?.question || 100}">${faq.question}</div>
                                         <div class="char-count hidden" data-max="${item.maxLengthConstraints?.question || 100}">${faq.question.length}/${item.maxLengthConstraints?.question || 100}</div>
                                     </td>
                                     <td><span class="edit-contents-cms-status">${item.status}</span></td>
@@ -2407,7 +2402,7 @@
                                                 <td>${rowCounter - 1}</td>
                                                 <td>${item.page}</td>
                                                 <td class="editable-cell no-border">
-                                                    <div class="editable-content" contenteditable="true">${faqTitle}</div>
+                                                    <div class="editable-content" contenteditable="false">${faqTitle}</div>
                                                 </td>
                                                 <td class="editable-cell content-cell">
                                                     <div class="faq-details">
@@ -2568,8 +2563,7 @@
                                             'edit-mode');
 
                                         this.renderTable();
-                                        this.showToast('FAQ updated');
-                                    });
+                                     });
 
                                     const removeButton = faqRow.querySelector(
                                         '.remove-faq');
@@ -2594,10 +2588,10 @@
             <td>${rowCounter++}</td>
             <td>${item.page}</td>
             <td class="editable-cell">
-                <div class="editable-content" contenteditable="true">${item.title}</div>
+                <div class="editable-content" contenteditable="false">${item.title}</div>
             </td>
             <td class="editable-cell content-cell">
-                <div class="editable-content" contenteditable="true" data-max-length="${item.maxLength || 100}">${item.content}</div>
+                <div class="editable-content" contenteditable="false" data-max-length="${item.maxLength || 100}">${item.content}</div>
                 <div class="char-count hidden" data-max="${item.maxLength || 100}">${item.content.length}/${item.maxLength || 100}</div>
             </td>
             <td><span class="edit-contents-cms-status">${item.status}</span></td>
@@ -2658,7 +2652,7 @@
                     <td>${originalSno}</td>
                     <td>${item.page}</td>
                     <td class="editable-cell">
-                        <div class="editable-content" contenteditable="true">${item.title}</div>
+                        <div class="editable-content" contenteditable="false">${item.title}</div>
                     </td>
                     <td class="editable-cell content-cell">
                         <div class="editable-content" contenteditable="true" data-max-length="${maxLength}">${item.content}</div>
@@ -2730,8 +2724,7 @@
                                     this.updateHeroContentToAPI(item);
                                     row.classList.remove('edit-mode');
                                     this.renderTable();
-                                    this.showToast('Content updated');
-                                });
+                                 });
                             }
                         });
                     }

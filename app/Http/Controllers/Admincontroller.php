@@ -1215,6 +1215,22 @@ class Admincontroller extends Controller
         $additionalFields = AdditionalField::all();
         $documentTypes = DocumentType::all();
         $courseExpenseOptions = CourseDetailOption::all();
+        $personalInfos = Personalinfo::where('user_id', $uniqueId)->first();  
+          $courseInfoValues = Courseinfo::where('user_id',$uniqueId)->first();
+
+        $userFieldValues = UserAdditionalFieldValue::where('user_id', $user->id)
+        ->get()
+        ->mapWithKeys(function ($item) {
+            $value = $item->value;
+            $fieldType = $item->field->type ?? null;
+
+            // Decode checkboxes
+            if ($fieldType === 'checkbox' && is_string($value)) {
+                $value = json_decode($value, true);
+            }
+
+            return [$item->field_id => $value];
+        });
 
 
 
@@ -1222,7 +1238,9 @@ class Admincontroller extends Controller
 
 
 
-        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees', 'courseDuration', 'additionalFields', 'documentTypes', 'courseExpenseOptions'));
+
+
+        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees', 'courseDuration', 'additionalFields', 'documentTypes', 'courseExpenseOptions','personalInfos', 'courseInfoValues','userFieldValues'));
     }
 
 

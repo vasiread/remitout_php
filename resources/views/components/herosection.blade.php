@@ -14,7 +14,7 @@
 
 <body>
 
-   @php
+  @php
     function CmsContent($contents)
     {
         $map = [];
@@ -24,7 +24,7 @@
         return $map;
     }
 
-    $cms = CmsContent($landingpageContents);  
+    $cms = CmsContent($landingpageContents);
 
     $default = [
         'line1' => 'Secure Fast,',
@@ -48,20 +48,36 @@
         $thin = $default['thin'];
         $line3 = $default['line3'];
     }
+
+    $backgroundImage = trim($cms['hero']['Background: Media'] ?? '');
+
+    // Use default if background is empty
+    $backgroundImage = $backgroundImage !== '' 
+        ? $backgroundImage 
+        : asset('assets/images/Banner_Remitout 1.webp');
 @endphp
 
 
+
     <section class="hero-section">
+         
+       <img 
+    src="{{ $backgroundImage }}" 
+    alt="Hero Background" 
+    class="hero-background-image">
+
+
+
         <div class="content-container">
             <div class="left-container">
                 <h1 class="hero-title">
-    <span class="line-1">{{ $line1 }}</span>
-    <span class="line-2">
-        <span class="bold">{{ $bold }}</span>
-        <span class="thin-italic">{{ $thin }}</span>
-    </span>
-    <span class="line-3">{{ $line3 }}</span>
-</h1>
+                    <span class="line-1">{{ $line1 }}</span>
+                    <span class="line-2">
+                        <span class="bold">{{ $bold }}</span>
+                        <span class="thin-italic">{{ $thin }}</span>
+                    </span>
+                    <span class="line-3">{{ $line3 }}</span>
+                </h1>
 
 
 

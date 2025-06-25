@@ -471,7 +471,6 @@ const initialiseAllViews = () => {
         return Promise.reject("CSRF token or User ID is missing");
     }
 
-    // Extract fileTypes from endpoints, but backend may return more keys
     const fileTypes = endpoints.map(ep => ep.fileType);
 
     return fetch("/retrieve-file", {
@@ -485,36 +484,57 @@ const initialiseAllViews = () => {
     })
         .then(res => res.json())
         .then(data => {
-            // data could be a flat object with all files (static + dynamic)
             const allFiles = data.staticFiles || data;
+            let totalSizeBytes = 0;
 
-            // Loop through all keys returned by backend (all files)
-            Object.entries(allFiles).forEach(([fileType, fileUrl]) => {
-                if (fileUrl) {
+            Object.entries(allFiles).forEach(([fileType, fileData]) => {
+                if (fileData && fileData.url) {
+                    const fileUrl = fileData.url;
+                    const fileSizeBytes = fileData.size;
+                    totalSizeBytes += fileSizeBytes;
+                    const fileSizeMB = (fileSizeBytes / (1024 * 1024)).toFixed(2);
                     documentUrls[fileType] = fileUrl;
-                    const fileName = fileUrl.split("/").pop();
 
-                    // Find matching selector from endpoints (if any)
+                    const fileName = fileUrl.split("/").pop();
                     const endpoint = endpoints.find(ep => ep.fileType === fileType);
+
                     if (endpoint) {
-                        const element = document.querySelector(endpoint.selector);
-                        if (element) {
-                            element.textContent = fileName;
-                        } else {
-                            console.warn(`Element not found for selector: ${endpoint.selector}`);
+                        const nameElement = document.querySelector(endpoint.selector);
+                        if (nameElement) {
+                            // Update file name
+                            nameElement.textContent = fileName;
+
+                            // 👇 Update size nearby
+                            const container = nameElement.closest(
+                                ".individualkycdocuments, .individualmarksheetdocuments, .individual-secured-admission-documents, .individual-work-experiencecolumn-documents, .individual-coborrower-kyc-documents"
+                            );
+                            const statusSpan = container?.querySelector(".document-status");
+                            if (statusSpan) {
+                                statusSpan.textContent = `${fileSizeMB} MB uploaded`;
+                            }
                         }
+                    } else {
+                        console.warn(`No endpoint match for fileType: ${fileType}`);
                     }
 
-                    console.log(`FileType: ${fileType}, URL: ${fileUrl}`);
-                } else {
-                    console.log(`No file found for ${fileType}`);
+                    console.log(`File: ${fileType}, Size: ${fileSizeMB} MB`);
                 }
             });
+
+            // 👇 Optional: show total somewhere
+            const totalMB = (totalSizeBytes / (1024 * 1024)).toFixed(2);
+            const totalSizeElement = document.getElementById("total-uploaded-size");
+            if (totalSizeElement) {
+                totalSizeElement.textContent = `Total uploaded: ${totalMB} MB`;
+            }
         })
         .catch(error => {
             console.error("Error fetching files:", error);
         });
+
+        
 };
+
 
 
 

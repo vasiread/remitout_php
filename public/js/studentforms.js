@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (studentId) {
         initialiseStudentUploads(studentId);
         initialiseStaticUploadedFiles();
+        connectedThrough();
     }
 
     if (studentFormMenuIcon && studentFormNavLinks) {
@@ -2647,14 +2648,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     if (nameEl) {
                         const fileExtension = fileName.slice(fileName.lastIndexOf(".")).toLowerCase();
+                        const baseName = fileName.slice(0, fileName.lastIndexOf("."));
                         let iconSrc = "assets/images/image-upload.png"; // default
 
                         if (fileExtension === ".pdf") {
                             iconSrc = "assets/images/image-pdf.png";
                         }
 
-                        nameEl.innerHTML = `<img src="${iconSrc}" width="20" style="vertical-align:middle; margin-right: 5px;"> ${fileName}`;
+                        // Shorten base name if too long
+                        const shortBase = baseName.length > 18 ? baseName.slice(0, 18) + '...' : baseName;
+                        const displayName = shortBase + fileExtension;
+
+                        nameEl.innerHTML = `
+        <img src="${iconSrc}" width="20" style="vertical-align:middle; margin-right: 5px;">
+        <span title="${fileName}">${displayName}</span>`;
                     }
+
 
                     if (removeIcon) removeIcon.style.display = "inline";
                     if (uploadIcon) uploadIcon.style.display = "none";
@@ -2663,6 +2672,13 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(err => console.error("Error loading static uploads:", err));
     }
 
+    function connectedThrough() {
+        const selected = document.querySelector(".dropdown-option-about-us.selected");
+        if (selected) {
+            const label = selected.closest('.dropdown-about').querySelector('.dropdown-label-about');
+            label.textContent = selected.textContent;
+        }
+    }
     let selectedCollege = null;
 
     const fallbackColleges = [

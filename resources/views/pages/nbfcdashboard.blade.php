@@ -68,7 +68,7 @@
                         <span class="nbfc-profile-text">{{ $nbfcuser->nbfc_name }}</span>
                         <div class="nbfc-dropdown-icon"></div>
                     </div>
-                @endif
+                @endif 
 
 
                 <div class="popup-notify-list-nbfc">
@@ -162,7 +162,7 @@
                     <div class="dashboard-student-list" id="dashboard-request-list">
                         <!-- Dynamically populated list for Requests goes here -->
                     </div>
-                   
+
                 </section>
 
                 <section class="dashboard-section">
@@ -195,9 +195,9 @@
                         <!-- Dynamically populated list for Proposals goes here -->
                     </div>
                     <div class="viewmore-button" id="viewmore-proposals">
-  <p>View More</p>
-  <img src="assets/images/Icons/stat_minus_1.png" style="margin-left: 6px; width: 12px;" />
-</div>
+                        <p>View More</p>
+                        <img src="assets/images/Icons/stat_minus_1.png" style="margin-left: 6px; width: 12px;" />
+                    </div>
                 </section>
             </div>
 
@@ -722,10 +722,10 @@
                     <div class="index-student-details-container">
 
                     </div>
-                  <div class="viewmore-button" id="viewmore-inbox">
-  <p>View More</p>
-  <img src="assets/images/Icons/stat_minus_1.png" style="margin-left: 6px; width: 12px;" />
-</div>
+                    <div class="viewmore-button" id="viewmore-inbox">
+                        <p>View More</p>
+                        <img src="assets/images/Icons/stat_minus_1.png" style="margin-left: 6px; width: 12px;" />
+                    </div>
             </section>
 
 
@@ -788,6 +788,7 @@
                 initializeMarksheetUpload();
                 initializeSecuredAdmissionDocumentUpload();
                 initializeWorkExperienceDocumentUpload();
+                fetchUnreadCount();
                 // downloadDocuments();
 
 
@@ -1261,52 +1262,52 @@
                 };
 
                 function handleToggleViewMobileOnly(containerSelector, buttonSelector, maxItems = 4) {
-    const container = document.querySelector(containerSelector);
-    const button = document.querySelector(buttonSelector);
-    if (!container || !button) return;
+                    const container = document.querySelector(containerSelector);
+                    const button = document.querySelector(buttonSelector);
+                    if (!container || !button) return;
 
-    let isExpanded = false;
+                    let isExpanded = false;
 
-    function updateView() {
-        const items = Array.from(container.children);
-        const isMobile = window.innerWidth <= 768;
+                    function updateView() {
+                        const items = Array.from(container.children);
+                        const isMobile = window.innerWidth <= 768;
 
-        if (!isMobile || items.length <= maxItems) {
-            items.forEach(item => item.style.display = '');
-            button.style.display = 'none';
-            return;
-        }
+                        if (!isMobile || items.length <= maxItems) {
+                            items.forEach(item => item.style.display = '');
+                            button.style.display = 'none';
+                            return;
+                        }
 
-        button.style.display = 'flex';
+                        button.style.display = 'flex';
 
-        items.forEach((item, index) => {
-            if (isExpanded || index < maxItems) {
-                item.style.display = ''; // preserve original layout (e.g., flex)
-            } else {
-                item.style.display = 'none';
-            }
-        });
+                        items.forEach((item, index) => {
+                            if (isExpanded || index < maxItems) {
+                                item.style.display = ''; // preserve original layout (e.g., flex)
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
 
-        // Toggle button label and icon
-        const textEl = button.querySelector('p');
-        const imgEl = button.querySelector('img');
-        if (textEl) textEl.textContent = isExpanded ? 'View Less' : 'View More';
-        if (imgEl) imgEl.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
-    }
+                        // Toggle button label and icon
+                        const textEl = button.querySelector('p');
+                        const imgEl = button.querySelector('img');
+                        if (textEl) textEl.textContent = isExpanded ? 'View Less' : 'View More';
+                        if (imgEl) imgEl.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+                    }
 
-    button.addEventListener('click', () => {
-        isExpanded = !isExpanded;
-        updateView();
-    });
+                    button.addEventListener('click', () => {
+                        isExpanded = !isExpanded;
+                        updateView();
+                    });
 
-    window.addEventListener('resize', updateView);
-    updateView();
-}
+                    window.addEventListener('resize', updateView);
+                    updateView();
+                }
 
 
-// Call for both Proposals and Inbox
-handleToggleViewMobileOnly('#dashboard-proposal-list', '#viewmore-proposals');
-handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox');
+                // Call for both Proposals and Inbox
+                handleToggleViewMobileOnly('#dashboard-proposal-list', '#viewmore-proposals');
+                handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox');
 
 
                 function resetStudentProfileView() {
@@ -1351,7 +1352,7 @@ handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox'
                 setTimeout(() => {
                     handleToggleViewMobileOnly('#dashboard-proposal-list', '#viewmore-proposals');
                     handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox');
-                }, 100); 
+                }, 100);
 
 
 
@@ -3463,7 +3464,7 @@ handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox'
                     await initialiseAllViews(userId);
                     await initialiseProfileView(userId);
                     await downloadDocuments(userId);
-                    
+
 
 
                     console.log("Profile loaded for user:", userId);
@@ -5519,20 +5520,20 @@ handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox'
 
 
             function resetAllDocumentFields() {
-            endpoints.forEach(endpoint => {
-                const element = document.querySelector(endpoint.selector);
-                if (element) {
-                    element.textContent = 'No file selected'; // Reset filename
-                }
+                endpoints.forEach(endpoint => {
+                    const element = document.querySelector(endpoint.selector);
+                    if (element) {
+                        element.textContent = 'No file selected'; // Reset filename
+                    }
 
-                const eyeIcon = document.getElementById(endpoint.eyeIconId);
-                if (eyeIcon) {
-                    eyeIcon.style.display = 'none'; 
-                }
-    });
+                    const eyeIcon = document.getElementById(endpoint.eyeIconId);
+                    if (eyeIcon) {
+                        eyeIcon.style.display = 'none';
+                    }
+                });
 
-     Object.keys(documentUrls).forEach(key => delete documentUrls[key]);
-}
+                Object.keys(documentUrls).forEach(key => delete documentUrls[key]);
+            }
 
 
             const initialiseProfileView = (userId) => {
@@ -5898,6 +5899,42 @@ handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox'
                 // Optionally remove "layout-ready" class to restart animations/layouts
                 const profileContainer = document.querySelector(".wholeapplicationprofile");
                 if (profileContainer) profileContainer.classList.remove("layout-ready");
+            }
+
+            function fetchUnreadCount() {
+                
+                    var user = @json(session('nbfcuser'));
+
+                    if (user && user.nbfc_id) {
+                        const nbfcId = user.nbfc_id;
+                    }
+                const receiverId = nbfcId;
+
+                if (!receiverId) return;
+
+                fetch('/unread-message-count', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({
+                            receiverId
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        const countNotify = document.querySelector(".unread-notify-container p");
+                        if (data.success && data.count > 0 && countNotify) {
+                            countNotify.style.display = "flex";
+                            countNotify.textContent = data.count;
+                        } else if (countNotify) {
+                            countNotify.style.display = "none";
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching unread count:', error);
+                    });
             }
         </script>
 

@@ -1556,7 +1556,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- Office/Shop Photographs -->
+                                                 
                                                 <div class="document-box salary-upload-box">
                                                     <div class="document-name" id="office-shop-photos-id"
                                                         style="display: none;">Office/Shop
