@@ -84,11 +84,8 @@
                                             </div>
                                             <div class="validation-message" id="referralCode-error"></div>
                                         </div>
-                                    </div>
 
-                                    <!-- Input Row 2 -->
-                                    <div class="input-row" id="input-row-2">
-                                        <div class="input-group">
+                                         <div class="input-group">
                                             <div class="input-content">
                                                 <img src="./assets/images/mail.png" alt="Mail Icon" class="icon" />
                                                 <input type="email" placeholder="Email ID"
@@ -97,7 +94,7 @@
                                             <div class="validation-message" id="email-error"></div>
                                         </div>
 
-                                        <div class="input-group">
+                                           <div class="input-group">
                                             <div class="input-content">
                                                 <img src="./assets/images/calendar_month.png" alt="Calendar Icon"
                                                     class="icon" />
@@ -106,7 +103,6 @@
                                                 <div class="validation-message" id="dob-error"></div>
                                             </div>
                                         </div>
-
                                         <div class="input-group">
                                             <div class="input-content">
                                                 <div class="dropdown-gender-wrapper"
@@ -141,8 +137,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="input-row" id="input-row-3">
-                                            <div class="input-group">
+                                         <div class="input-group">
                                                 <div class="input-content">
                                                     <img src="./assets/images/pin_drop.png" alt="Location Icon"
                                                         class="icon" />
@@ -152,9 +147,9 @@
                                                         class="suggestions-container"></div>
                                                     <div class="validation-message" id="state-error"></div>
                                                 </div>
-                                            </div>
+                                         </div>
 
-                                            <div class="input-group">
+                                          <div class="input-group">
                                                 <div class="input-content">
                                                     <img src="./assets/images/pin_drop.png" alt="Location Icon"
                                                         class="icon" />
@@ -165,19 +160,16 @@
                                                     <div class="validation-message" id="city-error"></div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="add-field" id="add-input-field">
+                                            <div class="add-field" id="add-input-field">
                                             <span class="add-text">Add</span>
                                             <span class="add-icon">+</span>
                                         </div>
+
+                                    </div><!-----close the row---->   
+                                     <div id="personal-fields-container"></div> 
                                     </div>
-                                    <div id="personal-fields-container"></div>
-
-
-
-
-
+                                   
 
                                 </div>
 
@@ -713,14 +705,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <!-- Document fields container -->
-                                            <div class="document-row" id="document-fields-container-kyc-id">
-                                                <div class="add-document" id="add-document-btn-kyc-id">
-                                                    <span class="add-text">Add</span>
-                                                    <span class="add-icon">+</span>
-                                                </div>
 
+                                                <div id="document-fields-container-kyc-id">
+                                                    <div class="add-document" id="add-document-btn-kyc-id">
+                                                        <span class="add-text">Add</span>
+                                                        <span class="add-icon">+</span>
+                                                    </div>
+                                                 </div>
                                             </div>
                                         </div>
                                     </div>
@@ -857,14 +848,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <!-- Academic document fields container -->
-                                            <div class="document-row" id="academic-fields-container-id">
-                                                <div class="add-document" id="add-academic-btn-id">
-                                                    <span class="add-text">Add</span>
-                                                    <span class="add-icon">+</span>
+
+                                                <div id="academic-fields-container-id">
+                                                    <div class="add-document" id="add-academic-btn-id">
+                                                        <span class="add-text">Add</span>
+                                                        <span class="add-icon">+</span>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </div>               
                                         </div>
                                     </div>
                                 </div>
@@ -995,14 +986,16 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                  <div id="secured-fields-container-id">
+                                                    <div class="add-document" id="add-secured-btn-id">
+                                                        <span class="add-text">Add</span>
+                                                        <span class="add-icon">+</span>
+                                                    </div>
+                                                 </div>
                                             </div>
                                             <!-- Secured marks document fields container -->
-                                            <div class="document-row" id="secured-fields-container-id">
-                                                <div class="add-document" id="add-secured-btn-id">
-                                                    <span class="add-text">Add</span>
-                                                    <span class="add-icon">+</span>
-                                                </div>
-                                            </div>
+                                          
                                         </div>
                                     </div>
                                 </div>
@@ -1141,11 +1134,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- Second row of work experience documents -->
-                                            <div class="work-experience-row" id="work-experience-row-2">
-                                                <!-- Joining Letter -->
                                                 <div class="work-experience-box">
                                                     <div class="document-name" id="joining-letter-id"
                                                         style="display: none">
@@ -1185,13 +1174,17 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- Add button for work experience documents -->
-                                                <div class="document-row" id="work-experience-container-id">
+
+                                                 <div class="document-row" id="work-experience-container-id">
                                                     <div class="add-document" id="add-work-experience-btn-id">
                                                         <span class="add-text">Add</span>
                                                         <span class="add-icon">+</span>
                                                     </div>
                                                 </div>
+
+
+                                            </div><!-----close the row-->
+  
                                             </div>
                                         </div>
                                     </div>
@@ -1334,14 +1327,16 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
+                                                      <div id="co-borrower-fields-container">
+                                                            <div class="add-document" id="add-co-borrower-btn-id">
+                                                                <span class="add-text">Add</span>
+                                                                <span class="add-icon">+</span>
+                                                            </div>
+                                                      </div>
                                                 </div>
-                                                <!-- Co-borrower fields container -->
-                                                <div class="document-row" id="co-borrower-fields-container">
-                                                    <div class="add-document" id="add-co-borrower-btn-id">
-                                                        <span class="add-text">Add</span>
-                                                        <span class="add-icon">+</span>
-                                                    </div>
-                                                </div>
+                                                
+                                              
                                             </div>
                                         </div>
                                     </div>
@@ -1616,9 +1611,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <button type="button" id="admin-student-form-save-btn-id" class="admin-student-form-save-btn">Save
+                        <button type="button" id="admin-student-form-save-btn-id" class="admin-student-form-save-btn">Save
                         Changes</button>
+                    </div>
+                    
             </form>
         </div>
     </div>

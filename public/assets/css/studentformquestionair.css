@@ -95,7 +95,7 @@ html {
 .student-form-menu-icon {
     display: none;
     flex-direction: column;
-    gap: 0.3125rem;
+    gap: 0.35rem;
     cursor: pointer;
 }
 
@@ -235,7 +235,6 @@ html {
     .student-form-menu-icon {
         display: flex;
         flex-direction: column;
-        gap: 0.375rem;
     }
 
     .student-form-menu-icon .bar {
@@ -532,6 +531,10 @@ html {
     .breadcrumb {
         margin-bottom: 0px;
     }
+    .breadcrumb a {
+        text-align: center;
+        width:160px !important;
+    }
 }
 
 @media (min-width: 768px) {
@@ -544,7 +547,7 @@ html {
     }
 }
 
-@media (max-width: 1000px) and (min-width: 551px) {
+@media (max-width: 1200px) and (min-width: 551px) {
     .breadcrumb {
         display: flex;
         width: 100%;
@@ -560,7 +563,6 @@ html {
     .breadcrumb a .breadcrumb-tab-number {
         display: inline-block;
         font-size: 18px;
-        /* Slightly larger font size */
         font-weight: bold;
         color: white;
         justify-content: center;
@@ -761,93 +763,10 @@ form {
     background-color: #f5f5f5;
 }
 
-
-@media screen and (min-width: 1025px) and (max-width: 1300px) {
-    .registration-container {
-        padding: 30px 30px 0 30px;
-        max-width: 80%;
-    }
-
-    .registration-form {
-        padding: 30px 40px;
-    }
-
-    .step-number {
-        height: 50px;
-        width: 50px;
-        font-size: 20px;
-        left: -70px;
-    }
-
-    .input-row {
-         display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        gap: 15px;
-        justify-content: center;
-    }
-
-    .input-group {
-        width: 240px;
-    }
-
-    .input-content {
-        width: 250px;
-    }
-
-    .suggestions-container {
-        width: 260px;
-    }
-}
-
-@media screen and (min-width: 900px) and (max-width: 1024px) {
-    .registration-container {
-        max-width: 100%;
-    }
-
-    .registration-form {
-        padding: 30px 40px;
-        margin-left: 10px;
-    }
-
-    .step-number {
-        height: 50px;
-        width: 50px;
-        font-size: 20px;
-        left: -70px;
-    }
-
-    .input-row {
-        gap: 20px;
-    }
-
-    .input-group {
-        width: 240px;
-    }
-
-    .input-content {
-        width: 250px;
-    }
-
-    .suggestions-container {
-        width: 260px;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 912px) {
-    .mobile-heading {
-        display: block;
-        font-size: 30px;
-        font-weight: 700;
-        color: #ff7a00;
-        font-family: "Poppins", sans-serif;
-        text-align: center;
-        margin: 20px 0;
-    }
-
-    /* Centering the container */
+@media (min-width: 768px) and (max-width: 1200px) {
+    
     .registration-container {
         width: 80%;
-        max-width: 700px;
         margin: auto;
         padding: 20px;
         display: flex;
@@ -855,7 +774,7 @@ form {
         align-items: center;
         justify-content: center;
     }
-
+    
     .registration-form {
         padding: 30px 30px 50px 30px;
         border-radius: 8px;
@@ -864,6 +783,13 @@ form {
         margin-bottom: 30px;
         text-align: left;
         margin-left: 0px;
+        width:80vw;
+    }
+    .input-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+        margin-bottom: 20px;
     }
 
     .step-header {
@@ -872,7 +798,6 @@ form {
         align-items: center;
         justify-content: center;
         text-align: center;
-        width: 400px;
     }
 
     .step-header h2 {
@@ -882,7 +807,6 @@ form {
         color: #191825;
         padding: 12px 0px;
         flex-grow: 1;
-        /* Allows text to take up available space */
         justify-content: left;
         text-align: left;
         width: 420px;
@@ -903,19 +827,16 @@ form {
         align-items: center;
         position: absolute;
         top: -45px;
-        left: 10px;
+        left: -10px;
     }
 
-    .input-row {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+  .dropdown-options-gender{
+    width:100% !important;
+  }
 
     .input-group {
         width: 100%;
         max-width: 100%;
-        height: 35px;
         margin: 0 auto;
     }
 
@@ -927,7 +848,6 @@ form {
 
     .input-group input {
         width: 100%;
-        font-size: 16px;
         padding-left: 40px;
     }
 
@@ -935,8 +855,7 @@ form {
         position: absolute;
         top: 100%;
         left: 0;
-        margin-left: -20px;
-        width: 450px;
+        width: 100%;
         background-color: #fff;
         border: 1px solid #ccc;
         border-radius: 4px;
@@ -960,11 +879,27 @@ form {
     }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
+    .mobile-heading {
+        display: block;
+        font-size: 30px;
+        font-weight: 700;
+        color: #ff7a00;
+        font-family: "Poppins", sans-serif;
+        text-align: center;
+        margin: 20px 0;
+    }
+
     .input-group .validation-message {
         font-size: 10px;
         bottom: -15px;
         margin-bottom: 0;
+    }
+    .input-row {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 25px;
+        margin-bottom: 20px;
     }
 }
 
@@ -1038,7 +973,7 @@ form {
     }
 
     .input-group {
-        width: 100%;
+        width: 90%;
         margin: 0 auto;
     }
 
@@ -1187,28 +1122,13 @@ form {
 }
 
 
-@media screen and (min-width: 1025px) and (max-width: 1300px) {
-    .section-02 {
-        width: 85%;
-        padding: 30px 40px;
-    }
-}
-
-@media screen and (min-width: 913px) and (max-width: 1024px) {
-    .section-02 {
-        width: 90%;
-        padding: 30px 40px;
-        margin-left: 10px;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 912px) {
+@media (min-width: 768px) and (max-width: 1200px) {
     .section-02-container {
         gap: 20px;
     }
 
     .section-02 {
-        max-width: 600px;
+        max-width: 100%;
         padding: 30px 30px 50px 30px;
         border-radius: 8px;
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
@@ -1217,7 +1137,10 @@ form {
         text-align: left;
     }
     .next-btn {
-      margin-top: 200px;
+      margin-top: 250px !important;
+     }
+     .dropdown-options-about{
+        width:100%;
      }
 
     .input-container {
@@ -1462,15 +1385,13 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
  
-
-
 @media (min-width: 913px) and (max-width: 1025px) {
     .navigation {
         display: flex;
         justify-content: left;
         align-items: left;
         gap: 16px;
-        padding: 60px 0px 20px 0px;
+        padding-left: 100px;
     }
 }
 
@@ -1677,29 +1598,6 @@ input[type="number"]::-webkit-inner-spin-button {
     position: relative;
 }
 
-@media screen and (min-width: 900px) and (max-width: 1024px) {
-    .course-section {
-        width: 95%;
-    }
-
-    .course-details {
-        width: 90%;
-        padding: 30px 40px;
-        margin-left: 10px;
-    }
-}
-
-@media screen and (min-width: 1025px) and (max-width: 1300px) {
-    .course-details {
-        width: 80%;
-        padding: 30px 40px;
-        margin-left: 60px;
-    }
-
-    .custom-country-input {
-        width: 200px;
-    }
-}
 
 @media (max-width: 767px) {
     .course-section {
@@ -1884,23 +1782,23 @@ input[type="number"]::-webkit-inner-spin-button {
 
 
 
-@media screen and (min-width: 900px) and (max-width: 1024px) {
-    .course-degree {
-        width: 90%;
-        height: auto;
-        margin-left: 0px;
+@media (min-width: 768px) and (max-width: 1200px) {
+    
+    .course-details,
+    .course-degree  {
+        max-width: 100%;
+        padding: 30px 30px 50px 30px;
+        border-radius: 8px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        background-color: #fff;
+        margin-bottom: 30px;
+        text-align: left;
     }
 }
 
-@media screen and (min-width: 1025px) and (max-width: 1300px) {
-    .course-degree {
-        width: 80%;
-        padding: 30px 40px;
-        margin-left: 60px;
-    }
-}
 
-@media (max-width: 768px) {
+
+@media (max-width: 767px) {
     .course-degree {
         width: 100%;
         height: auto;
@@ -2078,24 +1976,20 @@ input[type="number"]::-webkit-inner-spin-button {
     background-color: #f3f3f3;
 }
 
-
-@media screen and (min-width: 1025px) and (max-width: 1300px) {
-    .course-duration-container {
-        width: 80%;
-        padding: 30px 40px;
-        margin-left: 60px;
+@media (min-width: 768px) and (max-width: 1200px) {
+    
+    .course-duration-container  {
+        max-width: 100%;
+        padding: 30px 30px 50px 30px;
+        border-radius: 8px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        background-color: #fff;
+        margin-bottom: 30px;
+        text-align: left;
     }
 }
 
-@media screen and (min-width: 900px) and (max-width: 1024px) {
-    .course-duration-container {
-        width: 90%;
-        height: auto;
-        margin-left: 0px;
-    }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .course-duration-container {
         width: 100%;
         height: auto;
@@ -2264,24 +2158,26 @@ h2 {
     right: -1px;
     z-index: 10;
 }
-
-@media screen and (min-width: 1025px) and (max-width: 1300px) {
+@media (min-width: 768px) and (max-width: 1200px) {
     .course-details-container {
-        width: 80%;
-        padding: 30px 40px;
-        margin-left: 60px;
+        max-width: 100%;
+        padding: 30px 30px 50px 30px;
+        border-radius: 8px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        background-color: #fff;
+        margin-bottom: 30px;
+        text-align: left;
+
+    }  
+    .right-section{
+        margin-left: 80px;
     }
+    .next-btn-course {
+        margin-top: 200px
+    };
 }
 
-@media screen and (min-width: 900px) and (max-width: 1024px) {
-    .course-details-container {
-        width: 90%;
-        height: auto;
-        margin-left: 0px;
-    }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .course-details-container {
         width: 100%;
         height: auto;
@@ -2291,8 +2187,6 @@ h2 {
         margin-bottom: 40px;
         gap:0;
     }
-
-   
 
     .content-wrapper {
         flex-direction: column;
@@ -2503,42 +2397,18 @@ textarea::placeholder {
     color: #838383;
 }
 
-
-@media screen and (min-width: 1025px) and (max-width: 1300px) {
-    .academic-section {
-        width: 85%;
-        padding: 0px 40px;
-        margin-left: 50px;
-    }
-
-    .academic-container {
-        width: 80%;
-        padding: 30px 40px;
-        transform: translateX(0px);
-        margin-top: 0;
-    }
-
-    .academic-content {
-        width: 600px;
-    }
-
-    .academic-reason {
-        width: 400px;
+@media (min-width: 768px) and (max-width: 1200px) {
+    
+    .academic-container{
+        max-width: 100%;
+        padding: 30px 30px 50px 30px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        text-align: left;
     }
 }
 
-@media screen and (min-width: 900px) and (max-width: 1024px) {
-    .academic-section {
-        max-width: 95%;
-    }
-
-    .academic-container {
-        width: 90%;
-        padding: 30px 40px;
-        margin-left: 10px;
-    }
-}
-
+  
 @media (max-width: 767px) {
     .academic-section{
         max-width: 100%;
@@ -2631,31 +2501,20 @@ textarea::placeholder {
     outline: none;
 }
 
-@media screen and (min-width: 1025px) and (max-width: 1300px) {
+@media (min-width: 768px) and (max-width: 1200px) {
+    
     .academic-details {
-        width: 80%;
-        padding: 30px 40px;
-        margin-left: 40px;
+        max-width: 100%;
+        padding: 30px 30px 50px 30px;
+        border-radius: 8px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        background-color: #fff;
+        margin-bottom: 30px;
+        text-align: left;
     }
-
-    .input-field input {
-        width: 300px;
-        padding: 10px 16px;
-        border: 1px solid #d1d5db;
-        border-radius: 6px;
-        font-size: 14px;
-    }
-}
-
-@media screen and (min-width: 900px) and (max-width: 1024px) {
-    .academic-details {
-        width: 90%;
-        padding: 30px 40px;
-        margin-left: 10px;
-    }
-
-    .input-field input {
-        width: 300px;
+    .input-grid {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 16px;
     }
 }
 
@@ -2838,7 +2697,7 @@ p {
     align-items: center;
     padding: 0 12px;
     box-sizing: border-box;
-    width: 150px;
+    width: 100%;
 }
 
 .admit-right-section .admit-exam-field:nth-of-type(5) .admit-input-container input[type="text"] {
@@ -2866,7 +2725,6 @@ p {
     font-size: 12px;
     margin-top: 2px;
     min-height: 8px;
-    /* Reserve space for error messages */
     margin-left: 82px;
 }
 
@@ -2886,26 +2744,21 @@ p {
     z-index: 10;
 }
 
-
-
-
-@media screen and (min-width: 1025px) and (max-width: 1300px) {
+@media (min-width: 769px) and (max-width: 1200px) {
+    
     .admit-form-container {
-        width: 80%;
-        padding: 30px 40px;
-        margin-left: 40px;
+        max-width:100%;
+        padding: 30px 30px 50px 30px;
+        margin-bottom: 30px;
+        text-align: left;
+    }
+    .admit-left-section .admit-question {
+        margin-top: 10px;
     }
 }
 
-@media screen and (min-width: 900px) and (max-width: 1024px) {
-    .admit-form-container {
-        width: 90%;
-        padding: 30px 40px;
-        margin-left: 10px;
-    }
-}
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
     .admit-form-container {
         width: 100%;
         height: auto;
@@ -3180,29 +3033,26 @@ p {
 .borrow-option.open .borrow-option-icon::after {
     transform: rotate(-135deg);
 }
-
-@media screen and (min-width: 1025px) and (max-width: 1300px) {
-    .co-borrow-section {
-        width: 85%;
-        padding: 0px 40px;
-        margin-left: 50px;
+@media (min-width: 768px) and (max-width: 1200px) {
+    
+    .borrow-container-section{
+        max-width: 100%;
+        padding: 30px 30px 50px 30px;
+        border-radius: 8px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        background-color: #fff;
+        margin-bottom: 30px;
+        text-align: left;
     }
+    .borrow-blood {
+        width:auto;
 
-    .borrow-container-section {
-        width: 80%;
-        padding: 30px 40px;
-        transform: translateX(0px);
-        margin-top: 0;
     }
-}
-
-@media screen and (min-width: 900px) and (max-width: 1024px) {
-    .borrow-container-section {
-        width: 90%;
-
-        margin-left: 10px;
+    .borrow-dropdown{
+        width:auto;
     }
 }
+
 
 @media screen and (max-width: 767px) {
     .co-borrow-section{
@@ -3337,28 +3187,17 @@ p {
     margin-left: 100px;
 }
 
-@media screen and (min-width: 1025px) and (max-width: 1300px) {
+
+@media (min-width: 768px) and (max-width: 1200px) {
     .income-co-borrower {
-        width: 70%;
-        padding: 30px 40px;
-        transform: translateX(0px);
-        margin-top: 0;
-    }
-
-    .income-co-borrower .minimum-amount {
-        width: 500px;
-    }
-}
-
-@media screen and (min-width: 900px) and (max-width: 1024px) {
-    .co-borrow-section {
-        width: 90%;
-    }
-
-    .income-co-borrower {
-        width: 85%;
-        padding: 30px 40px;
-        margin-left: 10px;
+        max-width: 100%;
+        padding: 30px 30px 50px 30px;
+        border-radius: 8px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        background-color: #fff;
+        margin-bottom: 30px;
+        text-align: left;
+       
     }
 }
 
@@ -3529,37 +3368,44 @@ p {
 }
 
 
-@media screen and (min-width: 1025px) and (max-width: 1300px) {
+@media screen and (min-width: 768px) and (max-width: 1200px) {
     .monthly-container {
-        width: 85%;
-        padding: 0px 40px;
-        margin-left: 50px;
+        width: 100%;
+        margin-left: 0;
     }
 
     .monthly-liability-container {
-        width: 80%;
-        padding: 30px 40px;
-        transform: translateX(0px);
-        margin-top: 0;
+        max-width: 100%;
+        padding: 30px 30px 50px 30px;
+        border-radius: 8px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        background-color: #fff;
+        margin-bottom: 30px;
+        text-align: left;
+    }
+    .monthly-liability-option {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+        padding-left: 0;
     }
 
     .monthly-liability-option input[type="text"] {
-        width: 300px;
+        width: auto;  
+        margin-left: 0;
+    }  
+    .amount-thousand{   
+      margin-left: 0;
+    }  
+    .emi-content{
+        gap:20px;
+    }
+    .amount-thousand-mobile {
+        display: block;
     }
 }
 
-@media screen and (min-width: 900px) and (max-width: 1024px) {
-    .monthly-liability-container {
-        width: 85%;
-        padding: 30px 40px;
-        margin-left: 10px;
-    }
-
-    .monthly-liability-option input[type="text"] {
-        width: 300px;
-    }
-   
-}
 
 @media (max-width: 767px) {
     .monthly-liability {
@@ -3686,17 +3532,13 @@ p {
     }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
     .amount-thousand {
         display: block;
     }
 }
 
-@media (max-width: 1023px) and (min-width: 768px) {
-    .amount-thousand {
-        display: none !important;
-    }
-}
+
 
 /*document upload*/
 
@@ -3808,62 +3650,47 @@ input[type="file"] {
 
 
 
-@media screen and (min-width: 1025px) and (max-width: 1300px) {
+@media screen and (min-width: 769px) and (max-width: 1200px) {
     .kyc-section-document {
-        width: 85%;
-        padding: 0px 40px;
-        margin-left: 50px;
+        max-width: 100%;
+
     }
 
     .kyc-container {
-        width: 80%;
-        padding: 30px 40px;
-        transform: translateX(0px);
-        margin-top: 0;
+        max-width: 100%;
+        padding: 30px 30px 50px 30px;
+        border-radius: 8px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        background-color: #fff;
+        margin-bottom: 30px;
+        text-align: left;
+       
+    }
+    .document-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .kyc-section-marksheet {
-        width: 85%;
-        padding: 0px 40px;
-        margin-left: 50px;
+        max-width: 100%;
+        margin-bottom: 30px;
+        text-align: left;
     }
 
     .kyc-section-Admission {
-        width: 85%;
-        padding: 0px 40px;
-        margin-left: 50px;
+        max-width: 100%;
+        margin-bottom: 30px;
+        text-align: left;
     }
 
     .kyc-section-co-borrower {
-        width: 84%;
-        padding: 0px 40px;
-        margin-left: 50px;
+        max-width: 100%;
+        margin-bottom: 30px;
+        text-align: left;
     }
 }
 
-@media screen and (min-width: 900px) and (max-width: 1024px) {
-    .kyc-section-document {
-        width: 95%;
-    }
-
-    .kyc-container {
-        width: 90%;
-        padding: 30px 40px;
-        margin-left: 10px;
-    }
-
-    .kyc-section-marksheet {
-        width: 95%;
-        transform: translateX(0px);
-    }
-
-    .kyc-section-Admission {
-        width: 95%;
-        transform: translateX(0px);
-    }
-}
-
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     
     .kyc-container {
         width: 90%;
@@ -3972,38 +3799,33 @@ input[type="file"] {
     text-align: left;
 }
 
-@media screen and (min-width: 1025px) and (max-width: 1300px) {
+@media screen and (min-width: 769px) and (max-width: 1200px) {
     .work-experience {
-        width: 70%;
-        padding: 30px 40px;
-        transform: translateX(0px);
+        max-width: 100%;
+        padding: 30px 30px 50px 30px;
+        border-radius: 8px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        background-color: #fff;
+        margin-bottom: 30px;
+        text-align: left;
     }
 
     .work-experience-container {
         transform: translateX(0px);
     }
+    .work-experience-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 30px; 
+      }
+    
+      .work-experience-row .field {
+        width: 100%;
+      }
 }
 
-@media screen and (min-width: 900px) and (max-width: 1024px) {
-    .work-experience {
-        width: 90%;
-        padding: 0px;
-        transform: translateX(0px);
-    }
 
-    .work-experience-container {
-        width: 90%;
-        padding: 30px 0px;
-
-        .kyc-section-co-borrower {
-            width: 90%;
-            padding: 30px 40px;
-            transform: translateX(0px);
-        }
-    }
-}
-
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     .work-experience {
          width: 90%;
         height: auto;
@@ -4068,11 +3890,6 @@ input[type="file"] {
     margin-top: 10px;
 }
 
-.info span:first-child {
-    color: #838383;
-    cursor: pointer;
-}
-
 .help-container {
     background-color: white;
     border-radius: 8px;
@@ -4124,8 +3941,8 @@ input[type="file"] {
 }
 
 .salary-upload-row {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     margin-bottom: 40px;
 }
@@ -4144,20 +3961,26 @@ input[type="file"] {
 }
 
 
-@media screen and (min-width: 1025px) and (max-width: 1300px) {
+@media screen and (min-width: 769px) and (max-width: 1200px) {
     .salary-upload {
-        width: 80%;
-        padding: 0px 40px;
-        margin-left: 50px;
+        max-width: 100%;
+      
     }
 
     .salary-upload-container {
-        width: 85%;
         padding: 30px 40px;
     }
 
     .salary-upload-row {
-        gap: 0px;
+        gap: 0px;  
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+    .salary-upload-box {
+     margin-top: 0;
+    }
+    .div.salary-sub p {
+     margin-bottom: 0;
     }
 }
 
@@ -4177,8 +4000,10 @@ input[type="file"] {
     }
 
     .salary-upload-row {
+        display: flex;
         flex-direction: column;
         gap: 15px;
+        width: 100%;
         margin-bottom: 15px;
     }
 

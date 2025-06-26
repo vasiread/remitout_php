@@ -58,7 +58,7 @@
 }
 .admin-student-form-section-course-details {
     margin-bottom: 20px;
-    padding: 15px 0;
+    padding: 20px;
 }
 
 .admin-student-section-header,
@@ -1390,7 +1390,6 @@ textarea::placeholder {
       .document-container-admin-salary
       {
         display: grid;
-        gap: 20px;
         margin-bottom: 40px;
       }
       
@@ -1607,6 +1606,39 @@ textarea::placeholder {
         margin-right: 70px;
         margin-top: 20px;
       }
+
+      .admin-student-options-section .salary-upload-box span {
+        font-family: 'Poppins', sans-serif;
+        color: #838383;
+        font-size: 14px;
+        font-weight: 400;
+    }
+    .admin-student-options-section .salary-upload-box .info span {
+        font-family: 'Poppins', sans-serif;
+        color: #838383;
+        font-size: 12px;
+        font-weight: 400;
+    }
+    .salary-sub-admin p {
+        font-family: 'Poppins', sans-serif;
+        color: #838383;
+        font-size: 14px;
+        font-weight: 400;
+    }
+    
+    
+    
+
+      @media (min-width: 769px) and (max-width: 1024px) {
+        .document-container-admin {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+        #work-experience-row-1 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
       @media only screen and (max-width: 768px) {
         .document-container-admin {
             grid-template-columns: 1fr;
@@ -1621,7 +1653,6 @@ textarea::placeholder {
         }
         .admin-student-form-section-course-details {
              margin-bottom: 0px;
-            padding: 0px;
         }
         .document-container-admin-salary
         {

@@ -229,11 +229,8 @@
                             <div class="validation-message" id="referralCode-error"></div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Input Row 2 -->
-                <div class="input-row">
-                    <div class="input-group">
+                     <div class="input-group">
                         <div class="input-content">
                             <img src="./assets/images/mail.png" alt="Mail Icon" class="icon" />
                             <input type="email" placeholder="Email ID" name="email" id="personal-info-email"
@@ -281,12 +278,7 @@
                         </div>
                     </div>
 
-                </div>
-
-
-
-                <div class="input-row">
-                    <div class="input-group">
+                      <div class="input-group">
                         <div class="input-content">
                             <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
                             <input type="text" placeholder="State" name="state" id="personal-info-state" required />
@@ -295,7 +287,7 @@
                         </div>
                     </div>
 
-                    <div class="input-group">
+                     <div class="input-group">
                         <div class="input-content">
                             <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
                             <input type="text" placeholder="City" name="city" id="personal-info-city" required />
@@ -303,8 +295,9 @@
                             <div class="validation-message" id="city-error"></div>
                         </div>
                     </div>
-                </div>
-                <!-- Dynamic Inputs -->
+                </div><!------close row--------->
+
+                  <!-- Dynamic Inputs -->
                 <div class="input-row">
                     @foreach($additionalFields as $field)
                     @if($field->section === 'general') {{-- ✅ Only allow general section --}}
@@ -379,14 +372,10 @@
 
                     @endif
                     @endforeach
-                </div>
+                </div>                        
+                
 
-
-
-
-
-
-            </div>
+      </div>
     </div>
 
 
@@ -1262,10 +1251,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="work-experience-row">
-                <div class="work-experience-box">
+                 <div class="work-experience-box">
                     <div class="document-name" id="Joining-letter-id">Joining letter</div>
 
                     <div class="upload-field">
@@ -1291,6 +1278,9 @@
                     </div>
                 </div>
             </div>
+
+            
+               
         </div>
     </section>
 

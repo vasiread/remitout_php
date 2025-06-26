@@ -115,12 +115,12 @@
         ) }}
         </p>
     </div>
-    <img src="{{ asset('assets/images/graphvectors/verticalGraphline.png') }}" alt="" id="firstverticalline">
+    <img src="{{ asset('assets/images/graphvectors/verticalGraphline.png') }}" alt="Graph vertical graph" id="firstverticalline">
     <div class="study-loans-numbertwosection">
-        <img src="{{ asset('assets/images/graphvectors/02.png') }}" id="numbertwo" alt="">
-        <img src="{{ asset('assets/images/graphvectors/handshake.png') }}" id="handshake-id" alt="">
+        <img src="{{ asset('assets/images/graphvectors/02.png') }}" id="numbertwo" alt="Graph vector two">
+        <img src="{{ asset('assets/images/graphvectors/handshake.png') }}" id="handshake-id" alt="Handsahke image">
     </div>
-    <img src="{{ asset('assets/images/graphvectors/perfectmatchvector.png') }}" alt="" id="first-diagonal">
+    <img src="{{ asset('assets/images/graphvectors/perfectmatchvector.png') }}" alt="Graphs first diagonal" id="first-diagonal">
     <p id="first-diagonal-header" class="global-diagonal-content">
         {!! trim($cms['study-loan']['Diagonal Label: Perfect Match'] ?? '') !== ''
             ? smartBreak($cms['study-loan']['Diagonal Label: Perfect Match'])
@@ -131,7 +131,7 @@
 
 
     <div class="study-loans-graphsecondbox">
-        <img src="{{ asset('assets/images/graphvectors/01.png') }}" id="numberone" alt="">
+        <img src="{{ asset('assets/images/graphvectors/01.png') }}" id="numberone" alt="Graphs one image">
         <img src="{{ asset('assets/images/graphvectors/horizontalfirst.png') }}" id="horizontallinefirst"
             alt="">
 
@@ -149,7 +149,7 @@
         </p>
     </div>
     <img src="{{ asset('assets/images/graphvectors/profileassesmentvector.png') }}" id="second-diagonal"
-        alt="">
+        alt="Graph profile assessment image">
     <p id="second-diagonal-content" class="global-diagonal-content">
         {!! trim($cms['study-loan']['Diagonal Label: Profile Assessment'] ?? '') !== ''
             ? smartBreak($cms['study-loan']['Diagonal Label: Profile Assessment'])
@@ -158,14 +158,14 @@
 
     </p>
 
-    <img src="{{ asset('assets/images/graphvectors/additionalvector.png') }}" alt=""
+    <img src="{{ asset('assets/images/graphvectors/additionalvector.png') }}" alt="Graph first vector"
         id="first-additional-vector">
-    <img src="{{ asset('assets/images/graphvectors/firstgroup.png') }}" alt="" id="graph-group-img">
-    <img src="{{ asset('assets/images/graphvectors/verticalgraphshort.png') }}" alt=""
+    <img src="{{ asset('assets/images/graphvectors/firstgroup.png') }}" alt="Graph group illustration" id="graph-group-img">
+    <img src="{{ asset('assets/images/graphvectors/verticalgraphshort.png') }}" alt="Short vertical graph line"
         id="vertical-shortfirst">
-    <img src="{{ asset('assets/images/graphvectors/verticalgraphshort.png') }}" alt=""
+    <img src="{{ asset('assets/images/graphvectors/verticalgraphshort.png') }}" alt="Shorthand vertical graph line"
         id="vertical-shortsecond">
-    <img src="{{ asset('assets/images/graphvectors/loanchoicesvector.png') }}" alt="" id="third-diagonal">
+    <img src="{{ asset('assets/images/graphvectors/loanchoicesvector.png') }}" alt="Loan choices vector illustration" id="third-diagonal">
     <p id="third-diagonal-content" class="global-diagonal-content">
         {!! trim($cms['study-loan']['Diagonal Label: Loan Choices'] ?? '') !== ''
             ? smartBreak($cms['study-loan']['Diagonal Label: Loan Choices'])
@@ -174,9 +174,9 @@
 
 
     </p>
-    <img src="{{ asset('assets/images/graphvectors/verticalGraphlinesecond.png') }}" alt=""
+    <img src="{{ asset('assets/images/graphvectors/verticalGraphlinesecond.png') }}" alt="Second vertical graph line"
         id="vertical-line-second">
-    <img src="{{ asset('assets/images/graphvectors/03.png') }}" alt="" id="numberthree">
+    <img src="{{ asset('assets/images/graphvectors/03.png') }}" alt="Number three icon" id="numberthree">
 
     <div class="study-loans-graphthirdbox">
 
@@ -195,7 +195,7 @@
 
         </p>
     </div>
-    <img src="{{ asset('assets/images/graphvectors/guaranteevector.png') }}" id="sixth-diagonal" alt="">
+    <img src="{{ asset('assets/images/graphvectors/guaranteevector.png') }}" id="sixth-diagonal" alt="Guarantee vector illustration">
     <p id="sixth-diagonal-content" class="global-diagonal-content">
 
 
@@ -206,9 +206,9 @@
 
     </p>
 
-    <img src="{{ asset('assets/images/graphvectors/easyprocessvector.png') }}" id="fourth-diagonal" alt="">
+    <img src="{{ asset('assets/images/graphvectors/easyprocessvector.png') }}" id="fourth-diagonal" alt="Easy process vector illustration">
     <img src="{{ asset('assets/images/graphvectors/additionalvector.png') }}" id="second-additional-vector"
-        alt="">
+        alt="Additional graph vector">
     <p id="fifth-diagonal-content" class="global-diagonal-content">
         {!! trim($cms['study-loan']['Diagonal Label: Easy Process'] ?? '') !== ''
             ? smartBreak($cms['study-loan']['Diagonal Label: Easy Process'])
@@ -216,21 +216,19 @@
 
 
     </p>
-    <img src="{{ asset('assets/images/graphvectors/verticalGraphline.png') }}" id="verticallinethird" alt="">
-    <img src="{{ asset('assets/images/graphvectors/04.png') }}" id="numberfour" alt="">
-    <img src="{{ asset('assets/images/graphvectors/06.png') }}" id="numbersix" alt="">
-    <img src="{{ asset('assets/images/graphvectors/05.png') }}" id="numberfive" alt="">
-    <img src="{{ asset('assets/images/graphvectors/handpointer.png') }}" id="handpointer-img" alt="">
-    <img src="{{ asset('assets/images/graphvectors/fastrackaprovalvector.png') }}" id="fifth-diagonal" alt="">
-    <img src="{{ asset('assets/images/graphvectors/clockhand.png') }}" id="clock-hand" alt="">
-    <img src="{{ asset('assets/images/graphvectors/verticalGraphline.png') }}" id="verticallinefourth"
-        alt="">
-    <img src="{{ asset('assets/images/graphvectors/horizontalfirst.png') }}" id="horizontalsecond" alt="">
+    <img src="{{ asset('assets/images/graphvectors/verticalGraphline.png') }}" id="verticallinethird" alt="Third vertical graph line">
+    <img src="{{ asset('assets/images/graphvectors/04.png') }}" id="numberfour" alt="Number four icon">
+    <img src="{{ asset('assets/images/graphvectors/06.png') }}" id="numbersix" alt="Number six icon">
+    <img src="{{ asset('assets/images/graphvectors/05.png') }}" id="numberfive" alt="Number five icon">
+    <img src="{{ asset('assets/images/graphvectors/handpointer.png') }}" id="handpointer-img" alt="Hand pointer graphic">
+    <img src="{{ asset('assets/images/graphvectors/fastrackaprovalvector.png') }}" id="fifth-diagonal" alt="Fast track approval vector illustration">
+    <img src="{{ asset('assets/images/graphvectors/clockhand.png') }}" id="clock-hand" alt="Clock hand graphic">
+    <img src="{{ asset('assets/images/graphvectors/verticalGraphline.png') }}" id="verticallinefourth" alt="Fourth vertical graph line">
+    <img src="{{ asset('assets/images/graphvectors/horizontalfirst.png') }}" id="horizontalsecond" alt="Horizontal graph line image">
     <p id="fourth-diagonal-content" class="global-diagonal-content" style="width:82px">
         {!! trim($cms['study-loan']['Diagonal Label: Fast-Track Approval'] ?? '') !== ''
             ? smartBreak($cms['study-loan']['Diagonal Label: Fast-Track Approval'])
             : 'Fast-Track <br> Approval' !!}
-
 
     </p>
     <div class="study-loans-graphfourthbox">
@@ -238,17 +236,13 @@
             {!! trim($cms['study-loan']['Step 4 Header: Submit Documents With Ease'] ?? '') !== ''
                 ? smartBreak($cms['study-loan']['Step 4 Header: Submit Documents With Ease'])
                 : 'Submit Documents<br>With Ease' !!}
-
-
-
         </h3>
         <p class="global-content-graph" style="text-align:left;width: 120% ;">
 
             {{ trim(
                 $cms['study-loan']['Step 4 Content: Submit Documents With Ease'] ??
-                    'Upload your required documents
-                                                                                                            securely through our
-                                                                                                            platform for a seamless process.',
+                    'Upload your required documents                                                                                              securely through our
+                     platform for a seamless process.',
             ) }}
 
 
@@ -273,17 +267,11 @@
             {!! trim($cms['study-loan']['Step 6 Header: Guaranteed Disbursement'] ?? '') !== ''
                 ? smartBreak($cms['study-loan']['Step 6 Header: Guaranteed Disbursement'])
                 : 'Guaranteed <br> Disbursement' !!}
-
-
         </h3>
         <p class="global-content-graph" style="text-align:left">
 
-
             {{ trim($cms['study-loan']['Step 6 Content: Guaranteed Disbursement'] ?? '') ?:
                 'Once approved, your loan is disbursed directly to your institution on time, securing your admission.' }}
-
-
-
 
         </p>
     </div>
@@ -296,7 +284,6 @@
 </section>
 
 <div class="smart-banner-image">
-
     <section class="smart-lending-section">
         <div class="smart-content-wrapper">
             <!-- Left Content -->
@@ -309,12 +296,10 @@
 
 
                 <div class="mobile-right-image-smart-lending">
-
                     <img src="{{ trim($cms['secure-loan']['Mobile Image'] ?? '') !== ''
                         ? trim($cms['secure-loan']['Mobile Image'])
                         : asset('assets/images/tablet-group-image.png') }}"
                         alt="Smart Lending Image">
-
                 </div>
 
 
@@ -327,8 +312,6 @@
                         <div class="feature-content">
                             <h4>
                                 {{ trim($cms['secure-loan']['Feature 1 Title'] ?? '') ?: 'Integrated Support, Anytime, Anywhere' }}
-
-
                             </h4>
                             <p>
 
@@ -343,16 +326,11 @@
                         <div class="feature-content">
                             <h4>
                                 {{ trim($cms['secure-loan']['Feature 2 Title'] ?? 'Rapid Processing') }}
-
-
                             </h4>
                             <p>
                                 {{ trim($cms['secure-loan']['Feature 2 Description'] ?? 'Easy student remittance in just a few steps!') }}
-
-
                             </p>
                         </div>
-
                     </div>
 
                     <div class="feature-item">
@@ -377,8 +355,6 @@
                         <div class="feature-content">
                             <h4>
                                 {{ trim($cms['secure-loan']['Feature 4 Title'] ?? 'Absolutely Protected') }}
-
-
 
                             </h4>
                             <p>
@@ -505,11 +481,11 @@
                         <?php
                         foreach ($stats as $key => $value) {
                             echo "
-                                                                            <div class=\"effort-stat-card\">
-                                                                                <div class=\"effort-stat-value\">{$value}</div>
-                                                                                <div class=\"effort-stat-label\">{$labels[$key]}</div>
-                                                                            </div>
-                                                                            ";
+                            <div class=\"effort-stat-card\">
+                            <div class=\"effort-stat-value\">{$value}</div>
+                            <div class=\"effort-stat-label\">{$labels[$key]}</div>
+                            </div>
+                            ";
                         }
                         ?>
                     </div>

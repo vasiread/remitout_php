@@ -159,12 +159,6 @@ $phoneIconPath = "assets/images/call.png";
 $mailIconPath = "assets/images/mail.png";
 $pindropIconPath = "assets/images/pin_drop.png";
 
-
-
-
-
-
-
 $proposalsInfo = [
     [
         'NBFC' => 'NBFC Name',
@@ -216,7 +210,7 @@ $studentDocumentDetailsInfo = [
                         <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
                     </li>
                     <li>
-                        <img src="{{ asset('assets/images/Icons/support_agent.png') }}" alt=""> Support
+                        <img src="{{ asset('assets/images/Icons/support_agent.png') }}" alt="Sc support icon"> Support
                     </li>
                 </ul>
             </div>
@@ -229,7 +223,7 @@ $studentDocumentDetailsInfo = [
                             <h1>Track Progress</h1>
                             <button class="referral-Link-trigger-anotherbutton">Generate Referral Link</button>
                             <button id="mobgeneratedreferralcode"> <img src="{{ asset('assets/images/Group icon.png') }}"
-                                    alt=""> Referral Code:
+                                    alt="Group icon for referral code"> Referral Code:
                                 45628</button>
                         </div>
                         <div class="trackprogress-secondsection">
@@ -253,9 +247,9 @@ $studentDocumentDetailsInfo = [
                         </div>
                         <div class="trackprogress-thirdsection">
                             <button id="pcviewgeneratedreferralcode"> <img src="{{ asset('assets/images/Group icon.png') }}"
-                                    alt=""> Referral Code:
+                                    alt="Referral group icon"> Referral Code:
                                 45628</button>
-                            <button style="display:none"> <img src="{{ asset('assets/images/dbicon.png') }}" alt="">Track
+                            <button style="display:none"> <img src="{{ asset('assets/images/dbicon.png') }}" alt="Commission tracking icon">Track
                                 Commission</button>
                             <button id="mobgeneratedbutton" class="referral-Link-trigger-button">Generate Referral
                                 Link</button>
@@ -281,7 +275,7 @@ $studentDocumentDetailsInfo = [
             <div class="scdashboard-inboxcontent">
                 <div class="scmember-profilecontainer">
                     <div class="scmember-profilecontainerimg">
-                        <img src="{{asset('assets/images/image-women.jpeg')}}" id="studentcounsellor-profile" alt="">
+                        <img src="{{asset('assets/images/image-women.jpeg')}}" id="studentcounsellor-profile" alt="Student counsellor profile photo">
                         <i class="fa-regular fa-pen-to-square"></i>
                         <input type="file" id="sc-profile-upload-cloud" display="none">
                     </div>
@@ -304,36 +298,36 @@ $studentDocumentDetailsInfo = [
                     </div>
                     <ul class="scmember_personalinfo">
 
-                        <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
+                        <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="Student counsellor icon">
                             <p> </p>
                         </li>
-                        <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
+                        <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="Contact number icon">
                             <p></p>
                         </li>
                         <li class="scmember_personal_info_email" style="word-break: break-all;" id="referenceEmailId">
-                            <img src="{{$mailIconPath}}" alt="">
+                            <img src="{{$mailIconPath}}" alt="Counsellor email icon">
                             <p>{{ session('scuser')->email}}</p>
                         </li>
-                        <li class="scmember_personal_info_state"><img src="{{$pindropIconPath}}" alt="">
+                        <li class="scmember_personal_info_state"><img src="{{$pindropIconPath}}" alt="Counsellor location icon">
                             <p style="line-height:19px"></p>
                         </li>
 
                     </ul>
                     <ul class="scmember_personalinfo_editmode">
-                        <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="">
+                        <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="Edit profile name icon">
                             <input type="text">
                         </li>
-                        <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="">
+                        <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="Edit phone number icon">
                             <input type="text">
                         </li>
                         <li class="scmember_personal_info_email" id="referenceEmailId">
-                            <img src="{{$mailIconPath}}" alt="">
+                            <img src="{{$mailIconPath}}" alt="Email field icon">
                             <input type="text" disabled>
                         </li>
                         <li class="scmember_personal_info_state-edit">
 
                             <div class="scmember-personal_address_header">
-                                <img src="{{$pindropIconPath}}" alt="">
+                                <img src="{{$pindropIconPath}}" alt="State location icon">
                                 <input type="text" disabled>
                             </div>
 
@@ -384,7 +378,7 @@ $studentDocumentDetailsInfo = [
                             <p id="queryraised-header">Queries Raised</p>
                             <div class="queryraisedcontainer-rightcontent">
                                 <button id="sort-by" style="cursor:pointer;">
-                                    <p>Sort by</p> <img src="assets/images/Icons/swap_vert.png" />
+                                    <p>Sort by</p> <img src="assets/images/Icons/swap_vert.png" alt="SC sort by icon"/>
                                 </button>
                                 <div class="sort-by-contents">
                                     <a href="" data-sort="newest">Newest</a>
@@ -405,7 +399,7 @@ $studentDocumentDetailsInfo = [
                             <p>view more</p> <img src="{{ asset("assets/images/Icons/stat_minus_1.png") }}" style="margin-top: 9px;
                                                                                                 margin-left: 8px;
                                                                                                 width: 12px;
-                                                                                                height: 7px;" alt="">
+                                                                                                height: 7px;" alt="Collapse arrow icon" />
                         </div>
 
 
@@ -420,7 +414,7 @@ $studentDocumentDetailsInfo = [
                 <div class="scapplicationstatus-firstrow">
                     <h1>Applications</h1>
                     <div class="firstrowapplication-rightsidecontent">
-                        <button id="applicationstatus-sortby">Sort by <img src="assets/images/Icons/swap_vert.png" />
+                        <button id="applicationstatus-sortby">Sort by <img src="assets/images/Icons/swap_vert.png" alt="Sort options icon"/>
                         </button>
                         <div class="sort-by-contents-applications-studentnames">
                             <a href="" data-sort="newest" style="display: none;">Newest</a>
@@ -429,7 +423,7 @@ $studentDocumentDetailsInfo = [
                             <a href="" data-sort="alphabet-reverse">Z-A</a>
                         </div>
                         <button id="mobwidthdownloadbutton">
-                            <img src="{{asset("assets/images/Icons/download-orange.png")}}" alt="">
+                            <img src="{{asset("assets/images/Icons/download-orange.png")}}" alt="Download application data icon">
                         </button>
                         <button id="sc-new-application-generate">Start New Application</button>
                     </div>
@@ -456,7 +450,7 @@ $studentDocumentDetailsInfo = [
         <div class="studentAddBySCuserPopup">
             <div class="studentAddByScuserPopup-headerpart">
                 <h3>Register Students</h3>
-                <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="">
+                <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="close popup icon">
             </div>
             <div class="studentAddByScuserPopup-content-container">
                 <div class="studentAddByScuserPopup-contentpart">
@@ -473,7 +467,7 @@ $studentDocumentDetailsInfo = [
                 <div class="studentAddByScuserPopup-footerpart">
                     <!-- Excel Upload Button -->
                     <button id="excel-upload-trigger" type="button" style="cursor:pointer">
-                        Upload xlsx <img src="{{ asset('assets/images/Icons/upload.png') }}" />
+                        Upload xlsx <img src="{{ asset('assets/images/Icons/upload.png') }}" alt="Upload Excel file icon" />
                     </button>
                     <button type="button" class="add-student-btn" style="cursor:pointer">Add Student</button>
                     <button type="button" id="save-multiple-students-bysc" style="cursor:pointer">Save Student
@@ -501,14 +495,14 @@ $studentDocumentDetailsInfo = [
         <div class="referral-triggered-view" style="display:none">
             <div class="referral-triggered-view-headersection">
                 <h3>Generate Referral Link</h3>
-                <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="">
+                <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="Close referral popup icon">
 
             </div>
             <div class="referral-triggered-view-content">
                 <input type="input" placeholder="Copy Link here">
             </div>
             <div class="referral-triggered-view-footer">
-                <button id="cancel-referral-link"> <img src="{{ asset('assets/images/Icons/close_icon.png') }}" />
+                <button id="cancel-referral-link"> <img src="{{ asset('assets/images/Icons/close_icon.png') }}" alt="Referral Cancel icon" />
                     Cancel</button>
                 <button>Generate</button>
             </div>
@@ -520,7 +514,7 @@ $studentDocumentDetailsInfo = [
             <div class="raise-query-popup-headersection">
                 <h3>Raise a Query</h3>
                 <button class="close-query-btn">
-                    <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="Close">
+                    <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="Close raise query popup">
                 </button>
             </div>
             <div class="raise-query-popup-content">
@@ -531,7 +525,7 @@ $studentDocumentDetailsInfo = [
                 </select>
             </div>
             <div class="raise-query-popup-footer">
-                <button class="cancel-query "> <img src="{{ asset('assets/images/Icons/close_icon.png') }}" />
+                <button class="cancel-query "> <img src="{{ asset('assets/images/Icons/close_icon.png') }}" alt="Dismiss action icon" />
                     Cancel</button>
                 <button class="submit-query">Submit</button>
             </div>
@@ -1536,7 +1530,7 @@ $studentDocumentDetailsInfo = [
                 referralInput.value = referralLink;
                 footerContainer.innerHTML = `
                     <button>
-                        <img src="{{ asset('assets/images/Icons/close_icon.png') }}" alt="Cancel Icon" />
+                        <img src="{{ asset('assets/images/Icons/close_icon.png') }}" alt="Referral link Cancel Icon" />
                         Cancel
                     </button>
                     <div class="action-btn-group">
@@ -2326,11 +2320,11 @@ $studentDocumentDetailsInfo = [
                             <div class="reportsindashboard-rightcontentinfirstrow">
                                 <div class="application-buttoncontainer reportsindashboard-buttoncontainer">
                                     <button class="expand-arrow-reportsindashboard" style="cursor:pointer">
-                                        <img src="/assets/images/stat_minus_1.png" class="expand-arrow-rotation" alt="">
+                                        <img src="/assets/images/stat_minus_1.png" class="expand-arrow-rotation" alt="Collapse section icon" />
                                     </button>
                                 </div>
                                 <div class="application-shrinkwidtheditcontainer">
-                                    <img src="/assets/images/Icons/edit_icon.png" style="display:none" alt="">
+                                    <img src="/assets/images/Icons/edit_icon.png" style="display:none" alt="Edit report icon" />
                                 </div>
                             </div>
                         </div>
