@@ -14,11 +14,54 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 
 
-    <link rel="stylesheet" href={{ asset('assets/css/nbfc.css') }}>
 
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="preload" href="{{ asset('assets/css/nbfc.css') }}" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="{{ asset('assets/css/nbfc.css') }}">
+    </noscript>
 
+
+    <style>
+        body.layout-loading>* {
+            visibility: hidden !important;
+        }
+
+        body.layout-ready>* {
+            visibility: visible !important;
+        }
+
+        .nbfc-dark-mode {
+            position: relative;
+            /* important for absolute children */
+            border: none;
+            background: none;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .notification-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .notification-badge {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #fd9c41;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 1;
+            min-width: 18px;
+            text-align: center;
+        }
+    </style>
 
 
 
@@ -44,715 +87,738 @@
             $viewIconPath = 'assets/images/visibility.png';
         @endphp
 
-        <nav class="nbfc-navbar">
-            <div class="nbfc-logo">
-                <img src="/assets/images/nbfc-logo.png" alt="Remitout Logo">
-            </div>
+        <body class="layout-loading">
 
-            <div class="nbfc-nav-right">
-                <div class="nbfc-search-container" id="nbfc-search-container-id-index" style="display:none">
-                    <img src="assets/images/search.png" alt="Search" class="nbfc-search-icon">
-                    <input type="text" class="nbfc-search-input" id="nbfc-search-input-id" placeholder="Search">
+            <nav class="nbfc-navbar">
+                <div class="nbfc-logo">
+                    <img src="/assets/images/nbfc-logo.png" alt="Remitout Logo">
                 </div>
 
-                <button class="nbfc-dark-mode">
-                    <img src="/assets/images/notifications_unread.png" alt="the notification icon"
-                        class="notification-icon">
+                <div class="nbfc-nav-right">
+                    <div class="nbfc-search-container" id="nbfc-search-container-id-index" style="display:none">
+                        <img src="assets/images/search.png" alt="Search" class="nbfc-search-icon">
+                        <input type="text" class="nbfc-search-input" id="nbfc-search-input-id" placeholder="Search">
+                    </div>
+
+                    <button class="nbfc-dark-mode">
+                        <img src="/assets/images/notifications_unread.png" alt="the notification icon"
+                            class="notification-icon">
+                        <span class="notification-badge"></span>
+                    </button>
+                    @if (session()->has('nbfcuser'))
+                        @php $nbfcuser = session('nbfcuser'); @endphp
+                        <div class="nbfc-profile">
+                            <div class="nbfc-avatar">
+                                <img src="{{ asset('assets/images/bank.png') }}" alt="Bank Profile">
+                            </div>
+                            <span class="nbfc-profile-text">{{ $nbfcuser->nbfc_name }}</span>
+                            <div class="nbfc-dropdown-icon"></div>
+                        </div>
+                    @endif
+
+
+                    <div class="popup-notify-list-nbfc">
+                        <p id="change-password-trigger-nbfc">Change Password</p>
+                        <p class='nbfclogoutBtn'>Logout</p>
+                    </div>
+                </div>
+
+                <!-- Add an id to the mobile menu button -->
+                <button id="nbfcMobileMenuBtn" class="nbfc-mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
                 </button>
-                @if (session()->has('nbfcuser'))
-                    @php $nbfcuser = session('nbfcuser'); @endphp
-                    <div class="nbfc-profile">
-                        <div class="nbfc-avatar">
-                            <img src="{{ asset('assets/images/bank.png') }}" alt="Bank Profile">
-                        </div>
-                        <span class="nbfc-profile-text">{{ $nbfcuser->nbfc_name }}</span>
-                        <div class="nbfc-dropdown-icon"></div>
-                    </div>
-                @endif 
+            </nav>
 
+            <div class="nbfc-mobile-sidebar">
+                <ul class="nbfc-mobile-menu-top">
+                    <li class="active">
+                        <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
+                    </li>
+                    <li>
+                        <i class="fas fa-inbox"></i> Inbox
+                    </li>
+                </ul>
 
-                <div class="popup-notify-list-nbfc">
-                    <p id="change-password-trigger-nbfc">Change Password</p>
-                    <p class='nbfclogoutBtn'>Logout</p>
-                </div>
+                <ul class="nbfc-mobile-menu-bottom">
+                    <li>
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-headset"></i> Support
+                    </li>
+                </ul>
             </div>
 
-            <!-- Add an id to the mobile menu button -->
-            <button id="nbfcMobileMenuBtn" class="nbfc-mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-        </nav>
+            <div class="nbfc-mobile-overlay"></div>
 
-        <div class="nbfc-mobile-sidebar">
-            <ul class="nbfc-mobile-menu-top">
-                <li class="active">
-                    <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
-                </li>
-                <li>
-                    <i class="fas fa-inbox"></i> Inbox
-                </li>
-            </ul>
+            <div class="nbfcstudentdashboardprofile-togglesidebar">
+                <ul class="nbfcstudentdashboardprofile-sidebarlists-top">
+                    <li class="nbfcactive">
+                        <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-inbox"></i> Inbox
+                    </li>
+                </ul>
 
-            <ul class="nbfc-mobile-menu-bottom">
-                <li>
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
-                </li>
-                <li>
-                    <i class="fa-solid fa-headset"></i> Support
-                </li>
-            </ul>
-        </div>
-
-        <div class="nbfc-mobile-overlay"></div>
-
-        <div class="nbfcstudentdashboardprofile-togglesidebar">
-            <ul class="nbfcstudentdashboardprofile-sidebarlists-top">
-                <li class="nbfcactive">
-                    <i class="fa-solid fa-square-poll-vertical"></i> Dashboard
-                </li>
-                <li>
-                    <i class="fa-solid fa-inbox"></i> Inbox
-                </li>
-            </ul>
-
-            <ul class="nbfcstudentdashboardprofile-sidebarlists-bottom">
-                <li class="nbfclogoutBtn">
-                    <img src="assets/images/logout-icon.png" alt="Logout Icon" /> Log out
-                </li>
-                <li>
-                    <img src="assets/images/support_agent.png" alt="Support Icon" /> Support
-                </li>
-            </ul>
-        </div>
-
-        <div class="nbfc-mobile-overlay"></div>
-
-
-
-        <section class="dashboard-main-content" style="display:flex">
-
-
-            <div class="dashboard-sections-container" id="dashboard-container">
-                <section class="dashboard-section">
-                    <div class="dashboard-section-header">
-                        <h2 class="dashboard-section-title">Requests</h2>
-                        <div class="dashboard-header-controls">
-                            <div class="dashboard-sort-button-container">
-                                <button class="dashboard-sort-button">
-                                    Sort
-                                    <img src="assets/images/filter-icon.png" alt="Filter">
-                                </button>
-
-                                <div class="dashboard-sort-options" style="display: none;">
-                                    <button class="dashboard-sort-option" data-sort="A-Z">A-Z</button>
-                                    <button class="dashboard-sort-option" data-sort="Z-A">Z-A</button>
-                                    <button class="dashboard-sort-option" data-sort="Newest">Newest</button>
-                                    <button class="dashboard-sort-option" data-sort="Oldest">Oldest</button>
-                                </div>
-
-                            </div>
-                            <div class="dashboard-nbfc-search-container-section"
-                                id="dashboard-nbfc-search-container-section-request">
-                                <img src="assets/images/search.png" alt="Search" class="dashboard-nbfc-search-icon">
-                                <input type="text" class="dashboard-nbfc-search-input-sec" placeholder="Search">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="dashboard-student-list" id="dashboard-request-list">
-                        <!-- Dynamically populated list for Requests goes here -->
-                    </div>
-
-                </section>
-
-                <section class="dashboard-section">
-                    <div class="dashboard-section-header">
-                        <h2 class="dashboard-section-title">Proposals</h2>
-                        <div class="dashboard-header-controls">
-
-                            <div class="dashboard-sort-button-container">
-                                <button class="dashboard-sort-button">
-                                    Sort
-                                    <img src="assets/images/filter-icon.png" alt="Filter">
-                                </button>
-                                <div class="dashboard-sort-options" style="display: none;">
-                                    <button class="dashboard-sort-option" data-sort="A-Z">A-Z</button>
-                                    <button class="dashboard-sort-option" data-sort="Z-A">Z-A</button>
-                                    <button class="dashboard-sort-option" data-sort="Newest">Newest</button>
-                                    <button class="dashboard-sort-option" data-sort="Oldest">Oldest</button>
-                                </div>
-                            </div>
-                            <div class="dashboard-nbfc-search-container-section"
-                                id="dashboard-nbfc-search-container-section-proposal">
-                                <img src="assets/images/search.png" alt="Search" class="dashboard-nbfc-search-icon">
-                                <input type="text" class="dashboard-nbfc-search-input-sec" placeholder="Search">
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <div class="dashboard-student-list" id="dashboard-proposal-list">
-                        <!-- Dynamically populated list for Proposals goes here -->
-                    </div>
-                    <div class="viewmore-button" id="viewmore-proposals">
-                        <p>View More</p>
-                        <img src="assets/images/Icons/stat_minus_1.png" style="margin-left: 6px; width: 12px;" />
-                    </div>
-                </section>
+                <ul class="nbfcstudentdashboardprofile-sidebarlists-bottom">
+                    <li class="nbfclogoutBtn">
+                        <img src="assets/images/logout-icon.png" alt="Logout Icon" /> Log out
+                    </li>
+                    <li>
+                        <img src="assets/images/support_agent.png" alt="Support Icon" /> Support
+                    </li>
+                </ul>
             </div>
 
-            <div class="nbfc-send-proposal-modal-container" id="modelContainer-send-proposal">
-                <div class="nbfc-send-proposal-modal-content">
-                    <div class="nbfc-send-proposal-modal-header">
-                        <h3>Send Proposal</h3>
-                        <button class="nbfc-send-proposal-close-button">&times;</button>
-                    </div>
-
-                    <textarea class="nbfc-send-proposal-remarks-textarea" placeholder="Add Remarks"></textarea>
-
-                    <div class="nbfc-send-proposal-attachment-section">
-                        <label class="nbfc-send-proposal-attachment-label">Attachment</label>
-                        <input type="file" id="fileInput" class="nbfc-send-proposal-attachment-input">
-                        <button class="nbfc-send-proposal-attachment-button" id="attachmentBtn">+ Add Attachment</button>
-
-                        <div class="nbfc-send-proposal-attachment-preview" id="attachmentPreview">
-                            <div class="nbfc-send-proposal-file-info">
-                                <span class="nbfc-send-proposal-file-name">No file selected</span>
-                                <span class="nbfc-send-proposal-file-size"></span>
-                            </div>
-                            <button class="nbfc-send-proposal-close-button" id="removeAttachment">&times;</button>
-                        </div>
-                    </div>
-
-                    <div class="nbfc-send-proposal-button-container">
-                        <button class="nbfc-send-proposal-cancel-button">Cancel</button>
-                        <button class="nbfc-send-proposal-send-button">Send</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="wholeapplicationprofile">
-                <div class="nbfcdashboard-studentlistscontainer">
-                    <div class="studentdashboardprofile-profilesection" id="nbfc-list-of-student-profilesections">
-                        <img src="{{ asset($profileImgPath) }}" class="profileImg" id="profile-photo-id" alt="">
-
-                        <i class="fa-regular fa-pen-to-square"></i>
-                        <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
-                        <div class="studentdashboardprofile-personalinfo">
-                            <div class="personalinfo-firstrow">
-                                <h1>Student Profile</h1>
-                            </div>
-                            <ul class="personalinfo-secondrow">
-                                <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
-                                        class="personal_info_id" style="margin-left: 6px;"> </span> </li>
-                                <div class="myapplication-nbfcapprovalcolumn" id="profilesection-nbfcapprovalcolumn">
-                                    <button id="sendproposaltrigger-mob">Send Proposal</button>
-                                    <div class="nbfcapprovalcolumnrightaligned">
-                                        <button id="mobmessage-nbfc">Message</button>
-                                        <button id="mobreject-nbfc">Reject</button>
-                                    </div>
-
-
-                                </div>
-                                <li class="personal_info_name" id="referenceNameId"><img src={{ $profileIconPath }}
-                                        alt="">
-                                    <p></p>
-                                </li>
-                                <li class="personal_info_phone"><img src={{ $phoneIconPath }} alt="">
-                                    <p></p>
-                                </li>
-                                <li class="personal_info_email" id="referenceEmailId">
-                                    <img src={{ $mailIconPath }} alt="">
-                                    <p> </p>
-                                </li>
-                                <li class="personal_info_state"><img src={{ $pindropIconPath }} alt="">
-                                    <p id="personal_state_id"></p>
-                                </li>
-                            </ul>
-
-                        </div>
-                        <div class="studentdashboardprofile-educationeditsection">
-                            <div class="educationeditsection-firstrow">
-                                <h1>Education</h1>
-                                <!-- <button>Edit</button> -->
-                            </div>
-                            <div class="educationeditsection-secondrow">
-
-                            </div>
-                        </div>
-
-                        <div class="studentdashboardprofile-testscoreseditsection">
-                            <div class="testscoreseditsection-firstrow">
-                                <h1>Test Scores</h1>
-                            </div>
-                            <div class="testscoreseditsection-secondrow">
-                                @php
-                                    $counter = 1;
-                                @endphp
-
-
-                                <p>{{ $counter++ }}. IELTS <span class="ilets_score"></span></p>
-
-
-                                <p>{{ $counter++ }}. GRE <span class="gre_score"></span></p>
-
-                                <p>{{ $counter++ }}. TOEFL <span class="tofel_score"></span></p>
+            <div class="nbfc-mobile-overlay"></div>
 
 
 
-
-                            </div>
-
+            <section class="dashboard-main-content" style="display:flex">
 
 
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div class="studentdashboardprofile-myapplication" id="nbfc-student-profile-details">
-                    <div class="myapplication-firstcolumn">
-                        <h1>Application Details</h1>
-                        <div class="personalinfo-firstrow" style="display:none">
-                            <button onClick="triggerEditButton()">Edit</button>
-                            <button class="saved-msg">Saved</button>
-                        </div>
-                    </div>
-
-                    <div class="myapplication-secondcolumn">
-                        <p>1. Country of preference</p>
-                        <input type="text" id="plan-to-study-edit"
-                            value="{{ $courseDetails[0]->{'plan-to-study'} ?? '' }}">
-                    </div>
-
-                    <div class="myapplication-thirdcolumn">
-                        <h6>2. Type of Degree</h6>
-                        <div class="degreetypescheckboxes">
-                            <label class="custom-radio" id="bachelors-label">
-                                <input type="radio" name="education-level" value="Bachelors" style="display:none"
-                                    @if (isset($courseDetails[0]->{'degree-type'}) && $courseDetails[0]->{'degree-type'} == 'Bachelors') checked @endif
-                                    onclick="toggleOtherDegreeInput(event)" disabled>
-                                <span class="radio-button"></span>
-                                <p>Bachelors (only secured loan)</p>
-                            </label>
-                            <br>
-
-                            <label class="custom-radio" id="masters-label">
-                                <input type="radio" name="education-level" value="Masters" style="display:none"
-                                    @if (isset($courseDetails[0]->{'degree-type'}) && $courseDetails[0]->{'degree-type'} == 'Masters') checked @endif
-                                    onclick="toggleOtherDegreeInput(event)" disabled>
-                                <span class="radio-button"></span>
-                                <p>Masters</p>
-                            </label>
-                            <br>
-
-                            <label class="custom-radio" id="others-label">
-                                <input type="radio" name="education-level" value="Others" style="display:none"
-                                    @if (isset($courseDetails[0]->{'degree-type'}) &&
-                                            $courseDetails[0]->{'degree-type'} !== 'Bachelors' &&
-                                            $courseDetails[0]->{'degree-type'} !== 'Masters') checked @endif
-                                    onclick="toggleOtherDegreeInput(event)" disabled>
-                                <span class="radio-button"></span>
-                                <p>Others</p>
-                            </label>
-                        </div>
-
-                        <input type="text" placeholder="Enter degree type"
-                            value="{{ $courseDetails[0]->{'degree-type'} ?? '' }}" id="otherDegreeInputNBFC"
-                            @if (
-                                !isset($courseDetails[0]->{'degree-type'}) ||
-                                    in_array($courseDetails[0]->{'degree-type'}, ['Bachelors', 'Masters'])) disabled @endif style="display: none;">
-                    </div>
-
-
-
-                    <div class="myapplication-fourthcolumn-additional">
-                        <p>3. Duration of the course</p>
-                        <input type="text" placeholder="" value="" disabled>
-                    </div>
-
-                    <div class="myapplication-fourthcolumn">
-                        <p>4. Loan amount required</p>
-                        <input type="number" placeholder="" value="" disabled>
-                    </div>
-
-                    <div class="myapplication-fifthcolumn">
-                        <p>5. Referral Code</p>
-                        <input type="text" placeholder="" value="" disabled>
-                    </div>
-
-                    <div class="myapplication-sixthcolumn">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
-
-                    <div class="myapplication-seventhcolumn">
-                        <div class="myapplication-seventhcolumn-headernbfc">
-                            <h1>Attached Documents</h1>
-                            <button id="downloaddocuments">Download All</button>
-                        </div>
-                        <div class="seventhcolum-firstsection">
-                            <div class="seventhcolumn-header">
-                                <p>Student KYC Document</p>
-                                <i class="fa-solid fa-angle-down"></i>
-                            </div>
-
-                            <div class="kycdocumentscolumn">
-                                <div class="individualkycdocuments">
-                                    <p class="document-name">Pan Card</p>
-                                    <div class="inputfilecontainer">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="uploaded-pan-name truncate-filename" title="pan_card.jpg">pan_card.jpg
-                                        </p>
-                                        <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-pan-card" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-
-                                <div class="individualkycdocuments">
-                                    <p class="document-name">Aadhar Card</p>
-                                    <div class="inputfilecontainer">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="uploaded-aadhar-name truncate-filename" title="aadhar_card.jpg">
-                                            aadhar_card.jpg</p>
-                                        <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-aadhar-card" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-
-                                <div class="individualkycdocuments">
-                                    <p class="document-name">Passport</p>
-                                    <div class="inputfilecontainer">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="passport-name-selector truncate-filename" title="Passport.pdf">
-                                            Passport.pdf</p>
-                                        <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-passport-card" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    <div class="seventhcolumn-additional">
-                        <div class="seventhcolumn-additional-firstcolumn">
-                            <div class="seventhcolumnadditional-header">
-                                <p>Academic Marksheets</p>
-                                <i class="fa-solid fa-angle-down"></i>
-                            </div>
-
-                            <div class="marksheetdocumentscolumn">
-                                <div class="individualmarksheetdocuments">
-                                    <p class="document-name ">10th grade marksheet</p>
-                                    <div class="inputfilecontainer-marksheet">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="sslc-marksheet truncate-filename">
-                                            {{ $academicDocuments[0]->sslc_marksheet ?? '10th grade marksheet' }}
-                                        </p>
-                                        <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-sslc-card" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-
-                                <div class="individualmarksheetdocuments">
-                                    <p class="document-name">12th grade marksheet</p>
-                                    <div class="inputfilecontainer-marksheet">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="hsc-marksheet truncate-filename">
-                                            {{ $academicDocuments[0]->hsc_marksheet ?? '12th grade marksheet' }}
-                                        </p>
-                                        <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-hsc-card" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-
-                                <div class="individualmarksheetdocuments">
-                                    <p class="document-name">Graduation marksheet</p>
-                                    <div class="inputfilecontainer-marksheet">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="graduation-marksheet truncate-filename">
-                                            {{ $academicDocuments[0]->graduation_marksheet ?? 'Graduation Marksheet' }}
-                                        </p>
-                                        <img class="fa-eye" src="{{ asset($viewIconPath) }}"
-                                            id="view-graduation-card" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="myapplication-eightcolumn">
-                        <div class="eightcolumn-firstsection">
-                            <div class="eightcolumn-header">
-                                <p>Secured Admissions</p>
-                                <i class="fa-solid fa-angle-down"></i>
-                            </div>
-                            <div class="secured-admissioncolumn">
-                                <div class="individual-secured-admission-documents">
-                                    <p class="document-name">10th Grade</p>
-                                    <div class="inputfilecontainer-secured-admission">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="sslc-grade truncate-filename">
-                                            {{ $securedAdmissions[0]->sslc_grade ?? 'SSLC Grade' }}</p>
-                                        <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-sslc-grade" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-secured-admission-documents">
-                                    <p class="document-name">12th Grade</p>
-                                    <div class="inputfilecontainer-secured-admission">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="hsc-grade truncate-filename">
-                                            {{ $securedAdmissions[0]->hsc_grade ?? 'HSC Grade' }}</p>
-                                        <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-hsc-grade" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-secured-admission-documents">
-                                    <p class="document-name">Graduation</p>
-                                    <div class="inputfilecontainer-secured-admission">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="graduation-grade truncate-filename">
-                                            {{ $securedAdmissions[0]->graduation_grade ?? 'Graduation' }}
-                                        </p>
-                                        <img class="fa-eye" src="{{ asset($viewIconPath) }}"
-                                            id="view-graduation-grade" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="myapplication-ninthcolumn">
-                        <div class="ninthcolumn-firstsection">
-                            <div class="ninthcolumn-header">
-                                <p>Work Experience</p>
-                                <i class="fa-solid fa-angle-down"></i>
-                            </div>
-                            <div class="work-experiencecolumn">
-                                <div class="individual-work-experiencecolumn-documents">
-                                    <p class="document-name">Experience Letter</p>
-                                    <div class="inputfilecontainer-work-experiencecolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="experience-letter truncate-filename">
-                                            {{ $workExperience[0]->experience_letter ?? 'Experience Letter' }}
-                                        </p>
-                                        <img class="fa-eye" src="{{ asset($viewIconPath) }}"
-                                            id="view-experience-letter" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-work-experience" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-work-experiencecolumn-documents">
-                                    <p class="document-name">3 month Salary Slip</p>
-                                    <div class="inputfilecontainer-work-experiencecolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="salary-slip truncate-filename">
-                                            {{ $workExperience[0]->salary_slip ?? '3 month salary slip' }}
-                                        </p>
-                                        <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-salary-slip" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-work-experiencecolumn-documents">
-                                    <p class="document-name">Office ID</p>
-                                    <div class="inputfilecontainer-work-experiencecolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="office-id truncate-filename">
-                                            {{ $workExperience[0]->office_id ?? 'Office ID' }}</p>
-                                        <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-office-id" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-work-experiencecolumn-documents">
-                                    <p class="document-name">Employment Joining Letter</p>
-                                    <div class="inputfilecontainer-work-experiencecolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="joining-letter truncate-filename">
-                                            {{ $workExperience[0]->joining_letter ?? 'Joining Letter' }}
-                                        </p>
-                                        <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-joining-letter" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-real-marksheet" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="myapplication-tenthcolumn">
-                        <div class="tenthcolumn-firstsection">
-                            <div class="tenthcolumn-header">
-                                <p>Co-borrower Documents</p>
-                                <i class="fa-solid fa-angle-down"></i>
-                            </div>
-                            <div class="coborrower-kyccolumn">
-                                <div class="individual-coborrower-kyc-documents">
-                                    <p class="document-name">Pan Card</p>
-                                    <div class="inputfilecontainer-coborrower-kyccolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="coborrower-pancard truncate-filename">
-                                            {{ $coBorrowerDocuments[0]->pan_card ?? 'Pan Card' }}
-                                        </p>
-                                        <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-coborrower-pan" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-kyccoborrwer" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-coborrower-kyc-documents">
-                                    <p class="document-name">Aadhar Card</p>
-                                    <div class="inputfilecontainer-coborrower-kyccolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="coborrower-aadharcard truncate-filename">
-                                            {{ $coBorrowerDocuments[0]->aadhar_card ?? 'Aadhar Card' }}
-                                        </p>
-                                        <img class="fa-eye" src="{{ asset($viewIconPath) }}"
-                                            id="view-coborrower-aadhar" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-kyccoborrwer" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                                <div class="individual-coborrower-kyc-documents">
-                                    <p class="document-name">Address Proof</p>
-                                    <div class="inputfilecontainer-coborrower-kyccolumn">
-                                        <i class="fa-solid fa-image"></i>
-                                        <p class="coborrower-addressproof truncate-filename">
-                                            {{ $coBorrowerDocuments[0]->address_proof ?? 'Address Proof' }}
-                                        </p>
-                                        <img class="fa-eye" src="{{ asset($viewIconPath) }}"
-                                            id="view-coborrower-addressproof" />
-                                    </div>
-                                    <input type="file" id="inputfilecontainer-kyccoborrwer" />
-                                    <span class="document-status">420 MB uploaded</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="myapplication-nbfcapprovalcolumn">
-                        <button id="sendproposal-trigger">Send Proposal</button>
-                        <div class="nbfcapprovalcolumnrightaligned">
-                            <button id="index-student-message-btn-footer">Message</button>
-                            <button class='dashboard-inside-reject-button'>Reject</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="modal-container" id="model-container-reject-container" style="display: none;">
-                <div class="reject-application-modal" id="reject-application-id">
-                    <div class="reject-application-modal-header">
-                        <h3>Reject Application</h3>
-                        <button class="close-button" id="close-button-id">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                    <div class="reject-application-modal-content" id="reject-application-modal-content-id">
-                        <textarea class="remarks-textarea" placeholder="Add Remarks"></textarea>
-                        <div class="reject-attachment-container">
-                            <label class="reject-attachment-label">Attachment</label>
-                            <div class="reject-attachment-input">
-                                <div class="reject-attachment-wrapper">
-                                    <button class="reject-attachment-add-btn" id="addAttachmentBtn">
-                                        <span class="reject-attachment-icon"><i class="fas fa-file-pdf"></i></span>
-                                        <span class="reject-attachment-name" id="fileName">+ Add Attachment</span>
+                <div class="dashboard-sections-container" id="dashboard-container">
+                    <section class="dashboard-section">
+                        <div class="dashboard-section-header">
+                            <h2 class="dashboard-section-title">Requests</h2>
+                            <div class="dashboard-header-controls">
+                                <div class="dashboard-sort-button-container">
+                                    <button class="dashboard-sort-button">
+                                        Sort
+                                        <img src="assets/images/filter-icon.png" alt="Filter">
                                     </button>
-                                    <button class="reject-attachment-remove" id="removeAttachmentBtn"
-                                        style="display: none;">
-                                        <i class="fas fa-times"></i>
-                                    </button>
+
+                                    <div class="dashboard-sort-options" style="display: none;">
+                                        <button class="dashboard-sort-option" data-sort="A-Z">A-Z</button>
+                                        <button class="dashboard-sort-option" data-sort="Z-A">Z-A</button>
+                                        <button class="dashboard-sort-option" data-sort="Newest">Newest</button>
+                                        <button class="dashboard-sort-option" data-sort="Oldest">Oldest</button>
+                                    </div>
+
                                 </div>
-                                <input type="file" id="fileInput" style="display: none;" />
+                                <div class="dashboard-nbfc-search-container-section"
+                                    id="dashboard-nbfc-search-container-section-request">
+                                    <img src="assets/images/search.png" alt="Search"
+                                        class="dashboard-nbfc-search-icon">
+                                    <input type="text" class="dashboard-nbfc-search-input-sec" placeholder="Search">
+                                </div>
+
                             </div>
                         </div>
-                        <div class="actions">
-                            <button class="cancel-button" id="cancel-button-id">Cancel</button>
-                            <button class="reject-button" id="reject-button-id">Reject</button>
+                        <div class="dashboard-student-list" id="dashboard-request-list">
+                            <!-- Dynamically populated list for Requests goes here -->
+                        </div>
+
+                    </section>
+
+                    <section class="dashboard-section">
+                        <div class="dashboard-section-header">
+                            <h2 class="dashboard-section-title">Proposals</h2>
+                            <div class="dashboard-header-controls">
+
+                                <div class="dashboard-sort-button-container">
+                                    <button class="dashboard-sort-button">
+                                        Sort
+                                        <img src="assets/images/filter-icon.png" alt="Filter">
+                                    </button>
+                                    <div class="dashboard-sort-options" style="display: none;">
+                                        <button class="dashboard-sort-option" data-sort="A-Z">A-Z</button>
+                                        <button class="dashboard-sort-option" data-sort="Z-A">Z-A</button>
+                                        <button class="dashboard-sort-option" data-sort="Newest">Newest</button>
+                                        <button class="dashboard-sort-option" data-sort="Oldest">Oldest</button>
+                                    </div>
+                                </div>
+                                <div class="dashboard-nbfc-search-container-section"
+                                    id="dashboard-nbfc-search-container-section-proposal">
+                                    <img src="assets/images/search.png" alt="Search"
+                                        class="dashboard-nbfc-search-icon">
+                                    <input type="text" class="dashboard-nbfc-search-input-sec" placeholder="Search">
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="dashboard-student-list" id="dashboard-proposal-list">
+                            <!-- Dynamically populated list for Proposals goes here -->
+                        </div>
+                        <div class="viewmore-button" id="viewmore-proposals">
+                            <p>View More</p>
+                            <img src="assets/images/Icons/stat_minus_1.png" style="margin-left: 6px; width: 12px;" />
+                        </div>
+                    </section>
+                </div>
+
+                <div class="nbfc-send-proposal-modal-container" id="modelContainer-send-proposal">
+                    <div class="nbfc-send-proposal-modal-content">
+                        <div class="nbfc-send-proposal-modal-header">
+                            <h3>Send Proposal</h3>
+                            <button class="nbfc-send-proposal-close-button">&times;</button>
+                        </div>
+
+                        <textarea class="nbfc-send-proposal-remarks-textarea" placeholder="Add Remarks"></textarea>
+
+                        <div class="nbfc-send-proposal-attachment-section">
+                            <label class="nbfc-send-proposal-attachment-label">Attachment</label>
+                            <input type="file" id="fileInput" class="nbfc-send-proposal-attachment-input">
+                            <button class="nbfc-send-proposal-attachment-button" id="attachmentBtn">+ Add
+                                Attachment</button>
+
+                            <div class="nbfc-send-proposal-attachment-preview" id="attachmentPreview">
+                                <div class="nbfc-send-proposal-file-info">
+                                    <span class="nbfc-send-proposal-file-name">No file selected</span>
+                                    <span class="nbfc-send-proposal-file-size"></span>
+                                </div>
+                                <button class="nbfc-send-proposal-close-button" id="removeAttachment">&times;</button>
+                            </div>
+                        </div>
+
+                        <div class="nbfc-send-proposal-button-container">
+                            <button class="nbfc-send-proposal-cancel-button">Cancel</button>
+                            <button class="nbfc-send-proposal-send-button">Send</button>
                         </div>
                     </div>
                 </div>
-            </div>
+
+                <div class="wholeapplicationprofile">
+                    <div class="nbfcdashboard-studentlistscontainer">
+                        <div class="studentdashboardprofile-profilesection" id="nbfc-list-of-student-profilesections">
+                            <img src="{{ asset($profileImgPath) }}" class="profileImg" id="profile-photo-id"
+                                alt="">
+
+                            <i class="fa-regular fa-pen-to-square"></i>
+                            <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
+                            <div class="studentdashboardprofile-personalinfo">
+                                <div class="personalinfo-firstrow">
+                                    <h1>Student Profile</h1>
+                                </div>
+                                <ul class="personalinfo-secondrow">
+                                    <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
+                                            class="personal_info_id" style="margin-left: 6px;"> </span> </li>
+                                    <div class="myapplication-nbfcapprovalcolumn" id="profilesection-nbfcapprovalcolumn">
+                                        <button id="sendproposaltrigger-mob">Send Proposal</button>
+                                        <div class="nbfcapprovalcolumnrightaligned">
+                                            <button id="mobmessage-nbfc">Message</button>
+                                            <button id="mobreject-nbfc">Reject</button>
+                                        </div>
 
 
-
-            <section class="index-section" id="index-section-id-nbfc">
-                <div class="inbox-container">
-                    <div class="inbox-header">
-                        <h2 class="dashboard-section-title">Inbox</h2>
-                        <div class="inbox-controls">
-                            <div class="index-search-container">
-                                <img src="assets/images/search.png" alt="Search" class="index-search-icon">
-                                <input type="text" class="index-search-input" placeholder="Search">
-                            </div>
-                            <div class="inbox-filters" id="index-nbfc-sort-id">
-                                <span>Sort</span>
-                                <img src="assets/images/filter-icon.png" alt="Filters">
-                                <ul class="sort-dropdown-nbfc" id="sort-options-index-nbfc">
-                                    <li data-sort="az">A-Z</li>
-                                    <li data-sort="za">Z-A</li>
-                                    <li data-sort="newest">Newest</li>
-                                    <li data-sort="oldest">Oldest</li>
+                                    </div>
+                                    <li class="personal_info_name" id="referenceNameId"><img src={{ $profileIconPath }}
+                                            alt="">
+                                        <p></p>
+                                    </li>
+                                    <li class="personal_info_phone"><img src={{ $phoneIconPath }} alt="">
+                                        <p></p>
+                                    </li>
+                                    <li class="personal_info_email" id="referenceEmailId">
+                                        <img src={{ $mailIconPath }} alt="">
+                                        <p> </p>
+                                    </li>
+                                    <li class="personal_info_state"><img src={{ $pindropIconPath }} alt="">
+                                        <p id="personal_state_id"></p>
+                                    </li>
                                 </ul>
+
+                            </div>
+                            <div class="studentdashboardprofile-educationeditsection">
+                                <div class="educationeditsection-firstrow">
+                                    <h1>Education</h1>
+                                    <!-- <button>Edit</button> -->
+                                </div>
+                                <div class="educationeditsection-secondrow">
+
+                                </div>
+                            </div>
+
+                            <div class="studentdashboardprofile-testscoreseditsection">
+                                <div class="testscoreseditsection-firstrow">
+                                    <h1>Test Scores</h1>
+                                </div>
+                                <div class="testscoreseditsection-secondrow">
+                                    @php
+                                        $counter = 1;
+                                    @endphp
+
+
+                                    <p>{{ $counter++ }}. IELTS <span class="ilets_score"></span></p>
+
+
+                                    <p>{{ $counter++ }}. GRE <span class="gre_score"></span></p>
+
+                                    <p>{{ $counter++ }}. TOEFL <span class="tofel_score"></span></p>
+
+
+
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="studentdashboardprofile-myapplication" id="nbfc-student-profile-details">
+                        <div class="myapplication-firstcolumn">
+                            <h1>Application Details</h1>
+                            <div class="personalinfo-firstrow" style="display:none">
+                                <button onClick="triggerEditButton()">Edit</button>
+                                <button class="saved-msg">Saved</button>
+                            </div>
+                        </div>
+
+                        <div class="myapplication-secondcolumn">
+                            <p>1. Country of preference</p>
+                            <input type="text" id="plan-to-study-edit"
+                                value="{{ $courseDetails[0]->{'plan-to-study'} ?? '' }}">
+                        </div>
+
+                        <div class="myapplication-thirdcolumn">
+                            <h6>2. Type of Degree</h6>
+                            <div class="degreetypescheckboxes">
+                                <label class="custom-radio" id="bachelors-label">
+                                    <input type="radio" name="education-level" value="Bachelors" style="display:none"
+                                        @if (isset($courseDetails[0]->{'degree-type'}) && $courseDetails[0]->{'degree-type'} == 'Bachelors') checked @endif
+                                        onclick="toggleOtherDegreeInput(event)" disabled>
+                                    <span class="radio-button"></span>
+                                    <p>Bachelors (only secured loan)</p>
+                                </label>
+                                <br>
+
+                                <label class="custom-radio" id="masters-label">
+                                    <input type="radio" name="education-level" value="Masters" style="display:none"
+                                        @if (isset($courseDetails[0]->{'degree-type'}) && $courseDetails[0]->{'degree-type'} == 'Masters') checked @endif
+                                        onclick="toggleOtherDegreeInput(event)" disabled>
+                                    <span class="radio-button"></span>
+                                    <p>Masters</p>
+                                </label>
+                                <br>
+
+                                <label class="custom-radio" id="others-label">
+                                    <input type="radio" name="education-level" value="Others" style="display:none"
+                                        @if (isset($courseDetails[0]->{'degree-type'}) &&
+                                                $courseDetails[0]->{'degree-type'} !== 'Bachelors' &&
+                                                $courseDetails[0]->{'degree-type'} !== 'Masters') checked @endif
+                                        onclick="toggleOtherDegreeInput(event)" disabled>
+                                    <span class="radio-button"></span>
+                                    <p>Others</p>
+                                </label>
+                            </div>
+
+                            <input type="text" placeholder="Enter degree type"
+                                value="{{ $courseDetails[0]->{'degree-type'} ?? '' }}" id="otherDegreeInputNBFC"
+                                @if (
+                                    !isset($courseDetails[0]->{'degree-type'}) ||
+                                        in_array($courseDetails[0]->{'degree-type'}, ['Bachelors', 'Masters'])) disabled @endif style="display: none;">
+                        </div>
+
+
+
+                        <div class="myapplication-fourthcolumn-additional">
+                            <p>3. Duration of the course</p>
+                            <input type="text" placeholder="" value="" disabled>
+                        </div>
+
+                        <div class="myapplication-fourthcolumn">
+                            <p>4. Loan amount required</p>
+                            <input type="number" placeholder="" value="" disabled>
+                        </div>
+
+                        <div class="myapplication-fifthcolumn">
+                            <p>5. Referral Code</p>
+                            <input type="text" placeholder="" value="" disabled>
+                        </div>
+
+                        <div class="myapplication-sixthcolumn">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        </div>
+
+                        <div class="myapplication-seventhcolumn">
+                            <div class="myapplication-seventhcolumn-headernbfc">
+                                <h1>Attached Documents</h1>
+                                <button id="downloaddocuments">Download All</button>
+                            </div>
+                            <div class="seventhcolum-firstsection">
+                                <div class="seventhcolumn-header">
+                                    <p>Student KYC Document</p>
+                                    <i class="fa-solid fa-angle-down"></i>
+                                </div>
+
+                                <div class="kycdocumentscolumn">
+                                    <div class="individualkycdocuments">
+                                        <p class="document-name">Pan Card</p>
+                                        <div class="inputfilecontainer">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="uploaded-pan-name truncate-filename" title="pan_card.jpg">
+                                                pan_card.jpg
+                                            </p>
+                                            <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-pan-card" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real" />
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+
+                                    <div class="individualkycdocuments">
+                                        <p class="document-name">Aadhar Card</p>
+                                        <div class="inputfilecontainer">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="uploaded-aadhar-name truncate-filename" title="aadhar_card.jpg">
+                                                aadhar_card.jpg</p>
+                                            <img class="fa-eye" src="{{ asset($viewIconPath) }}"
+                                                id="view-aadhar-card" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real" />
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+
+                                    <div class="individualkycdocuments">
+                                        <p class="document-name">Passport</p>
+                                        <div class="inputfilecontainer">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="passport-name-selector truncate-filename" title="Passport.pdf">
+                                                Passport.pdf</p>
+                                            <img class="fa-eye" src="{{ asset($viewIconPath) }}"
+                                                id="view-passport-card" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real" />
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="seventhcolumn-additional">
+                            <div class="seventhcolumn-additional-firstcolumn">
+                                <div class="seventhcolumnadditional-header">
+                                    <p>Academic Marksheets</p>
+                                    <i class="fa-solid fa-angle-down"></i>
+                                </div>
+
+                                <div class="marksheetdocumentscolumn">
+                                    <div class="individualmarksheetdocuments">
+                                        <p class="document-name ">10th grade marksheet</p>
+                                        <div class="inputfilecontainer-marksheet">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="sslc-marksheet truncate-filename">
+                                                {{ $academicDocuments[0]->sslc_marksheet ?? '10th grade marksheet' }}
+                                            </p>
+                                            <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-sslc-card" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real-marksheet" />
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+
+                                    <div class="individualmarksheetdocuments">
+                                        <p class="document-name">12th grade marksheet</p>
+                                        <div class="inputfilecontainer-marksheet">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="hsc-marksheet truncate-filename">
+                                                {{ $academicDocuments[0]->hsc_marksheet ?? '12th grade marksheet' }}
+                                            </p>
+                                            <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-hsc-card" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real-marksheet" />
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+
+                                    <div class="individualmarksheetdocuments">
+                                        <p class="document-name">Graduation marksheet</p>
+                                        <div class="inputfilecontainer-marksheet">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="graduation-marksheet truncate-filename">
+                                                {{ $academicDocuments[0]->graduation_marksheet ?? 'Graduation Marksheet' }}
+                                            </p>
+                                            <img class="fa-eye" src="{{ asset($viewIconPath) }}"
+                                                id="view-graduation-card" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real-marksheet" />
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="myapplication-eightcolumn">
+                            <div class="eightcolumn-firstsection">
+                                <div class="eightcolumn-header">
+                                    <p>Secured Admissions</p>
+                                    <i class="fa-solid fa-angle-down"></i>
+                                </div>
+                                <div class="secured-admissioncolumn">
+                                    <div class="individual-secured-admission-documents">
+                                        <p class="document-name">10th Grade</p>
+                                        <div class="inputfilecontainer-secured-admission">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="sslc-grade truncate-filename">
+                                                {{ $securedAdmissions[0]->sslc_grade ?? 'SSLC Grade' }}</p>
+                                            <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-sslc-grade" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real-marksheet" />
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                    <div class="individual-secured-admission-documents">
+                                        <p class="document-name">12th Grade</p>
+                                        <div class="inputfilecontainer-secured-admission">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="hsc-grade truncate-filename">
+                                                {{ $securedAdmissions[0]->hsc_grade ?? 'HSC Grade' }}</p>
+                                            <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-hsc-grade" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real-marksheet" />
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                    <div class="individual-secured-admission-documents">
+                                        <p class="document-name">Graduation</p>
+                                        <div class="inputfilecontainer-secured-admission">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="graduation-grade truncate-filename">
+                                                {{ $securedAdmissions[0]->graduation_grade ?? 'Graduation' }}
+                                            </p>
+                                            <img class="fa-eye" src="{{ asset($viewIconPath) }}"
+                                                id="view-graduation-grade" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real-marksheet" />
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="myapplication-ninthcolumn">
+                            <div class="ninthcolumn-firstsection">
+                                <div class="ninthcolumn-header">
+                                    <p>Work Experience</p>
+                                    <i class="fa-solid fa-angle-down"></i>
+                                </div>
+                                <div class="work-experiencecolumn">
+                                    <div class="individual-work-experiencecolumn-documents">
+                                        <p class="document-name">Experience Letter</p>
+                                        <div class="inputfilecontainer-work-experiencecolumn">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="experience-letter truncate-filename">
+                                                {{ $workExperience[0]->experience_letter ?? 'Experience Letter' }}
+                                            </p>
+                                            <img class="fa-eye" src="{{ asset($viewIconPath) }}"
+                                                id="view-experience-letter" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-work-experience" />
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                    <div class="individual-work-experiencecolumn-documents">
+                                        <p class="document-name">3 month Salary Slip</p>
+                                        <div class="inputfilecontainer-work-experiencecolumn">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="salary-slip truncate-filename">
+                                                {{ $workExperience[0]->salary_slip ?? '3 month salary slip' }}
+                                            </p>
+                                            <img class="fa-eye" src="{{ asset($viewIconPath) }}"
+                                                id="view-salary-slip" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real-marksheet" />
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                    <div class="individual-work-experiencecolumn-documents">
+                                        <p class="document-name">Office ID</p>
+                                        <div class="inputfilecontainer-work-experiencecolumn">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="office-id truncate-filename">
+                                                {{ $workExperience[0]->office_id ?? 'Office ID' }}</p>
+                                            <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-office-id" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real-marksheet" />
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                    <div class="individual-work-experiencecolumn-documents">
+                                        <p class="document-name">Employment Joining Letter</p>
+                                        <div class="inputfilecontainer-work-experiencecolumn">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="joining-letter truncate-filename">
+                                                {{ $workExperience[0]->joining_letter ?? 'Joining Letter' }}
+                                            </p>
+                                            <img class="fa-eye" src="{{ asset($viewIconPath) }}"
+                                                id="view-joining-letter" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-real-marksheet" />
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="myapplication-tenthcolumn">
+                            <div class="tenthcolumn-firstsection">
+                                <div class="tenthcolumn-header">
+                                    <p>Co-borrower Documents</p>
+                                    <i class="fa-solid fa-angle-down"></i>
+                                </div>
+                                <div class="coborrower-kyccolumn">
+                                    <div class="individual-coborrower-kyc-documents">
+                                        <p class="document-name">Pan Card</p>
+                                        <div class="inputfilecontainer-coborrower-kyccolumn">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="coborrower-pancard truncate-filename">
+                                                {{ $coBorrowerDocuments[0]->pan_card ?? 'Pan Card' }}
+                                            </p>
+                                            <img class="fa-eye" src="{{ asset($viewIconPath) }}"
+                                                id="view-coborrower-pan" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-kyccoborrwer" />
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                    <div class="individual-coborrower-kyc-documents">
+                                        <p class="document-name">Aadhar Card</p>
+                                        <div class="inputfilecontainer-coborrower-kyccolumn">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="coborrower-aadharcard truncate-filename">
+                                                {{ $coBorrowerDocuments[0]->aadhar_card ?? 'Aadhar Card' }}
+                                            </p>
+                                            <img class="fa-eye" src="{{ asset($viewIconPath) }}"
+                                                id="view-coborrower-aadhar" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-kyccoborrwer" />
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                    <div class="individual-coborrower-kyc-documents">
+                                        <p class="document-name">Address Proof</p>
+                                        <div class="inputfilecontainer-coborrower-kyccolumn">
+                                            <i class="fa-solid fa-image"></i>
+                                            <p class="coborrower-addressproof truncate-filename">
+                                                {{ $coBorrowerDocuments[0]->address_proof ?? 'Address Proof' }}
+                                            </p>
+                                            <img class="fa-eye" src="{{ asset($viewIconPath) }}"
+                                                id="view-coborrower-addressproof" />
+                                        </div>
+                                        <input type="file" id="inputfilecontainer-kyccoborrwer" />
+                                        <span class="document-status">420 MB uploaded</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="myapplication-nbfcapprovalcolumn">
+                            <button id="sendproposal-trigger">Send Proposal</button>
+                            <div class="nbfcapprovalcolumnrightaligned">
+                                <button id="index-student-message-btn-footer">Message</button>
+                                <button class='dashboard-inside-reject-button'>Reject</button>
                             </div>
                         </div>
                     </div>
-                    <div class="adminmessage-inboxnbfc" style="border-bottom:1px solid #e5e7eb;">
+                </div>
 
 
+                <div class="modal-container" id="model-container-reject-container" style="display: none;">
+                    <div class="reject-application-modal" id="reject-application-id">
+                        <div class="reject-application-modal-header">
+                            <h3>Reject Application</h3>
+                            <button class="close-button" id="close-button-id">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="reject-application-modal-content" id="reject-application-modal-content-id">
+                            <textarea class="remarks-textarea" placeholder="Add Remarks"></textarea>
+                            <div class="reject-attachment-container">
+                                <label class="reject-attachment-label">Attachment</label>
+                                <div class="reject-attachment-input">
+                                    <div class="reject-attachment-wrapper">
+                                        <button class="reject-attachment-add-btn" id="addAttachmentBtn">
+                                            <span class="reject-attachment-icon"><i class="fas fa-file-pdf"></i></span>
+                                            <span class="reject-attachment-name" id="fileName">+ Add Attachment</span>
+                                        </button>
+                                        <button class="reject-attachment-remove" id="removeAttachmentBtn"
+                                            style="display: none;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                    <input type="file" id="fileInput" style="display: none;" />
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <button class="cancel-button" id="cancel-button-id">Cancel</button>
+                                <button class="reject-button" id="reject-button-id">Reject</button>
+                            </div>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="index-student-details-container">
 
+
+                <section class="index-section" id="index-section-id-nbfc">
+                    <div class="inbox-container">
+                        <div class="inbox-header">
+                            <h2 class="dashboard-section-title">Inbox</h2>
+                            <div class="inbox-controls">
+                                <div class="index-search-container">
+                                    <img src="assets/images/search.png" alt="Search" class="index-search-icon">
+                                    <input type="text" class="index-search-input" placeholder="Search">
+                                </div>
+                                <div class="inbox-filters" id="index-nbfc-sort-id">
+                                    <span>Sort</span>
+                                    <img src="assets/images/filter-icon.png" alt="Filters">
+                                    <ul class="sort-dropdown-nbfc" id="sort-options-index-nbfc">
+                                        <li data-sort="az">A-Z</li>
+                                        <li data-sort="za">Z-A</li>
+                                        <li data-sort="newest">Newest</li>
+                                        <li data-sort="oldest">Oldest</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="adminmessage-inboxnbfc" style="border-bottom:1px solid #e5e7eb;">
+
+
+                        </div>
+
+                        <div class="index-student-details-container">
+
+                        </div>
+                        <div class="viewmore-button" id="viewmore-inbox">
+                            <p>View More</p>
+                            <img src="assets/images/Icons/stat_minus_1.png" style="margin-left: 6px; width: 12px;" />
+                        </div>
+                </section>
+
+
+                <div class="overlay-password-change-nbfc"></div>
+                <div class="password-change-container-nbfc">
+                    <div class="password-change-triggered-view-headersection-nbfc">
+                        <h3>Password Change Request</h3>
+                        <img src="{{ asset('assets/images/Icons/close_small.png') }}" style="cursor:pointer"
+                            alt="">
                     </div>
-                    <div class="viewmore-button" id="viewmore-inbox">
-                        <p>View More</p>
-                        <img src="assets/images/Icons/stat_minus_1.png" style="margin-left: 6px; width: 12px;" />
+                    <input type="password" placeholder="Current Password" id="current-password-nbfc">
+                    <span id="current-password-error-nbfc" class="error-message"></span>
+
+                    <input type="password" placeholder="New Password" id="new-password-nbfc">
+                    <span id="new-password-error-nbfc" class="error-message"></span>
+
+                    <input type="password" placeholder="Confirm New Password" id="confirm-new-password-nbfc">
+                    <span id="confirm-password-error-nbfc" class="error-message"></span>
+
+                    <div class="footer-passwordchange-nbfc">
+                        <p>Forgot Password</p>
+                        <button id="password-change-save-nbfc">Save</button>
                     </div>
+                </div>
             </section>
+        </body>
 
 
-            <div class="overlay-password-change-nbfc"></div>
-            <div class="password-change-container-nbfc">
-                <div class="password-change-triggered-view-headersection-nbfc">
-                    <h3>Password Change Request</h3>
-                    <img src="{{ asset('assets/images/Icons/close_small.png') }}" style="cursor:pointer" alt="">
-                </div>
-                <input type="password" placeholder="Current Password" id="current-password-nbfc">
-                <span id="current-password-error-nbfc" class="error-message"></span>
 
-                <input type="password" placeholder="New Password" id="new-password-nbfc">
-                <span id="new-password-error-nbfc" class="error-message"></span>
 
-                <input type="password" placeholder="Confirm New Password" id="confirm-new-password-nbfc">
-                <span id="confirm-password-error-nbfc" class="error-message"></span>
 
-                <div class="footer-passwordchange-nbfc">
-                    <p>Forgot Password</p>
-                    <button id="password-change-save-nbfc">Save</button>
-                </div>
-            </div>
-        </section>
+
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
+                document.body.classList.remove('layout-loading');
+                document.body.classList.add('layout-ready');
 
                 const mobileMenuBtn = document.getElementById('nbfcMobileMenuBtn');
                 const mobileSidebar = document.querySelector('.nbfc-mobile-sidebar');
@@ -788,7 +854,13 @@
                 initializeMarksheetUpload();
                 initializeSecuredAdmissionDocumentUpload();
                 initializeWorkExperienceDocumentUpload();
-                fetchUnreadCount();
+                setInterval(() => {
+                    try {
+                        fetchUnreadCount();
+                    } catch (err) {
+                        console.error("fetchUnreadCount failed in setInterval:", err);
+                    }
+                }, 3000);
                 // downloadDocuments();
 
 
@@ -799,14 +871,14 @@
                 const inboxMenuItem = document.querySelector(
                     ".nbfcstudentdashboardprofile-sidebarlists-top li:nth-child(2)");
 
-                // Select the containers
+
                 const dashboardSectionsContainer = document.querySelector(".dashboard-sections-container");
 
                 function checkWindowSize() {
-                    if (window.innerWidth > 768) { // Hide mobile menu and sidebar for screens greater than 768px
+                    if (window.innerWidth > 768) {
                         mobileSidebar.classList.remove('active');
                         mobileOverlay.classList.remove('active');
-                        mobileMenuBtn.style.display = 'none'; // Hide mobile menu button
+                        mobileMenuBtn.style.display = 'none';
                     } else {
                         mobileMenuBtn.style.display = 'block'; // Show mobile menu button for 768px and below
                     }
@@ -815,6 +887,7 @@
 
                 checkWindowSize();
                 window.addEventListener('resize', checkWindowSize);
+                // checkWindowSize();
 
                 function toggleMobileSidebar() {
 
@@ -5667,7 +5740,7 @@
 
 
             // Run on window resize
-            window.addEventListener("resize", limitVisibleItemsOnMobile);
+            // window.addEventListener("resize", limitVisibleItemsOnMobile);
 
             const viewMoreBtn = document.querySelector('.viewmore-messagenbfc');
             const viewMoreBtnrequest = document.querySelector('.viewmore-request');
@@ -5902,13 +5975,16 @@
             }
 
             function fetchUnreadCount() {
-                
-                    var user = @json(session('nbfcuser'));
 
-                    if (user && user.nbfc_id) {
-                        const nbfcId = user.nbfc_id;
-                    }
+                var user = @json(session('nbfcuser'));
+                let nbfcId = null;
+
+                if (user && user.nbfc_id) {
+                    nbfcId = user.nbfc_id;
+                }
+
                 const receiverId = nbfcId;
+
 
                 if (!receiverId) return;
 
@@ -5924,8 +6000,9 @@
                     })
                     .then(res => res.json())
                     .then(data => {
-                        const countNotify = document.querySelector(".unread-notify-container p");
-                        if (data.success && data.count > 0 && countNotify) {
+                        const countNotify = document.querySelector(".nbfc-dark-mode .notification-badge");
+
+                        if (data.success && countNotify && data.count > 0) {
                             countNotify.style.display = "flex";
                             countNotify.textContent = data.count;
                         } else if (countNotify) {

@@ -119,6 +119,7 @@
 
     @php
         $selectedGender = $personalInfos->gender ?? '';
+        
         $selectedCountries =
             $courseInfoValues && is_array($courseInfoValues['plan-to-study']) ? $courseInfoValues['plan-to-study'] : [];
         $dob = $personalInfos->dob ?? '';

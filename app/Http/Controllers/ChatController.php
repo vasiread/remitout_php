@@ -263,7 +263,6 @@ class ChatController extends Controller
             ], 200);
 
         } catch (\Exception $e) {
-            // Return a generic error if something goes wrong
             return response()->json(['error' => 'Something went wrong', 'details' => $e->getMessage()], 500);
         }
     }
