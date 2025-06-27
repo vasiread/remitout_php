@@ -706,13 +706,14 @@
                                                     </div>
                                                 </div>
 
-                                                <div id="document-fields-container-kyc-id">
+                                               
+                                            </div>
+                                             <div id="document-fields-container-kyc-id">
                                                     <div class="add-document" id="add-document-btn-kyc-id">
                                                         <span class="add-text">Add</span>
                                                         <span class="add-icon">+</span>
                                                     </div>
                                                  </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -849,13 +850,14 @@
                                                     </div>
                                                 </div>
 
-                                                <div id="academic-fields-container-id">
+                                                
+                                            </div>    
+                                            <div id="academic-fields-container-id">
                                                     <div class="add-document" id="add-academic-btn-id">
                                                         <span class="add-text">Add</span>
                                                         <span class="add-icon">+</span>
                                                     </div>
-                                                </div>
-                                            </div>               
+                                                </div>           
                                         </div>
                                     </div>
                                 </div>
@@ -985,15 +987,14 @@
                                                                 pdf format.</p>
                                                         </div>
                                                     </div>
-                                                </div>
-
-                                                  <div id="secured-fields-container-id">
+                                                </div>     
+                                            </div>
+                                              <div id="secured-fields-container-id">
                                                     <div class="add-document" id="add-secured-btn-id">
                                                         <span class="add-text">Add</span>
                                                         <span class="add-icon">+</span>
                                                     </div>
                                                  </div>
-                                            </div>
                                             <!-- Secured marks document fields container -->
                                           
                                         </div>
@@ -1174,17 +1175,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                 <div class="document-row" id="work-experience-container-id">
+                                            </div><!-----close the row-->
+                                             <div class="document-row" id="work-experience-container-id">
                                                     <div class="add-document" id="add-work-experience-btn-id">
                                                         <span class="add-text">Add</span>
                                                         <span class="add-icon">+</span>
                                                     </div>
                                                 </div>
-
-
-                                            </div><!-----close the row-->
-  
                                             </div>
                                         </div>
                                     </div>
@@ -1327,14 +1324,13 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                      <div id="co-borrower-fields-container">
+                                                </div>
+                                                  <div id="co-borrower-fields-container">
                                                             <div class="add-document" id="add-co-borrower-btn-id">
                                                                 <span class="add-text">Add</span>
                                                                 <span class="add-icon">+</span>
                                                             </div>
                                                       </div>
-                                                </div>
                                                 
                                               
                                             </div>

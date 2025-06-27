@@ -642,8 +642,9 @@
                 <div class="education-label">Education</div>
 
                 <div class="input-grid">
-                    <div class="input-field">
+                   <div class="input-field">
                         <input type="text" id="universityschoolid" placeholder="University/School">
+                        <div id="suggestions-university" class="suggestion-container-college"></div>
                     </div>
                     <div class="input-field">
                         <input type="text" id="educationcourseid" placeholder="Course Name">
