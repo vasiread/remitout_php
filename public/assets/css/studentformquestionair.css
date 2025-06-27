@@ -141,10 +141,10 @@ html {
     }
 
     .student-form-nav-links a {
-        font-size: 1.25rem;
+        font-size: 16px;
         color: #333;
         display: block;
-        padding: 1.25rem;
+        padding: 1.20rem;
         padding-left: clamp(3rem, 10vw, 6.25rem);
         padding-right: 1.25rem;
         text-align: left;
@@ -583,9 +583,21 @@ html {
         max-width: 90%;
         text-align: center;
         margin: 10px auto;
-        margin-bottom: -12%;
-        margin-left: -8%;
+        margin-bottom: -13%;
+        margin-left: -5%;
     }
+    .breadcrumb a:last-child:after {
+        z-index: 2;
+        right: -28px;
+    }
+    .breadcrumb a:first-child:after {
+        z-index: 2;
+        right: -28px;
+    }
+    .breadcrumb a:after{
+        right:-30px;
+    }
+    
 
     .breadcrumb a .desktop-text {
         display: none;
@@ -602,6 +614,7 @@ html {
 
     .breadcrumb a {
         text-align: center;
+        width:40px;
     }
 }   
 
@@ -894,6 +907,7 @@ form {
         font-size: 10px;
         bottom: -15px;
         margin-bottom: 0;
+        margin-left: 0;
     }
     .input-row {
         display: grid;
@@ -965,12 +979,6 @@ form {
         right: -40px;
     }
 
-    .input-row {
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        gap: 15px;
-        justify-content: center;
-    }
 
     .input-group {
         width: 90%;
@@ -1172,6 +1180,7 @@ form {
         padding: 20px;
         border-radius: 0px;
         margin-bottom: 50px;
+        gap:0;
     }
 
     .input-container {
@@ -1201,6 +1210,7 @@ form {
     }
 
     .suggestions-container {
+        width:100%;
         margin-left: -10px;
         max-height: 150px;
         margin-right: 0;

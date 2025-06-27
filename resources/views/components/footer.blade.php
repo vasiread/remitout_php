@@ -23,7 +23,7 @@
 
         .footer-section {
             width: 100%;
-            background-image: url("assets/images/image.png");
+            background-image: url("assets/images/image.webp");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;

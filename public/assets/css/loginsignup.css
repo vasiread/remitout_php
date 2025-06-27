@@ -394,7 +394,7 @@
 
 .rightpanel-passwordcontainer i {
     position: absolute;
-    right: 20%;
+    right: 20%; /* Default for desktop */
     padding-right: 1rem;
     cursor: pointer;
     color: rgba(131, 131, 131, 1);
@@ -743,6 +743,15 @@
 
     .loginsingupcontainer-rightpanel-inside label.show-label {
         opacity: 1;
+        display:none;
+    }
+    .loginsingupcontainer-rightpanel .loginsingupcontainer-rightpanel-inside {
+      gap:20px;
+    }
+    .sign-up.error-message {
+        margin-left:0;
+        margin-top: -10px;
+
     }
 
     .rightpanel-namecontainer,
@@ -770,7 +779,7 @@
     }
 
     .rightpanel-passwordcontainer i {
-        right: 12px;
+        right: 10px; /* Use fixed pixels on mobile for consistency */
         top: 50%;
         transform: translateY(-50%);
     }
@@ -787,7 +796,6 @@
     }
 
     .rightpanel-signupbuttoncontainer {
-        gap: 20px;
         margin: 0;
         display: flex;
         justify-content: center;
@@ -1026,8 +1034,8 @@
     }
 
     .rightpanel-passwordcontainer input {
-        max-width: 100%;
-        width: 400px;
+        max-width: 400px;
+        padding-right: 40px;
     }
 
     .rightpanel-passwordcontainer i {
@@ -1164,6 +1172,7 @@
          display: none;
         margin-left: 0px;
         font-family: "poppins";
+        margin-top: -5px;
         
     }
 }

@@ -288,11 +288,11 @@
         <div class="smart-content-wrapper">
             <!-- Left Content -->
             <div class="smart-left-content">
-                <h1 class="main-heading">
+                <h3 class="main-heading">
                     {!! trim($cms['secure-loan']['Main Heading'] ?? '') !== ''
                         ? smartSplitText($cms['secure-loan']['Main Heading'], 4)
                         : smartSplitText('Where your safety meets smart lending', 4) !!}
-                </h1>
+                </h3>
 
 
                 <div class="mobile-right-image-smart-lending">
