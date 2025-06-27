@@ -26,37 +26,38 @@
              <div class="card-container">
                  <div class="profilecard-container">
                      <div class="testimonial-slider">
-                       @foreach ($combinedTestimonials as $index => $item)
-    <a href="https://www.google.com/search?sxsrf=AE3TifP2rtltX0ICDfPDuUPz8ydnfyETxw:1750744407619&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-Exvv8xGhbNVFx4jzbIjNDUiAsbEED1ge2OOJApj_OZH2XotTIFB7R_rTRSoAYFOxLUMcM5d5m3ctxoF8ZvEZ79JyZiLG9_VQlTcdjznkPioSiEYygg%3D%3D&q=Remitout+Service+Pvt+Ltd+Reviews#topic=mid:/m/0414vq"
-       target="_blank"
-       rel="noopener noreferrer"
-       style="text-decoration: none; color: inherit;">
-        
-        <div class="profilecardsection-individual" data-index="{{ $index }}" style="cursor: pointer;">
-            <img src="{{ asset('assets/images/profileCardVector.png') }}" alt="Quote" class="quote-icon">
-            
-            <div class="profilecard-firstrow">
-                <div class="profilecard-firstrowleft">
-                    <img src="{{ asset($item['image']) }}" alt="Profile">
-                </div>
-                <div class="profilecard-firstrowright">
-                    <h1>{{ $item['name'] }}</h1>
-                    <p>{{ $item['designation'] }}</p>
-                    <div class="profilecard-ratingcontainer">
-                        @for ($i = 0; $i < $item['rating']; $i++)
-                            <i class="fa-solid fa-star"></i>
-                        @endfor
-                    </div>
-                </div>
-            </div>
+                         @foreach ($combinedTestimonials as $index => $item)
+                             <a href="https://www.google.com/search?sxsrf=AE3TifP2rtltX0ICDfPDuUPz8ydnfyETxw:1750744407619&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-Exvv8xGhbNVFx4jzbIjNDUiAsbEED1ge2OOJApj_OZH2XotTIFB7R_rTRSoAYFOxLUMcM5d5m3ctxoF8ZvEZ79JyZiLG9_VQlTcdjznkPioSiEYygg%3D%3D&q=Remitout+Service+Pvt+Ltd+Reviews#topic=mid:/m/0414vq"
+                                 target="_blank" rel="noopener noreferrer"
+                                 style="text-decoration: none; color: inherit;">
 
-            <div class="profilecard-secondrow">
-                <p>{{ $item['description'] }}</p>
-            </div>
-        </div>
+                                 <div class="profilecardsection-individual" data-index="{{ $index }}"
+                                     style="cursor: pointer;">
+                                     <img src="{{ asset('assets/images/profileCardVector.png') }}" alt="Quote"
+                                         class="quote-icon">
 
-    </a>
-@endforeach
+                                     <div class="profilecard-firstrow">
+                                         <div class="profilecard-firstrowleft">
+                                             <img src="{{ asset($item['image']) }}" alt="Profile">
+                                         </div>
+                                         <div class="profilecard-firstrowright">
+                                             <h1>{{ $item['name'] }}</h1>
+                                             <p>{{ $item['designation'] }}</p>
+                                             <div class="profilecard-ratingcontainer">
+                                                 @for ($i = 0; $i < $item['rating']; $i++)
+                                                     <i class="fa-solid fa-star"></i>
+                                                 @endfor
+                                             </div>
+                                         </div>
+                                     </div>
+
+                                     <div class="profilecard-secondrow">
+                                         <p>{{ $item['description'] }}</p>
+                                     </div>
+                                 </div>
+
+                             </a>
+                         @endforeach
 
 
 

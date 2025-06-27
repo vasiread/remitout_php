@@ -922,13 +922,13 @@ class StudentDashboardController extends Controller
             'fileTypes' => 'required|array',
         ]);
 
-        $userId = $request->input('userId');
+        $userId = $request->input('userId');    
         $fileTypes = $request->input('fileTypes');
         $disk = Storage::disk('s3');
 
         $response = [];
 
-        // Static files
+         
         foreach ($fileTypes as $fileType) {
             $cleanType = str_replace('static/', '', $fileType);
             $staticPath = "$userId/static/$cleanType";
@@ -939,14 +939,14 @@ class StudentDashboardController extends Controller
                 $file = $staticFiles[0];
                 $response[$fileType] = [
                     'url' => $disk->url($file),
-                    'size' => $disk->size($file), // Size in bytes
+                    'size' => $disk->size($file), 
                 ];
             } else {
                 $response[$fileType] = null;
             }
         }
 
-        // Dynamic folders
+        
         $allDirectories = $disk->directories($userId);
 
         foreach ($allDirectories as $folderPath) {

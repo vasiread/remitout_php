@@ -119,7 +119,35 @@
 
     @php
         $selectedGender = $personalInfos->gender ?? '';
-        
+        $selectedDegree = $courseInfoValues->{'degree-type'} ?? null;
+        $selectedCourseDetail = $courseInfoValues->{'course-details'} ?? '';
+        $gapAnswer = $academicInfoValues->gap_in_academics ?? '';
+        $reason = $academicInfoValues->reason_for_gap ?? '';
+        $matchedCourseOption = false;
+        $hasAdmit = false;
+        $ieltsScore = $academicInfoValues->ILETS ?? '';
+        $greScore = $academicInfoValues->GRE ?? '';
+        $toeflScore = $academicInfoValues->TOFEL ?? '';
+
+        $othersRaw = $academicInfoValues->Others ?? '{}';
+
+        // Decode to associative array
+        $othersExam = is_array($othersRaw) ? $othersRaw : json_decode($othersRaw, true);
+
+        $otherExamName = $othersExam['otherExamName'] ?? '';
+        $otherExamScore = $othersExam['otherExamScore'] ?? '';
+            $liability = $coInfoValues['liability_select'] ?? '';
+
+        if (
+            !empty($academicInfoValues->ILETS) ||
+            !empty($academicInfoValues->GRE) ||
+            !empty($academicInfoValues->TOFEL) ||
+            !empty($academicInfoValues->Others)
+        ) {
+            $hasAdmit = true;
+        }
+        $hasWorkExperience = ($academicInfoValues->work_experience ?? '') === 'yes';
+
         $selectedCountries =
             $courseInfoValues && is_array($courseInfoValues['plan-to-study']) ? $courseInfoValues['plan-to-study'] : [];
         $dob = $personalInfos->dob ?? '';
@@ -128,6 +156,9 @@
         }
         $selectedOption = strtolower($personalInfos->linked_through ?? '');
         $defaultOptions = ['Instagram', 'Facebook', 'Friend', 'Twitter', 'Others'];
+         $relation = $coInfoValues['co_borrower_relation'] ?? '';
+    $bloodRelatives = ['Paternal Auntie', 'Paternal Uncle', 'Maternal Auntie', 'Maternal Uncle'];
+    $isBloodRelative = in_array($relation, $bloodRelatives);
 
         $options = $socialOptions->isNotEmpty()
             ? $socialOptions
@@ -254,7 +285,7 @@
                         </div>
                     </div>
 
-                     <div class="input-group">
+                    <div class="input-group">
                         <div class="input-content">
                             <img src="./assets/images/mail.png" alt="Mail Icon" class="icon" />
                             <input type="email" placeholder="Email ID" name="email" id="personal-info-email"
@@ -303,28 +334,29 @@
                         </div>
                     </div>
 
-                      <div class="input-group">
+                    <div class="input-group">
                         <div class="input-content">
                             <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
                             <input type="text" placeholder="State" name="state" id="personal-info-state"
-                                required value="{{ $personalInfos->state }}" />
+                                required value="{{ old('state', $personalInfos->state ?? '') }}" />
+
                             <div id="suggestions-state" class="suggestions-container"></div>
                             <div class="validation-message" id="state-error"></div>
                         </div>
                     </div>
 
-                     <div class="input-group">
+                    <div class="input-group">
                         <div class="input-content">
                             <img src="./assets/images/pin_drop.png" alt="Location Icon" class="icon" />
                             <input type="text" placeholder="City" name="city" id="personal-info-city" required
-                                value="{{ $personalInfos->city }}" />
+                                value="{{ $personalInfos->city ?? '' }}" />
                             <div id="suggestions-city" class="suggestions-container"></div>
                             <div class="validation-message" id="city-error"></div>
                         </div>
                     </div>
                 </div><!------close row--------->
 
-                  <!-- Dynamic Inputs -->
+                <!-- Dynamic Inputs -->
                 <div class="input-row">
                     @foreach ($additionalFields as $field)
                         @if ($field->section === 'general')
@@ -407,10 +439,10 @@
                             </div>
                         @endif
                     @endforeach
-                </div>                        
-                
+                </div>
 
-      </div>
+
+            </div>
     </div>
 
 
@@ -500,31 +532,63 @@
             </div>
             <form id="course-info-degreetype">
                 <div class="degrees">
-                    @foreach ($degrees as $degree)
+                    @php
+                        $matched = false;
+                    @endphp
+
+                    @forelse ($degrees as $degree)
                         @php
-                            $id = strtolower(str_replace(' ', '-', $degree->name));
+                            $name = $degree->name;
+                            $id = strtolower(str_replace(' ', '-', $name));
+                            $isChecked = $selectedDegree === $name;
+                            if ($isChecked) {
+                                $matched = true;
+                            }
                         @endphp
                         <div class="degree">
                             <input type="radio" id="{{ $id }}" name="degree_type"
-                                value="{{ $degree->name }}">
-                            <label for="{{ $id }}">{{ $degree->name }}</label>
+                                value="{{ $name }}" {{ $isChecked ? 'checked' : '' }}>
+                            <label for="{{ $id }}">{{ $name }}</label>
                         </div>
-                    @endforeach
+                    @empty
+                        @php
+                            $defaultDegrees = ['Bachelor', 'Masters'];
+                        @endphp
+                        @foreach ($defaultDegrees as $name)
+                            @php
+                                $id = strtolower(str_replace(' ', '-', $name));
+                                $isChecked = $selectedDegree === $name;
+                                if ($isChecked) {
+                                    $matched = true;
+                                }
+                            @endphp
+                            <div class="degree">
+                                <input type="radio" id="{{ $id }}" name="degree_type"
+                                    value="{{ $name }}" {{ $isChecked ? 'checked' : '' }}>
+                                <label for="{{ $id }}">{{ $name }}</label>
+                            </div>
+                        @endforeach
+                    @endforelse
 
+                    {{-- "Others" option --}}
                     <div class="degree">
-                        <input type="radio" id="others" name="degree_type" value="others">
+                        <input type="radio" id="others" name="degree_type" value="others"
+                            {{ !$matched && $selectedDegree ? 'checked' : '' }}>
                         <label for="others">Others</label>
                     </div>
 
-                    <div class="degree other-degree-input-container" style="display: none;"
+                    {{-- "Others" input field --}}
+                    <div class="degree other-degree-input-container"
+                        style="{{ !$matched && $selectedDegree ? '' : 'display: none;' }}"
                         id="other-degree-container">
-                        <input type="text" id="other-degree" class="other-degree-input" placeholder="Add Degree">
+                        <input type="text" id="other-degree" class="other-degree-input" placeholder="Add Degree"
+                            value="{{ !$matched && $selectedDegree ? $selectedDegree : '' }}">
                     </div>
                 </div>
             </form>
-
-
         </div>
+
+
 
         <!-- Step 3: Course Duration -->
         <div class="course-duration-container" id="step-3" style="display: none;">
@@ -535,7 +599,9 @@
 
             <div class="dropdown-container">
                 <div class="dropdown" id="selected-course-duration">
-                    <div class="dropdown-label">No. of Months</div>
+                    <div class="dropdown-label">
+                        {{ $courseInfoValues ? $courseInfoValues->{'course-duration'} . ' Months' : 'No. of Months' }}
+                    </div>
                     <div class="dropdown-icon">
                         <!-- Dropdown arrow SVG or icon -->
                     </div>
@@ -562,36 +628,33 @@
 
                 <div class="content-wrapper">
                     <div class="left-section">
+                        @php
+                            $selectedValue = $courseInfoValues->{'course-details'} ?? '';
+                        @endphp
+
                         @forelse ($courseExpenseOptions as $option)
+                            @php
+                                $value = Str::slug($option->label, '-');
+                            @endphp
                             <div class="form-group academic-option">
                                 <label for="expense-option-{{ $option->id }}">
                                     <input type="radio" id="expense-option-{{ $option->id }}"
-                                        name="expense-type" value="{{ Str::slug($option->label, '-') }}">
+                                        name="course-details" value="{{ $value }}"
+                                        {{ $selectedValue === $value ? 'checked' : '' }}>
                                     {{ $option->label }}
                                 </label>
                             </div>
                         @empty
-                            <div class="form-group academic-option">
-                                <label for="expense-default-living">
-                                    <input type="radio" id="expense-default-living" name="expense-type"
-                                        value="with-living-expense">
-                                    With Living Expense
-                                </label>
-                            </div>
-                            <div class="form-group academic-option">
-                                <label for="expense-default-without">
-                                    <input type="radio" id="expense-default-without" name="expense-type"
-                                        value="without-living-expense">
-                                    Without Living Expense
-                                </label>
-                            </div>
-                            <div class="form-group academic-option">
-                                <label for="expense-default-others">
-                                    <input type="radio" id="expense-default-others" name="expense-type"
-                                        value="others">
-                                    Others
-                                </label>
-                            </div>
+                            @foreach (['with-living-expense', 'without-living-expense', 'others'] as $default)
+                                <div class="form-group academic-option">
+                                    <label for="expense-default-{{ $default }}">
+                                        <input type="radio" id="expense-default-{{ $default }}"
+                                            name="course-details" value="{{ $default }}"
+                                            {{ $selectedValue === $default ? 'checked' : '' }}>
+                                        {{ ucwords(str_replace('-', ' ', $default)) }}
+                                    </label>
+                                </div>
+                            @endforeach
                         @endforelse
                     </div>
 
@@ -599,14 +662,15 @@
                     <div class="right-section">
                         <div class="loan-amount-container">
                             <label for="loan-amount" class="loan-label">Enter desired loan amount</label>
-                            <input type="number" id="loan-amount" class="loan-input"
+                            <input type="number" id="loan-amount" class="loan-input" name="loan_amount_in_lakhs"
+                                value="{{ old('loan_amount_in_lakhs', $courseInfoValues->loan_amount_in_lakhs ?? '') }}"
                                 placeholder="₹ Rupees in Lakhs" />
                             <span id="loan-error-message" class="error-message" style="display:none; color:red;">
                                 Please enter a valid loan amount (numeric values only).
                             </span>
                         </div>
 
-                        {{-- Dynamically injected fields for section = "course" --}}
+                        {{-- Additional dynamic fields --}}
                         @foreach ($additionalFields as $field)
                             @if ($field->section === 'course')
                                 <div class="form-group" style="margin-top: 15px;">
@@ -626,7 +690,7 @@
                                             <option value="">Select {{ $field->label }}</option>
                                             @foreach ($field->options ?? [] as $option)
                                                 <option value="{{ $option }}"
-                                                    @if (($userFieldValues[$field->id] ?? '') == $option) selected @endif>
+                                                    {{ ($userFieldValues[$field->id] ?? '') == $option ? 'selected' : '' }}>
                                                     {{ ucfirst($option) }}
                                                 </option>
                                             @endforeach
@@ -639,6 +703,7 @@
 
                     <button type="submit" id="course-info-submit" class="next-btn-course">Next</button>
                 </div>
+
 
             </div>
 
@@ -662,20 +727,25 @@
                 <!-- Academic Options -->
                 <div class="academic-options">
                     <div class="academic-option">
-                        <input type="radio" id="academic-yes" name="academics-gap" value="yes">
+                        <input type="radio" id="academic-yes" name="academics-gap" value="yes"
+                            {{ $gapAnswer === 'yes' ? 'checked' : '' }}>
                         <label for="academic-yes">Yes</label>
                     </div>
                     <div class="academic-option">
-                        <input type="radio" id="academic-no" name="academics-gap" value="no">
+                        <input type="radio" id="academic-no" name="academics-gap" value="no"
+                            {{ $gapAnswer === 'no' ? 'checked' : '' }}>
                         <label for="academic-no">No (only secured loan)</label>
                     </div>
                 </div>
 
                 <!-- Academic Reason -->
-                <div class="academic-reason" id="reason-container">
+                <!-- Academic Reason -->
+                <div class="academic-reason" id="reason-container"
+                    style="display: {{ $gapAnswer === 'yes' ? 'flex' : 'none' }};">
                     <label for="reason-textarea">Enter reason</label>
-                    <textarea id="reason-textarea" placeholder="Enter the reason for the academic gap"></textarea>
+                    <textarea id="reason-textarea" placeholder="Enter the reason for the academic gap">{{ $reason }}</textarea>
                 </div>
+
             </div>
         </div>
 
@@ -746,73 +816,93 @@
                 </div>
 
                 <div class="admit-left-section">
+                    <!-- Admit Question -->
                     <div class="admit-question">
                         <p>Do you have any admit?</p>
                         <div class="academic-option-left">
                             <label>
-                                <input type="radio" name="admit-option" value="yes"> Yes
+                                <input type="radio" name="admit-option" value="yes"
+                                    {{ $hasAdmit ? 'checked' : '' }}> Yes
                             </label>
                             <label>
-                                <input type="radio" name="admit-option" value="no"> No
+                                <input type="radio" name="admit-option" value="no"
+                                    {{ !$hasAdmit ? 'checked' : '' }}> No
                             </label>
                         </div>
                     </div>
+
+
+
+                    <!-- Work Experience Question -->
                     <div class="admit-question">
                         <p>Do you have any work experience?</p>
                         <div class="academic-option-left">
                             <label>
-                                <input type="radio" name="work-option" value="yes"> Yes
+                                <input type="radio" name="work-option" value="yes"
+                                    {{ $hasWorkExperience ? 'checked' : '' }}> Yes
                             </label>
                             <label>
-                                <input type="radio" name="work-option" value="no"> No
+                                <input type="radio" name="work-option" value="no"
+                                    {{ !$hasWorkExperience ? 'checked' : '' }}> No
                             </label>
                         </div>
                     </div>
                 </div>
-
                 <div class="admit-right-section">
                     <p>Have you got any admit?</p>
+
+                    <!-- IELTS -->
                     <div class="admit-exam-field">
                         <label for="admit-ielts">IELTS</label>
                         <div class="admit-input-container">
-                            <input type="text" id="admit-ielts" placeholder="Add score">
+                            <input type="text" id="admit-ielts" name="ielts_score" placeholder="Add score"
+                                value="{{ $ieltsScore }}">
                             <span class="admit-input-right">*minimum score 6.5</span>
                         </div>
                     </div>
                     <div class="validation-message" id="ielts-error"></div>
 
+                    <!-- GRE -->
                     <div class="admit-exam-field">
                         <label for="admit-gre">GRE</label>
                         <div class="admit-input-container">
-                            <input type="text" id="admit-gre" placeholder="Add score">
+                            <input type="text" id="admit-gre" name="gre_score" placeholder="Add score"
+                                value="{{ $greScore }}">
                             <span class="admit-input-right">*minimum score 280</span>
                         </div>
                     </div>
                     <div class="validation-message" id="gre-error"></div>
 
+                    <!-- TOEFL -->
                     <div class="admit-exam-field">
                         <label for="admit-toefl">TOEFL</label>
                         <div class="admit-input-container">
-                            <input type="text" id="admit-toefl" placeholder="Add score">
+                            <input type="text" id="admit-toefl" name="toefl_score" placeholder="Add score"
+                                value="{{ $toeflScore }}">
                             <span class="admit-input-right">*minimum score 90</span>
                         </div>
                     </div>
                     <div class="validation-message" id="toefl-error"></div>
 
+                    <!-- Others -->
                     <div class="admit-exam-field">
                         <label for="admit-others-name">Others</label>
                         <div class="admit-input-container">
-                            <input type="text" id="admit-others-name" placeholder="Name of the Examination">
+                            <input type="text" id="admit-others-name" name="other_exam_name"
+                                placeholder="Name of the Examination" value="{{ $otherExamName }}">
                         </div>
                     </div>
 
                     <div class="admit-exam-field">
-                        <label for="admit-others-name"></label>
+                        <label for="admit-others-score"></label>
                         <div class="admit-input-container">
-                            <input type="text" id="admit-others-score" placeholder="Add score">
+                            <input type="text" id="admit-others-score" name="other_exam_score"
+                                placeholder="Add score" value="{{ $otherExamScore }}">
                         </div>
                     </div>
+
                 </div>
+
             </div>
 
             <button type="submit" id="academics-info-submit" class="next-btn-academic">Next</button>
@@ -829,32 +919,51 @@
                 <div class="step-number">01</div>
                 <h2>How is the co-borrower related to you?</h2>
             </div>
-            <div class="borrow-options">
-                <div class="borrow-option">
-                    <input type="radio" name="borrow-relation" id="borrow-parent" value="parent">
-                    <label class="borrow-label" for="borrow-parent">Parent</label>
-                </div>
-                <div class="borrow-option">
-                    <input type="radio" name="borrow-relation" id="borrow-spouse" value="spouse">
-                    <label class="borrow-label" for="borrow-spouse">Spouse</label>
-                </div>
+          <div class="borrow-options">
+    <div class="borrow-option">
+        <input type="radio" name="borrow-relation" id="borrow-parent" value="parent"
+            @checked($relation === 'parent')>
+        <label class="borrow-label" for="borrow-parent">Parent</label>
+    </div>
 
-                <div class="borrow-option borrow-blood-relative">
-                    <input type="radio" name="borrow-relation" id="borrow-blood-relative" value="blood-relative">
+    <div class="borrow-option">
+        <input type="radio" name="borrow-relation" id="borrow-spouse" value="spouse"
+            @checked($relation === 'spouse')>
+        <label class="borrow-label" for="borrow-spouse">Spouse</label>
+    </div>
 
-                    <div class="borrow-option borrow-blood">
-                        <label class="borrow-label" id="borrow-blood-label" for="borrow-blood-relative">Blood
-                            relative</label>
-                        <span class="borrow-option-icon"></span>
-                        <div class="borrow-dropdown" id="borrow-dropdown">
-                            <div class="borrow-dropdown-item" data-value="paternal-aunt">Paternal Auntie</div>
-                            <div class="borrow-dropdown-item" data-value="paternal-uncle">Paternal Uncle</div>
-                            <div class="borrow-dropdown-item" data-value="maternal-aunt">Maternal Auntie</div>
-                            <div class="borrow-dropdown-item" data-value="maternal-uncle">Maternal Uncle</div>
-                        </div>
-                    </div>
+    <div class="borrow-option borrow-blood-relative">
+        <input type="radio" name="borrow-relation" id="borrow-blood-relative" value="blood-relative"
+            @checked($isBloodRelative)>
+
+        <div class="borrow-option borrow-blood">
+            <label class="borrow-label" id="borrow-blood-label" for="borrow-blood-relative">
+                {{ $isBloodRelative ? $relation : 'Blood relative' }}
+            </label>
+            <span class="borrow-option-icon"></span>
+
+            <div class="borrow-dropdown" id="borrow-dropdown" style="display: block;">
+                <div class="borrow-dropdown-item {{ $relation === 'Paternal Auntie' ? 'selected' : '' }}"
+                    data-value="paternal-aunt">
+                    Paternal Auntie
+                </div>
+                <div class="borrow-dropdown-item {{ $relation === 'Paternal Uncle' ? 'selected' : '' }}"
+                    data-value="paternal-uncle">
+                    Paternal Uncle
+                </div>
+                <div class="borrow-dropdown-item {{ $relation === 'Maternal Auntie' ? 'selected' : '' }}"
+                    data-value="maternal-aunt">
+                    Maternal Auntie
+                </div>
+                <div class="borrow-dropdown-item {{ $relation === 'Maternal Uncle' ? 'selected' : '' }}"
+                    data-value="maternal-uncle">
+                    Maternal Uncle
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
         </div>
     </div>
 
@@ -864,7 +973,7 @@
             <div class="step-number">02</div>
             <h2>What is the gross monthly income of co-borrower?</h2>
         </div>
-        <input type="text" id="income-co-borrower" placeholder=" ₹ Rupees in thousands" />
+        <input type="text" id="income-co-borrower" placeholder=" ₹ Rupees in thousands" value="{{$coInfoValues->co_borrower_income}}" />
         <p class="minimum-amount">*minimum amount of 30k after liabilities for eligibility</p>
         <span id="income-error-message" class="error-message" style="display:none; color:red;">Please enter a valid
             numeric
@@ -883,20 +992,22 @@
                 </div>
 
                 <div class="monthly-liability-option">
-                    <div class="monthly-liability-radio-buttons">
-                        <label>
-                            <input type="radio" name="co-borrower-liability" id="yes-liability" value="Yes" />
-                            Yes
-                        </label>
-                        <label>
-                            <input type="radio" name="co-borrower-liability" id="no-liability" value="No" />
-                            No
-                        </label>
-                    </div>
+                   <div class="monthly-liability-radio-buttons">
+    <label>
+        <input type="radio" name="co-borrower-liability" id="yes-liability" value="Yes"
+            @checked($liability === 'Yes') />
+        Yes
+    </label>
+    <label>
+        <input type="radio" name="co-borrower-liability" id="no-liability" value="No"
+            @checked($liability === 'No') />
+        No
+    </label>
+</div>
                     <div class="emi-content">
                         <p class="amount-thousand-mobile">Enter the amount in thousands</p>
                         <input type="text" id="emi-amount" class="emi-content-container"
-                            placeholder="Enter EMI amount" disabled />
+                            placeholder="Enter EMI amount" value={{$coInfoValues->co_borrower_monthly_liability}} disabled />
                         <span id="emi-error-message" class="error-message" style="display:none; color:red;">Please
                             enter
                             a valid EMI
@@ -1009,7 +1120,8 @@
                     @endphp
 
                     <div class="document-box">
-                        <div class="document-name" id="{{ $doc->key }}-document-name">{{ $doc->key }}</div>
+                        <div class="document-name" id="{{ $doc->key }}-document-name">{{ $doc->key }}
+                        </div>
                         <div class="upload-field">
                             <span id="{{ $doc->key }}-name">{{ $actualFileName }}</span>
                             <label for="{{ $doc->key }}" class="upload-icon"
@@ -1305,7 +1417,7 @@
                     </div>
                 </div>
 
-                 <div class="work-experience-box">
+                <div class="work-experience-box">
                     <div class="document-name" id="Joining-letter-id">Joining letter</div>
 
                     <div class="upload-field">
@@ -1333,8 +1445,8 @@
                 </div>
             </div>
 
-            
-               
+
+
         </div>
     </section>
 

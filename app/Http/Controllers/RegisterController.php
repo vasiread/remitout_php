@@ -48,34 +48,20 @@ class RegisterController extends Controller
             'email' => 'required|email',
             'phoneInput' => 'required',
             'password' => 'required|string|min:6',
+            'referralCode' => 'nullable|string|max:255', // Optional referral code
         ]);
-
-
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phoneInput,
-
             'password' => Hash::make($request->password),
+            'referral_code' => $request->referralCode, // Store it if present
         ]);
 
-
-        // $user->refresh();
-
-
-        // Return a proper JSON response
         if ($user) {
             session(['user' => $user]);
-
             session()->put('expires_at', now()->addSeconds(10000));
-
-
-
-
-
-
-
 
             return response()->json([
                 'success' => true,
@@ -85,12 +71,8 @@ class RegisterController extends Controller
         } else {
             return response()->json(['success' => false, 'message' => 'Something went wrong.']);
         }
-
-
-
-        // Proceed with user creation
-
     }
+
 
 
 

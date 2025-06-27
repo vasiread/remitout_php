@@ -96,8 +96,9 @@
         </div>
         <!-- Right Section -->
         <div class="study-loans-image-right">
-            <img src="{{ asset('assets/images/globe-1.png') }}" alt="Globe Image" class="globe-image">
+            <img src="{{ isset($cms['study-loan']['Globe Image']) ? asset($cms['study-loan']['Globe Image']) : asset('assets/images/globe-1.png') }}" alt="Globe Image" class="globe-image">
         </div>
+
     </div>
 
 </section>

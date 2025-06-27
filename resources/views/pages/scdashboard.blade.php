@@ -1579,31 +1579,35 @@
             const referralCodeElement = document.querySelector("#screferral-id-fromprofile span");
             const overlay = document.querySelector(".sc-dashboard-generate-overlay");
 
-            const baseUrl = "http://localhost:8000/signup";
-            const secretKey = "rJXU0e4lTP7G+KP9dH5V1pq9P7vP8d8sravZmzMGUKM=";
+          const baseUrl = "/signup"; // can be full URL like "https://example.com/signup"
+const secretKey = "rJXU0e4lTP7G+KP9dH5V1pq9P7vP8d8sravZmzMGUKM=";
 
-            if (!triggeredReferralButtons.length || !referralTriggeredView || !referralInput || !backgroundContainer ||
-                !referralCodeElement || !footerContainer || !overlay) {
-                console.error("Required DOM elements are missing for generateReferLinkPopup:", {
-                    triggeredReferralButtons: !!triggeredReferralButtons.length,
-                    referralTriggeredView: !!referralTriggeredView,
-                    referralInput: !!referralInput,
-                    backgroundContainer: !!backgroundContainer,
-                    referralCodeElement: !!referralCodeElement,
-                    footerContainer: !!footerContainer,
-                    overlay: !!overlay
-                });
-                return;
-            }
+if (!triggeredReferralButtons.length || !referralTriggeredView || !referralInput || !backgroundContainer ||
+    !referralCodeElement || !footerContainer || !overlay) {
+    console.error("Required DOM elements are missing for generateReferLinkPopup:", {
+        triggeredReferralButtons: !!triggeredReferralButtons.length,
+        referralTriggeredView: !!referralTriggeredView,
+        referralInput: !!referralInput,
+        backgroundContainer: !!backgroundContainer,
+        referralCodeElement: !!referralCodeElement,
+        footerContainer: !!footerContainer,
+        overlay: !!overlay
+    });
+    return;
+}
 
-            const referralCode = referralCodeElement.textContent.trim();
-            if (!referralCode) {
-                console.error("Referral code is empty or not found");
-                return;
-            }
+const referralCode = referralCodeElement.textContent.trim();
+if (!referralCode) {
+    console.error("Referral code is empty or not found");
+    return;
+}
 
-            const referralLink = `${baseUrl}?ref=${encodeURIComponent(referralCode)}`;
+// Append ?ref=... or &ref=... based on existing query string
+const url = new URL(baseUrl, window.location.origin); // baseUrl can be relative or absolute
+url.searchParams.set("ref", referralCode);
 
+const referralLink = url.toString();
+console.log("Generated referral link:", referralLink);
 
             const removeExistingListeners = (element, event, handler) => {
                 element.removeEventListener(event, handler);
@@ -2414,7 +2418,7 @@
 
             } catch (error) {
                 console.error("Network error:", error);
-                alert("An error occurred while saving students.");
+                alert("Network  error:.");
             }
         };
 

@@ -303,49 +303,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateCoborrowerInfo(event) {
         event.preventDefault();
+
+        // Only define once
         function getSelectedAnswer(callback) {
-            const selectedOption = document.querySelector(
-                'input[name="borrow-relation"]:checked',
-            );
+            const selectedOption = document.querySelector('input[name="borrow-relation"]:checked');
+
             if (selectedOption && selectedOption.value !== "blood-relative") {
                 return callback(selectedOption.value);
-            } else if (
-                selectedOption &&
-                selectedOption.value === "blood-relative"
-            ) {
-                const dropdownRelative = document.querySelectorAll(
-                    ".borrow-dropdown .borrow-dropdown-item",
-                );
-                dropdownRelative.forEach((item) => {
-                    item.addEventListener("click", function () {
-                        const relativeValue = item.dataset.value;
-                        callback(relativeValue);
-                    });
-                });
-                return;
+            } else if (selectedOption && selectedOption.value === "blood-relative") {
+                const selectedDropdown = document.querySelector('.borrow-dropdown .borrow-dropdown-item.selected');
+                if (selectedDropdown) {
+                    return callback(selectedDropdown.textContent.trim()); 
+                } else {
+                    return callback("blood-relative");
+                      
+                 }
             } else {
-                return callback("none selected here");
+                return callback("none selected");
             }
         }
+
+
+        // Call the function
         getSelectedAnswer(function (answer) {
-            const personalInfoId = document.getElementById(
-                "personal-info-userid",
-            ).value;
-            var incomeValue =
-                document.getElementById("income-co-borrower").value;
-            var selectedLiability = document.querySelector(
-                'input[name="co-borrower-liability"]:checked',
-            ).value;
-            var emiAmount = document.querySelector(
-                ".emi-content .emi-content-container",
-            ).value;
+            const personalInfoId = document.getElementById("personal-info-userid")?.value;
+            const incomeValue = document.getElementById("income-co-borrower")?.value;
+            const selectedLiability = document.querySelector('input[name="co-borrower-liability"]:checked')?.value;
+            const emiAmount = document.getElementById("emi-amount")?.value;
+
             const coborrowerData = {
                 personalInfoId,
-                answer,
+                co_borrower_relation: answer,  
                 incomeValue,
                 selectedLiability,
-                emiAmount,
+                emiAmount
             };
+
+            console.log("Submitting coborrowerData:", coborrowerData);
+            // alert(JSON.stringify(coborrowerData)); // for debugging
+
             fetch("/coborrowerData", {
                 method: "POST",
                 headers: {
@@ -361,10 +357,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (data.success) {
                         showToast("Details have been saved successfully");
                     } else {
-                        console.error(
-                            "Failed to update co-borrower info:",
-                            data.message,
-                        );
+                        console.error("Failed to update co-borrower info:", data.message);
                     }
                 })
                 .catch((error) => {
@@ -372,6 +365,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
         });
     }
+
 
     document
         .getElementById("personal-info-submit")
@@ -526,10 +520,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function getSelectedExpenseType() {
         const selectedExpense = document.querySelector(
-            'input[name="expense-type"]:checked',
+            'input[name="course-details"]:checked'
         );
         return selectedExpense ? selectedExpense.value : null;
     }
+
 
     function getLoanAmount() {
         const loanAmount = document.getElementById("loan-amount").value;
@@ -560,6 +555,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const loanAmount = getLoanAmount(); // Custom method you already use
         const courseDuration = getSelectedCourseDuration(); // Custom method
         const studyLocations = getSelectedStudyLocations(); // Custom method
+        
 
         // ✅ Collect dynamic fields (same logic as in personal info)
         const dynamicFields = {};
@@ -609,6 +605,7 @@ document.addEventListener("DOMContentLoaded", () => {
             course_details: expenseType,
             dynamic_fields: dynamicFields,
         };
+        // alert(expenseType)
 
         // ✅ Send data to backend
         fetch("/update-courseinfo", {
@@ -625,6 +622,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then((data) => {
                 if (data.success) {
                     showToast("Details have been saved successfully");
+                    console.log(courseInfoData)
                     navigate("next");
                 } else {
                     console.error(
