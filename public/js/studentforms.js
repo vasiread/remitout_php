@@ -709,52 +709,72 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateAcademicsCourseInfo(event) {
         event.preventDefault();
-    
-        const personalInfoId = document.getElementById("personal-info-userid")?.value;
-        const selectedAcademicGap = document.querySelector('input[name="academics-gap"]:checked')?.value;
-        const reasonForGap = document.querySelector(".academic-reason textarea")?.value;
-        const selectedAdmitOption = document.querySelector('input[name="admit-option"]:checked')?.value;
-        const selectedWorkOption = document.querySelector('input[name="work-option"]:checked')?.value;
+
+        const personalInfoId = document.getElementById(
+            "personal-info-userid",
+        ).value;
+        const selectedAcademicGap = document.querySelector(
+            'input[name="academics-gap"]:checked',
+        )?.value;
+        const reasonForGap = document.querySelector(
+            ".academic-reason textarea",
+        )?.value;
+        const selectedAdmitOption = document.querySelector(
+            'input[name="admit-option"]:checked',
+        )?.value;
+        const selectedWorkOption = document.querySelector(
+            'input[name="work-option"]:checked',
+        )?.value;
         const ieltsScore = document.getElementById("admit-ielts")?.value;
         const greScore = document.getElementById("admit-gre")?.value;
         const toeflScore = document.getElementById("admit-toefl")?.value;
-        const otherExamName = document.getElementById("admit-others-name")?.value;
-        const otherExamScore = document.getElementById("admit-others-score")?.value;
-        const universityName = document.getElementById("universityschoolid")?.value;
+        const otherExamName =
+            document.getElementById("admit-others-name")?.value;
+        const otherExamScore =
+            document.getElementById("admit-others-score")?.value;
+        const universityName =
+            document.getElementById("universityschoolid")?.value;
         const courseName = document.getElementById("educationcourseid")?.value;
-    
-        // Validate university selection
-        if (universityName && (!selectedCollege || universityName !== selectedCollege.name)) {
-            showToast("Please select a valid college from the suggestions.");
-            return;
-        }
-    
+
         if (!validateAllScores(ieltsScore, greScore, toeflScore)) {
-            return;
+            return; // Stop submission if validation fails
         }
-    
+
         const dynamicFields = {};
-        document.querySelectorAll('input[name^="dynamic_fields["], select[name^="dynamic_fields["]').forEach((input) => {
-            const name = input.getAttribute("name");
-            const multipleMatch = name.match(/^dynamic_fields\[(\d+)\]\[\]$/);
-            const singleMatch = name.match(/^dynamic_fields\[(\d+)\]$/);
-    
-            if (multipleMatch) {
-                const fieldId = multipleMatch[1];
-                if (!dynamicFields[fieldId]) dynamicFields[fieldId] = [];
-                if ((input.type === "checkbox" || input.type === "radio") && input.checked) {
-                    dynamicFields[fieldId].push(input.value);
+        document
+            .querySelectorAll(
+                'input[name^="dynamic_fields["], select[name^="dynamic_fields["]',
+            )
+            .forEach((input) => {
+                const name = input.getAttribute("name");
+                const multipleMatch = name.match(
+                    /^dynamic_fields\[(\d+)\]\[\]$/,
+                );
+                const singleMatch = name.match(/^dynamic_fields\[(\d+)\]$/);
+
+                if (multipleMatch) {
+                    const fieldId = multipleMatch[1];
+                    if (!dynamicFields[fieldId]) {
+                        dynamicFields[fieldId] = [];
+                    }
+                    if (
+                        (input.type === "checkbox" || input.type === "radio") &&
+                        input.checked
+                    ) {
+                        dynamicFields[fieldId].push(input.value);
+                    }
+                } else if (singleMatch) {
+                    const fieldId = singleMatch[1];
+                    if (input.type === "checkbox" || input.type === "radio") {
+                        if (input.checked) {
+                            dynamicFields[fieldId] = input.value;
+                        }
+                    } else {
+                        dynamicFields[fieldId] = input.value;
+                    }
                 }
-            } else if (singleMatch) {
-                const fieldId = singleMatch[1];
-                if (input.type === "checkbox" || input.type === "radio") {
-                    if (input.checked) dynamicFields[fieldId] = input.value;
-                } else {
-                    dynamicFields[fieldId] = input.value;
-                }
-            }
-        });
-    
+            });
+
         const academicDetails = {
             personalInfoId,
             selectedAcademicGap,
@@ -764,19 +784,22 @@ document.addEventListener("DOMContentLoaded", () => {
             ieltsScore,
             greScore,
             toeflScore,
-            others: { otherExamName, otherExamScore },
+            others: {
+                otherExamName,
+                otherExamScore,
+            },
             universityName,
-            universityState: selectedCollege?.state || "",
-            universityCity: selectedCollege?.city || "",
             courseName,
             dynamic_fields: dynamicFields,
         };
-    
+
         fetch("/update-academicsinfo", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                "X-CSRF-TOKEN": document
+                    .querySelector('meta[name="csrf-token"]')
+                    .getAttribute("content"),
             },
             body: JSON.stringify(academicDetails),
         })
@@ -786,13 +809,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     showToast("Details have been saved successfully");
                     navigate("next");
                 } else {
-                    console.error("Failed to update academic info:", data.message);
-                    showToast("Failed to save academic details.");
+                    console.error(
+                        "Failed to update academic info:",
+                        data.message,
+                    );
                 }
             })
             .catch((error) => {
                 console.error("Error updating academic info:", error);
-                showToast("Error saving academic details. Please try again.");
             });
     }
 
@@ -2778,7 +2802,6 @@ document.addEventListener("DOMContentLoaded", () => {
             container.style.display = "none";
         }
     }
-
 
 
 });
