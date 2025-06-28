@@ -352,3 +352,7 @@ Route::post('/logo/update/{partnerId}', [AdminController::class, 'updateLogo']);
 Route::get('/logo/show/{partnerId}', [AdminController::class, 'listLogos']);
 Route::delete('/logo/delete/{logoId}', [AdminController::class, 'deleteLogo']);
 Route::post('/messages/mark-all-read', [StudentDashboardController::class, 'markAllAsRead']);
+
+
+
+Route::get('/queries/deactive-counts/{scuserid}', [scDashboardController::class, 'countDeactiveQueriesByUser']);

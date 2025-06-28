@@ -463,7 +463,7 @@
                             <p id="queryraised-header">Queries Raised</p>
                             <div class="queryraisedcontainer-rightcontent">
                                 <button id="sort-by" style="cursor:pointer;">
-                                    <p>Sort by</p> <img src="assets/images/Icons/swap_vert.png" alt="SC sort by icon"/>
+                                    <p>Sort by</p> <img src="assets/images/Icons/swap_vert.png" alt="SC sort by icon" />
                                 </button>
                                 <div class="sort-by-contents">
                                     <a href="" data-sort="newest">Newest</a>
@@ -501,7 +501,8 @@
                 <div class="scapplicationstatus-firstrow">
                     <h1>Applications</h1>
                     <div class="firstrowapplication-rightsidecontent">
-                        <button id="applicationstatus-sortby">Sort by <img src="assets/images/Icons/swap_vert.png" alt="Sort options icon"/>
+                        <button id="applicationstatus-sortby">Sort by <img src="assets/images/Icons/swap_vert.png"
+                                alt="Sort options icon" />
                         </button>
                         <div class="sort-by-contents-applications-studentnames">
                             <a href="" data-sort="newest" style="display: none;">Newest</a>
@@ -589,7 +590,8 @@
                 <input type="input" placeholder="Copy Link here">
             </div>
             <div class="referral-triggered-view-footer">
-                <button id="cancel-referral-link"> <img src="{{ asset('assets/images/Icons/close_icon.png') }}" alt="Referral Cancel icon" />
+                <button id="cancel-referral-link"> <img src="{{ asset('assets/images/Icons/close_icon.png') }}"
+                        alt="Referral Cancel icon" />
                     Cancel</button>
                 <button>Generate</button>
             </div>
@@ -612,7 +614,8 @@
                 </select>
             </div>
             <div class="raise-query-popup-footer">
-                <button class="cancel-query "> <img src="{{ asset('assets/images/Icons/close_icon.png') }}" alt="Dismiss action icon" />
+                <button class="cancel-query "> <img src="{{ asset('assets/images/Icons/close_icon.png') }}"
+                        alt="Dismiss action icon" />
                     Cancel</button>
                 <button class="submit-query">Submit</button>
             </div>
@@ -646,8 +649,30 @@
             updateStartNewText();
             triggerDownloadTrigger();
             initializeQueryModal();
+           
+              setInterval(alertDeactiveCountFromReferral, 3000);
 
 
+
+                      
+
+
+document.querySelector(".unread-notify-container")?.addEventListener("click", () => {
+    const sidebarItems = document.querySelectorAll(".commonsidebar-sidebarlists-top li");
+    if (sidebarItems[1]) {
+        sidebarItems[1].click();  
+    }
+
+    // Optional: Scroll to queries section
+    const querySection = document.querySelector(".scdashboard-queryraisedcontainer");
+    if (querySection) {
+        setTimeout(() => {
+            querySection.scrollIntoView({ behavior: "smooth" });
+        }, 280); 
+    }
+});
+
+      
 
 
         })
@@ -1038,12 +1063,12 @@
                             .added));
                     } else if (sortContentsType === 'alphabet') {
                         raisedQuestions.sort((a, b) => a.querySelector('#queries-row').textContent
-                        .trim().localeCompare(b.querySelector('#queries-row').textContent
-                        .trim()));
+                            .trim().localeCompare(b.querySelector('#queries-row').textContent
+                                .trim()));
                     } else if (sortContentsType === 'alphabet-reverse') {
                         raisedQuestions.sort((a, b) => b.querySelector('#queries-row').textContent
-                        .trim().localeCompare(a.querySelector('#queries-row').textContent
-                        .trim()));
+                            .trim().localeCompare(a.querySelector('#queries-row').textContent
+                                .trim()));
                     }
 
                     raisedQuestions.forEach((question) => {
@@ -1119,7 +1144,7 @@
 
                     if (sortByApplicationContent) {
                         sortByApplicationContent.style.display =
-                        'none'; // close dropdown after selection
+                            'none'; // close dropdown after selection
                     }
                 });
             });
@@ -1262,33 +1287,33 @@
                 ".individualstudentapplication-status .scdashboard-nbfcstatus-pending span");
             const missingDocumentsCount = document.querySelectorAll(".scdashboard-missingdocumentsstatus");
 
-           applicationStatusElements.forEach((items, index) => {
-    const text = items.textContent.trim();
+            applicationStatusElements.forEach((items, index) => {
+                const text = items.textContent.trim();
 
-    if (text.includes("Approved")) {
-        items.style.color = "#3FA27E";
-        items.style.backgroundColor = "#D2FFEE";
-        if (missingDocumentsCount[index]) {
-            missingDocumentsCount[index].style.display = "none";
-        }
-    } else if (text.includes("No Progress Found")) {
-        items.style.color = "#B54747";
-        items.style.backgroundColor = "#FFE5E5";
-        if (missingDocumentsCount[index]) {
-            missingDocumentsCount[index].style.display = "flex";
-        }
-    } else if (text.includes("Not Reviewed")) {
-        items.style.color = "#997404";
-        items.style.backgroundColor = "#FFF9DB";
-        if (missingDocumentsCount[index]) {
-            missingDocumentsCount[index].style.display = "flex";
-        }
-    } else {
-        if (missingDocumentsCount[index]) {
-            missingDocumentsCount[index].style.display = "flex";
-        }
-    }
-});
+                if (text.includes("Approved")) {
+                    items.style.color = "#3FA27E";
+                    items.style.backgroundColor = "#D2FFEE";
+                    if (missingDocumentsCount[index]) {
+                        missingDocumentsCount[index].style.display = "none";
+                    }
+                } else if (text.includes("No Progress Found")) {
+                    items.style.color = "#B54747";
+                    items.style.backgroundColor = "#FFE5E5";
+                    if (missingDocumentsCount[index]) {
+                        missingDocumentsCount[index].style.display = "flex";
+                    }
+                } else if (text.includes("Not Reviewed")) {
+                    items.style.color = "#997404";
+                    items.style.backgroundColor = "#FFF9DB";
+                    if (missingDocumentsCount[index]) {
+                        missingDocumentsCount[index].style.display = "flex";
+                    }
+                } else {
+                    if (missingDocumentsCount[index]) {
+                        missingDocumentsCount[index].style.display = "flex";
+                    }
+                }
+            });
 
             statusElements.forEach(dynamicStatusColorChange => {
                 if (dynamicStatusColorChange.textContent.includes("Accepted")) {
@@ -1415,7 +1440,7 @@
                         // Render user list
                         data.users.forEach((user, index) => {
                             const isHidden = index >= 3 ? 'hidden' :
-                            ''; // Use a class instead of inline style
+                                ''; // Use a class instead of inline style
                             const userHTML = `
                         <div class="studentapplication-lists user-item ${isHidden}">
                             <div class="individualapplication-list">
@@ -1593,35 +1618,35 @@
             const referralCodeElement = document.querySelector("#screferral-id-fromprofile span");
             const overlay = document.querySelector(".sc-dashboard-generate-overlay");
 
-          const baseUrl = "/signup"; // can be full URL like "https://example.com/signup"
-const secretKey = "rJXU0e4lTP7G+KP9dH5V1pq9P7vP8d8sravZmzMGUKM=";
+            const baseUrl = "/signup"; // can be full URL like "https://example.com/signup"
+            const secretKey = "rJXU0e4lTP7G+KP9dH5V1pq9P7vP8d8sravZmzMGUKM=";
 
-if (!triggeredReferralButtons.length || !referralTriggeredView || !referralInput || !backgroundContainer ||
-    !referralCodeElement || !footerContainer || !overlay) {
-    console.error("Required DOM elements are missing for generateReferLinkPopup:", {
-        triggeredReferralButtons: !!triggeredReferralButtons.length,
-        referralTriggeredView: !!referralTriggeredView,
-        referralInput: !!referralInput,
-        backgroundContainer: !!backgroundContainer,
-        referralCodeElement: !!referralCodeElement,
-        footerContainer: !!footerContainer,
-        overlay: !!overlay
-    });
-    return;
-}
+            if (!triggeredReferralButtons.length || !referralTriggeredView || !referralInput || !backgroundContainer ||
+                !referralCodeElement || !footerContainer || !overlay) {
+                console.error("Required DOM elements are missing for generateReferLinkPopup:", {
+                    triggeredReferralButtons: !!triggeredReferralButtons.length,
+                    referralTriggeredView: !!referralTriggeredView,
+                    referralInput: !!referralInput,
+                    backgroundContainer: !!backgroundContainer,
+                    referralCodeElement: !!referralCodeElement,
+                    footerContainer: !!footerContainer,
+                    overlay: !!overlay
+                });
+                return;
+            }
 
-const referralCode = referralCodeElement.textContent.trim();
-if (!referralCode) {
-    console.error("Referral code is empty or not found");
-    return;
-}
+            const referralCode = referralCodeElement.textContent.trim();
+            if (!referralCode) {
+                console.error("Referral code is empty or not found");
+                return;
+            }
 
-// Append ?ref=... or &ref=... based on existing query string
-const url = new URL(baseUrl, window.location.origin); // baseUrl can be relative or absolute
-url.searchParams.set("ref", referralCode);
+            // Append ?ref=... or &ref=... based on existing query string
+            const url = new URL(baseUrl, window.location.origin); // baseUrl can be relative or absolute
+            url.searchParams.set("ref", referralCode);
 
-const referralLink = url.toString();
-console.log("Generated referral link:", referralLink);
+            const referralLink = url.toString();
+            console.log("Generated referral link:", referralLink);
 
             const removeExistingListeners = (element, event, handler) => {
                 element.removeEventListener(event, handler);
@@ -1726,7 +1751,8 @@ console.log("Generated referral link:", referralLink);
                             }
                         } else {
                             alert(
-                            "Sharing is not supported on this device. Please copy the link manually.");
+                                "Sharing is not supported on this device. Please copy the link manually."
+                                );
                         }
                     };
                     removeExistingListeners(shareButton, "click", shareLink);
@@ -2134,6 +2160,42 @@ console.log("Generated referral link:", referralLink);
                     console.error("Error posting data: ", error);
                 });
         };
+        async function alertDeactiveCountFromReferral() {
+    const referralCodeElem = document.querySelector("#screferral-id-fromprofile span");
+    const scuserid = referralCodeElem ? referralCodeElem.textContent.trim() : null;
+
+    if (!scuserid) {
+        alert("Referral code (scuserid) not found.");
+        return;
+    }
+
+    // alert(scuserid);
+
+    try {
+        const response = await fetch(`/queries/deactive-counts/${scuserid}`);
+        if (!response.ok) throw new Error("Failed to fetch data");
+
+        const data = await response.json();
+
+        const countNotify = document.querySelector(".unread-notify-container p");
+        if (data.deactive_count > 0 && countNotify) {
+            countNotify.style.display = "flex";
+            countNotify.textContent = data.deactive_count;
+        } else if (countNotify) {
+            countNotify.style.display = "none";
+        }
+
+        // alert(`User ${data.scuserid} has ${data.deactive_count} deactive queries.`);
+    } catch (error) {
+        console.error(error);
+        alert("Error fetching deactive count.");
+    }
+}
+
+
+
+
+
 
         const initializeScUserOneView = () => {
             const referralCodeElem = document.querySelector("#screferral-id-fromprofile span");
@@ -2345,7 +2407,7 @@ console.log("Generated referral link:", referralLink);
                 if (student.email && !isValidEmail(student.email)) {
                     console.error(
                         `Invalid email for student ${index + 1} (${student.name || 'unnamed'}): "${student.email}"`
-                        );
+                    );
                     hasInvalidEmail = true;
                 }
 
@@ -2353,7 +2415,7 @@ console.log("Generated referral link:", referralLink);
                 if (student.phone && !isValidPhone(student.phone)) {
                     console.error(
                         `Invalid phone number for student ${index + 1} (${student.name || 'unnamed'}): "${student.phone}"`
-                        );
+                    );
                     hasInvalidPhone = true;
                 }
 
@@ -2500,7 +2562,7 @@ console.log("Generated referral link:", referralLink);
                                 const secondRow = `
                         <div class="reportsindashboard-secondrow">
                             <p>Documents: ${getFinalStatus(student.nbfcs)}</p>
-                            <p>Application Date: -</p>
+                            <p>Application Date: ${student.application_date }</p>
                             <p>Proposals received: ${student.nbfcs.length}</p>
                             <p>Total Duration: -</p>
                         </div>
@@ -2601,7 +2663,7 @@ console.log("Generated referral link:", referralLink);
 
                     var user = @json(session('scuser'));
                     const email = user.email;
-                    alert(email);
+                    // alert(email);
 
 
 

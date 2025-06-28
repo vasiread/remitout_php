@@ -69,10 +69,12 @@ class ProcessUserDocuments implements ShouldQueue
         Storage::disk('s3')->put($s3Path, fopen($localZip, 'r'), ['ACL' => 'public-read']);
         $zipUrl = Storage::disk('s3')->url($s3Path);
 
-        $nbfcEmails = Nbfc::where('status', 'active')->pluck('nbfc_email');
+        $nbfcs = Nbfc::where('status', 'active')->get(['nbfc_name', 'nbfc_email']);
 
-        foreach ($nbfcEmails as $email) {
-            Mail::to($email)->send(new SendDocumentsMail($zipUrl, $this->borrower));
+        foreach ($nbfcs as $nbfc) {
+            Mail::to($nbfc->nbfc_email)->send(
+                new SendDocumentsMail($zipUrl, $this->borrower, $nbfc->nbfc_name)
+            );
         }
 
         unlink($localZip);

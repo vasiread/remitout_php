@@ -303,6 +303,9 @@ class scDashboardController extends Controller
 
     }
 
+   
+
+
     public function getStatusOfUsers(Request $request)
     {
         try {
@@ -326,12 +329,16 @@ class scDashboardController extends Controller
             foreach ($users as $user) {
                 $userId = $user->unique_id;
                 $userName = $user->name;
+                $applicationDate = \Carbon\Carbon::parse($user->created_at)->format('d-m-Y');
+
+
                 $userIds[] = $userId;
 
+                // Accepted proposals
                 $Accepted = DB::table('traceprogress')
-                    ->join('nbfc', 'traceprogress.nbfc_id', '=', 'nbfc.nbfc_id')
-                    ->where('traceprogress.user_id', $userId)
-                    ->where('traceprogress.type', 'proposal') // Only proposals
+                ->join('nbfc', 'traceprogress.nbfc_id', '=', 'nbfc.nbfc_id')
+                ->where('traceprogress.user_id', $userId)
+                    ->where('traceprogress.type', 'proposal')
                     ->whereNotNull('traceprogress.created_at')
                     ->select(
                         'nbfc.nbfc_name',
@@ -341,11 +348,10 @@ class scDashboardController extends Controller
                     )
                     ->get();
 
-
-
+                // Pending requests
                 $Pending = DB::table('requestedbyusers')
-                    ->join('nbfc', 'requestedbyusers.nbfcid', '=', 'nbfc.nbfc_id')
-                    ->where('requestedbyusers.userid', $userId)
+                ->join('nbfc', 'requestedbyusers.nbfcid', '=', 'nbfc.nbfc_id')
+                ->where('requestedbyusers.userid', $userId)
                     ->select(
                         'nbfc.nbfc_name',
                         'requestedbyusers.created_at',
@@ -354,9 +360,10 @@ class scDashboardController extends Controller
                     )
                     ->get();
 
+                // Rejected by NBFC
                 $Rejected = DB::table('rejectedbynbfc')
-                    ->join('nbfc', 'rejectedbynbfc.nbfc_id', '=', 'nbfc.nbfc_id')
-                    ->where('rejectedbynbfc.user_id', $userId)
+                ->join('nbfc', 'rejectedbynbfc.nbfc_id', '=', 'nbfc.nbfc_id')
+                ->where('rejectedbynbfc.user_id', $userId)
                     ->select(
                         'nbfc.nbfc_name',
                         'rejectedbynbfc.created_at',
@@ -365,6 +372,7 @@ class scDashboardController extends Controller
                     )
                     ->get();
 
+                // Merge all three status types
                 $merged = collect($Accepted)->merge($Pending)->merge($Rejected);
 
                 foreach ($merged as $status) {
@@ -372,6 +380,7 @@ class scDashboardController extends Controller
                         'user_id' => $status->user_id,
                         'nbfc_name' => $status->nbfc_name,
                         'userName' => $userName,
+                        'application_date' => $applicationDate,
                         'status_type' => $status->status_type,
                         'created_at' => $status->created_at,
                     ];
@@ -382,11 +391,12 @@ class scDashboardController extends Controller
                 return response()->json(['message' => 'No statuses found for users'], 404);
             }
 
-            // Grouping: user_id -> nbfc_name -> statuses (newest first)
+            // Group by user_id, then group statuses by NBFC
             $grouped = collect($allStatuses)
                 ->groupBy('user_id')
                 ->map(function ($userStatuses, $userId) {
                     $userName = $userStatuses->first()['userName'] ?? null;
+                    $applicationDate = $userStatuses->first()['application_date'] ?? null;
 
                     $nbfcGrouped = collect($userStatuses)
                         ->groupBy('nbfc_name')
@@ -413,14 +423,15 @@ class scDashboardController extends Controller
                     return [
                         'user_id' => $userId,
                         'userName' => $userName,
+                        'application_date' => $applicationDate,
                         'nbfcs' => $nbfcGrouped,
                     ];
                 })
                 ->values();
 
-            // Count all proposals for all users
+            // Count total proposals
             $ProposalCount = DB::table('traceprogress')
-                ->whereIn('traceprogress.user_id', $userIds)
+            ->whereIn('traceprogress.user_id', $userIds)
                 ->count();
 
             return response()->json([
@@ -437,34 +448,6 @@ class scDashboardController extends Controller
         }
     }
 
-
-    public function retrieveScProfilePicture(Request $request)
-    {
-        $request->validate([
-            'scuserrefid' => 'required|string',
-        ]);
-
-        $scuserrefid = $request->input('scuserrefid');
-
-        $filePath = "Student_Counsellor/$scuserrefid/Profile_photoes";
-
-        $files = Storage::disk('s3')->files($filePath);
-
-        if (!empty($files)) {
-            $file = $files[0];
-
-            $fileUrl = Storage::disk('s3')->url($file);
-
-            return response()->json([
-                'message' => 'Profile picture retrieved successfully.',
-                'fileUrl' => $fileUrl,
-            ], 200);
-        }
-
-        return response()->json([
-            'message' => 'No profile picture found for this user.',
-        ], 404);
-    }
 
 
     public function uploadScUserDetails(Request $request)
@@ -836,6 +819,18 @@ class scDashboardController extends Controller
             ], 500);
         }
     }
+    public function countDeactiveQueriesByUser($scuserid)
+    {
+        $count = Queries::where('status', 'deactive')
+        ->where('scuserid', $scuserid)
+            ->count();
+
+        return response()->json([
+            'scuserid' => $scuserid,
+            'deactive_count' => $count
+        ]);
+    }
+
 
 
 }

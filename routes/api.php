@@ -269,3 +269,6 @@ Route::delete('/logo/delete/{logoId}', [AdminController::class, 'deleteLogo']);
 
 
 Route::post('/messages/mark-all-read',[StudentDashboardController::class, 'markAllAsRead']);
+
+
+Route::get('/queries/deactive-counts/{scuserid}', [scDashboardController::class, 'countDeactiveQueriesByUser']);

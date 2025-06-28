@@ -3,25 +3,22 @@
 
 <head>
     <title>User Profile Report</title>
-    <!-- Preload Poppins Font -->
-    <link rel="preload"
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        as="style" onload="this.onload=null;this.rel='stylesheet'">
     <style>
         body {
-            font-family: Poppins;
-
+            font-family: 'Poppins', Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 20px;
         }
 
-        h1 {
-            color: rgba(93, 92, 92, 1);
-            font-weight: 500;
-            font-size: 1rem;
+        h1, h2, h3, h4, h5 {
+            color: #2d2d2d;
+            font-weight: 600;
+            margin-bottom: 8px;
         }
 
         table {
             width: 100%;
-            max-width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
@@ -30,130 +27,70 @@
         td {
             padding: 8px;
             text-align: left;
-        }
-
-        td {
-            color: rgba(93, 92, 92, 1);
+            font-size: 14px;
+            border-bottom: 1px solid #ddd;
         }
 
         th {
-            background-color: transparent;
-            color: rgba(93, 92, 92, 1);
-            font-family: Poppins;
-            font-weight: 500;
-
+            background-color: #f5f5f5;
+            color: #333;
+            font-weight: 600;
         }
 
         .header-export {
             display: flex;
-            height: 45px;
-            max-width: 100%;
-            width: 100%;
             justify-content: space-between;
             align-items: center;
-
-        }
-
-        .rightside-header {
-            display: flex;
-            gap: 1rem;
-
-        }
-
-        .rightside-header p {
-            font-family: Poppins;
-            font-weight: 500;
-            font-size: 12px;
-            line-height: 18.36px;
-            letter-spacing: 0%;
-            color: rgba(93, 92, 92, 1);
-
-        }
-
-        .authordiv,
-        .designation {
-            display: flex;
-            flex-direction: column;
-
-
+            height: 45px;
         }
 
         .secondheader-export {
             display: flex;
-            max-width: 100%;
-            width: 100%;
             justify-content: space-between;
-
+            margin-top: 1rem;
         }
 
         .secondheader-export h2 {
-            font-family: Poppins;
-            font-weight: 500;
             font-size: 24px;
             color: rgba(233, 134, 53, 1);
-
+            font-weight: 600;
         }
 
         .header-group {
-            max-width: 100%;
-            width: 100%;
-            padding: 0 5px;
-            display: flex;
-            flex-direction: column;
-            gap: 226px;
-            padding: 12px 0;
-            margin-top: 1rem;
             border-bottom: 1px solid rgba(217, 217, 217, 1);
-
+            padding-bottom: 12px;
         }
 
         .registrationexport-section h1 {
-            font-family: Poppins;
-            font-weight: 500;
             font-size: 16px;
-            line-height: 18.36px;
-            color: rgba(93, 92, 92, 1);
-
+            font-weight: 600;
+            margin-top: 40px;
         }
 
         .export-results {
             display: flex;
             flex-direction: column;
-            gap: 55px;
-
         }
 
         .footer-group {
             display: flex;
-            padding-top: 1rem;
+            padding-top: 2rem;
             border-top: 1px solid rgba(217, 217, 217, 1);
             justify-content: flex-start;
+            margin-top: 40px;
         }
-
-        /* .rightside-header  */
     </style>
-    <link rel="stylesheet" href="{{ public_path('css/app.css') }}">
-
 </head>
 
 <body>
     <div class="export-container">
         <div class="header-group">
             <div class="header-export">
-<img src="{{ public_path('assets/images/Icons/remitoutlogo.png') }}" alt="">
-
-               
-
-
+                <img src="{{ public_path('assets/images/Icons/remitoutlogo.png') }}" alt="Logo" height="40">
             </div>
             <div class="secondheader-export">
-                <h2>
-                    Dashboard Reports
-
-                </h2>
-                <h2>
-                    {{$exportMonth}}
-                </h2>
+                <h2>Dashboard Reports</h2>
+                <h2>{{ $exportMonth }}</h2>
             </div>
         </div>
 
@@ -166,23 +103,22 @@
                             <th>Date</th>
                             <th>Name</th>
                             <th>Type</th>
-
                             <th>Linked Through</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($downloadProgressReport as $record)
                             <tr>
-                                <td>{{ $record['name'] }}</td>
                                 <td>{{ $record['created_at'] ?? 'N/A' }}</td>
+                                <td>{{ $record['name'] }}</td>
                                 <td>{{ $record['type'] ?? 'N/A' }}</td>
                                 <td>{{ $record['linked_through'] ?? 'N/A' }}</td>
-
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
+
             <div class="registrationexport-section">
                 <h1>Registration</h1>
                 <table>
@@ -213,10 +149,6 @@
                 </table>
             </div>
 
-
-
-
-
             <div class="registrationexport-section">
                 <h1>City Stats</h1>
                 <table>
@@ -244,6 +176,7 @@
                     </tbody>
                 </table>
             </div>
+
             <div class="registrationexport-section">
                 <h1>Destination Countries</h1>
                 <table>
@@ -269,6 +202,7 @@
                     </tbody>
                 </table>
             </div>
+
             <div class="registrationexport-section">
                 <h1>Referrals Report</h1>
                 <table>
@@ -296,24 +230,12 @@
                     </tbody>
                 </table>
             </div>
-            
-
-
-
-
         </div>
+
         <div class="footer-group">
-            <img src="{{ public_path('assets/images/Icons/remitoutlogo.png') }}" alt="">
-
-
+            <img src="{{ public_path('assets/images/Icons/remitoutlogo.png') }}" alt="Footer Logo" height="30">
         </div>
-
     </div>
-
-
-
-
-
 </body>
 
 </html>

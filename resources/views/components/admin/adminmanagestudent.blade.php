@@ -421,8 +421,8 @@
                 const date = document.getElementById('filter-date').value;
 
                 filteredData = fullData.filter(student => {
-                    const studentDate = convertDateFormat(student.date);
-                    const filterDate = date ? date : null;
+    const registrationDate = convertDateFormat(student.dateOfRegistration);
+    const filterDate = date ? date : null;
 
                     return (
                         (nbfc === '' || student.nbfc === nbfc) &&
@@ -431,7 +431,7 @@
                         (city === '' || student.city === city) &&
                         (state === '' || student.state === state) &&
                         (country === '' || student.country === country) &&
-                        (!filterDate || studentDate === filterDate)
+                        (!filterDate || registrationDate  === filterDate)
                     );
                 });
                 currentPage = 1;
