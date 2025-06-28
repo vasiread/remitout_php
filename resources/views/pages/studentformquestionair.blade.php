@@ -1111,7 +1111,7 @@
                 </div>
 
 
-                @foreach ($documentTypes as $doc)
+                @foreach ($documentTypes->where('slug', 'kyc') as $doc)
                     @php
                         $fileUrl = $userDocumentUrls[$doc->id] ?? null;
 
@@ -1239,6 +1239,44 @@
                         </div>
                     </div>
                 </div>
+                  @foreach ($documentTypes->where('slug', 'academic') as $doc)
+                    @php
+                        $fileUrl = $userDocumentUrls[$doc->id] ?? null;
+
+                        // Extract file name if URL is available
+                        $actualFileName = $fileUrl ? basename($fileUrl) : 'No file chosen';
+                    @endphp
+
+                    <div class="document-box">
+                        <div class="document-name" id="{{ $doc->key }}-document-name">{{ $doc->key }}
+                        </div>
+                        <div class="upload-field">
+                            <span id="{{ $doc->key }}-name">{{ $actualFileName }}</span>
+                            <label for="{{ $doc->key }}" class="upload-icon"
+                                id="{{ $doc->key }}-upload-icon">
+                                <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
+                            </label>
+                            <input type="file" id="{{ $doc->key }}"
+                                name="dynamic_documents[{{ $doc->key }}]" accept=".jpg, .png, .pdf"
+                                onchange="handleFileUpload(event, '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')" />
+
+
+
+                            <span id="{{ $doc->key }}-remove-icon" class="remove-icon" style="display: none;"
+                                onclick="removeFile('{{ $doc->key }}', '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')">✖</span>
+                        </div>
+                        <div class="info">
+                            <span class="help-trigger" data-target="{{ $doc->key }}-help">ⓘ Help</span>
+                            <span>*jpg, png, pdf formats</span>
+                        </div>
+                        <div class="help-container {{ $doc->key }}-help" style="display: none;">
+                            <h3 class="help-title">Help</h3>
+                            <div class="help-content">
+                                <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -1328,6 +1366,44 @@
                         </div>
                     </div>
                 </div>
+                  @foreach ($documentTypes->where('slug', 'secured') as $doc)
+                    @php
+                        $fileUrl = $userDocumentUrls[$doc->id] ?? null;
+
+                        // Extract file name if URL is available
+                        $actualFileName = $fileUrl ? basename($fileUrl) : 'No file chosen';
+                    @endphp
+
+                    <div class="document-box">
+                        <div class="document-name" id="{{ $doc->key }}-document-name">{{ $doc->key }}
+                        </div>
+                        <div class="upload-field">
+                            <span id="{{ $doc->key }}-name">{{ $actualFileName }}</span>
+                            <label for="{{ $doc->key }}" class="upload-icon"
+                                id="{{ $doc->key }}-upload-icon">
+                                <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
+                            </label>
+                            <input type="file" id="{{ $doc->key }}"
+                                name="dynamic_documents[{{ $doc->key }}]" accept=".jpg, .png, .pdf"
+                                onchange="handleFileUpload(event, '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')" />
+
+
+
+                            <span id="{{ $doc->key }}-remove-icon" class="remove-icon" style="display: none;"
+                                onclick="removeFile('{{ $doc->key }}', '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')">✖</span>
+                        </div>
+                        <div class="info">
+                            <span class="help-trigger" data-target="{{ $doc->key }}-help">ⓘ Help</span>
+                            <span>*jpg, png, pdf formats</span>
+                        </div>
+                        <div class="help-container {{ $doc->key }}-help" style="display: none;">
+                            <h3 class="help-title">Help</h3>
+                            <div class="help-content">
+                                <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -1443,6 +1519,44 @@
                         </div>
                     </div>
                 </div>
+                  @foreach ($documentTypes->where('slug', 'experience') as $doc)
+                    @php
+                        $fileUrl = $userDocumentUrls[$doc->id] ?? null;
+
+                        // Extract file name if URL is available
+                        $actualFileName = $fileUrl ? basename($fileUrl) : 'No file chosen';
+                    @endphp
+
+                    <div class="work-experience-box">
+                        <div class="document-name" id="{{ $doc->key }}-document-name">{{ $doc->key }}
+                        </div>
+                        <div class="upload-field">
+                            <span id="{{ $doc->key }}-name">{{ $actualFileName }}</span>
+                            <label for="{{ $doc->key }}" class="upload-icon"
+                                id="{{ $doc->key }}-upload-icon">
+                                <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
+                            </label>
+                            <input type="file" id="{{ $doc->key }}"
+                                name="dynamic_documents[{{ $doc->key }}]" accept=".jpg, .png, .pdf"
+                                onchange="handleFileUpload(event, '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')" />
+
+
+
+                            <span id="{{ $doc->key }}-remove-icon" class="remove-icon" style="display: none;"
+                                onclick="removeFile('{{ $doc->key }}', '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')">✖</span>
+                        </div>
+                        <div class="info">
+                            <span class="help-trigger" data-target="{{ $doc->key }}-help">ⓘ Help</span>
+                            <span>*jpg, png, pdf formats</span>
+                        </div>
+                        <div class="help-container {{ $doc->key }}-help" style="display: none;">
+                            <h3 class="help-title">Help</h3>
+                            <div class="help-content">
+                                <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
 
 
@@ -1531,6 +1645,44 @@
                         </div>
                     </div>
                 </div>
+                  @foreach ($documentTypes->where('slug', 'co-borrower') as $doc)
+                    @php
+                        $fileUrl = $userDocumentUrls[$doc->id] ?? null;
+
+                        // Extract file name if URL is available
+                        $actualFileName = $fileUrl ? basename($fileUrl) : 'No file chosen';
+                    @endphp
+
+                    <div class="document-box">
+                        <div class="document-name" id="{{ $doc->key }}-document-name">{{ $doc->key }}
+                        </div>
+                        <div class="upload-field">
+                            <span id="{{ $doc->key }}-name">{{ $actualFileName }}</span>
+                            <label for="{{ $doc->key }}" class="upload-icon"
+                                id="{{ $doc->key }}-upload-icon">
+                                <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
+                            </label>
+                            <input type="file" id="{{ $doc->key }}"
+                                name="dynamic_documents[{{ $doc->key }}]" accept=".jpg, .png, .pdf"
+                                onchange="handleFileUpload(event, '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')" />
+
+
+
+                            <span id="{{ $doc->key }}-remove-icon" class="remove-icon" style="display: none;"
+                                onclick="removeFile('{{ $doc->key }}', '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')">✖</span>
+                        </div>
+                        <div class="info">
+                            <span class="help-trigger" data-target="{{ $doc->key }}-help">ⓘ Help</span>
+                            <span>*jpg, png, pdf formats</span>
+                        </div>
+                        <div class="help-container {{ $doc->key }}-help" style="display: none;">
+                            <h3 class="help-title">Help</h3>
+                            <div class="help-content">
+                                <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
 
 
             </div>
@@ -1628,6 +1780,45 @@
                         </div>
                     </div>
                 </div>
+                  @foreach ($documentTypes->where('slug', 'salary-document') as $doc)
+                    @php
+                        $fileUrl = $userDocumentUrls[$doc->id] ?? null;
+
+                        // Extract file name if URL is available
+                        $actualFileName = $fileUrl ? basename($fileUrl) : 'No file chosen';
+                    @endphp
+
+                    <div class="salary-upload-box">
+                        <div class="document-name" id="{{ $doc->key }}-document-name">{{ $doc->key }}
+                        </div>
+                        <div class="upload-field">
+                            <span id="{{ $doc->key }}-name">{{ $actualFileName }}</span>
+                            <label for="{{ $doc->key }}" class="upload-icon"
+                                id="{{ $doc->key }}-upload-icon">
+                                <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
+                            </label>
+                            <input type="file" id="{{ $doc->key }}"
+                                name="dynamic_documents[{{ $doc->key }}]" accept=".jpg, .png, .pdf"
+                                onchange="handleFileUpload(event, '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')" />
+
+
+
+                            <span id="{{ $doc->key }}-remove-icon" class="remove-icon" style="display: none;"
+                                onclick="removeFile('{{ $doc->key }}', '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')">✖</span>
+                        </div>
+                        <div class="info">
+                            <span class="help-trigger" data-target="{{ $doc->key }}-help">ⓘ Help</span>
+                            <span>*jpg, png, pdf formats</span>
+                        </div>
+                        <div class="help-container {{ $doc->key }}-help" style="display: none;">
+                            <h3 class="help-title">Help</h3>
+                            <div class="help-content">
+                                <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                
             </div>
 
             <div class="salary-sub">
@@ -1714,6 +1905,43 @@
                     </div>
                     <button type="submit" class="next-btn-kyc" id="saveandsubmit">Save and Submit</button>
                 </div>
+                  @foreach ($documentTypes->where('slug', 'business-document') as $doc)
+                    @php
+                        $fileUrl = $userDocumentUrls[$doc->id] ?? null;
+
+                         $actualFileName = $fileUrl ? basename($fileUrl) : 'No file chosen';
+                    @endphp
+
+                    <div class="salary-upload-box">
+                        <div class="document-name" id="{{ $doc->key }}-document-name">{{ $doc->key }}
+                        </div>
+                        <div class="upload-field">
+                            <span id="{{ $doc->key }}-name">{{ $actualFileName }}</span>
+                            <label for="{{ $doc->key }}" class="upload-icon"
+                                id="{{ $doc->key }}-upload-icon">
+                                <img src="assets/images/upload.png" alt="Upload Icon" width="24" />
+                            </label>
+                            <input type="file" id="{{ $doc->key }}"
+                                name="dynamic_documents[{{ $doc->key }}]" accept=".jpg, .png, .pdf"
+                                onchange="handleFileUpload(event, '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')" />
+
+
+
+                            <span id="{{ $doc->key }}-remove-icon" class="remove-icon" style="display: none;"
+                                onclick="removeFile('{{ $doc->key }}', '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')">✖</span>
+                        </div>
+                        <div class="info">
+                            <span class="help-trigger" data-target="{{ $doc->key }}-help">ⓘ Help</span>
+                            <span>*jpg, png, pdf formats</span>
+                        </div>
+                        <div class="help-container {{ $doc->key }}-help" style="display: none;">
+                            <h3 class="help-title">Help</h3>
+                            <div class="help-content">
+                                <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
 
 
             </div>
