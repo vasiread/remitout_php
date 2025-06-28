@@ -2663,7 +2663,145 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(err => console.error("Error loading static uploads:", err));
     }
 
+    let selectedCollege = null;
 
+    const fallbackColleges = [
+        { Name: "Aligarh Muslim University", State: "Uttar Pradesh", City: "Aligarh" },
+        { Name: "Amity University", State: "Uttar Pradesh", City: "Noida" },
+        { Name: "Anna University", State: "Tamil Nadu", City: "Chennai" },
+        { Name: "Banaras Hindu University", State: "Uttar Pradesh", City: "Varanasi" },
+        { Name: "Birla Institute of Technology and Science, Pilani", State: "Rajasthan", City: "Pilani" },
+        { Name: "Christ University", State: "Karnataka", City: "Bangalore" },
+        { Name: "Delhi Technological University", State: "Delhi", City: "New Delhi" },
+        { Name: "Hindu College, University of Delhi", State: "Delhi", City: "New Delhi" },
+        { Name: "Indian Institute of Management, Ahmedabad", State: "Gujarat", City: "Ahmedabad" },
+        { Name: "Indian Institute of Management, Bangalore", State: "Karnataka", City: "Bangalore" },
+        { Name: "Indian Institute of Management, Calcutta", State: "West Bengal", City: "Kolkata" },
+        { Name: "Indian Institute of Science, Bangalore", State: "Karnataka", City: "Bangalore" },
+        { Name: "Indian Institute of Technology, Bhubaneswar", State: "Odisha", City: "Bhubaneswar" },
+        { Name: "Indian Institute of Technology, Bombay", State: "Maharashtra", City: "Mumbai" },
+        { Name: "Indian Institute of Technology, Delhi", State: "Delhi", City: "New Delhi" },
+        { Name: "Indian Institute of Technology, Gandhinagar", State: "Gujarat", City: "Gandhinagar" },
+        { Name: "Indian Institute of Technology, Guwahati", State: "Assam", City: "Guwahati" },
+        { Name: "Indian Institute of Technology, Hyderabad", State: "Telangana", City: "Hyderabad" },
+        { Name: "Indian Institute of Technology, Kanpur", State: "Uttar Pradesh", City: "Kanpur" },
+        { Name: "Indian Institute of Technology, Kharagpur", State: "West Bengal", City: "Kharagpur" },
+        { Name: "Indian Institute of Technology, Madras", State: "Tamil Nadu", City: "Chennai" },
+        { Name: "Indian Institute of Technology, Roorkee", State: "Uttarakhand", City: "Roorkee" },
+        { Name: "Jadavpur University", State: "West Bengal", City: "Kolkata" },
+        { Name: "Jamia Millia Islamia", State: "Delhi", City: "New Delhi" },
+        { Name: "Jawaharlal Nehru University", State: "Delhi", City: "New Delhi" },
+        { Name: "Kalinga Institute of Industrial Technology", State: "Odisha", City: "Bhubaneswar" },
+        { Name: "Lady Shri Ram College for Women", State: "Delhi", City: "New Delhi" },
+        { Name: "Loyola College", State: "Tamil Nadu", City: "Chennai" },
+        { Name: "Madras Christian College", State: "Tamil Nadu", City: "Chennai" },
+        { Name: "Mahatma Gandhi University", State: "Kerala", City: "Kottayam" },
+        { Name: "Manipal Academy of Higher Education", State: "Karnataka", City: "Manipal" },
+        { Name: "Miranda House, University of Delhi", State: "Delhi", City: "New Delhi" },
+        { Name: "National Institute of Technology, Calicut", State: "Kerala", City: "Kozhikode" },
+        { Name: "National Institute of Technology, Karnataka, Surathkal", State: "Karnataka", City: "Mangalore" },
+        { Name: "National Institute of Technology, Tiruchirappalli", State: "Tamil Nadu", City: "Tiruchirappalli" },
+        { Name: "Osmania University", State: "Telangana", City: "Hyderabad" },
+        { Name: "Panjab University", State: "Punjab", City: "Chandigarh" },
+        { Name: "Presidency College", State: "Tamil Nadu", City: "Chennai" },
+        { Name: "PSG College of Technology", State: "Tamil Nadu", City: "Coimbatore" },
+        { Name: "Ramaiah Institute of Technology", State: "Karnataka", City: "Bangalore" },
+        { Name: "Saveetha Institute of Medical and Technical Sciences", State: "Tamil Nadu", City: "Chennai" },
+        { Name: "Shoolini University", State: "Himachal Pradesh", City: "Solan" },
+        { Name: "Sikkim Manipal University", State: "Sikkim", City: "Gangtok" },
+        { Name: "Sri Ram College of Commerce, University of Delhi", State: "Delhi", City: "New Delhi" },
+        { Name: "St. Stephen’s College, University of Delhi", State: "Delhi", City: "New Delhi" },
+        { Name: "Symbiosis International University", State: "Maharashtra", City: "Pune" },
+        { Name: "Thapar Institute of Engineering and Technology", State: "Punjab", City: "Patiala" },
+        { Name: "University of Calcutta", State: "West Bengal", City: "Kolkata" },
+        { Name: "University of Delhi", State: "Delhi", City: "New Delhi" },
+        { Name: "Vellore Institute of Technology", State: "Tamil Nadu", City: "Vellore" }
+    ];
+    
+    async function fetchColleges(query = "") {
+        try {
+            const url = query 
+                ? `https://colleges-api.onrender.com/colleges?search=${encodeURIComponent(query)}`
+                : `https://colleges-api.onrender.com/colleges`;
+            const response = await fetch(url, {
+                method: "GET",
+                headers: { "Accept": "application/json" },
+                mode: "cors",
+                cache: "no-cache"
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            if (!Array.isArray(data.colleges)) {
+                return [];
+            }
+            return data.colleges.length > 0 ? data.colleges : fallbackColleges;
+        } catch (error) {
+            return query 
+                ? fallbackColleges.filter(college => 
+                    college.Name.toLowerCase().includes(query.toLowerCase())
+                  )
+                : fallbackColleges;
+        }
+    }
+    
+    const universityInput = document.getElementById("universityschoolid");
+    const universitySuggestionsContainer = document.getElementById("suggestions-university");
+    
+    if (!universityInput || !universitySuggestionsContainer) {
+        showToast("Error: University input field not found.");
+    } else {
+        let debounceTimeout;
+        universityInput.addEventListener("input", () => {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(async () => {
+                const inputValue = universityInput.value.trim();
+                const colleges = await fetchColleges(inputValue);
+                const matchedColleges = colleges.map(college => {
+                    const display = `${college.Name} (${college.City}, ${college.State})`;
+                    return {
+                        name: college.Name,
+                        state: college.State,
+                        city: college.City,
+                        display
+                    };
+                }).filter(college => college.name && college.display);
+                displaySuggestions(
+                    matchedColleges,
+                    universitySuggestionsContainer,
+                    universityInput,
+                    (selected) => {
+                        universityInput.value = selected.name;
+                        selectedCollege = selected;
+                        universitySuggestionsContainer.style.display = "none";
+                    }
+                );
+            }, 100);
+        });
+    }
+    
+    function displaySuggestions(suggestions, container, inputField, onSelectCallback) {
+        container.innerHTML = "";
+        if (suggestions.length > 0) {
+            suggestions.forEach((suggestion) => {
+                const suggestionElement = document.createElement("div");
+                suggestionElement.classList.add("suggestion");
+                suggestionElement.textContent = suggestion.display || suggestion;
+                suggestionElement.addEventListener("click", () => {
+                    inputField.value = suggestion.name || suggestion;
+                    container.style.display = "none";
+                    if (onSelectCallback) {
+                        onSelectCallback(suggestion);
+                    }
+                });
+                container.appendChild(suggestionElement);
+            });
+            container.style.display = "block";
+        } else {
+            container.style.display = "none";
+        }
+    }
 
 
 });
