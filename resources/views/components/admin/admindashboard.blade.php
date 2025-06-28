@@ -64,8 +64,8 @@
             <div class="referral-triggered-view hidden" id="referralModal">
                 <div class="referral-triggered-view-headersection">
                     <h3>Generate Referral Link</h3>
-                    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Close Icon"
-                        class="close-icon" id="closeModal">
+                    <p alt="Close Icon"
+                        class="close-icon" id="closeModal"> x </p>
                 </div>
                 <div class="referral-triggered-view-content">
                     <input type="text" id="referralLink" placeholder="Copy Link here">
@@ -2641,7 +2641,7 @@
             </button>
             <div class="button-group">
                 <div class="copy-button-container">
-                    <button id="copyBtn">
+                    <button id="copyBtn" style="background-color:transparent;border: 1px solid rgba(111, 37, 206, 1);color:rgba(52, 52, 52, 1);border-radius:4px">
                         <img src="assets/images/content_copy-icon.png" alt="Copy Icon" class="copy-icon">
                         Copy Link
                     </button>

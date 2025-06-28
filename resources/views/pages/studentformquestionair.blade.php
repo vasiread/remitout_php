@@ -973,7 +973,8 @@
             <div class="step-number">02</div>
             <h2>What is the gross monthly income of co-borrower?</h2>
         </div>
-        <input type="text" id="income-co-borrower" placeholder=" ₹ Rupees in thousands" value="{{$coInfoValues->co_borrower_income}}" />
+        <input type="text" id="income-co-borrower" placeholder=" ₹ Rupees in thousands" value="{{ $coInfoValues->co_borrower_income ?? '' }}
+" />
         <p class="minimum-amount">*minimum amount of 30k after liabilities for eligibility</p>
         <span id="income-error-message" class="error-message" style="display:none; color:red;">Please enter a valid
             numeric
@@ -1007,7 +1008,7 @@
                     <div class="emi-content">
                         <p class="amount-thousand-mobile">Enter the amount in thousands</p>
                         <input type="text" id="emi-amount" class="emi-content-container"
-                            placeholder="Enter EMI amount" value={{$coInfoValues->co_borrower_monthly_liability}} disabled />
+                            placeholder="Enter EMI amount"      value="{{ $coInfoValues->co_borrower_monthly_liability ?? '' }}"  disabled />
                         <span id="emi-error-message" class="error-message" style="display:none; color:red;">Please
                             enter
                             a valid EMI

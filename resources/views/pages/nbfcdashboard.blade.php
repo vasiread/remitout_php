@@ -830,6 +830,8 @@
                 const inboxBtn = document.querySelector('.nbfc-mobile-menu-top li:nth-child(2)'); // Inbox
                 const dashboardContainer = document.querySelector('.dashboard-sections-container');
                 const inboxContainer = document.querySelector('#index-section-id-nbfc');
+                const notificationButton = document.querySelector('.nbfc-dark-mode');
+
                 const requestsData = [
 
                 ];
@@ -837,6 +839,60 @@
                 const proposalsData = [
 
                 ];
+                if (notificationButton) {
+                    notificationButton.addEventListener('click', () => {
+                        document.querySelector('.dashboard-sections-container').style.display = 'none';
+                        document.querySelector('#nbfc-student-profile-details').style.display = 'none';
+                        document.querySelector('.wholeapplicationprofile').style.display = 'none';
+
+                        // Show the Inbox
+                        document.querySelector('#index-section-id-nbfc').style.display = 'flex';
+
+                        // Set active tab style
+                        document.querySelectorAll(".nbfcstudentdashboardprofile-sidebarlists-top li").forEach(
+                            item => {
+                                item.classList.remove('nbfcactive');
+                            });
+                        document.querySelector(".nbfcstudentdashboardprofile-sidebarlists-top li:nth-child(2)")
+                            .classList.add('nbfcactive');
+
+                        seenMessage();
+
+                    });
+                }
+
+                function seenMessage() {
+
+                    var user = @json(session('nbfcuser'));
+
+                    if (user && user.nbfc_id) {
+                        let nbfcId = user.nbfc_id;
+                        const userId = nbfcId;
+
+
+
+
+                        fetch('/messages/mark-all-read', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                        'content')
+                                },
+                                body: JSON.stringify({
+                                    userId
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log('Messages marked as read:', data);
+                            })
+                            .catch(error => {
+                                console.error('Error marking messages as read:', error);
+                            });
+
+                    }
+                }
 
 
 
@@ -987,6 +1043,8 @@
 
                     // Set active tab
                     setActiveTab(inboxBtn);
+
+                    seenMessage();
 
                     // Hide wholeContainer only if inboxBtn is the active tab
                     if (inboxBtn.classList.contains('active')) {
@@ -1300,14 +1358,16 @@
                                             requestsData.push({
                                                 id: index + 1,
                                                 name: item.name,
-                                                studentId: item.unique_id
+                                                studentId: item.unique_id,
+                                                origin: 'request'
                                             });
                                         } else if (item.type === 'proposal') {
                                             // Push into proposalsData
                                             proposalsData.push({
                                                 id: index + 1,
                                                 name: item.name,
-                                                studentId: item.unique_id
+                                                studentId: item.unique_id,
+                                                origin: 'proposal'
                                             });
                                         }
                                     }
@@ -1466,6 +1526,13 @@
 
                         isProfileLoading = true;
                         isProfileVisible = true;
+                        if (student.origin === 'proposal') {
+                            document.querySelector(".myapplication-nbfcapprovalcolumn").style.display =
+                                "none";
+                        } else {
+                            document.querySelector(".myapplication-nbfcapprovalcolumn").style.display =
+                                "flex";
+                        }
 
                         const wholeContainer = document.querySelector(".wholeapplicationprofile");
                         const requestSendContainer = document.querySelector(
@@ -1507,6 +1574,13 @@
 
                             Loader.show();
                             isProfileLoading = true;
+                            if (student.origin === 'proposal') {
+                                document.querySelector(".myapplication-nbfcapprovalcolumn").style.display =
+                                    "none";
+                            } else {
+                                document.querySelector(".myapplication-nbfcapprovalcolumn").style.display =
+                                    "flex";
+                            }
 
                             try {
                                 await Promise.all([
@@ -1527,7 +1601,6 @@
 
                     const loader = document.createElement('div');
                     loader.classList.add('loader');
-                    loader.textContent = 'Loading.....';
                     loader.style.display = 'none';
                     listItem.appendChild(loader);
 

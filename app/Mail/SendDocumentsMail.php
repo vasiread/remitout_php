@@ -13,12 +13,14 @@ class SendDocumentsMail extends Mailable
 
       public $zipUrl;
     public $name;
+    public $nbfc_name;
 
-    public function __construct($zipUrl, $name)
+    public function __construct($zipUrl, $name,$nbfc_name)
     { 
 
        $this->zipUrl = $zipUrl;
         $this->name = $name;
+        $this->nbfc_name = $nbfc_name;
 
 
     }
@@ -30,6 +32,7 @@ class SendDocumentsMail extends Mailable
             ->with([
                 'name' => $this->name,
                 'zipUrl' => $this->zipUrl,
+                'nbfc_name'=>$this->nbfc_name
             ]);
     }
     

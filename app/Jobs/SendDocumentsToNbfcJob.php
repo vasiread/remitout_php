@@ -24,12 +24,15 @@ class SendDocumentsToNbfcJob implements ShouldQueue
     protected $email;
     protected $zipUrl;
     protected $name;
+    protected $nbfc_name;
 
-    public function __construct($email, $zipUrl, $name)
+    public function __construct($email, $zipUrl, $name, $nbfc_name)
     {
         $this->email = $email;
         $this->zipUrl = $zipUrl;
+        
         $this->name = $name;
+        $this->$nbfc_name = $$nbfc_name;
     }
 
     /**
@@ -39,7 +42,7 @@ class SendDocumentsToNbfcJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email)->send(new SendDocumentsMail($this->zipUrl, $this->name));
+        Mail::to($this->email)->send(new SendDocumentsMail($this->zipUrl, $this->name,$this->nbfc_name));
 
     }
 }

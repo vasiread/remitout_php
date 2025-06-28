@@ -4,9 +4,13 @@
     <title>Your Documents</title>
 </head>
 <body>
-    <p>Hi {{ $name }},</p>
-    <p>Your documents are ready. Click the link below to download them:</p>
-    <p><a href="{{ $zipUrl }}" target="_blank">Download Documents</a></p>
-    <p>Note: This link will expire in 2 hours.</p>
-</body>
+<p>Dear {{ $nbfc_name }} Team,</p>
+
+<p>Please find the student’s proposal documents attached below:</p>
+
+<p>
+    <a href="{{ $zipUrl }}" target="_blank">Download Proposal Documents</a>
+</p>
+
+ </body>
 </html>

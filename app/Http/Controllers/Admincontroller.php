@@ -603,7 +603,8 @@ class Admincontroller extends Controller
             $mergedDetails = [];
 
             foreach ($users as $user) {
-                $personalInfo = $user->personalInfo;
+                $personalInfo = PersonalInfo::where('user_id', $user->unique_id)->first();
+                $courseInfo = CourseInfo::where('user_id', $user->unique_id)->first();
                 $courseInfos = $user->courseInfo;
 
                 $studentCounsellorName = $referralMap[$user->referral_code] ?? null;
@@ -622,8 +623,8 @@ class Admincontroller extends Controller
                     'state' => $personalInfo->state ?? null,
                     'PointOfEntry' => $personalInfo->linked_through ?? null,
                     'phone_number' => $user->phone,
-                    'degree_type' => null,
-                    'loan_amount' => null,
+                    'degree_type' => $courseInfo->{'degree-type'} ?? null,
+                    'loan_amount' => $courseInfo->{'loan_amount_in_lakhs'} ?? null,
                     'course_info' => [],
                     'proposal_count' => $user->requestProgress->count(),
                     'registration_date' => $user->created_at?->format('d/m/Y'),

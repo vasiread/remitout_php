@@ -24,13 +24,14 @@ class PersonalInfo extends Model
 
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id', 'unique_id');  // user_id in PersonalInfo references id in User
-    }
+  
     public function courseInfo()
     {
         return $this->hasOne(CourseInfo::class, 'user_id', 'user_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id'); // ✅ match the real keys
     }
 
 }
