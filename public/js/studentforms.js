@@ -2612,7 +2612,14 @@ document.addEventListener("DOMContentLoaded", () => {
             { fileType: "work-experience-joining-letter", inputId: "work-experience-fourth" },
             { fileType: "co-pan-card-name", inputId: "co-pan-card", uploadIconId: "co-upload-icon", removeIconId: "co-remove-icon" },
             { fileType: "co-aadhar-card-name", inputId: "co-aadhar-card", uploadIconId: "co-aadhar-upload-icon", removeIconId: "co-aadhar-remove-icon" },
-            { fileType: "co-addressproof", inputId: "co-passport", uploadIconId: "co-passport-upload-icon", removeIconId: "co-passport-remove-icon" }
+            { fileType: "co-addressproof", inputId: "co-passport", uploadIconId: "co-passport-upload-icon", removeIconId: "co-passport-remove-icon" },
+            { fileType: "salary-upload-salary-slip-name", inputId: "salary-upload-salary-slip", uploadIconId: "salary-upload-salary-slip-upload-icon", removeIconId: "salary-remove-salary-slip-1" },
+            { fileType: "salary-upload-salary-statement-name", inputId: "salary-upload-salary-statement", uploadIconId: "salary-upload-salary-statement-upload-icon", removeIconId: "salary-remove-salary-statement-2" },
+            { fileType: "salary-upload-address-proof-name", inputId: "salary-upload-address-proof", uploadIconId: "salary-upload-address-proof-upload-icon", removeIconId: "salary-remove-address-proof-3" },
+            { fileType: "salary-upload-itr-name", inputId: "salary-upload-itr", uploadIconId: "salary-upload-itr-upload-icon", removeIconId: "salary-remove-itr-4" },
+            { fileType: "salary-upload-fourth-document-name", inputId: "salary-upload-fourth-document", uploadIconId: "salary-upload-fourth-document-upload-icon", removeIconId: "salary-remove-fourth-document-5" },
+            { fileType: "salary-upload-fifth-document-name", inputId: "salary-upload-fifth-document", uploadIconId: "salary-upload-fifth-document-upload-icon", removeIconId: "salary-remove-fifth-document-6" },
+
         ];
 
         const dynamicDocumentKeys = JSON.parse(document.getElementById('dynamic-doc-keys-json')?.textContent || '[]');

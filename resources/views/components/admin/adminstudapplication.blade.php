@@ -2788,48 +2788,61 @@
                 ];
 
 
-                buttons.forEach(({
-                    id,
+              buttons.forEach(({
+    id,
+    type,
+    containerId,
+    rowId,
+    apiEndpoint,
+    namePrefix,
+    subSections,
+    slug
+}) => {
+    const button = document.getElementById(id);
+    if (button) {
+        button.addEventListener('click', (e) => {
+            e.stopPropagation();
+            let fieldType = prompt(`Enter ${type} document type:`)?.trim();
+            let subSection = '';
+            let finalSlug = slug;
+
+            if (type === 'salariedBusiness' && fieldType) {
+                subSection = prompt('Enter sub-section (salaried or business):')?.trim();
+                if (!['salaried', 'business'].includes(subSection)) {
+                    alert('Invalid sub-section. Please enter "salaried" or "business".');
+                    return;
+                }
+
+                // ✅ Dynamically assign slug based on sub-section
+                finalSlug = subSection === 'salaried' ? 'salary-document' : 'business-document';
+            }
+
+            if (fieldType) {
+                this.addNewDocumentField(
+                    fieldType,
                     type,
                     containerId,
                     rowId,
                     apiEndpoint,
                     namePrefix,
-                    subSections,
-                    slug
-                }) => {
-                    const button = document.getElementById(id);
-                    if (button) {
-                        button.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            let fieldType = prompt(`Enter ${type} document type:`)?.trim();
-                            let subSection = '';
-                            if (type === 'salariedBusiness' && fieldType) {
-                                subSection = prompt('Enter sub-section (salaried or business):')
-                                    ?.trim();
-                                if (!['salaried', 'business'].includes(subSection)) {
-                                    alert(
-                                        'Invalid sub-section. Please enter "salaried" or "business".'
-                                    );
-                                    return;
-                                }
-                            }
-                            if (fieldType) {
-                                this.addNewDocumentField(fieldType, type, containerId, rowId,
-                                    apiEndpoint, namePrefix, subSection, slug);
-                                this.modified = true;
-                                // Assuming FormSubmissionManager exists
-                                if (typeof FormSubmissionManager !== 'undefined') {
-                                    FormSubmissionManager.setModifiedSection(this.section);
-                                }
-                            }
-                        });
-                    }
-                    this.initializeSection(containerId, rowId, apiEndpoint, namePrefix, type, subSections,
-                        slug);
-                });
+                    subSection,
+                    finalSlug
+                );
+                this.modified = true;
 
-                this.setupHelpTriggerListener();
+                if (typeof FormSubmissionManager !== 'undefined') {
+                    FormSubmissionManager.setModifiedSection(this.section);
+                }
+            }
+        });
+    }
+
+    // Initial section setup
+    this.initializeSection(containerId, rowId, apiEndpoint, namePrefix, type, subSections, slug);
+});
+
+this.setupHelpTriggerListener();
+
             },
 
             setupHelpTriggerListener() {
@@ -3015,21 +3028,21 @@
                     },
                     body: JSON.stringify({
                         name: fieldType,
-                        type,
-                        subSection
+                        slug,
                     })
                 })
                     .then(response => {
                         if (response.ok) return response.json();
-                        else throw new Error("Document type may already exist.");
+                        else throw new Error("Document name or type may already exist.");
                     })
                     .then(data => {
                         console.log("Added Document Type:", data);
+                        this.showToast(`${fieldType} document type added for ${slug}`)
+                        
 
-                        // ✅ Call the fetch to refresh document types for the slug
-                        return fetch(`/getdocumenttypesadminform/${slug}`, {
+                         return fetch(`/getdocumenttypesadminform/${slug}`, {
                             headers: {
-                                'Accept': 'application/json' // or 'text/html' depending on your server
+                                'Accept': 'application/json' 
                             }
                         });
                     })
@@ -3071,7 +3084,7 @@
                 <span id="${key}-remove-icon" class="remove-icon" style="display: none;"
                 onclick="DocumentFieldManager.removeFile('${key}', '${key}-name', '${key}-upload-icon', '${key}-remove-icon')"><span class="thin-x">×</span></span>
                 ${uploadIconHTML} <!-- Add the delete icon here -->
-                <div class="file-actions">
+                <div class="file-actions"style="display:none">
                 <label for="${key}" class="upload-icon" id="${key}-upload-icon" onclick="console.log('Upload icon clicked for ${key}')">
                 </label>
                 <input type="file" id="${key}" name="documents[${namePrefix}${subSection ? `[${subSection}]` : ''}][${key}]"
