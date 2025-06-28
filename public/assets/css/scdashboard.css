@@ -1922,7 +1922,8 @@ display: grid;
 
     .individualstudentapplication-status {
         flex-direction: column;
-        position: relative;
+        position: relative;  
+        gap:20px;
     }
 
     .studentapplication-lists {

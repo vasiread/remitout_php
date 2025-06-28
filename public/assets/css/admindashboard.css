@@ -2281,8 +2281,12 @@ text[fill="#222222"] {
     }
     .chart-container {
         width:70%;
+    }  
+    .sc-lead-pagination
+    {
+
+        margin-top: 10px;
     }
-    
 
     #leadChart {
         width: 100% !important;

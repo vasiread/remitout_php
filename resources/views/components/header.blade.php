@@ -190,10 +190,10 @@
             }
 
             .header-links a {
-                font-size: 20px;
+                font-size: 16px;
                 color: #333;
                 display: block;
-                padding: 20px;
+                padding: 15px;
                 width: 100%;
                 padding-left: 40px;
                 padding-right: 20px;
@@ -324,10 +324,10 @@
             }
 
             .header-links a {
-                font-size: 20px;
+                font-size: 16px;
                 color: #333;
                 display: block;
-                padding: 20px;
+                padding: 15px;
                 width: 100%;
                 padding-left: 40px;
                 padding-right: 20px;
@@ -351,8 +351,8 @@
                 padding-bottom: 20px;
                 width: 100%;
                 margin: 0 auto;
-                font-size: 20px;
-                padding-top: 80px;
+                font-size: 16px;
+                padding-top: 60px;
                 height: auto;
 
 
@@ -360,9 +360,8 @@
 
             .header-signup-btn {
                 width: 100%;
-
                 height: 54px;
-                font-size: 20px;
+                font-size: 16px;
                 line-height: 54px;
                 text-align: center;
                 border-radius: 5px;
@@ -377,7 +376,7 @@
             .header-login-btn {
                 width: 100%;
                 height: 54px;
-                font-size: 20px;
+                font-size: 16px;
                 line-height: 54px;
                 text-align: center;
                 border-radius: 5px;
