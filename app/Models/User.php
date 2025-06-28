@@ -12,6 +12,7 @@ use App\Models\CourseInfo;
 class User extends Model
 {
     protected $fillable = ['name', 'gender', 'dob', 'email', 'phone', 'password', 'unique_id', 'google_id', 'referral_code'];
+    public $timestamps = true;
 
     protected static function boot()
     {

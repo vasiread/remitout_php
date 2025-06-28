@@ -1262,19 +1262,33 @@
                 ".individualstudentapplication-status .scdashboard-nbfcstatus-pending span");
             const missingDocumentsCount = document.querySelectorAll(".scdashboard-missingdocumentsstatus");
 
-            applicationStatusElements.forEach((items, index) => {
-                if (items.textContent.includes("Accepted")) {
-                    items.style.color = "#3FA27E";
-                    items.style.backgroundColor = "#D2FFEE";
-                    if (missingDocumentsCount[index]) {
-                        missingDocumentsCount[index].style.display = "none";
-                    }
-                } else {
-                    if (missingDocumentsCount[index]) {
-                        missingDocumentsCount[index].style.display = "flex";
-                    }
-                }
-            });
+           applicationStatusElements.forEach((items, index) => {
+    const text = items.textContent.trim();
+
+    if (text.includes("Approved")) {
+        items.style.color = "#3FA27E";
+        items.style.backgroundColor = "#D2FFEE";
+        if (missingDocumentsCount[index]) {
+            missingDocumentsCount[index].style.display = "none";
+        }
+    } else if (text.includes("No Progress Found")) {
+        items.style.color = "#B54747";
+        items.style.backgroundColor = "#FFE5E5";
+        if (missingDocumentsCount[index]) {
+            missingDocumentsCount[index].style.display = "flex";
+        }
+    } else if (text.includes("Not Reviewed")) {
+        items.style.color = "#997404";
+        items.style.backgroundColor = "#FFF9DB";
+        if (missingDocumentsCount[index]) {
+            missingDocumentsCount[index].style.display = "flex";
+        }
+    } else {
+        if (missingDocumentsCount[index]) {
+            missingDocumentsCount[index].style.display = "flex";
+        }
+    }
+});
 
             statusElements.forEach(dynamicStatusColorChange => {
                 if (dynamicStatusColorChange.textContent.includes("Accepted")) {
@@ -1397,9 +1411,9 @@
                     const userListContainer = document.getElementById("user-list");
                     userListContainer.innerHTML = "";
 
-                    if (data && data.length > 0) {
+                    if (data.users && data.users.length > 0) {
                         // Render user list
-                        data.forEach((user, index) => {
+                        data.users.forEach((user, index) => {
                             const isHidden = index >= 3 ? 'hidden' :
                             ''; // Use a class instead of inline style
                             const userHTML = `
@@ -1420,15 +1434,15 @@
                             <ul class="individualstudentapplication-status">
                                 <li class="scdashboard-nbfcnamecontainer">
                                     <p>NBFC:</p>
-                                    <p>NBFC Name</p>
+                                    <p>${user.nbfc_name}</p>
                                 </li>
                                 <li class="scdashboard-nbfcstatus-pending">
                                     <p>Status:</p>
-                                    <span>Pending</span>
+                                    <span>${user.status}</span>
                                 </li>
                                 <li class="scdashboard-missingdocumentsstatus">
                                     <p>Missing Documents:</p>
-                                    <span>03</span>
+                                    <span>${user.missing_documents}</span>
                                 </li>
                             </ul>
                         </div>

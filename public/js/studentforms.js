@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (studentId) {
         initialiseStudentUploads(studentId);
         initialiseStaticUploadedFiles();
+        initialiseDynamicUploadedFiles();
+
         connectedThrough();
     }
 
@@ -2593,35 +2595,32 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        // Static files
         const staticFileTypes = [
-            // KYC Documents
             { fileType: "pan-card-name", inputId: "pan-card" },
             { fileType: "aadhar-card-name", inputId: "aadhar-card" },
             { fileType: "passport-card-name", inputId: "passport" },
-
-            // Academic Mark Sheets
             { fileType: "tenth-grade-name", inputId: "tenth-grade" },
             { fileType: "twelfth-grade-name", inputId: "twelfth-grade" },
             { fileType: "graduation-grade-name", inputId: "graduation-grade" },
-
-            // Secured Admission
             { fileType: "secured-tenth-name", inputId: "secured-tenth" },
             { fileType: "secured-twelfth-name", inputId: "secured-twelfth" },
             { fileType: "secured-graduation-name", inputId: "secured-graduation" },
-
-            // Work Experience
             { fileType: "work-experience-experience-letter", inputId: "work-experience-tenth" },
             { fileType: "work-experience-monthly-slip", inputId: "work-experience-twelfth" },
             { fileType: "work-experience-office-id", inputId: "work-experience-graduation" },
             { fileType: "work-experience-joining-letter", inputId: "work-experience-fourth" },
-
-            // ✅ Co-Borrower KYC
             { fileType: "co-pan-card-name", inputId: "co-pan-card", uploadIconId: "co-upload-icon", removeIconId: "co-remove-icon" },
             { fileType: "co-aadhar-card-name", inputId: "co-aadhar-card", uploadIconId: "co-aadhar-upload-icon", removeIconId: "co-aadhar-remove-icon" },
             { fileType: "co-addressproof", inputId: "co-passport", uploadIconId: "co-passport-upload-icon", removeIconId: "co-passport-remove-icon" }
         ];
 
-        const fileTypes = staticFileTypes.map(file => `static/${file.fileType}`);
+        const dynamicDocumentKeys = JSON.parse(document.getElementById('dynamic-doc-keys-json')?.textContent || '[]');
+
+        const staticFileTypesPaths = staticFileTypes.map(file => `static/${file.fileType}`);
+        const dynamicFileTypesPaths = dynamicDocumentKeys.map(key => `dynamic/${key}`);
+
+        const fileTypes = [...staticFileTypesPaths, ...dynamicFileTypesPaths];
 
         fetch("/retrieve-file", {
             method: "POST",
@@ -2633,42 +2632,100 @@ document.addEventListener("DOMContentLoaded", () => {
         })
             .then(res => res.json())
             .then(data => {
-                const files = data.staticFiles || {};
+                const staticFiles = data.staticFiles || {};
+                const dynamicFiles = data.dynamicFiles || {};
 
+                // Process static files
                 staticFileTypes.forEach(item => {
-                    const fileData = files[`static/${item.fileType}`];
-                    if (!fileData || !fileData.url) return;
+                    const fileData = staticFiles[`static/${item.fileType}`];
+                    updateFileDisplay(fileData, item.fileType, item.inputId, item.uploadIconId, item.removeIconId);
+                });
 
-                    const fileName = fileData.url.split("/").pop();
-                    const nameEl = document.getElementById(item.fileType);
-                    const removeIcon = document.getElementById(item.removeIconId || `${item.inputId}-remove-icon`);
-                    const uploadIcon = document.getElementById(item.uploadIconId || `${item.inputId}-upload-icon`);
+                // Process dynamic files
+                dynamicDocumentKeys.forEach(key => {
+                    const fileData = dynamicFiles[`dynamic/${key}`];
+                    updateFileDisplay(fileData, `${key}-name`, key);
+                });
+            })
+            .catch(err => console.error("Error loading uploaded files:", err));
+    }
+    function initialiseDynamicUploadedFiles() {
+        const userId = document.getElementById("personal-info-userid")?.value;
+        if (!userId) {
+            console.warn("User ID not found.");
+            return;
+        }
 
-                    if (nameEl) {
-                        const fileExtension = fileName.slice(fileName.lastIndexOf(".")).toLowerCase();
-                        const baseName = fileName.slice(0, fileName.lastIndexOf("."));
-                        let iconSrc = "assets/images/image-upload.png"; // default
+        fetch("/dynamic-file", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({ userId })
+        })
+            .then(res => res.json())
+            .then(data => {
+                const dynamicFiles = data.dynamicFiles || {};
 
-                        if (fileExtension === ".pdf") {
-                            iconSrc = "assets/images/image-pdf.png";
-                        }
+                // Loop through each dynamic/<key>
+                Object.entries(dynamicFiles).forEach(([groupKey, fileArray]) => {
+                    const key = groupKey.replace('dynamic/', '');
+                    const inputId = key.replace(/-name$/, '');
 
-                        // Shorten base name if too long
-                        const shortBase = baseName.length > 18 ? baseName.slice(0, 18) + '...' : baseName;
-                        const displayName = shortBase + fileExtension;
+                    const nameEl = document.getElementById(`${inputId}-name`);
+                    const removeIcon = document.getElementById(`${inputId}-remove-icon`);
+                    const uploadIcon = document.getElementById(`${inputId}-upload-icon`);
 
-                        nameEl.innerHTML = `
+                    if (!fileArray || fileArray.length === 0 || !nameEl) return;
+
+                    const file = fileArray[0];
+                    const fileName = file.url.split("/").pop();
+                    const ext = fileName.split('.').pop().toLowerCase();
+                    const base = fileName.slice(0, fileName.lastIndexOf(".")) || fileName;
+                    const shortName = base.length > 18 ? base.slice(0, 18) + "..." : base;
+                    const iconSrc = ext === "pdf"
+                        ? "assets/images/image-pdf.png"
+                        : "assets/images/image-upload.png";
+
+                    nameEl.innerHTML = `
         <img src="${iconSrc}" width="20" style="vertical-align:middle; margin-right: 5px;">
-        <span title="${fileName}">${displayName}</span>`;
-                    }
+        <span title="${fileName}">${shortName}.${ext}</span>
+    `;
 
-
+                    // ✅ This is the part you're asking about
                     if (removeIcon) removeIcon.style.display = "inline";
                     if (uploadIcon) uploadIcon.style.display = "none";
                 });
             })
-            .catch(err => console.error("Error loading static uploads:", err));
+            .catch(err => console.error("Error loading dynamic uploaded files:", err));
     }
+
+
+    function updateFileDisplay(fileData, nameId, inputId, uploadIconId, removeIconId) {
+        if (!fileData || !fileData.url) return;
+
+        const fileName = fileData.url.split("/").pop();
+        const nameEl = document.getElementById(nameId);
+        const removeIcon = document.getElementById(removeIconId || `${inputId}-remove-icon`);
+        const uploadIcon = document.getElementById(uploadIconId || `${inputId}-upload-icon`);
+
+        if (nameEl) {
+            const fileExtension = fileName.slice(fileName.lastIndexOf(".")).toLowerCase();
+            const baseName = fileName.slice(0, fileName.lastIndexOf("."));
+            const shortBase = baseName.length > 18 ? baseName.slice(0, 18) + "..." : baseName;
+            const iconSrc = fileExtension === ".pdf" ? "assets/images/image-pdf.png" : "assets/images/image-upload.png";
+
+            nameEl.innerHTML = `
+            <img src="${iconSrc}" width="20" style="vertical-align:middle; margin-right: 5px;">
+            <span title="${fileName}">${shortBase + fileExtension}</span>
+        `;
+        }
+
+        if (removeIcon) removeIcon.style.display = "inline";
+        if (uploadIcon) uploadIcon.style.display = "none";
+    }
+
 
     function connectedThrough() {
         const selected = document.querySelector(".dropdown-option-about-us.selected");

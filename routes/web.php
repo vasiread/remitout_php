@@ -129,7 +129,9 @@ Route::post('/students/import', [scDashboardController::class, 'import_excel_pos
 Route::get('/get-messages/{nbfc_id}/{student_id}', [ChatController::class, 'getMessages']);
 
 
-Route::post('/retrieve-file', action: [StudentDashboardController::class, 'retrieveFile']);
+Route::post('/retrieve-file',  [StudentDashboardController::class, 'retrieveFile']);
+Route::post('/dynamic-file',  [StudentDashboardController::class, 'retrieveDynamicFiles']);
+
 Route::get("/getalluserdetailsfromadmin", [StudentDashboardController::class, 'getAllUsersFromAdmin']);
 Route::get('/export-excel', [ExportController::class, 'export'])->name('export.excel');
 
