@@ -396,7 +396,7 @@ $studyLocationsString = implode(', ', $studyLocations);
                 </div>
                 <div class="myapplication-fourthcolumn">
                     <p>4. What is the Loan amount required?</p>
-                    <input type="number" placeholder={{ $courseDetails[0]->loan_amount_in_lakhs }}
+                    <input type="text" placeholder={{ $courseDetails[0]->loan_amount_in_lakhs }}
                         value={{ $courseDetails[0]->loan_amount_in_lakhs }} disabled>
 
                 </div>
@@ -427,7 +427,7 @@ $studyLocationsString = implode(', ', $studyLocations);
                                     <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-pan-card" alt="View PAN card icon" />
                                 </div>
                                 <input type="file" id="inputfilecontainer-real" />
-                                <span class="document-status">420 MB uploaded</span>
+                                <span class="document-status">0 MB uploaded</span>
                             </div>
 
                             <div class="individualkycdocuments">
@@ -438,7 +438,7 @@ $studyLocationsString = implode(', ', $studyLocations);
                                     <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-aadhar-card" alt="View Aadhar card icon" />
                                 </div>
                                 <input type="file" id="inputfilecontainer-real" />
-                                <span class="document-status">420 MB uploaded</span>
+                                <span class="document-status">0 MB uploaded</span>
                             </div>
 
                             <div class="individualkycdocuments">
@@ -449,7 +449,7 @@ $studyLocationsString = implode(', ', $studyLocations);
                                     <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-passport-card" alt="View passport icon"/>
                                 </div>
                                 <input type="file" id="inputfilecontainer-real" />
-                                <span class="document-status">420 MB uploaded</span>
+                                <span class="document-status">0 MB uploaded</span>
                             </div>
                         </div>
                     </div>
@@ -471,7 +471,7 @@ $studyLocationsString = implode(', ', $studyLocations);
                                     <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-sslc-card" lt="View SSLC certificate icon" />
                                 </div>
                                 <input type="file" id="inputfilecontainer-real-marksheet" />
-                                <span class="document-status">420 MB uploaded</span>
+                                <span class="document-status">0 MB uploaded</span>
                             </div>
 
                             <div class="individualmarksheetdocuments">
@@ -482,7 +482,7 @@ $studyLocationsString = implode(', ', $studyLocations);
                                     <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-hsc-card" alt="View HSC certificate icon"/>
                                 </div>
                                 <input type="file" id="inputfilecontainer-real-marksheet" />
-                                <span class="document-status">420 MB uploaded</span>
+                                <span class="document-status">0 MB uploaded</span>
                             </div>
 
                             <div class="individualmarksheetdocuments">
@@ -493,7 +493,7 @@ $studyLocationsString = implode(', ', $studyLocations);
                                     <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-graduation-card" alt="View graduation certificate icon" />
                                 </div>
                                 <input type="file" id="inputfilecontainer-real-marksheet" />
-                                <span class="document-status">420 MB uploaded</span>
+                                <span class="document-status">0 MB uploaded</span>
                             </div>
                         </div>
                     </div>
@@ -519,7 +519,7 @@ $studyLocationsString = implode(', ', $studyLocations);
                                 </div>
                                 <input type="file" id="inputfilecontainer-real-marksheet">
 
-                                <span class="document-status">420 MB uploaded</span>
+                                <span class="document-status">0 MB uploaded</span>
                             </div>
                             <div class="individual-secured-admission-documents">
                                 <p class="document-name">12th Grade
@@ -533,7 +533,7 @@ $studyLocationsString = implode(', ', $studyLocations);
                                 </div>
                                 <input type="file" id="inputfilecontainer-real-marksheet">
 
-                                <span class="document-status">420 MB uploaded</span>
+                                <span class="document-status">0 MB uploaded</span>
                             </div>
                             <div class="individual-secured-admission-documents">
                                 <p class="document-name">Graduation
@@ -546,7 +546,7 @@ $studyLocationsString = implode(', ', $studyLocations);
 
                                 </div>
                                 <input type="file" id="inputfilecontainer-real-marksheet">
-                                <span class="document-status">420 MB uploaded</span>
+                                <span class="document-status">0 MB uploaded</span>
                             </div>
                         </div>
                     </div>
@@ -573,7 +573,7 @@ $studyLocationsString = implode(', ', $studyLocations);
                                 </div>
                                 <input type="file" id="inputfilecontainer-work-experience">
 
-                                <span class="document-status">420 MB uploaded</span>
+                                <span class="document-status">0 MB uploaded</span>
                             </div>
                             <div class="individual-work-experiencecolumn-documents">
                                 <p class="document-name">3 month Salary Slip
@@ -587,7 +587,7 @@ $studyLocationsString = implode(', ', $studyLocations);
                                 </div>
                                 <input type="file" id="inputfilecontainer-real-marksheet">
 
-                                <span class="document-status">420 MB uploaded</span>
+                                <span class="document-status">0 MB uploaded</span>
                             </div>
                             <div class="individual-work-experiencecolumn-documents">
                                 <p class="document-name">Office ID
@@ -602,7 +602,7 @@ $studyLocationsString = implode(', ', $studyLocations);
                                 </div>
                                 <input type="file" id="inputfilecontainer-real-marksheet">
 
-                                <span class="document-status">420 MB uploaded</span>
+                                <span class="document-status">0 MB uploaded</span>
                             </div>
                             <div class="individual-work-experiencecolumn-documents">
                                 <p class="document-name ">Employment Joining Letter
@@ -616,7 +616,7 @@ $studyLocationsString = implode(', ', $studyLocations);
                                 </div>
                                 <input type="file" id="inputfilecontainer-real-marksheet">
 
-                                <span class="document-status">420 MB uploaded</span>
+                                <span class="document-status">0 MB uploaded</span>
                             </div>
 
                         </div>
@@ -639,7 +639,7 @@ $studyLocationsString = implode(', ', $studyLocations);
                                     <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-coborrower-pan" alt="View co-borrower PAN card icon" />
                                 </div>
                                 <input type="file" id="inputfilecontainer-kyccoborrwer">
-                                <span class="document-status">420 MB uploaded</span>
+                                <span class="document-status">0 MB uploaded</span>
                             </div>
                             <div class="individual-coborrower-kyc-documents">
                                 <p class="document-name">Aadhar Card
@@ -650,7 +650,7 @@ $studyLocationsString = implode(', ', $studyLocations);
                                     <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-coborrower-aadhar" alt="View co-borrower Aadhar card icon" />
                                 </div>
                                 <input type="file" id="inputfilecontainer-kyccoborrwer">
-                                <span class="document-status">420 MB uploaded</span>
+                                <span class="document-status">0 MB uploaded</span>
                             </div>
                             <div class="individual-coborrower-kyc-documents">
                                 <p class="document-name">Address Proof
@@ -662,7 +662,7 @@ $studyLocationsString = implode(', ', $studyLocations);
                                         id="view-coborrower-addressproof" alt="View co-borrower address proof icon" />
                                 </div>
                                 <input type="file" id="inputfilecontainer-kyccoborrwer">
-                                <span class="document-status">420 MB uploaded</span>
+                                <span class="document-status">0 MB uploaded</span>
                             </div>
                         </div>
                     </div>

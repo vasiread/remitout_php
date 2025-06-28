@@ -270,7 +270,7 @@
 
 
 
-                    // Logo Section
+                    
                     {
                         id: 9,
                         page: 'Landing Page',
@@ -419,6 +419,7 @@
                         content: 'Browse and compare personalized loan offers based on your eligibility and repayment preferences.',
                         status: 'Active',
                         maxLength: 150
+                        
                     },
                     {
                         id: 27,
@@ -1508,7 +1509,30 @@
 
                 if (data.success) {
                     const newId = data.logo.id;
-                    const newTitle = `Partner Logo ${newId}`;
+// Get all existing Partner Logos
+const existingLogos = this.data.filter(item =>
+    item.page === item.page &&
+    item.sectionType === 'logo' &&
+    item.title.startsWith('Partner Logo')
+);
+
+// Extract numeric parts, sort, and find smallest missing number
+const existingNumbers = existingLogos.map(logo => {
+    const match = logo.title.match(/Partner Logo (\d+)/);
+    return match ? parseInt(match[1], 10) : null;
+}).filter(n => n !== null).sort((a, b) => a - b);
+
+// Find the smallest missing number
+let nextNumber = 1;
+for (let i = 0; i < existingNumbers.length; i++) {
+    if (existingNumbers[i] !== i + 1) {
+        nextNumber = i + 1;
+        break;
+    }
+    nextNumber = existingNumbers.length + 1;
+}
+
+const newTitle = `Partner Logo ${nextNumber}`;
 
                     // Update title
                     await fetch(`/logo/update-title/${newId}`, {
@@ -1537,7 +1561,8 @@
                             height: 100
                         }
                     });
-                    this.renderTable();
+                    this.handlePageChange(item.page, 'logo');
+
 
                     const currentSection = document.getElementById('sectionSelect').value;
                     this.handlePageChange(item.page, currentSection);
@@ -1696,8 +1721,8 @@
                                     const faqRes = await fetch('/getfaqs');
                                     if (!faqRes.ok) throw new Error(`FAQ fetch failed: ${faqRes.status}`);
                                     const faqData = await faqRes.json();
-                                    alert(item)
-                                    console.log(item)
+                                    // alert(item)
+                                    // console.log(item)
 
                                     if (faqData.status && Array.isArray(faqData.data)) {
                                         parsed.splice(1, 0, ...faqData.data.map(f => ({
@@ -1835,8 +1860,7 @@
 
 
             async updateHeroContentToAPI(item) {
-                alert(item)
-                const payload = {
+                 const payload = {
                     key_name: 'field_' + item.id,
                     content: item.content
                 };
@@ -1852,7 +1876,7 @@
                         headers: {
                             'Content-Type': 'application/json',
                             'Accept': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken // 🔐 Include CSRF token
+                            'X-CSRF-TOKEN': csrfToken  
                         },
                         body: JSON.stringify(payload)
                     });
@@ -1889,78 +1913,81 @@
                     row.dataset.originalSno = rowCounter;
                     row.setAttribute('data-id', item.id);
 
-                    if (item.isMedia || item.sectionType === 'logo') {
-                        const logos = this.filteredData.filter(d => d.sectionType === 'logo');
-                        const isLastLogo = logos.length && logos[logos.length - 1] === item;
+                                                            if (item.isMedia || item.sectionType === 'logo') {
+                                                                const logos = this.filteredData.filter(d => d.sectionType === 'logo');
+                                                                const isLastLogo = logos.length && logos[logos.length - 1] === item;
 
-                        row.innerHTML = `
-                                    <td>${rowCounter++}</td>
-                                    <td>${item.page}</td>
-                                    <td class="editable-cell">
-                                        <div class="editable-content" contenteditable="true">${item.title}</div>
-                                    </td>
-                                    <td>
-                                        <div class="media-container">
-                                            <div class="media-preview">
-                                                ${item.mediaConstraints.formats.includes('mp4') || item.mediaConstraints.formats.includes('webm') ?
-                                                    `<video src="${item.content}" controls width="200"></video>` :
-                                                    `<img src="${item.content}" alt="Media preview">`}
-                                                <span class="close-btn">×</span>
-                                            </div>
-                                            <div class="media-actions">
-                                                <input type="file" class="file-input hidden-input" accept="${item.mediaConstraints?.formats.map(format => `.${format}`).join(',') || 'image/*'}">
-                                                <div class="upload-trigger">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                                        <polyline points="17 8 12 3 7 8"/>
-                                                        <line x1="12" y1="3" x2="12" y2="15"/>
-                                                    </svg>
-                                                    Replace ${item.sectionType === 'logo' ? 'Logo' : 'Media'}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="edit-contents-cms-status">${item.status}</span></td>
-                                    <td>
-                                        <button class="edit-contents-cms-update">Update</button>
-                                        ${item.sectionType === 'logo' ? `
-                                                    <button class="remove-logo" title="Remove Logo"
-    style="background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 4px; padding: 6px 10px; margin-right: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
-    </svg>
- </button>
+                                                                row.innerHTML = `
+                                                    <td>${rowCounter++}</td>
+                                                    <td>${item.page}</td>
+                                                    <td class="editable-cell">
+                                                        <div class="editable-content" contenteditable="false">${item.title}</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="media-container">
+                                                            <div class="media-preview">
+                                                            ${
+                                                                item.mediaConstraints.formats.includes('mp4') || item.mediaConstraints.formats.includes('webm') ?
+                                                                `<video src="${item.content}" controls width="200"></video>` :
+                                                                `<img src="${item.content}" alt="Media preview">`
+                                                            }
 
-                                                    ${isLastLogo ? `
-                                           <button class="add-logo" title="Add Logo"
-    style="background: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 4px; padding: 6px 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="12" y1="5" x2="12" y2="19"></line>
-        <line x1="5" y1="12" x2="19" y2="12"></line>
-    </svg>
-     
-</button>
-                                            ` : ''}
-                                                ` : ''}
-                                    </td>
-                                `;
+                                                            ${
+                                                                item.sectionType === 'logo' ?
+                                                                `<span class="close-btn remove-logo" title="Remove Logo"
+                                                                    style="border-radius: 4px; padding: 2px 6px; margin: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+                                                                    ×
+                                                                </span>` : ''
+                                                            }
+                                                        </div>
 
-                        tbody.appendChild(row);
+                                                                                                                    <div class="media-actions">
+                                                                <input type="file" class="file-input hidden-input" accept="${item.mediaConstraints?.formats.map(format => `.${format}`).join(',') || 'image/*'}">
+                                                                <div class="upload-trigger">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                                                        <polyline points="17 8 12 3 7 8"/>
+                                                                        <line x1="12" y1="3" x2="12" y2="15"/>
+                                                                    </svg>
+                                                                    Replace ${item.sectionType === 'logo' ? 'Logo' : 'Media'}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="edit-contents-cms-status">${item.status}</span></td>
+                                                    <td style="display:flex";"gap":"0.6rem">
+                                                        <button class="edit-contents-cms-update">Update</button>
+                                                        ${item.sectionType === 'logo' ? `
+                                                                    
 
-                        // Setup editable content
-                        const editableContents = row.querySelectorAll('.editable-cell .editable-content');
-                        editableContents.forEach((editableContent) => {
-                            editableContent.addEventListener('input', () => {
-                                const charCount = editableContent.parentElement.querySelector(
-                                    '.char-count');
-                                if (charCount) {
-                                    const maxLength = parseInt(charCount.getAttribute(
-                                        'data-max'));
-                                    charCount.textContent =
-                                        `${editableContent.textContent.length}/${maxLength}`;
+                                                                                    ${isLastLogo ? `
+                                                                        <button class="add-logo" title="Add Logo"
+                                                                        style="background: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 4px; padding: 6px 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                                                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                                        </svg>
+                                    
+                                                                            </button>
+                                                                                                        ` : ''}
+                                                                                            ` : ''}
+                                                                                </td>
+                                                                            `;
+
+                                                                                tbody.appendChild(row);
+
+                                                                                // Setup editable content
+                                                                                const editableContents = row.querySelectorAll('.editable-cell .editable-content');
+                                                                                editableContents.forEach((editableContent) => {
+                                                                                    editableContent.addEventListener('input', () => {
+                                                                                        const charCount = editableContent.parentElement.querySelector(
+                                                                                            '.char-count');
+                                                                                if (charCount) {
+                                                                                    const maxLength = parseInt(charCount.getAttribute(
+                                                                                        'data-max'));
+                                                                                    charCount.textContent =
+                                                                                        `${editableContent.textContent.length}/${maxLength}`;
                                     charCount.classList.toggle('hidden', editableContent
                                         .textContent.length <= maxLength);
                                     charCount.classList.toggle('error', editableContent
@@ -2028,7 +2055,7 @@
                                         <td>${rowCounter++}</td>
                                         <td>${item.page || '-'}</td>
                                         <td class="editable-cell">
-                                            <div class="editable-content" contenteditable="true">${logo.title}</div>
+                                            <div class="editable-content" contenteditable="false">${logo.title}</div>
                                         </td>
                                         <td>
                                             <div class="media-container">
@@ -2062,10 +2089,10 @@
                                     <td>${rowCounter++}</td>
                                     <td>${item.page}</td>
                                     <td class="editable-cell no-border">
-                                        <div class="editable-content" contenteditable="true">${testimonialTitle}</div>
+                                        <div class="editable-content" contenteditable="false">${testimonialTitle}</div>
                                     </td>
                                     <td class="editable-cell content-cell">
-                                        <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.name || 20}">${testimonial.name}</div>
+                                        <div class="editable-content" contenteditable="false" data-max-length="${item.maxLengthConstraints?.name || 20}">${testimonial.name}</div>
                                         <div class="char-count hidden" data-max="${item.maxLengthConstraints?.name || 20}">${testimonial.name.length}/${item.maxLengthConstraints?.name || 20}</div>
                                     </td>
                                     <td><span class="edit-contents-cms-status">${item.status}</span></td>
@@ -2092,7 +2119,7 @@
                                             <td>${originalSno}</td>
                                             <td>${item.page}</td>
                                             <td class="editable-cell no-border">
-                                                <div class="editable-content" contenteditable="true">${testimonialTitle}</div>
+                                                <div class="editable-content" contenteditable="false">${testimonialTitle}</div>
                                             </td>
                                             <td class="editable-cell content-cell">
                                                 <div class="testimonial-details">
@@ -2251,28 +2278,22 @@
                                                         body: formData
                                                     });
 
-                                                const result = await response
-                                                    .json();
+                                                const result = await response.json();
 
                                                 if (response.ok && result.url) {
                                                     testimonial.image = result.url;
                                                     item.content = JSON.stringify(
                                                         testimonials);
-                                                    this.renderTable();
+                                                    // this.renderTable();
                                                     this.showToast(
                                                         '✅ Image uploaded successfully'
                                                     );
                                                 } else {
-                                                    this.showToast(
-                                                        '❌ Failed to upload image',
-                                                        true);
+                                                    this.showToast('❌ Failed to upload image',true);
                                                 }
                                             } catch (error) {
-                                                console.error('Image upload error:',
-                                                    error);
-                                                this.showToast(
-                                                    '⚠️ An error occurred while uploading the image',
-                                                    true);
+                                                console.error('Image upload error:',error);
+                                                this.showToast('⚠️ An error occurred while uploading the image',true);
                                             }
                                         }
                                     });
@@ -2338,7 +2359,8 @@
                                         item.content = JSON.stringify(testimonials);
                                         testimonialRow.classList.remove('edit-mode');
                                         this.updateTestimonial(item, idx);
-                                        this.renderTable();
+                                        // this.renderTable();
+                                        this.handlePageChange(item.page, 'testimonial');
                                     });
 
                                     if (testimonial.isProtected) {
@@ -2378,10 +2400,10 @@
                                     <td>${rowCounter++}</td>
                                     <td>${item.page}</td>
                                     <td class="editable-cell no-border">
-                                        <div class="editable-content" contenteditable="true">${faqTitle}</div>
+                                        <div class="editable-content" contenteditable="false">${faqTitle}</div>
                                     </td>
                                     <td class="editable-cell content-cell">
-                                        <div class="editable-content" contenteditable="true" data-max-length="${item.maxLengthConstraints?.question || 100}">${faq.question}</div>
+                                        <div class="editable-content" contenteditable="false" data-max-length="${item.maxLengthConstraints?.question || 100}">${faq.question}</div>
                                         <div class="char-count hidden" data-max="${item.maxLengthConstraints?.question || 100}">${faq.question.length}/${item.maxLengthConstraints?.question || 100}</div>
                                     </td>
                                     <td><span class="edit-contents-cms-status">${item.status}</span></td>
@@ -2407,7 +2429,7 @@
                                                 <td>${rowCounter - 1}</td>
                                                 <td>${item.page}</td>
                                                 <td class="editable-cell no-border">
-                                                    <div class="editable-content" contenteditable="true">${faqTitle}</div>
+                                                    <div class="editable-content" contenteditable="false">${faqTitle}</div>
                                                 </td>
                                                 <td class="editable-cell content-cell">
                                                     <div class="faq-details">
@@ -2424,17 +2446,17 @@
                                                     </div>
                                                 </td>
                                                 <td><span class="edit-contents-cms-status">${item.status}</span></td>
-                                                <td>
+                                                <td style="display:flex">
                                                     <button class="edit-contents-cms-update">Update</button>
-                                                    <button class="edit-contents-cms-edit">✏️</button>
-                                                    <button class="remove-faq" title="Remove FAQ">
+                                                    <button class="edit-contents-cms-edit" style="margin-left:0.2rem">✏️</button>
+                                                    <button class="remove-faq"   style="background-color: #f8d7da; color: #721c24;border:none;outline:none;border-radius: 4px; padding: 2px 6px; margin: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;" title="Remove FAQ">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                             <line x1="18" y1="6" x2="6" y2="18"></line>
                                                             <line x1="6" y1="6" x2="18" y2="18"></line>
                                                         </svg>
                                                     </button>
                                                     ${idx === faqs.length - 1 ? `
-                                                                                                                                                                                                                                                                                                                                                                                    <button class="add-faq" title="Add FAQ">
+                                                                                                                                                                                                                                                                                                                                                                                    <button class="add-faq" title="Add FAQ" style="background-color: #d4edda; color: #155724;border-radius: 4px;border:none;outline:none; padding: 2px 6px; margin: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
                                                                                                                                                                                                                                                                                                                                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                                                                                                                                                                                                                                                                                                                                                             <line x1="12" y1="5" x2="12" y2="19"></line>
                                                                                                                                                                                                                                                                                                                                                                                             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -2568,8 +2590,7 @@
                                             'edit-mode');
 
                                         this.renderTable();
-                                        this.showToast('FAQ updated');
-                                    });
+                                     });
 
                                     const removeButton = faqRow.querySelector(
                                         '.remove-faq');
@@ -2594,10 +2615,10 @@
             <td>${rowCounter++}</td>
             <td>${item.page}</td>
             <td class="editable-cell">
-                <div class="editable-content" contenteditable="true">${item.title}</div>
+                <div class="editable-content" contenteditable="false">${item.title}</div>
             </td>
             <td class="editable-cell content-cell">
-                <div class="editable-content" contenteditable="true" data-max-length="${item.maxLength || 100}">${item.content}</div>
+                <div class="editable-content" contenteditable="false" data-max-length="${item.maxLength || 100}">${item.content}</div>
                 <div class="char-count hidden" data-max="${item.maxLength || 100}">${item.content.length}/${item.maxLength || 100}</div>
             </td>
             <td><span class="edit-contents-cms-status">${item.status}</span></td>
@@ -2658,7 +2679,7 @@
                     <td>${originalSno}</td>
                     <td>${item.page}</td>
                     <td class="editable-cell">
-                        <div class="editable-content" contenteditable="true">${item.title}</div>
+                        <div class="editable-content" contenteditable="false">${item.title}</div>
                     </td>
                     <td class="editable-cell content-cell">
                         <div class="editable-content" contenteditable="true" data-max-length="${maxLength}">${item.content}</div>
@@ -2730,8 +2751,7 @@
                                     this.updateHeroContentToAPI(item);
                                     row.classList.remove('edit-mode');
                                     this.renderTable();
-                                    this.showToast('Content updated');
-                                });
+                                 });
                             }
                         });
                     }
@@ -2963,7 +2983,7 @@
 
                     const title = this.closest('tr')?.querySelector('.editable-content')
                         ?.innerText
-                        ?.trim(); // if input is in row
+                        ?.trim(); 
                     if (!title) {
                         alert('Missing title to associate with file');
                         return;
@@ -2976,9 +2996,7 @@
         }
 
 
-
-
-   // ✅ Declare globally or in your module scope
+ 
 async function updateCmsContent(title, file) {
     const formData = new FormData();
     formData.append('file', file);

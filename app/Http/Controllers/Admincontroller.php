@@ -1215,6 +1215,24 @@ class Admincontroller extends Controller
         $additionalFields = AdditionalField::all();
         $documentTypes = DocumentType::all();
         $courseExpenseOptions = CourseDetailOption::all();
+        $personalInfos = Personalinfo::where('user_id', $uniqueId)->first();  
+        $courseInfoValues = Courseinfo::where('user_id',$uniqueId)->first();
+        $academicInfoValues=Academics::where('user_id',$uniqueId)->first();
+        $coInfoValues= CoBorrowerInfo::where('user_id',$uniqueId)->first();
+
+        $userFieldValues = UserAdditionalFieldValue::where('user_id', $user->id)
+        ->get()
+        ->mapWithKeys(function ($item) {
+            $value = $item->value;
+            $fieldType = $item->field->type ?? null;
+
+            // Decode checkboxes
+            if ($fieldType === 'checkbox' && is_string($value)) {
+                $value = json_decode($value, true);
+            }
+
+            return [$item->field_id => $value];
+        });
 
 
 
@@ -1222,7 +1240,9 @@ class Admincontroller extends Controller
 
 
 
-        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees', 'courseDuration', 'additionalFields', 'documentTypes', 'courseExpenseOptions'));
+
+
+        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees', 'courseDuration', 'additionalFields', 'documentTypes', 'courseExpenseOptions','personalInfos', 'courseInfoValues', 'academicInfoValues','userFieldValues', 'coInfoValues'));
     }
 
 
@@ -1788,7 +1808,7 @@ class Admincontroller extends Controller
                     'plan-to-study' => json_encode($request->plan_to_study),
                     'degree-type' => $request->degree_type,
                     'course-duration' => $request->course_duration,
-                    'course-details' => $request->referral_code,
+                    'course-details' => $request->course_details, 
                     'loan_amount_in_lakhs' => $request->loan_amount
                 ]
             );
@@ -2719,16 +2739,38 @@ class Admincontroller extends Controller
             ], 404);
         }
 
-        // Delete image from S3 if it exists
-        if ($testimonial->image && Storage::disk('s3')->exists($testimonial->image)) {
-            Storage::disk('s3')->delete($testimonial->image);
+        $imageUrl = $testimonial->image;
+
+        if ($imageUrl) {
+             
+            $baseUrl = rtrim(Storage::disk('s3')->url(''), '/');
+
+             
+            $relativePath = Str::after($imageUrl, $baseUrl . '/');
+
+            
+            if (Storage::disk('s3')->exists($relativePath)) {
+                $deleted = Storage::disk('s3')->delete($relativePath);
+
+                if (!$deleted) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Failed to delete image from S3.'
+                    ], 500);
+                }
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Image not found in S3.'
+                ], 404);
+            }
         }
 
-        $testimonial->delete();
+         $testimonial->delete();
 
         return response()->json([
             'status' => true,
-            'message' => 'Testimonial and image deleted successfully'
+            'message' => 'Testimonial and image deleted successfully.'
         ]);
     }
     public function storeTestimonial(Request $request)
@@ -2745,7 +2787,7 @@ class Admincontroller extends Controller
             'designation' => $request->designation,
             'review' => $request->review,
             'rating' => $request->rating,
-            'image' => $request->image ?? null // optional image
+            'image' => $request->image ?? null  
         ]);
 
         return response()->json([
@@ -2978,6 +3020,23 @@ class Admincontroller extends Controller
             return response()->json(['error' => 'Logo not found.'], 404);
         }
 
+        $fileUrl = $logo->content; 
+
+        // Convert URL to a relative file path
+        $disk = 's3'; // or 'public' or whichever disk you're using
+        $bucketBaseUrl = Storage::disk($disk)->url(''); // Gets base URL like: https://your-bucket.s3.amazonaws.com/
+
+        // Remove base URL to get the relative path used by Storage
+        $filePath = Str::after($fileUrl, $bucketBaseUrl); // e.g., logos/logo1.png
+
+        // Delete file from storage
+        if ($filePath && Storage::disk($disk)->exists($filePath)) {
+            Storage::disk($disk)->delete($filePath);
+        } else {
+            return response()->json(['error' => 'File not found on storage.'], 500);
+        }
+
+        // Now delete DB record
         $logo->delete();
 
         return response()->json(['success' => true, 'message' => 'Logo deleted successfully.']);

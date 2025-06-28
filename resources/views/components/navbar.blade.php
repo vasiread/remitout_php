@@ -236,43 +236,43 @@
             }
         }
 
-        function sessionLogoutInitial(logoutUrl, loginUrl) {
-            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-            if (!csrfToken) {
-                console.error('CSRF token not found');
-                alert('Logout failed: CSRF token missing');
-                return;
-            }
-            if (!logoutUrl || !loginUrl) {
-                console.error('Missing logout or login URL');
-                alert('Logout failed: Invalid URLs');
-                return;
-            }
-            fetch(logoutUrl, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({})
-            })
-                .then(response => {
-                    if (response.ok) {
-                        window.location.href = loginUrl;
-                    } else {
-                        console.error('Logout failed:', response.status, response.statusText);
-                        alert('Logout failed: Server error');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Logout API response:', data);
-                })
-                .catch(error => {
-                    console.error('Fetch error during logout:', error);
-                    alert('Logout failed: Network error');
-                });
+     function sessionLogoutInitial(logoutUrl, loginUrl) {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+    if (!csrfToken) {
+        console.error('CSRF token not found');
+        alert('Logout failed: CSRF token missing');
+        return;
+    }
+    if (!logoutUrl || !loginUrl) {
+        console.error('Missing logout or login URL');
+        alert('Logout failed: Invalid URLs');
+        return;
+    }
+
+    fetch(logoutUrl, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({})
+    })
+    .then(response => {
+        if (response.ok) {
+            // Optional: log response status or handle response.json() if needed
+            console.log('Logout successful');
+            window.location.href = loginUrl;
+        } else {
+            console.error('Logout failed:', response.status, response.statusText);
+            alert('Logout failed: Server error');
         }
+    })
+    .catch(error => {
+        console.error('Fetch error during logout:', error);
+        alert('Logout failed: Network error');
+    });
+}
+
 
         function dynamicMobileNav() {
             const navSearchContainer = document.querySelector('.nav-searchnotificationbars');

@@ -193,7 +193,8 @@ class ChatController extends Controller
                 'sender_id' => $validated['sender_id'],
                 'receiver_id' => $validated['receiver_id'],
                 'message' => $validated['message'],
-                'is_read' => $validated['is_read']
+                'is_read' => $validated['is_read'] ?? false,
+
             ]);
 
             return response()->json(['message' => 'Message sent successfully'], 200);
@@ -219,7 +220,7 @@ class ChatController extends Controller
 
             // Handle case where no conversation is found
             if (!$conversation) {
-                return response()->json(['error' => 'No conversation found'], 404);
+                return response()->json(['error' => 'No conversation found'], 200);
             }
 
             // If the conversation exists but has no messages
@@ -248,7 +249,7 @@ class ChatController extends Controller
 
             // Handle case where no conversation is found
             if (!$conversation) {
-                return response()->json(['error' => 'No conversation found'], 404);
+                return response()->json(['error' => 'No conversation found'], 200);
             }
 
             // If the conversation exists but has no messages
@@ -262,7 +263,6 @@ class ChatController extends Controller
             ], 200);
 
         } catch (\Exception $e) {
-            // Return a generic error if something goes wrong
             return response()->json(['error' => 'Something went wrong', 'details' => $e->getMessage()], 500);
         }
     }

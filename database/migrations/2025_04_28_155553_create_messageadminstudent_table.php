@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('messageadminstudent', function (Blueprint $table) {
-            $table->id(); // Primary key
+            $table->id();  
             $table->foreignId('conversation_id')->constrained()->onDelete('cascade');
             $table->string('sender_id'); // Sender ID as a string
             $table->string('receiver_id'); // Receiver ID as a string

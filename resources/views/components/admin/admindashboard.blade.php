@@ -2667,19 +2667,25 @@
             };
 
             const addModalListeners = () => {
-                const newCancelBtn = document.getElementById('cancelBtn');
-                const newGenerateBtn = document.getElementById('generateBtn');
+    const newCancelBtn = document.getElementById('cancelBtn');
+    const newGenerateBtn = document.getElementById('generateBtn');
 
-                if (newCancelBtn) newCancelBtn.addEventListener('click', closeModal);
-                if (newGenerateBtn) {
-                    newGenerateBtn.addEventListener('click', () => {
-                        const newLink =
-                            `https://example.com/referral?code=${Math.random().toString(36).substr(2, 8)}`;
-                        inputField.value = newLink;
-                        updateFooterButtons(newLink);
-                    });
-                }
-            };
+    if (newCancelBtn) newCancelBtn.addEventListener('click', closeModal);
+
+        if (newGenerateBtn) {
+            newGenerateBtn.addEventListener('click', () => {
+                const referralId = Math.random().toString(36).substr(2, 8); 
+                const baseUrl = "/signup";  
+                const url = new URL(baseUrl, window.location.origin);
+                url.searchParams.set("adminref", referralId);
+
+                const newLink = url.toString();  
+                inputField.value = newLink;
+                updateFooterButtons(newLink);
+            });
+        }
+};
+
 
             referralLinkBtn?.addEventListener('click', openModal);
             referralLinkBtnMob?.addEventListener('click', toggleModal);

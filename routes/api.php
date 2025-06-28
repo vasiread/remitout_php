@@ -61,6 +61,7 @@ Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('goog
 Route::post('/passwordchange', [GoogleAuthController::class, 'passwordChange']);
 Route::get("/getalluserdetailsfromadmin", [StudentDashboardController::class, 'getAllUsersFromAdmin']);
 Route::post('/retrieve-file',  [StudentDashboardController::class, 'retrieveFile']);
+Route::post('/dynamic-file',  [StudentDashboardController::class, 'retrieveDynamicFiles']);
 Route::post('/remove-each-documents', [StudentDashboardController::class, 'removeFromServer']);
 
 Route::post('/getuserbyref', [scDashboardController::class, 'getUsersByCounsellorApi']);

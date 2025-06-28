@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\StudentsImport;
+use App\Models\DocumentType;
 use App\Models\PersonalInfo;
 use App\Models\Scuser;
 use Illuminate\Http\Request;
@@ -54,8 +55,6 @@ class scDashboardController extends Controller
 
         $referralId = $request->input('referralId');
 
-
-
         $userByRef = User::where('referral_code', $referralId)->get();
         $scDetail = Scuser::where('referral_code', $referralId)->get();
 
@@ -67,8 +66,73 @@ class scDashboardController extends Controller
             ], 404);
         }
 
-        return $userByRef;
+        $usersWithStatus = $userByRef->map(function ($user) {
+            $latestProgress = Requestprogress::where('user_id', $user->unique_id)
+                ->latest() // assumes created_at exists
+                ->first();
+
+            $status = 'No Progress Found';
+            $nbfcName = "";
+
+            if ($latestProgress) {
+                if ($latestProgress->reviewed == 0) {
+                    $status = 'Not Reviewed';
+                } else {
+                    if ($latestProgress->type === Requestprogress::TYPE_REQUEST) {
+                        $status = 'Pending';
+                    } elseif ($latestProgress->type === Requestprogress::TYPE_PROPOSAL) {
+                        $status = 'Approved';
+                    }
+                }
+
+                // Access NBFC name via relationship
+                $nbfcName = optional($latestProgress->nbfc)->nbfc_name;
+            }
+            $userId = $user->unique_id;
+
+            // Static & dynamic folders
+            $staticFolderPath = "$userId/static";
+            $dynamicFolderPath = "$userId/dynamic";
+
+            // Files found in S3
+            $staticFiles = Storage::disk("s3")->allFiles($staticFolderPath);
+            $dynamicFiles = Storage::disk("s3")->allFiles($dynamicFolderPath);
+
+            $staticFilesFound = count($staticFiles);
+            $dynamicFilesFound = count($dynamicFiles);
+
+            // Count all available dynamic document types (from DocumentType model)
+            $requiredDynamicDocuments = DocumentType::count();
+
+            // Static is always 22
+            $requiredStaticDocuments = 22;
+
+            // Compute missing for each
+            $missingStatic = max(0, $requiredStaticDocuments - $staticFilesFound);
+            $missingDynamic = max(0, $requiredDynamicDocuments - $dynamicFilesFound);
+
+            // Total missing = both
+            $missingDocuments = $missingStatic + $missingDynamic;
+
+            return [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'status' => $status,
+                'nbfc_name' => $nbfcName,
+                'missing_documents' => $missingDocuments
+
+            ];
+        });
+
+        return response()->json([
+            'referral_code' => $referralId,
+            'users_found' => true,
+            'users' => $usersWithStatus
+        ]);
     }
+
+
 
     public function uploadScUserPhoto(Request $request)
     {
@@ -268,7 +332,6 @@ class scDashboardController extends Controller
                     ->join('nbfc', 'traceprogress.nbfc_id', '=', 'nbfc.nbfc_id')
                     ->where('traceprogress.user_id', $userId)
                     ->where('traceprogress.type', 'proposal') // Only proposals
-                    ->where('traceprogress.reviewed', 1)      // Only accepted ones
                     ->whereNotNull('traceprogress.created_at')
                     ->select(
                         'nbfc.nbfc_name',

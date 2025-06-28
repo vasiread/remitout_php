@@ -296,7 +296,8 @@ class StudentDetailsController extends Controller
             }
 
             // Update co-borrower information fields
-            $coBorrowerInfo->co_borrower_relation = $request->input('answer');
+            $coBorrowerInfo->co_borrower_relation = $request->input('co_borrower_relation');
+
             $coBorrowerInfo->co_borrower_income = $request->input('incomeValue');
             $coBorrowerInfo->liability_select = $request->input('selectedLiability');
             $coBorrowerInfo->co_borrower_monthly_liability = $request->input('emiAmount');

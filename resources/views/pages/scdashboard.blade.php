@@ -154,51 +154,132 @@
 
     @section('scdashboard')
         @php
-$profileIconPath = "assets/images/account_circle1.png";
-$phoneIconPath = "assets/images/call.png";
-$mailIconPath = "assets/images/mail.png";
-$pindropIconPath = "assets/images/pin_drop.png";
+            $profileIconPath = 'assets/images/account_circle1.png';
+            $phoneIconPath = 'assets/images/call.png';
+            $mailIconPath = 'assets/images/mail.png';
+            $pindropIconPath = 'assets/images/pin_drop.png';
 
-$proposalsInfo = [
-    [
-        'NBFC' => 'NBFC Name',
-        'ProposalDate' => '20/11/2024',
-        'Status' => 'Approved'
+            $proposalsInfo = [
+                [
+                    'NBFC' => 'NBFC Name',
+                    'ProposalDate' => '20/11/2024',
+                    'Status' => 'Approved',
+                ],
+                [
+                    'NBFC' => 'NBFC Name',
+                    'ProposalDate' => '20/11/2024',
+                    'Status' => 'Pending',
+                ],
+            ];
 
-    ],
-    [
-        'NBFC' => 'NBFC Name',
-        'ProposalDate' => '20/11/2024',
-        'Status' => 'Pending'
-
-    ],
-
-];
-
-
-
-$studentDocumentDetailsInfo = [
-    ['student_name' => 'Manish', 'DocumentFinalStatus' => 'Missing Documents: 01', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-07-01'],
-    ['student_name' => 'Kumar', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-02-01'],
-    ['student_name' => 'Raji', 'DocumentFinalStatus' => 'Missing Documents: 12', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-12-04'],
-    ['student_name' => 'Venkatesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-01'],
-    ['student_name' => 'Ramya', 'DocumentFinalStatus' => 'Missing Documents: 03', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-02-09'],
-    ['student_name' => 'Chinna', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2025-07-20'],
-    ['student_name' => 'Feroz', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-02-21'],
-    ['student_name' => 'Ramesh', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-29'],
-    ['student_name' => 'Vasi', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2021-09-30'],
-    ['student_name' => 'Aari', 'DocumentFinalStatus' => 'Documents: Complete', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2023-10-01'],
-    ['student_name' => 'Abinav', 'DocumentFinalStatus' => 'Missing Documents: 02', 'DocumentFinalDate' => '02/11/2024', 'ProposalReceived' => '02', 'TotalDuration' => '3 weeks', 'proposalDetailInfo' => $proposalsInfo, 'date_added' => '2022-07-01'],
-
-
-];
+            $studentDocumentDetailsInfo = [
+                [
+                    'student_name' => 'Manish',
+                    'DocumentFinalStatus' => 'Missing Documents: 01',
+                    'DocumentFinalDate' => '02/11/2024',
+                    'ProposalReceived' => '02',
+                    'TotalDuration' => '3 weeks',
+                    'proposalDetailInfo' => $proposalsInfo,
+                    'date_added' => '2023-07-01',
+                ],
+                [
+                    'student_name' => 'Kumar',
+                    'DocumentFinalStatus' => 'Documents: Complete',
+                    'DocumentFinalDate' => '02/11/2024',
+                    'ProposalReceived' => '02',
+                    'TotalDuration' => '3 weeks',
+                    'proposalDetailInfo' => $proposalsInfo,
+                    'date_added' => '2022-02-01',
+                ],
+                [
+                    'student_name' => 'Raji',
+                    'DocumentFinalStatus' => 'Missing Documents: 12',
+                    'DocumentFinalDate' => '02/11/2024',
+                    'ProposalReceived' => '02',
+                    'TotalDuration' => '3 weeks',
+                    'proposalDetailInfo' => $proposalsInfo,
+                    'date_added' => '2021-12-04',
+                ],
+                [
+                    'student_name' => 'Venkatesh',
+                    'DocumentFinalStatus' => 'Documents: Complete',
+                    'DocumentFinalDate' => '02/11/2024',
+                    'ProposalReceived' => '02',
+                    'TotalDuration' => '3 weeks',
+                    'proposalDetailInfo' => $proposalsInfo,
+                    'date_added' => '2023-02-01',
+                ],
+                [
+                    'student_name' => 'Ramya',
+                    'DocumentFinalStatus' => 'Missing Documents: 03',
+                    'DocumentFinalDate' => '02/11/2024',
+                    'ProposalReceived' => '02',
+                    'TotalDuration' => '3 weeks',
+                    'proposalDetailInfo' => $proposalsInfo,
+                    'date_added' => '2021-02-09',
+                ],
+                [
+                    'student_name' => 'Chinna',
+                    'DocumentFinalStatus' => 'Documents: Complete',
+                    'DocumentFinalDate' => '02/11/2024',
+                    'ProposalReceived' => '02',
+                    'TotalDuration' => '3 weeks',
+                    'proposalDetailInfo' => $proposalsInfo,
+                    'date_added' => '2025-07-20',
+                ],
+                [
+                    'student_name' => 'Feroz',
+                    'DocumentFinalStatus' => 'Documents: Complete',
+                    'DocumentFinalDate' => '02/11/2024',
+                    'ProposalReceived' => '02',
+                    'TotalDuration' => '3 weeks',
+                    'proposalDetailInfo' => $proposalsInfo,
+                    'date_added' => '2023-02-21',
+                ],
+                [
+                    'student_name' => 'Ramesh',
+                    'DocumentFinalStatus' => 'Documents: Complete',
+                    'DocumentFinalDate' => '02/11/2024',
+                    'ProposalReceived' => '02',
+                    'TotalDuration' => '3 weeks',
+                    'proposalDetailInfo' => $proposalsInfo,
+                    'date_added' => '2022-07-29',
+                ],
+                [
+                    'student_name' => 'Vasi',
+                    'DocumentFinalStatus' => 'Documents: Complete',
+                    'DocumentFinalDate' => '02/11/2024',
+                    'ProposalReceived' => '02',
+                    'TotalDuration' => '3 weeks',
+                    'proposalDetailInfo' => $proposalsInfo,
+                    'date_added' => '2021-09-30',
+                ],
+                [
+                    'student_name' => 'Aari',
+                    'DocumentFinalStatus' => 'Documents: Complete',
+                    'DocumentFinalDate' => '02/11/2024',
+                    'ProposalReceived' => '02',
+                    'TotalDuration' => '3 weeks',
+                    'proposalDetailInfo' => $proposalsInfo,
+                    'date_added' => '2023-10-01',
+                ],
+                [
+                    'student_name' => 'Abinav',
+                    'DocumentFinalStatus' => 'Missing Documents: 02',
+                    'DocumentFinalDate' => '02/11/2024',
+                    'ProposalReceived' => '02',
+                    'TotalDuration' => '3 weeks',
+                    'proposalDetailInfo' => $proposalsInfo,
+                    'date_added' => '2022-07-01',
+                ],
+            ];
 
         @endphp
 
         <div class="scdashboard-parentcontainer">
             <div class="commonsidebar-togglesidebar">
                 <ul class="commonsidebar-sidebarlists-top">
-                    @foreach($sidebarItems as $item)
+                    @foreach ($sidebarItems as $item)
                         <li class="{{ $item['active'] ? 'active' : '' }}">
                             <i class="{{ $item['icon'] }}"></i>
                             <p>{{ $item['name'] }}</p>
@@ -249,7 +330,8 @@ $studentDocumentDetailsInfo = [
                             <button id="pcviewgeneratedreferralcode"> <img src="{{ asset('assets/images/Group icon.png') }}"
                                     alt="Referral group icon"> Referral Code:
                                 45628</button>
-                            <button style="display:none"> <img src="{{ asset('assets/images/dbicon.png') }}" alt="Commission tracking icon">Track
+                            <button style="display:none"> <img src="{{ asset('assets/images/dbicon.png') }}"
+                                    alt="">Track
                                 Commission</button>
                             <button id="mobgeneratedbutton" class="referral-Link-trigger-button">Generate Referral
                                 Link</button>
@@ -275,7 +357,8 @@ $studentDocumentDetailsInfo = [
             <div class="scdashboard-inboxcontent">
                 <div class="scmember-profilecontainer">
                     <div class="scmember-profilecontainerimg">
-                        <img src="{{asset('assets/images/image-women.jpeg')}}" id="studentcounsellor-profile" alt="Student counsellor profile photo">
+                        <img src="{{ asset('assets/images/image-women.jpeg') }}" id="studentcounsellor-profile"
+                            alt="">
                         <i class="fa-regular fa-pen-to-square"></i>
                         <input type="file" id="sc-profile-upload-cloud" display="none">
                     </div>
@@ -298,36 +381,38 @@ $studentDocumentDetailsInfo = [
                     </div>
                     <ul class="scmember_personalinfo">
 
-                        <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="Student counsellor icon">
+                        <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{ $profileIconPath }}"
+                                alt="">
                             <p> </p>
                         </li>
-                        <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="Contact number icon">
+                        <li class="scmember_personal_info_phone"><img src={{ $phoneIconPath }} alt="">
                             <p></p>
                         </li>
                         <li class="scmember_personal_info_email" style="word-break: break-all;" id="referenceEmailId">
-                            <img src="{{$mailIconPath}}" alt="Counsellor email icon">
-                            <p>{{ session('scuser')->email}}</p>
+                            <img src="{{ $mailIconPath }}" alt="">
+                            <p>{{ session('scuser')->email }}</p>
                         </li>
-                        <li class="scmember_personal_info_state"><img src="{{$pindropIconPath}}" alt="Counsellor location icon">
+                        <li class="scmember_personal_info_state"><img src="{{ $pindropIconPath }}" alt="">
                             <p style="line-height:19px"></p>
                         </li>
 
                     </ul>
                     <ul class="scmember_personalinfo_editmode">
-                        <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{$profileIconPath}}" alt="Edit profile name icon">
+                        <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{ $profileIconPath }}"
+                                alt="">
                             <input type="text">
                         </li>
-                        <li class="scmember_personal_info_phone"><img src={{$phoneIconPath}} alt="Edit phone number icon">
+                        <li class="scmember_personal_info_phone"><img src={{ $phoneIconPath }} alt="">
                             <input type="text">
                         </li>
                         <li class="scmember_personal_info_email" id="referenceEmailId">
-                            <img src="{{$mailIconPath}}" alt="Email field icon">
+                            <img src="{{ $mailIconPath }}" alt="">
                             <input type="text" disabled>
                         </li>
                         <li class="scmember_personal_info_state-edit">
 
                             <div class="scmember-personal_address_header">
-                                <img src="{{$pindropIconPath}}" alt="State location icon">
+                                <img src="{{ $pindropIconPath }}" alt="">
                                 <input type="text" disabled>
                             </div>
 
@@ -396,10 +481,12 @@ $studentDocumentDetailsInfo = [
                         </div>
 
                         <div id="viewmore-queries">
-                            <p>view more</p> <img src="{{ asset("assets/images/Icons/stat_minus_1.png") }}" style="margin-top: 9px;
+                            <p>view more</p> <img src="{{ asset('assets/images/Icons/stat_minus_1.png') }}"
+                                style="margin-top: 9px;
                                                                                                 margin-left: 8px;
                                                                                                 width: 12px;
-                                                                                                height: 7px;" alt="Collapse arrow icon" />
+                                                                                                height: 7px;"
+                                alt="">
                         </div>
 
 
@@ -423,7 +510,7 @@ $studentDocumentDetailsInfo = [
                             <a href="" data-sort="alphabet-reverse">Z-A</a>
                         </div>
                         <button id="mobwidthdownloadbutton">
-                            <img src="{{asset("assets/images/Icons/download-orange.png")}}" alt="Download application data icon">
+                            <img src="{{ asset('assets/images/Icons/download-orange.png') }}" alt="">
                         </button>
                         <button id="sc-new-application-generate">Start New Application</button>
                     </div>
@@ -467,7 +554,7 @@ $studentDocumentDetailsInfo = [
                 <div class="studentAddByScuserPopup-footerpart">
                     <!-- Excel Upload Button -->
                     <button id="excel-upload-trigger" type="button" style="cursor:pointer">
-                        Upload xlsx <img src="{{ asset('assets/images/Icons/upload.png') }}" alt="Upload Excel file icon" />
+                        Upload xlsx <img src="{{ asset('assets/images/Icons/upload.png') }}" />
                     </button>
                     <button type="button" class="add-student-btn" style="cursor:pointer">Add Student</button>
                     <button type="button" id="save-multiple-students-bysc" style="cursor:pointer">Save Student
@@ -530,11 +617,10 @@ $studentDocumentDetailsInfo = [
                 <button class="submit-query">Submit</button>
             </div>
         </div>
-
     @endsection
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Check if scuser session exists
             // const scuser = @json(session('scuser'));
             // if (!scuser) {
@@ -569,13 +655,13 @@ $studentDocumentDetailsInfo = [
         // Add the sessionLogout function
         function sessionLogout() {
             fetch("{{ route('logout') }}", {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({})
-            })
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({})
+                })
                 .then(response => {
                     if (response.ok) {
                         window.location.href = "{{ route('login') }}";
@@ -656,7 +742,8 @@ $studentDocumentDetailsInfo = [
             const viewMoreBtn = document.querySelector('#viewmore-queries');
             const querysContainer = document.querySelector('.groupofraisedquestion-scdashboard');
 
-            if (!raiseQueryBtn || !modal || !backdrop || !closeBtn || !cancelBtn || !form || !viewMoreBtn || !querysContainer) {
+            if (!raiseQueryBtn || !modal || !backdrop || !closeBtn || !cancelBtn || !form || !viewMoreBtn || !
+                querysContainer) {
                 console.error('Query modal elements missing');
                 return;
             }
@@ -685,7 +772,8 @@ $studentDocumentDetailsInfo = [
 
                 if (isMobile) {
                     queryEntries.forEach((entry, index) => {
-                        entry.style.display = querysContainer.classList.contains('expanded') || index < 4 ? 'block' : 'none';
+                        entry.style.display = querysContainer.classList.contains('expanded') || index < 4 ?
+                            'block' : 'none';
                     });
                     viewMoreBtn.style.display = queryEntries.length > 4 ? 'flex' : 'none';
                 } else {
@@ -714,7 +802,7 @@ $studentDocumentDetailsInfo = [
             window.addEventListener('resize', updateQueryVisibility);
 
             updateQueryVisibility();
-            
+
 
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -737,13 +825,14 @@ $studentDocumentDetailsInfo = [
                 };
 
                 fetch('/submit-query', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify(queryData)
-                })
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: JSON.stringify(queryData)
+                    })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
@@ -771,8 +860,10 @@ $studentDocumentDetailsInfo = [
 
 
         const initializeProfileUploadScuser = async () => {
-            const profileUploadForScTriggerShower = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .edit-scuser');
-            const scUserInfoUpdationSaver = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .save-scuser');
+            const profileUploadForScTriggerShower = document.querySelector(
+                '.scdashboard-performancecontainer .performancecontainer-firstrow .edit-scuser');
+            const scUserInfoUpdationSaver = document.querySelector(
+                '.scdashboard-performancecontainer .performancecontainer-firstrow .save-scuser');
             const profileUploadForScTrigger = document.querySelector('.scmember-profilecontainerimg i');
             const profileUploadToCloud = document.getElementById('sc-profile-upload-cloud');
             const profileViewInstantChange = document.getElementById("studentcounsellor-profile");
@@ -843,24 +934,26 @@ $studentDocumentDetailsInfo = [
                     formDetailsData.append('file', file);
                     formDetailsData.append('scuserrefid', scUserRefId);
 
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute(
+                        'content');
                     if (!csrfToken) {
                         console.error('CSRF token not found');
                         return;
                     }
 
                     fetch('/upload-scuserprofile-photo', {
-                        method: "POST",
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken,
-                            'Accept': 'application/json',
-                        },
-                        body: formDetailsData,
-                    })
+                            method: "POST",
+                            headers: {
+                                'X-CSRF-TOKEN': csrfToken,
+                                'Accept': 'application/json',
+                            },
+                            body: formDetailsData,
+                        })
                         .then(response => {
                             if (!response.ok) {
                                 return response.json().then(errorData => {
-                                    throw new Error(errorData.error || 'Network response was not ok');
+                                    throw new Error(errorData.error ||
+                                        'Network response was not ok');
                                 });
                             }
                             return response.json();
@@ -868,7 +961,8 @@ $studentDocumentDetailsInfo = [
                         .then(data => {
                             if (data) {
                                 console.log("File uploaded successfully", data);
-                                if (profileViewInstantChange) profileViewInstantChange.src = data.file_path;
+                                if (profileViewInstantChange) profileViewInstantChange.src = data
+                                    .file_path;
                                 const navImageElement = document.querySelector("#nav-profile-photo-id");
                                 if (navImageElement) navImageElement.src = data.file_path;
                             } else {
@@ -899,14 +993,16 @@ $studentDocumentDetailsInfo = [
                 return;
             }
             fetch('/view-scuserprofile-photo', {
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ scuserrefid: scUserRefId })
-            })
+                    method: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        scuserrefid: scUserRefId
+                    })
+                })
                 .then(response => response.json())
                 .then(data => {
                     if (data.fileUrl) {
@@ -931,16 +1027,23 @@ $studentDocumentDetailsInfo = [
                 item.addEventListener('click', (e) => {
                     e.preventDefault();
                     const sortContentsType = e.target.getAttribute('data-sort');
-                    const raisedQuestions = Array.from(querysContainer.querySelectorAll('.individual-raisedquestions'));
+                    const raisedQuestions = Array.from(querysContainer.querySelectorAll(
+                        '.individual-raisedquestions'));
 
                     if (sortContentsType === 'newest') {
-                        raisedQuestions.sort((a, b) => new Date(b.dataset.added) - new Date(a.dataset.added));
+                        raisedQuestions.sort((a, b) => new Date(b.dataset.added) - new Date(a.dataset
+                            .added));
                     } else if (sortContentsType === 'oldest') {
-                        raisedQuestions.sort((a, b) => new Date(a.dataset.added) - new Date(b.dataset.added));
+                        raisedQuestions.sort((a, b) => new Date(a.dataset.added) - new Date(b.dataset
+                            .added));
                     } else if (sortContentsType === 'alphabet') {
-                        raisedQuestions.sort((a, b) => a.querySelector('#queries-row').textContent.trim().localeCompare(b.querySelector('#queries-row').textContent.trim()));
+                        raisedQuestions.sort((a, b) => a.querySelector('#queries-row').textContent
+                        .trim().localeCompare(b.querySelector('#queries-row').textContent
+                        .trim()));
                     } else if (sortContentsType === 'alphabet-reverse') {
-                        raisedQuestions.sort((a, b) => b.querySelector('#queries-row').textContent.trim().localeCompare(a.querySelector('#queries-row').textContent.trim()));
+                        raisedQuestions.sort((a, b) => b.querySelector('#queries-row').textContent
+                        .trim().localeCompare(a.querySelector('#queries-row').textContent
+                        .trim()));
                     }
 
                     raisedQuestions.forEach((question) => {
@@ -966,7 +1069,8 @@ $studentDocumentDetailsInfo = [
         const initializeSortByFunctionApplicationStatus = () => {
             const sortByApplication = document.querySelector("#applicationstatus-sortby");
             const sortByApplicationContent = document.querySelector(".sort-by-contents-applications-studentnames");
-            let sortedApplicationStudentLinks = document.querySelectorAll(".sort-by-contents-applications-studentnames a");
+            let sortedApplicationStudentLinks = document.querySelectorAll(
+                ".sort-by-contents-applications-studentnames a");
             const studentContainer = document.querySelector("#student-applicationdetailsstatus");
 
             if (sortByApplicationContent) {
@@ -977,7 +1081,8 @@ $studentDocumentDetailsInfo = [
                 item.addEventListener('click', (e) => {
                     e.preventDefault();
                     const sortType = e.target.getAttribute('data-sort');
-                    let sortedElementApplicationView = Array.from(studentContainer.querySelectorAll(".studentapplicationstatusreports-inscdashboard"));
+                    let sortedElementApplicationView = Array.from(studentContainer.querySelectorAll(
+                        ".studentapplicationstatusreports-inscdashboard"));
 
                     if (sortType === 'newest' || sortType === 'oldest') {
                         const elementsWithDate = sortedElementApplicationView.map(el => ({
@@ -992,14 +1097,18 @@ $studentDocumentDetailsInfo = [
                         sortedElementApplicationView = elementsWithDate.map(item => item.el);
                     } else if (sortType === 'alphabet') {
                         sortedElementApplicationView.sort((a, b) =>
-                            a.querySelector('.reportsindashboard-leftcontentinfirstrow p').textContent.trim().localeCompare(
-                                b.querySelector('.reportsindashboard-leftcontentinfirstrow p').textContent.trim()
+                            a.querySelector('.reportsindashboard-leftcontentinfirstrow p')
+                            .textContent.trim().localeCompare(
+                                b.querySelector('.reportsindashboard-leftcontentinfirstrow p')
+                                .textContent.trim()
                             )
                         );
                     } else if (sortType === 'alphabet-reverse') {
                         sortedElementApplicationView.sort((a, b) =>
-                            b.querySelector('.reportsindashboard-leftcontentinfirstrow p').textContent.trim().localeCompare(
-                                a.querySelector('.reportsindashboard-leftcontentinfirstrow p').textContent.trim()
+                            b.querySelector('.reportsindashboard-leftcontentinfirstrow p')
+                            .textContent.trim().localeCompare(
+                                a.querySelector('.reportsindashboard-leftcontentinfirstrow p')
+                                .textContent.trim()
                             )
                         );
                     }
@@ -1009,7 +1118,8 @@ $studentDocumentDetailsInfo = [
                     });
 
                     if (sortByApplicationContent) {
-                        sortByApplicationContent.style.display = 'none'; // close dropdown after selection
+                        sortByApplicationContent.style.display =
+                        'none'; // close dropdown after selection
                     }
                 });
             });
@@ -1024,14 +1134,16 @@ $studentDocumentDetailsInfo = [
             });
 
             document.addEventListener('click', (e) => {
-                if (sortByApplicationContent && sortByApplicationContent.style.display === "flex" && !sortByApplication.contains(e.target)) {
+                if (sortByApplicationContent && sortByApplicationContent.style.display === "flex" && !
+                    sortByApplication.contains(e.target)) {
                     sortByApplicationContent.style.display = "none";
                     sortByApplication.setAttribute('aria-expanded', 'false');
                 }
             });
         }
         const dynamicChangesWhileScreenShrink = () => {
-            const contentChangeButton = document.querySelector(".scdashboard-applicationstatus .scapplicationstatus-firstrow #sc-new-application-generate");
+            const contentChangeButton = document.querySelector(
+                ".scdashboard-applicationstatus .scapplicationstatus-firstrow #sc-new-application-generate");
             const statusTextElements = document.querySelectorAll('.dynamic-status-hide');
             const raisedQueryButton = document.querySelector(".queryraisedcontainer-rightcontent #raised-query");
 
@@ -1075,7 +1187,8 @@ $studentDocumentDetailsInfo = [
             const popuAddingStudentTriggersApplications = document.getElementById("sc-new-application-generate");
             const overlay = document.querySelector(".sc-new-registration-overlay");
 
-            if (!studentAddingPopuBar || !popuAddingStudentTriggers.length || !closePopuTrigger || !backgroundContainer || !overlay) {
+            if (!studentAddingPopuBar || !popuAddingStudentTriggers.length || !closePopuTrigger || !
+                backgroundContainer || !overlay) {
                 console.error("Required DOM elements are missing for initializePopuAddingstudents:", {
                     studentAddingPopuBar: !!studentAddingPopuBar,
                     popuAddingStudentTriggers: !!popuAddingStudentTriggers.length,
@@ -1113,7 +1226,8 @@ $studentDocumentDetailsInfo = [
 
 
         const addDynamicInputFields = () => {
-            const addStudentButtons = document.querySelectorAll(".studentAddByScuserPopup-footerpart button:nth-child(2), #dynamic-add-student-button");
+            const addStudentButtons = document.querySelectorAll(
+                ".studentAddByScuserPopup-footerpart button:nth-child(2), #dynamic-add-student-button");
             const studentFormContainer = document.querySelector(".studentAddByScuserPopup-contentpart");
 
             const addNewStudentForm = () => {
@@ -1144,22 +1258,37 @@ $studentDocumentDetailsInfo = [
 
         const initializecheckStatus = () => {
             const statusElements = document.querySelectorAll(".reportsproposal-individualdatalists p span");
-            const applicationStatusElements = document.querySelectorAll(".individualstudentapplication-status .scdashboard-nbfcstatus-pending span");
+            const applicationStatusElements = document.querySelectorAll(
+                ".individualstudentapplication-status .scdashboard-nbfcstatus-pending span");
             const missingDocumentsCount = document.querySelectorAll(".scdashboard-missingdocumentsstatus");
 
-            applicationStatusElements.forEach((items, index) => {
-                if (items.textContent.includes("Accepted")) {
-                    items.style.color = "#3FA27E";
-                    items.style.backgroundColor = "#D2FFEE";
-                    if (missingDocumentsCount[index]) {
-                        missingDocumentsCount[index].style.display = "none";
-                    }
-                } else {
-                    if (missingDocumentsCount[index]) {
-                        missingDocumentsCount[index].style.display = "flex";
-                    }
-                }
-            });
+           applicationStatusElements.forEach((items, index) => {
+    const text = items.textContent.trim();
+
+    if (text.includes("Approved")) {
+        items.style.color = "#3FA27E";
+        items.style.backgroundColor = "#D2FFEE";
+        if (missingDocumentsCount[index]) {
+            missingDocumentsCount[index].style.display = "none";
+        }
+    } else if (text.includes("No Progress Found")) {
+        items.style.color = "#B54747";
+        items.style.backgroundColor = "#FFE5E5";
+        if (missingDocumentsCount[index]) {
+            missingDocumentsCount[index].style.display = "flex";
+        }
+    } else if (text.includes("Not Reviewed")) {
+        items.style.color = "#997404";
+        items.style.backgroundColor = "#FFF9DB";
+        if (missingDocumentsCount[index]) {
+            missingDocumentsCount[index].style.display = "flex";
+        }
+    } else {
+        if (missingDocumentsCount[index]) {
+            missingDocumentsCount[index].style.display = "flex";
+        }
+    }
+});
 
             statusElements.forEach(dynamicStatusColorChange => {
                 if (dynamicStatusColorChange.textContent.includes("Accepted")) {
@@ -1168,16 +1297,13 @@ $studentDocumentDetailsInfo = [
                     dynamicStatusColorChange.style.backgroundColor = "#D2FFEE";
                     dynamicStatusColorChange.style.width = "100%"
                     dynamicStatusColorChange.style.maxWidth = "95px"
-                }
-                else if (dynamicStatusColorChange.textContent.includes("Rejected")) {
+                } else if (dynamicStatusColorChange.textContent.includes("Rejected")) {
                     dynamicStatusColorChange.textContent = "Rejected";
                     // dynamicStatusColorChange.style.color = "#3FA27E";
                     // dynamicStatusColorChange.style.backgroundColor = "#D2FFEE";
                     dynamicStatusColorChange.style.width = "100%"
                     dynamicStatusColorChange.style.maxWidth = "95px"
-                }
-
-                else if (dynamicStatusColorChange.textContent.includes("Pending")) {
+                } else if (dynamicStatusColorChange.textContent.includes("Pending")) {
                     dynamicStatusColorChange.style.color = "#FA7B15";
                     dynamicStatusColorChange.style.backgroundColor = "#FFE3CA";
                     dynamicStatusColorChange.style.width = "100%";
@@ -1261,13 +1387,16 @@ $studentDocumentDetailsInfo = [
             }
 
             fetch("/getuserbyref", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-                },
-                body: JSON.stringify({ referralId })
-            })
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute(
+                            'content') || ''
+                    },
+                    body: JSON.stringify({
+                        referralId
+                    })
+                })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -1282,10 +1411,11 @@ $studentDocumentDetailsInfo = [
                     const userListContainer = document.getElementById("user-list");
                     userListContainer.innerHTML = "";
 
-                    if (data && data.length > 0) {
+                    if (data.users && data.users.length > 0) {
                         // Render user list
-                        data.forEach((user, index) => {
-                            const isHidden = index >= 3 ? 'hidden' : ''; // Use a class instead of inline style
+                        data.users.forEach((user, index) => {
+                            const isHidden = index >= 3 ? 'hidden' :
+                            ''; // Use a class instead of inline style
                             const userHTML = `
                         <div class="studentapplication-lists user-item ${isHidden}">
                             <div class="individualapplication-list">
@@ -1304,15 +1434,15 @@ $studentDocumentDetailsInfo = [
                             <ul class="individualstudentapplication-status">
                                 <li class="scdashboard-nbfcnamecontainer">
                                     <p>NBFC:</p>
-                                    <p>NBFC Name</p>
+                                    <p>${user.nbfc_name}</p>
                                 </li>
                                 <li class="scdashboard-nbfcstatus-pending">
                                     <p>Status:</p>
-                                    <span>Pending</span>
+                                    <span>${user.status}</span>
                                 </li>
                                 <li class="scdashboard-missingdocumentsstatus">
                                     <p>Missing Documents:</p>
-                                    <span>03</span>
+                                    <span>${user.missing_documents}</span>
                                 </li>
                             </ul>
                         </div>
@@ -1423,7 +1553,8 @@ $studentDocumentDetailsInfo = [
                                         });
                                         viewMoreButton.querySelector("span").textContent = "View Less";
                                         // Rotate the icon to point upwards
-                                        viewMoreButton.querySelector(".view-more-icon").style.transform = "rotate(180deg)";
+                                        viewMoreButton.querySelector(".view-more-icon").style.transform =
+                                            "rotate(180deg)";
                                     } else {
                                         // Revert to showing only the first 3 rows
                                         userItems.forEach((item, index) => {
@@ -1433,7 +1564,8 @@ $studentDocumentDetailsInfo = [
                                         });
                                         viewMoreButton.querySelector("span").textContent = "View More";
                                         // Reset the icon rotation
-                                        viewMoreButton.querySelector(".view-more-icon").style.transform = "rotate(0deg)";
+                                        viewMoreButton.querySelector(".view-more-icon").style.transform =
+                                            "rotate(0deg)";
                                     }
                                     isShowingAllMobile = !isShowingAllMobile; // Toggle the state
                                 });
@@ -1449,7 +1581,8 @@ $studentDocumentDetailsInfo = [
         };
 
         const generateReferLinkPopup = () => {
-            const triggeredReferralButtons = document.querySelectorAll(".referral-Link-trigger-button, .referral-Link-trigger-anotherbutton");
+            const triggeredReferralButtons = document.querySelectorAll(
+                ".referral-Link-trigger-button, .referral-Link-trigger-anotherbutton");
             const referralTriggeredView = document.querySelector(".referral-triggered-view");
             const closeReferralTriggerView = document.querySelector(".referral-triggered-view-headersection img");
             const footerContainer = document.querySelector(".referral-triggered-view-footer");
@@ -1460,30 +1593,35 @@ $studentDocumentDetailsInfo = [
             const referralCodeElement = document.querySelector("#screferral-id-fromprofile span");
             const overlay = document.querySelector(".sc-dashboard-generate-overlay");
 
-            const baseUrl = "http://localhost:8000/signup";
-            const secretKey = "rJXU0e4lTP7G+KP9dH5V1pq9P7vP8d8sravZmzMGUKM=";
+          const baseUrl = "/signup"; // can be full URL like "https://example.com/signup"
+const secretKey = "rJXU0e4lTP7G+KP9dH5V1pq9P7vP8d8sravZmzMGUKM=";
 
-            if (!triggeredReferralButtons.length || !referralTriggeredView || !referralInput || !backgroundContainer || !referralCodeElement || !footerContainer || !overlay) {
-                console.error("Required DOM elements are missing for generateReferLinkPopup:", {
-                    triggeredReferralButtons: !!triggeredReferralButtons.length,
-                    referralTriggeredView: !!referralTriggeredView,
-                    referralInput: !!referralInput,
-                    backgroundContainer: !!backgroundContainer,
-                    referralCodeElement: !!referralCodeElement,
-                    footerContainer: !!footerContainer,
-                    overlay: !!overlay
-                });
-                return;
-            }
+if (!triggeredReferralButtons.length || !referralTriggeredView || !referralInput || !backgroundContainer ||
+    !referralCodeElement || !footerContainer || !overlay) {
+    console.error("Required DOM elements are missing for generateReferLinkPopup:", {
+        triggeredReferralButtons: !!triggeredReferralButtons.length,
+        referralTriggeredView: !!referralTriggeredView,
+        referralInput: !!referralInput,
+        backgroundContainer: !!backgroundContainer,
+        referralCodeElement: !!referralCodeElement,
+        footerContainer: !!footerContainer,
+        overlay: !!overlay
+    });
+    return;
+}
 
-            const referralCode = referralCodeElement.textContent.trim();
-            if (!referralCode) {
-                console.error("Referral code is empty or not found");
-                return;
-            }
+const referralCode = referralCodeElement.textContent.trim();
+if (!referralCode) {
+    console.error("Referral code is empty or not found");
+    return;
+}
 
-            const referralLink = `${baseUrl}?ref=${encodeURIComponent(referralCode)}`;
+// Append ?ref=... or &ref=... based on existing query string
+const url = new URL(baseUrl, window.location.origin); // baseUrl can be relative or absolute
+url.searchParams.set("ref", referralCode);
 
+const referralLink = url.toString();
+console.log("Generated referral link:", referralLink);
 
             const removeExistingListeners = (element, event, handler) => {
                 element.removeEventListener(event, handler);
@@ -1587,7 +1725,8 @@ $studentDocumentDetailsInfo = [
                                 console.warn("Sharing failed:", err);
                             }
                         } else {
-                            alert("Sharing is not supported on this device. Please copy the link manually.");
+                            alert(
+                            "Sharing is not supported on this device. Please copy the link manually.");
                         }
                     };
                     removeExistingListeners(shareButton, "click", shareLink);
@@ -1704,19 +1843,21 @@ $studentDocumentDetailsInfo = [
 
             if (scuserid) {
                 fetch(`/get-queries?scUserId=${scuserid}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                })
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        }
+                    })
                     .then((response) => response.json())
                     .then((data) => {
                         const container = document.querySelector(".groupofraisedquestion-scdashboard");
                         container.innerHTML = ''; // Clear existing
 
                         if (data.success && data.queries.length > 0) {
-                            const sortedQueries = data.queries.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                            const sortedQueries = data.queries.sort((a, b) => new Date(b.created_at) - new Date(a
+                                .created_at));
 
                             sortedQueries.forEach((item) => {
                                 console.log(item)
@@ -1765,15 +1906,19 @@ $studentDocumentDetailsInfo = [
                     });
             }
         };
+
         function markQuery(queryId, status) {
             fetch(`/mark-query`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({ query_id: queryId, status: status })
-            })
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        query_id: queryId,
+                        status: status
+                    })
+                })
                 .then(res => res.json())
                 .then(data => {
                     if (data.success) {
@@ -1823,7 +1968,8 @@ $studentDocumentDetailsInfo = [
             const queryType = document.querySelector("#query-type");
             const backgroundContainer = document.querySelector(".scdashboard-parentcontainer");
 
-            if (!raiseQueryButton || !raiseQueryPopup || !closeQueryPopup || !cancelQueryButton || !submitQueryButton || !queryText || !queryType) {
+            if (!raiseQueryButton || !raiseQueryPopup || !closeQueryPopup || !cancelQueryButton || !submitQueryButton ||
+                !queryText || !queryType) {
                 console.error("Required DOM elements for raise query popup are missing");
                 return;
             }
@@ -1876,17 +2022,18 @@ $studentDocumentDetailsInfo = [
                 }
 
                 fetch('/raise-query', {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({
-                        scuserid: scuserid,
-                        querytype: type,
-                        queryraised: query
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: JSON.stringify({
+                            scuserid: scuserid,
+                            querytype: type,
+                            queryraised: query
+                        })
                     })
-                })
                     .then(response => {
                         if (!response.ok) {
                             throw new Error("Network response was not ok");
@@ -1917,11 +2064,14 @@ $studentDocumentDetailsInfo = [
             const updatedScName = personalEditMode.querySelector(".scmember_personal_info_name input").value;
             const updatedScDob = document.querySelector("#screferral-dob-fromprofile-editmode input").value;
             const updatedScPhone = personalEditMode.querySelector(".scmember_personal_info_phone input").value;
-            const updatedScAddress = personalEditMode.querySelector(".scmember_personal_info_state-edit .subbranch-of-address");
+            const updatedScAddress = personalEditMode.querySelector(
+                ".scmember_personal_info_state-edit .subbranch-of-address");
             const Profiledob = document.getElementById("screferral-dob-fromprofile");
             const editStateProfiledob = document.getElementById("screferral-dob-fromprofile-editmode");
-            const profileUploadForScTriggerShower = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .edit-scuser');
-            const scUserInfoUpdationSaver = document.querySelector('.scdashboard-performancecontainer .performancecontainer-firstrow .save-scuser');
+            const profileUploadForScTriggerShower = document.querySelector(
+                '.scdashboard-performancecontainer .performancecontainer-firstrow .edit-scuser');
+            const scUserInfoUpdationSaver = document.querySelector(
+                '.scdashboard-performancecontainer .performancecontainer-firstrow .save-scuser');
 
             const street = updatedScAddress.querySelector("#scaddress-address").value;
             const district = updatedScAddress.querySelector("#scaddress-city").value;
@@ -1957,13 +2107,13 @@ $studentDocumentDetailsInfo = [
             }
 
             fetch("/updatescuserdetails", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify(scUserUpdatedDatas)
-            })
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify(scUserUpdatedDatas)
+                })
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.success) {
@@ -1998,13 +2148,15 @@ $studentDocumentDetailsInfo = [
             }
 
             fetch('/scuserone', {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({ referral_code: referralCode })
-            })
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        referral_code: referralCode
+                    })
+                })
                 .then((response) => response.json())
                 .then((data) => {
                     console.log(data);
@@ -2014,7 +2166,8 @@ $studentDocumentDetailsInfo = [
                     }
 
                     if (personalScInfoContainer) {
-                        const scNameDisplay = personalScInfoContainer.querySelector(".scmember_personal_info_name p");
+                        const scNameDisplay = personalScInfoContainer.querySelector(
+                            ".scmember_personal_info_name p");
                         if (scNameDisplay) scNameDisplay.textContent = data.full_name || "N/A";
                     }
                     if (personalEditMode) {
@@ -2023,7 +2176,8 @@ $studentDocumentDetailsInfo = [
                     }
 
                     if (personalScInfoContainer) {
-                        const scPhoneDisplay = personalScInfoContainer.querySelector(".scmember_personal_info_phone p");
+                        const scPhoneDisplay = personalScInfoContainer.querySelector(
+                            ".scmember_personal_info_phone p");
                         if (scPhoneDisplay) scPhoneDisplay.textContent = data.phone || "N/A";
                     }
                     if (personalEditMode) {
@@ -2032,11 +2186,13 @@ $studentDocumentDetailsInfo = [
                     }
 
                     if (personalScInfoContainer) {
-                        const scAddressDisplay = personalScInfoContainer.querySelector(".scmember_personal_info_state p");
+                        const scAddressDisplay = personalScInfoContainer.querySelector(
+                            ".scmember_personal_info_state p");
                         if (scAddressDisplay) scAddressDisplay.textContent = data.address || "N/A";
                     }
                     if (personalEditMode) {
-                        const scAddressEdit = personalEditMode.querySelector(".scmember_personal_info_state-edit .scmember-personal_address_header input");
+                        const scAddressEdit = personalEditMode.querySelector(
+                            ".scmember_personal_info_state-edit .scmember-personal_address_header input");
                         if (scAddressEdit) scAddressEdit.value = data.address || "";
                     }
 
@@ -2117,16 +2273,18 @@ $studentDocumentDetailsInfo = [
 
                     formData.append('excel_file', file);
 
-                    const referralId = document.querySelector('#screferral-id-fromprofile span')?.textContent || '';
+                    const referralId = document.querySelector('#screferral-id-fromprofile span')?.textContent ||
+                        '';
                     formData.append('referral_id', referralId); // ✅ Fixed key here
 
-                    fetch('{{ route("students.import") }}', {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-                        },
-                        body: formData
-                    })
+                    fetch('{{ route('students.import') }}', {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                    ?.getAttribute('content') || ''
+                            },
+                            body: formData
+                        })
                         .then(response => response.json())
                         .then(data => {
                             alert(data.message);
@@ -2185,13 +2343,17 @@ $studentDocumentDetailsInfo = [
 
                 // Email check
                 if (student.email && !isValidEmail(student.email)) {
-                    console.error(`Invalid email for student ${index + 1} (${student.name || 'unnamed'}): "${student.email}"`);
+                    console.error(
+                        `Invalid email for student ${index + 1} (${student.name || 'unnamed'}): "${student.email}"`
+                        );
                     hasInvalidEmail = true;
                 }
 
                 // Phone check
                 if (student.phone && !isValidPhone(student.phone)) {
-                    console.error(`Invalid phone number for student ${index + 1} (${student.name || 'unnamed'}): "${student.phone}"`);
+                    console.error(
+                        `Invalid phone number for student ${index + 1} (${student.name || 'unnamed'}): "${student.phone}"`
+                        );
                     hasInvalidPhone = true;
                 }
 
@@ -2230,7 +2392,9 @@ $studentDocumentDetailsInfo = [
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                     },
-                    body: JSON.stringify({ students })
+                    body: JSON.stringify({
+                        students
+                    })
                 });
 
                 const result = await response.json();
@@ -2268,7 +2432,7 @@ $studentDocumentDetailsInfo = [
 
             } catch (error) {
                 console.error("Network error:", error);
-                alert("An error occurred while saving students.");
+                alert("Network  error:.");
             }
         };
 
@@ -2285,13 +2449,15 @@ $studentDocumentDetailsInfo = [
             }
 
             fetch("/getstatusofusers", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
-                },
-                body: JSON.stringify({ scReferralId }),
-            })
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
+                    },
+                    body: JSON.stringify({
+                        scReferralId
+                    }),
+                })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success && Array.isArray(data.data) && data.data.length > 0) {
@@ -2346,7 +2512,8 @@ $studentDocumentDetailsInfo = [
                                 student.nbfcs.forEach(nbfc => {
                                     nbfc.statuses.forEach(status => {
                                         const detailDiv = document.createElement("div");
-                                        detailDiv.className = "reportsproposal-individualdatalists";
+                                        detailDiv.className =
+                                            "reportsproposal-individualdatalists";
                                         detailDiv.innerHTML = `
                                 <p>NBFC: &nbsp;&nbsp;${nbfc.nbfc_name}</p>
                                 <p>Proposal Date: &nbsp;&nbsp;${formatDate(status.created_at)}</p>
@@ -2441,13 +2608,16 @@ $studentDocumentDetailsInfo = [
 
 
                     fetch("/forgot-passwordmailsentsc", {
-                        method: "POST",
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({ email: email })
-                    })
+                            method: "POST",
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                    'content')
+                            },
+                            body: JSON.stringify({
+                                email: email
+                            })
+                        })
                         .then(response => response.json())
                         .then(data => {
                             console.log(data);
@@ -2487,7 +2657,7 @@ $studentDocumentDetailsInfo = [
             buttons.forEach(button => {
                 if (!button) return;
 
-                button.addEventListener('click', function () {
+                button.addEventListener('click', function() {
                     const scuser = @json(session('scuser'));
 
                     if (!scuser || !scuser.referral_code) {
@@ -2501,7 +2671,8 @@ $studentDocumentDetailsInfo = [
                     form.style.display = 'none';
 
                     // CSRF token
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute(
+                        'content');
                     const csrfInput = document.createElement('input');
                     csrfInput.type = 'hidden';
                     csrfInput.name = '_token';
@@ -2520,7 +2691,6 @@ $studentDocumentDetailsInfo = [
                 });
             });
         }
-
     </script>
 </body>
 

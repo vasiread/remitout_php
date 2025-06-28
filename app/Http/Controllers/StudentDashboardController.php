@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Mail\ForgotPassword;
 use App\Models\Message;
 use App\Models\Nbfc;
@@ -24,15 +25,17 @@ use App\Models\CourseInfo;
 use App\Models\DocumentType;
 use App\Models\UserDocument;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use ZipStream\Option\Archive as ArchiveOptions;
 use ZipStream\ZipStream;
- 
+
 
 
 use Illuminate\Support\Str;
 use PhpParser\Node\Stmt\Catch_;
 use ZipArchive;
+
 class StudentDashboardController extends Controller
 {
     protected $tablesAndColumns = [
@@ -47,8 +50,6 @@ class StudentDashboardController extends Controller
 
         if (!$user) {
             return redirect()->route('login')->withErrors('Please log in to access your dashboard.');
-
-
         }
 
 
@@ -119,7 +120,6 @@ class StudentDashboardController extends Controller
                 'success' => false,
                 'message' => 'No proposal found for this user and NBFC.'
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -144,15 +144,13 @@ class StudentDashboardController extends Controller
                 ->where('traceprogress.user_id', $userId)
                 ->where('traceprogress.type', Requestprogress::TYPE_PROPOSAL)
                 ->select('traceprogress.*', 'nbfc.nbfc_name') // select whatever you need
-                ->get();
-            ;
+                ->get();;
 
             return response()->json([
                 'success' => true,
                 'message' => 'Proposals Retrieved Successfully',
                 'result' => $query
             ]);
-
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
@@ -201,10 +199,7 @@ class StudentDashboardController extends Controller
 
 
             ]);
-
         }
-
-
     }
 
 
@@ -239,13 +234,8 @@ class StudentDashboardController extends Controller
                             ]);
                         }
                     }
-
-
-
                 }
             }
-
-
         }
 
         return response()->json([
@@ -334,8 +324,8 @@ class StudentDashboardController extends Controller
 
                 if ($record) {
                     Rejectedbynbfc::where('user_id', $userID)
-                    ->where('nbfc_id', $nbfcID)
-                    ->update(['remarks' => $remarks]);
+                        ->where('nbfc_id', $nbfcID)
+                        ->update(['remarks' => $remarks]);
 
                     \Log::info('Rejectedbynbfc record updated.');
                 } else {
@@ -354,7 +344,6 @@ class StudentDashboardController extends Controller
                 'success' => true,
                 'message' => 'Rejected Records stored or updated successfully',
             ], 200);
-
         } catch (\Exception $e) {
             \Log::error('Error during rejection process:', [
                 'error' => $e->getMessage(),
@@ -401,7 +390,6 @@ class StudentDashboardController extends Controller
                     'message' => 'No matching records found to update'
                 ], 404);
             }
-
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
@@ -409,9 +397,6 @@ class StudentDashboardController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
-
-
-
     }
 
 
@@ -454,7 +439,7 @@ class StudentDashboardController extends Controller
                 return response()->json(['message' => 'User not found.'], 404);
             }
 
-             $others = null;
+            $others = null;
             if ($request->has('others')) {
                 $othersData = $request->input('others');
                 if (!empty($othersData['otherExamName']) || !empty($othersData['otherExamScore'])) {
@@ -464,7 +449,7 @@ class StudentDashboardController extends Controller
                     ]);
                 }
             }
- 
+
             $userData = array_filter([
                 'name' => $validated['editedName'] ?? null,
                 'email' => $validated['editedEmail'] ?? null,
@@ -562,7 +547,7 @@ class StudentDashboardController extends Controller
             'file' => 'required|file',
             'userId' => 'required',
             'fileNameId' => 'required|string',
-            'sourceType'=>'required|string'
+            'sourceType' => 'required|string'
         ]);
         $userId = $request->input('userId');
         $Category = $request->input('fileNameId');
@@ -594,12 +579,6 @@ class StudentDashboardController extends Controller
                 'file_path' => $fileUrl,
             ]);
         }
-
-
-
-
-
-
     }
 
     public function removeFromServer(Request $request)
@@ -928,7 +907,7 @@ class StudentDashboardController extends Controller
 
         $response = [];
 
-        // Static files
+
         foreach ($fileTypes as $fileType) {
             $cleanType = str_replace('static/', '', $fileType);
             $staticPath = "$userId/static/$cleanType";
@@ -939,14 +918,14 @@ class StudentDashboardController extends Controller
                 $file = $staticFiles[0];
                 $response[$fileType] = [
                     'url' => $disk->url($file),
-                    'size' => $disk->size($file), // Size in bytes
+                    'size' => $disk->size($file),
                 ];
             } else {
                 $response[$fileType] = null;
             }
         }
 
-        // Dynamic folders
+
         $allDirectories = $disk->directories($userId);
 
         foreach ($allDirectories as $folderPath) {
@@ -968,6 +947,44 @@ class StudentDashboardController extends Controller
 
         return response()->json(['staticFiles' => $response], 200);
     }
+    public function retrieveDynamicFiles(Request $request)
+
+    {
+        $request->validate([
+            'userId' => 'required|string',
+        ]);
+
+        $userId = $request->input('userId');
+        $disk = Storage::disk('s3');
+        $dynamicFiles = [];
+
+        $dynamicPath = "$userId/dynamic";
+
+        // 🔥 No need to check ->exists(), just fetch
+        $allFiles = $disk->allFiles($dynamicPath);
+        Log::info("Files under $dynamicPath: ", $allFiles);
+
+        foreach ($allFiles as $filePath) {
+            Log::debug("Processing file path: $filePath");
+
+            $parts = explode('/', $filePath);
+
+            if (count($parts) >= 4 && $parts[1] === 'dynamic') {
+                $key = $parts[2];
+                $groupKey = "dynamic/$key";
+
+                $dynamicFiles[$groupKey][] = [
+                    'url' => $disk->url($filePath),
+                    'size' => $disk->size($filePath),
+                ];
+            } else {
+                Log::warning("Skipping file (invalid format): $filePath");
+            }
+        }
+
+        return response()->json(['dynamicFiles' => $dynamicFiles]);
+    }
+
 
 
 
@@ -1144,16 +1161,6 @@ class StudentDashboardController extends Controller
             ->update([
                 'is_read' => 1,
             ]);
-
-
-
-
-
-
-
-
-
-
     }
     public function getStatusCount(Request $request)
     {
@@ -1181,8 +1188,6 @@ class StudentDashboardController extends Controller
                 'message' => "count retrieved",
                 'count' => $query
             ]);
-
-
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
@@ -1190,7 +1195,6 @@ class StudentDashboardController extends Controller
                 'error' => $e->getMessage()
             ]);
         }
-
     }
     public function unreadMessageCount(Request $request)
     {
@@ -1212,19 +1216,12 @@ class StudentDashboardController extends Controller
                 'count' => $count
 
             ]);
-
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage()
             ]);
         }
-
-
-
-
-
-
     }
 
 
@@ -1267,7 +1264,7 @@ class StudentDashboardController extends Controller
                 continue;
 
             $data = ($table === 'users')
-            ? DB::table($table)->where('unique_id', $userId)->first()
+                ? DB::table($table)->where('unique_id', $userId)->first()
                 : DB::table($table)->where('user_id', $userId)->first();
 
             foreach ($columns as $column) {
@@ -1385,7 +1382,7 @@ class StudentDashboardController extends Controller
 
     public function markAllAsRead(Request $request)
     {
-        $userId = $request->input('userId');  
+        $userId = $request->input('userId');
 
         Message::where('receiver_id', $userId)
             ->where('is_read', false)
@@ -1393,15 +1390,4 @@ class StudentDashboardController extends Controller
 
         return response()->json(['status' => 'success']);
     }
-
-
-
-
-
-
-
-
-
-
-
 }
