@@ -441,8 +441,8 @@
             <div class="header-links">
 
                 <a class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}" href="{{url('/')}}">Home</a>
-                <a href="#resources" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Resources</a>
-                <a href="#deals" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Special Deals</a>
+                <a href="#testimonials" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Testimonial</a>
+                <a href="#study-loan" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Study Loan</a>
                 <a href="#services" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Our Service</a>
                 <a href="#" id="scheduleCallLink" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Schedule
                     Call</a>

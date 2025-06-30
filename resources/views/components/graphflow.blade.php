@@ -136,18 +136,9 @@
                 </p>
 
             </div>
-        </div>
-    </div>
+        </div>     
 
-    <!-- Globe image divider -->
-    <div class="mobile-loan-globe-wrapper">
-<img 
-    src="{{ asset(is_string($globeImage) ? trim($globeImage) : 'assets/Images/globe-1.png') }}" 
-    alt="Globe Background" 
-    class="mobile-loan-globe-image"
->  </div>
-
-    <!-- Bottom steps (4-6) with RIGHT-ALIGNED text to match image 1 -->
+         <!-- Bottom steps (4-6) with RIGHT-ALIGNED text to match image 1 -->
     <div class="mobile-loan-bottom-steps">
         <div class="mobile-loan-vertical-line-right"></div>
 
@@ -205,5 +196,21 @@
 
             </div>
         </div>
+    </div>    
+
+
+
+
+
     </div>
+
+    <!-- Globe image divider -->
+    <div class="mobile-loan-globe-wrapper">
+<img 
+    src="{{ asset(is_string($globeImage) ? trim($globeImage) : 'assets/Images/globe-1.png') }}" 
+    alt="Globe Background" 
+    class="mobile-loan-globe-image"
+>  </div>
+
+   
 </div>

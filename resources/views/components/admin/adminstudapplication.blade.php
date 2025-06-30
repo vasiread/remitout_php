@@ -1254,7 +1254,6 @@
                                                         <span class="add-text">Add</span>
                                                         <span class="add-icon">+</span>
                                                     </div>
-<<<<<<< HEAD
                                                     <div class="info">
                                                         <span class="help-trigger" data-target="bank-statement-help">ⓘ
                                                             Help</span>
@@ -1432,8 +1431,6 @@
                                                 <div class="add-document" id="add-salaried-business-btn-id">
                                                     <span class="add-text">Add</span>
                                                     <span class="add-icon">+</span>
-=======
->>>>>>> 995a004 (Fixed the show and hide functionality)
                                                 </div>
                                             </div>
                                         </div>

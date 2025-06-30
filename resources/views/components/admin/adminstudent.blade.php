@@ -8,7 +8,8 @@
 
     <script src="{{ asset('js/adminsidebar.js') }}" defer></script>
     <link rel="stylesheet" href="{{ asset('assets/css/studentformquestionair.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/scdashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/scdashboard.css') }}">  
+   
 </head>
 
 <body>
@@ -925,52 +926,46 @@
         </div>
     </div>
 
-
-
-    <div class="studentAddBySCuserPopup">
-        <div class="studentAddByScuserPopup-headerpart">
-            <h3>Register Students</h3>
-            <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="">
-        </div>
-        <div class="studentAddByScuserPopup-content-container">
-            <div class="studentAddByScuserPopup-contentpart">
-                <input type="text" placeholder="Name of the Student">
-                <input type="text" placeholder="bankemail@gmail.com">
-                <input type="text" placeholder="phone">
-                <input type="password" placeholder="password">
-                <button id="delete-student-row" style="cursor:pointer">Delete</button>
-            </div>
-        </div>
-        <button id="dynamic-add-student-button" style="cursor:pointer">Add Student</button>
-        <form id="excel-form" enctype="multipart/form-data">
-            @csrf
-            <div class="studentAddByScuserPopup-footerpart">
-                <!-- Excel Upload Button -->
-                <button id="excel-upload-trigger" type="button" style="cursor:pointer">
-                    Upload xlsx <img src="{{ asset('assets/images/Icons/upload.png') }}" />
-                </button>
-                <button type="button" class="add-student-btn" style="cursor:pointer">Add Student</button>
-                <button type="button" id="save-multiple-students-bysc" style="cursor:pointer">Save Student
-                    details</button>
-            </div>
-
-            <input type="file" id="excel-sheet-student-update" name="excel_file" accept=".xls,.xlsx"
-                style="display:none">
-
-            <div id="file-upload-info" style="display:none">
-                <!-- Display the Selected File Name with Remove Button -->
-                <div id="file-container" style="display: flex; align-items: center; gap: 10px; position:relative;">
-                    <input id="selected-file-name" readonly style="border: 1px solid #ccc; padding: 5px;" />
-                    <button id="remove-excel-btn" type="button" style="cursor:pointer;">X</button>
-                </div>
-                <!-- Save Excel File Button -->
-                <button id="save-excelfile-btn" type="button" style="cursor:pointer;">
-                    Save Excel File
-                </button>
-            </div>
-        </form>
+<div class="admin-new-registration-overlay" style="display: none;"></div>
+<div class="studentAddBySCuserPopup">
+    <div class="studentAddByScuserPopup-headerpart">
+        <h3>Register Students</h3>
+        <img src="{{ asset('assets/images/Icons/close_small.png') }}" alt="close popup icon">
     </div>
-
+    <div class="studentAddByScuserPopup-content-container">
+        <div class="studentAddByScuserPopup-contentpart">
+            <input type="text" placeholder="Name of the Student">
+            <input type="text" placeholder="bankemail@gmail.com">
+            <input type="text" placeholder="phone">
+            <div class="admin-student-password-container">
+                <input type="password" placeholder="password" class="admin-student-password-input">
+                <i class="fa-regular fa-eye-slash passwordClose" id="loginpasswordeyecloseicon"></i>
+            </div>
+            <button id="delete-student-row" style="cursor:pointer">Delete</button>
+        </div>
+    </div>
+    <button id="dynamic-add-student-button" style="cursor:pointer">Add Student</button>
+    <form id="excel-form" enctype="multipart/form-data">
+        @csrf
+        <div class="studentAddByScuserPopup-footerpart">
+            <button id="excel-upload-trigger" type="button" style="cursor:pointer">
+                Upload xlsx <img src="{{ asset('assets/images/Icons/upload.png') }}" />
+            </button>
+            <button type="button" class="add-student-btn" style="cursor:pointer">Add Student</button>
+            <button type="button" id="save-multiple-students-bysc" style="cursor:pointer">Save Student details</button>
+        </div>
+        <input type="file" id="excel-sheet-student-update" name="excel_file" accept=".xls,.xlsx" style="display:none">
+        <div id="file-upload-info" style="display:none">
+            <div id="file-container" style="display: flex; align-items: center; gap: 10px; position:relative;">
+                <input id="selected-file-name" readonly style="border: 1px solid #ccc; padding: 5px;" />
+                <button id="remove-excel-btn" type="button" style="cursor:pointer;">X</button>
+            </div>
+            <button id="save-excelfile-btn" type="button" style="cursor:pointer;">
+                Save Excel File
+            </button>
+        </div>
+    </form>
+</div>
 
     <script>
 
@@ -2867,33 +2862,59 @@
                 });
             });
         };
-        const initializePopuAddingstudents = () => {
-            const studentAddingPopuBar = document.querySelector(".studentAddBySCuserPopup");
-            const popuAddingStudentTriggers = document.querySelectorAll(".studentlist-add");
-            const closePopuTrigger = document.querySelector(".studentAddByScuserPopup-headerpart img");
+  const initializePopuAddingstudents = () => {
+    const studentAddingPopuBar = document.querySelector(".studentAddBySCuserPopup");
+    const popuAddingStudentTriggers = document.querySelectorAll(".studentlist-add");
+    const closePopuTrigger = document.querySelector(".studentAddByScuserPopup-headerpart img");
+    const overlay = document.querySelector(".admin-new-registration-overlay");
+    const passwordInput = document.querySelector(".admin-student-password-input");
+    const passwordToggleIcon = document.querySelector("#loginpasswordeyecloseicon");
 
-            if (!studentAddingPopuBar || !popuAddingStudentTriggers.length || !closePopuTrigger) {
-                console.error("Missing required DOM elements");
-                alert("something")
-                return;
-            }
+    if (!studentAddingPopuBar || !popuAddingStudentTriggers.length || !closePopuTrigger || !overlay || !passwordInput || !passwordToggleIcon) {
+        console.error("Missing required DOM elements", {
+            studentAddingPopuBar: !!studentAddingPopuBar,
+            popuAddingStudentTriggers: !!popuAddingStudentTriggers.length,
+            closePopuTrigger: !!closePopuTrigger,
+            overlay: !!overlay,
+            passwordInput: !!passwordInput,
+            passwordToggleIcon: !!passwordToggleIcon
+        });
+        alert("Something went wrong. Please check the console for details.");
+        return;
+    }
 
-            const showPopup = () => {
-                studentAddingPopuBar.style.display = "flex";
-                overlay.style.display = "block";
-            };
+    const showPopup = () => {
+        studentAddingPopuBar.style.display = "flex";
+        overlay.style.display = "block";
+    };
 
-            const hidePopup = () => {
-                studentAddingPopuBar.style.display = "none";
-                overlay.style.display = "none";
-            };
+    const hidePopup = () => {
+        studentAddingPopuBar.style.display = "none";
+        overlay.style.display = "none";
+    };
 
-            popuAddingStudentTriggers.forEach(trigger => {
-                trigger.addEventListener("click", showPopup);
-            });
+    // Toggle password visibility
+    const togglePasswordVisibility = () => {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            passwordToggleIcon.classList.remove("fa-eye-slash");
+            passwordToggleIcon.classList.add("fa-eye");
+            passwordToggleIcon.setAttribute("aria-label", "hide password");
+        } else {
+            passwordInput.type = "password";
+            passwordToggleIcon.classList.remove("fa-eye");
+            passwordToggleIcon.classList.add("fa-eye-slash");
+            passwordToggleIcon.setAttribute("aria-label", "show password");
+        }
+    };
 
-            closePopuTrigger.addEventListener("click", hidePopup);
-        };
+    popuAddingStudentTriggers.forEach(trigger => {
+        trigger.addEventListener("click", showPopup);
+    });
+
+    closePopuTrigger.addEventListener("click", hidePopup);
+    passwordToggleIcon.addEventListener("click", togglePasswordVisibility);
+};
         const addDynamicInputFields = () => {
             const addStudentButtons = document.querySelectorAll(".studentAddBySCuserPopup-footerpart button:nth-child(2), #dynamic-add-student-button"); // Fixed class name
             const studentFormContainer = document.querySelector(".studentAddBySCuserPopup-contentpart");

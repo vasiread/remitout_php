@@ -101,10 +101,7 @@
 
     </div>
 
-</section>
-
-
-<div class="study-loans-graphview">
+    <div class="study-loans-graphview">
     <div class="study-loans-graphfirstbox">
         <h3>{{ trim($cms['study-loan']['Step 2 Header: Get Matched with Top NBFCs'] ?? 'Get Matched with Top NBFCs') }}
         </h3>
@@ -279,6 +276,11 @@
 
 
 </div>
+
+</section>
+
+
+
 
 
 

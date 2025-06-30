@@ -1239,7 +1239,7 @@ form {
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    margin-top: 190px;
+    margin-top: 60px;
     margin-bottom: 50px;
     margin-left: 50px;
     position: absolute;
@@ -1254,7 +1254,7 @@ form {
         left: 50%;
         transform: translateX(-50%);
         right: auto;
-        margin: 80% 0 0 0;
+        margin: 0% 0 0 0;
     }
     
 
@@ -4420,10 +4420,7 @@ div.salary-sub p {
 
     }
 }
-<<<<<<< d9302f7eb3a95ca5cac227bf4ecf88afad3e1fb8
-=======
 
 #personal-info-submit{
     margin-top:60px;
 }
->>>>>>> message fucntionality fix and SEO

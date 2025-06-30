@@ -44,35 +44,37 @@
         </div>
     </nav>
 
-    <div class="password-change-overlay" style="display: none;"></div>
+  <div class="password-change-overlay" style="display: none;"></div>
 
     <div class="password-change-container">
         <div class="password-change-triggered-view-headersection">
             <h3>Password Change Request</h3>
-            <img src="{{ asset('assets/images/Icons/close_small.png') }}" style="cursor:pointer" alt="">
+            <img src="{{ asset('assets/images/Icons/close_small.png') }}" style="cursor:pointer" alt="Close">
         </div>
 
         <!-- Current Password with Eye Icon -->
         <div class="password-input-wrapper">
             <input type="password" placeholder="Current Password" id="current-password">
-            <img src="{{ asset('assets/images/Icons/eye.png') }}" 
-                 class="toggle-password" 
-                 data-target="current-password"
-                 style="cursor:pointer; position:absolute; right:10px; top:50%; transform:translateY(-50%); width:20px;" 
-                 alt="Toggle Password">
+            <i class="fas fa-eye-slash toggle-password" data-target="current-password"></i>
         </div>
         <span id="current-password-error" class="error-message"></span>
 
         <!-- New Password -->
-        <input type="password" placeholder="New Password" id="new-password">
+        <div class="password-input-wrapper">
+            <input type="password" placeholder="New Password" id="new-password">
+            <i class="fas fa-eye-slash toggle-password" data-target="new-password"></i>
+        </div>
         <span id="new-password-error" class="error-message"></span>
 
         <!-- Confirm Password -->
-        <input type="password" placeholder="Confirm New Password" id="confirm-new-password">
-        <span id="confirm-password-error" class="error"></span>
+        <div class="password-input-wrapper">
+            <input type="password" placeholder="Confirm New Password" id="confirm-new-password">
+            <i class="fas fa-eye-slash toggle-password" data-target="confirm-new-password"></i>
+        </div>
+        <span id="confirm-password-error" class="error-message"></span>
 
         <div class="footer-passwordchange">
-            <p href="">Forgot Password</p>
+            <p>Forgot Password</p>
             <button id="password-change-save">Save</button>
         </div>
     </div>
@@ -732,18 +734,22 @@
             initializeSidebar();
             retrieveProfilePicture();
 
-            document.querySelectorAll('.toggle-password').forEach(icon => {
+              document.querySelectorAll('.toggle-password').forEach(icon => {
                 icon.addEventListener('click', () => {
                     const targetId = icon.getAttribute('data-target');
                     const input = document.getElementById(targetId);
                     if (input) {
                         if (input.type === 'password') {
                             input.type = 'text';
-                            icon.src = "{{ asset('assets/images/Icons/eye_off.png') }}";
+                            icon.classList.remove('fa-eye-slash');
+                            icon.classList.add('fa-eye');
                         } else {
                             input.type = 'password';
-                            icon.src = "{{ asset('assets/images/Icons/eye.png') }}";
+                            icon.classList.remove('fa-eye');
+                            icon.classList.add('fa-eye-slash');
                         }
+                    } else {
+                        console.error(`Input with ID ${targetId} not found`);
                     }
                 });
             });
