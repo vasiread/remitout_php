@@ -1367,7 +1367,8 @@ document.addEventListener("DOMContentLoaded", () => {
             "secured-graduation-name",
             "co-pan-card-name",
             "co-aadhar-card-name",
-            "co-addressproof"
+            "co-addressproof",
+            
         ];
 
         try {

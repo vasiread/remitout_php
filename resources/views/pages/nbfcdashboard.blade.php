@@ -1489,8 +1489,7 @@
                     });
                 }
 
-                // Delay toggle visibility for view more button logic until DOM is updated
-                setTimeout(() => {
+                 setTimeout(() => {
                     handleToggleViewMobileOnly('#dashboard-proposal-list', '#viewmore-proposals');
                     handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox');
                 }, 100);

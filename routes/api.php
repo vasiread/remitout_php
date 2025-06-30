@@ -272,3 +272,6 @@ Route::post('/messages/mark-all-read',[StudentDashboardController::class, 'markA
 
 
 Route::get('/queries/deactive-counts/{scuserid}', [scDashboardController::class, 'countDeactiveQueriesByUser']);
+Route::get('/admin/messages/count', [AdminController::class, 'countMessagesForAdmin']);
+Route::post('/admin/messages/clear-student', [AdminController::class, 'clearStudentMessagesAndGetNbfcCount']);
+Route::post('/admin/messages/clear-nbfc', [AdminController::class, 'clearNbfcMessagesAndGetNbfcCount']);

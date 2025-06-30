@@ -10,6 +10,8 @@ use App\Models\Admin;
 use App\Models\CmsContent;
 use App\Models\CoBorrowerInfo;
 use App\Models\CourseDetailOption;
+use App\Models\Messageadminstudent;
+use App\Models\Messageadminnbfc;
 use App\Models\CourseDuration;
 use App\Models\CourseInfo;
 use App\Models\PartnerLogo;
@@ -3081,5 +3083,53 @@ class Admincontroller extends Controller
             'url' => $fileUrl,
         ]);
     }
+    public function countMessagesForAdmin()
+    {
+        $receiverId = 'admin001';
+
+        $nbfcCount = Messageadminnbfc::where('receiver_id', $receiverId)
+        ->where('is_read', false)
+        ->count();
+
+        $studentCount = Messageadminstudent::where('receiver_id', $receiverId)
+        ->where('is_read', false)
+        ->count();
+
+        $totalCount = $nbfcCount + $studentCount;
+
+        return response()->json([
+            'nbfc_messages' => $nbfcCount,
+            'student_messages' => $studentCount,
+            'total_messages' => $totalCount
+        ]);
+    }
+
+
+    public function clearStudentMessagesAndGetNbfcCount()
+    {
+        $receiverId = 'admin001';
+
+        // Mark all unread student messages as read
+        Messageadminstudent::where('receiver_id', $receiverId)
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
+
+        return response()->noContent(); 
+    }
+    public function clearNbfcMessagesAndGetNbfcCount()
+    {
+        $receiverId = 'admin001';
+
+        // Mark all unread NBFC messages as read
+        Messageadminnbfc::where('receiver_id', $receiverId)
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
+
+        return response()->noContent();
+    }
+
+
+
+
 
 }

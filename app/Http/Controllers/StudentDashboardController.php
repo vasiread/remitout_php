@@ -1038,13 +1038,14 @@ class StudentDashboardController extends Controller
         $folderPath = "$userId/static";
 
         $expectedFolders = [
+            // Existing ones
             'aadhar-card-name',
             'co-aadhar-card-name',
             'co-addressproof',
             'co-pan-card-name',
             'graduation-grade-name',
             'pan-card-name',
-            'passport-name',
+            'passport-card-name',
             'salary-upload-address-proof-name',
             'salary-upload-salary-slip-name',
             'secured-graduation-name',
@@ -1055,7 +1056,15 @@ class StudentDashboardController extends Controller
             'work-experience-experience-letter',
             'work-experience-joining-letter',
             'work-experience-monthly-slip',
-            'work-experience-office-id'
+            'work-experience-office-id',
+
+            'salary-upload-salary-statement-name',
+
+            'salary-upload-fifth-document-name',
+            'salary-upload-fourth-document-name',
+            'salary-upload-itr-name'
+
+           
         ];
 
         $missingDocuments = [];
@@ -1065,7 +1074,7 @@ class StudentDashboardController extends Controller
             $filesInFolder = Storage::disk("s3")->files($pathToCheck);
 
             if (empty($filesInFolder)) {
-                $missingDocuments[] = $folder . '/'; // 👈 return with trailing slash to match frontend
+                $missingDocuments[] = $folder . '/'; // Add trailing slash for frontend match
             }
         }
 
@@ -1074,6 +1083,7 @@ class StudentDashboardController extends Controller
             'missingDocuments' => $missingDocuments,
         ], 200);
     }
+
 
 
 

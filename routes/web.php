@@ -24,6 +24,8 @@ use App\Models\student_admin_application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
+
 
 /*
 |-------------------------------------------------------------------------- 
@@ -50,12 +52,19 @@ Route::get('/login', function () {
     return view('pages.login');
 })->name('login');
 Route::get('/nbfc-dashboard', function () {
+    if (!Session::has('nbfcuser')) {
+        return redirect('/login'); // or wherever your login page is
+    }
+
     return view('pages.nbfcdashboard');
 })->name('nbfcdashboard');
 
-
 Route::get('/admin-page', function () {
-    $sidebarItems = (new SidebarHandlingController)->admindashboardItems();
+     if (!Session::has('admin')) {
+        return redirect('/login');  
+    }
+
+     $sidebarItems = (new SidebarHandlingController)->admindashboardItems();
     $userDetails = (new StudentDashboardController)->getAllUsersFromAdmin();
 
     return view('pages.adminpage', [
@@ -70,8 +79,13 @@ Route::get('/admin-page', function () {
 Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
 
 Route::get('/sc-dashboard', function () {
+    if (!Session::has('scuser')) {
+        return redirect('/login');  
+    }
+
     $sidebarItems = (new SidebarHandlingController)->scdashboardItems();
     $userByRef = (new scDashboardController)->getUsersByCounsellor();
+
     return view('pages.scdashboard', [
         'sidebarItems' => $sidebarItems,
         'userByRef' => $userByRef,
@@ -82,7 +96,10 @@ Route::get('/download-user-report', [Admincontroller::class, 'downloadUserProfil
 
 Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser'])->name('student-dashboard');
 
+Route::get('/admin/messages/count', [AdminController::class, 'countMessagesForAdmin']);
 
+Route::post('/admin/messages/clear-student', [AdminController::class, 'clearStudentMessagesAndGetNbfcCount']);
+Route::post('/admin/messages/clear-nbfc', [AdminController::class, 'clearNbfcMessagesAndGetNbfcCount']);
 
 
 // Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);

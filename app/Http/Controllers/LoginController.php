@@ -29,8 +29,7 @@ class LoginController extends Controller
         $loginName = $request->loginName;
         $loginPassword = $request->loginPassword;
 
-        // ✅ Step 1: Check SUPERADMIN from .env
-        $superAdminEmail = env('SUPERADMIN_EMAIL');
+         $superAdminEmail = env('SUPERADMIN_EMAIL');
         $superAdminPasswordHash = env('SUPERADMIN_PASSWORD');
         $superAdminName = env('SUPERADMIN_NAME');
 

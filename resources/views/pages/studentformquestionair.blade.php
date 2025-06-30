@@ -1455,7 +1455,7 @@
                         <input type="file" id="work-experience-twelfth" accept=".jpg, .png, .pdf"
                             onchange="handleFileUpload(event, 'work-experience-monthly-slip', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon','static')" />
                         <span id="work-experience-twelfth-remove-icon" style="display:none;"
-                            onclick="removeFile('work-experience-twelfth', 'work-experience-monthly-slip', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon')">✖</span>
+                            onclick="removeFile ('work-experience-twelfth', 'work-experience-monthly-slip', 'work-experience-twelfth-upload-icon', 'work-experience-twelfth-remove-icon')">✖</span>
                     </div>
                     <div class="info">
                         <span class="help-trigger" data-target="work-experience-twelfth-help">ⓘ Help</span>
