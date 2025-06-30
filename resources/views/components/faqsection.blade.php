@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <section class="faq-section">
+    <section class="faq-section" id="faq">
         <div class="faq-background">
 
             <div class="container">

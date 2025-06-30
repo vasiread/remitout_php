@@ -82,7 +82,7 @@
 @endphp
 
 
-<section class="study-loans-section">
+<section class="study-loans-section" id="study-loan">
     <div class="study-loans-content">
 
         <!-- Left Section -->
@@ -426,7 +426,7 @@
     ?>
 
 
-    <div class="effort-section">
+    <div class="effort-section" id="services">
        
         <img src="{{ trim($cms['global-transfer']['Background Image'] ?? '') ?: asset('assets/images/effort-banner.webp') }}"
             alt="Background Image" class="effort-background-image">

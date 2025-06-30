@@ -443,7 +443,7 @@
                 <a class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}" href="{{url('/')}}">Home</a>
                 <a href="#testimonials" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Testimonial</a>
                 <a href="#study-loan" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Study Loan</a>
-                <a href="#services" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Our Service</a>
+                <a href="#faq" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">FAQ</a>
                 <a href="#" id="scheduleCallLink" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Schedule
                     Call</a>
                 <a href="#support"
