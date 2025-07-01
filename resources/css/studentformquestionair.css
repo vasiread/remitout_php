@@ -294,7 +294,7 @@ html {
 }
 
 .registration-section {
-    background-image: url("../images/student-dashboard.webp");
+    /* background-image: url("../images/student-dashboard.webp"); */
     background-size: cover;
     background-position: center;
     padding: 1.5rem 5rem 1.5rem 0.8rem;
@@ -330,7 +330,7 @@ html {
 
 @media (min-width: 768px) and (max-width: 1024px) {
     .registration-section {
-        background-image: url("../images/student-dashboard.webp");
+        /* background-image: url("../images/student-dashboard.webp"); */
         background-size: cover;
         background-position: center;
         max-width: 100%;
@@ -358,7 +358,7 @@ html {
 
 @media (max-width: 767px) {
     .registration-section {
-        background-image: url("../images/student-dash-mobile.webp");
+        /* background-image: url("../images/student-dash-mobile.webp"); */
         background-size: cover;
         background-position: center;
         max-width: 100%;
