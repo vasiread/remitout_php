@@ -30,7 +30,7 @@
                         "page": "Landing Page",
                         "sectionType": "hero",
                         "title": "Background: Media",
-                        "content": "/api/placeholder/400/320",
+                        "content": "assets/images/Banner_Remitout 1.webp",
                         "status": "Active",
                         "isMedia": true,
                         "mediaConstraints": {
@@ -98,7 +98,7 @@
                         "page": "Landing Page",
                         "sectionType": "logo",
                         "title": "seedPartnerLogo",
-                        "content": "/api/placeholder/200/100",
+                        "content": "assets/images/logo1.png",
                         "status": "Active",
                         "isMedia": true,
                         "mediaConstraints": {
@@ -132,7 +132,7 @@
                         "page": "Landing Page",
                         "sectionType": "study-loan",
                         "title": "Globe Image",
-                        "content": "/api/placeholder/300/300",
+                        "content": "assets/images/globe-1.png",
                         "status": "Active",
                         "isMedia": true,
                         "mediaConstraints": {
@@ -624,7 +624,7 @@
                         "page": "Landing Page",
                         "sectionType": "global-transfer",
                         "title": "Background Image",
-                        "content": "assets/images/effort-banner.webp",
+                        "content": "assets/images/effort-banner.png",
                         "status": "Active",
                         "isMedia": true,
                         "mediaConstraints": {
@@ -638,7 +638,7 @@
                         "page": "Landing Page",
                         "sectionType": "global-transfer",
                         "title": "Main Image",
-                        "content": "assets/images/girl-image-with-banner.webp",
+                        "content": "assets/images/girl-image-with-banner.png",
                         "status": "Active",
                         "isMedia": true,
                         "mediaConstraints": {

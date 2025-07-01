@@ -853,26 +853,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (nextCourseButton) {
         nextCourseButton.addEventListener("click", () => {
-            if (currentBreadcrumbIndex === 0) {
-                breadcrumbSections[currentBreadcrumbIndex].forEach(
-                    (container) => (container.style.display = "none"),
-                );
-                currentBreadcrumbIndex = 1;
-                currentContainerIndex = 0;
-                breadcrumbSections[currentBreadcrumbIndex].forEach(
-                    (container, index) => {
-                        container.style.display =
-                            index === 0 ? "block" : "none";
-                    },
-                );
-                updateBreadcrumbNavigation();
-                updateNavigationButtons();
-                updateDots();
-                updateMobileHeading(currentBreadcrumbIndex);
-                showToast("Details have been saved successfully");
-            }
+            // Always hide the current section
+            breadcrumbSections[currentBreadcrumbIndex].forEach(
+                (container) => (container.style.display = "none")
+            );
+
+            // Move to next section (force index 2 = Academic Details)
+            currentBreadcrumbIndex = 2;
+            currentContainerIndex = 0;
+
+            // Show the first container in Academic Details
+            breadcrumbSections[currentBreadcrumbIndex].forEach(
+                (container, index) => {
+                    container.style.display = index === 0 ? "block" : "none";
+                }
+            );
+
+            updateBreadcrumbNavigation();
+            updateNavigationButtons();
+            updateDots();
+            updateMobileHeading(currentBreadcrumbIndex);
+            showToast("Moved to Academic Details");
         });
     }
+
 
     if (nextAcademicButton) {
         nextAcademicButton.addEventListener("click", () => {

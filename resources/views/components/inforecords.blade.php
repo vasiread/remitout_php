@@ -428,14 +428,14 @@
 
     <div class="effort-section" id="services">
        
-        <img src="{{ trim($cms['global-transfer']['Background Image'] ?? '') ?: asset('assets/images/effort-banner.webp') }}"
+        <img src="{{ trim($cms['global-transfer']['Background Image'] ?? '') ?: asset('assets/images/effort-banner.png') }}"
             alt="Background Image" class="effort-background-image">
 
         <div class="effort-container">
             <div class="effort-content">
                  <div class="effort-image-column">
                     <div class="effort-image-wrapper">
-                        <img src="{{ trim($cms['global-transfer']['Main Image'] ?? '') ?: asset('assets/images/girl-image-with-banner.webp') }}"
+                        <img src="{{ trim($cms['global-transfer']['Main Imajge'] ?? '') ?: asset('assets/images/girl-image-with-banner.png') }}"
                         alt="Student with backpack" class="effort-main-image">
                     </div>
                 </div>

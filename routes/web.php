@@ -308,8 +308,7 @@ Route::post('/update-ticket-status', [AdminController::class, 'updateTicketStatu
 Route::post('/send-reset-link', [LoginController::class, 'sendResetLink']);
 
 Route::get('/reset-password', function (Request $request) {
-    // Show reset form, pass token and type to view
-    $token = $request->query('token');
+     $token = $request->query('token');
     $type = $request->query('type');
     return view('email.resetpassword', compact('token', 'type'));
 });
