@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: laravel-app
+    image: vasi12345/remitout-app
     container_name: laravel-app
     restart: unless-stopped
     working_dir: /var/www
