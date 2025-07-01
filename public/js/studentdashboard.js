@@ -1,8 +1,4 @@
-
-document.addEventListener('DOMContentLoaded', function () {
-
-
-
+document.addEventListener("DOMContentLoaded", function () {
     bankListedThroughNBFC();
     initializeProgressRing();
     saveChangesFunctionality();
@@ -17,8 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
     passwordForgot();
     displayEducationDetails();
 
-
-
     // const sessionLogout = document.querySelector(".studentdashboardprofile-sidebarlists-bottom .logoutBtn");
     // if (sessionLogout) {
     //     sessionLogout.addEventListener('click', () => {
@@ -30,12 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // }
 
     // Fetch all URLs first
-    Promise.all([
-        initialiseProfileView(),
-        initialiseAllViews(),
-    ])
+    Promise.all([initialiseProfileView(), initialiseAllViews()])
         .then(() => {
-
             initializeKycDocumentUpload();
             initializeMarksheetUpload();
             initializeSecuredAdmissionDocumentUpload();
@@ -48,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     markAsRead();
 
-    // logout function 
+    // logout function
     // const sessionLogout = document.querySelector(".logoutBtn");
     // if (sessionLogout) {
     //     sessionLogout.addEventListener('click', () => {
@@ -59,8 +49,8 @@ document.addEventListener('DOMContentLoaded', function () {
     //     console.warn("Logout button (.logoutBtn) not found in the DOM");
     // }
     // Event delegation for dynamically loaded .logoutBtn
-    document.addEventListener('click', (event) => {
-        const logoutBtn = event.target.closest('.logoutBtn');
+    document.addEventListener("click", (event) => {
+        const logoutBtn = event.target.closest(".logoutBtn");
         if (logoutBtn) {
             // console.log('Dynamically detected logout button clicked');
             event.preventDefault();
@@ -68,10 +58,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-
-    const courseDetailsElement = document.getElementById('course-details-container');
-    const courseDetails = JSON.parse(courseDetailsElement.getAttribute('data-course-details'));
-    console.log(courseDetails)
+    const courseDetailsElement = document.getElementById(
+        "course-details-container",
+    );
+    const courseDetails = JSON.parse(
+        courseDetailsElement.getAttribute("data-course-details"),
+    );
+    console.log(courseDetails);
     const firstItem = courseDetails[0];
 
     let selectedCountries = [];
@@ -81,8 +74,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (Array.isArray(raw)) {
             selectedCountries = raw;
-        } else if (typeof raw === 'string') {
-            selectedCountries = raw.split(',').map(c => c.trim());
+        } else if (typeof raw === "string") {
+            selectedCountries = raw.split(",").map((c) => c.trim());
         } else {
             console.warn("Unexpected format for plan-to-study:", raw);
         }
@@ -92,31 +85,29 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error("Could not parse plan-to-study:", e);
     }
 
-
     // Set checkboxes
-    document.querySelectorAll('input[name="study-location-edit"]').forEach(checkbox => {
-        if (selectedCountries.includes(checkbox.value)) {
-            checkbox.checked = true;
-        }
-    });
+    document
+        .querySelectorAll('input[name="study-location-edit"]')
+        .forEach((checkbox) => {
+            if (selectedCountries.includes(checkbox.value)) {
+                checkbox.checked = true;
+            }
+        });
 
-    const textInput = document.getElementById('plan-to-study-edit');
+    const textInput = document.getElementById("plan-to-study-edit");
     if (textInput) {
-        textInput.value = selectedCountries.join(', ');
+        textInput.value = selectedCountries.join(", ");
     }
-
 
     if (selectedCountries.includes("Other")) {
         document.getElementById("other-checkbox-edit").checked = true;
-        document.querySelector('.add-country-box-edit').style.display = 'block';
+        document.querySelector(".add-country-box-edit").style.display = "block";
     } else {
-        document.querySelector('.add-country-box-edit').style.display = 'none';
+        document.querySelector(".add-country-box-edit").style.display = "none";
     }
     // const personalDetails = JSON.parse(courseDetailsElement.getAttribute('data-personal-details'));
     // const acceptTriggers = document.querySelectorAll(".user-accept-trigger");
     // const rejectTriggers = document.querySelectorAll(".bankmessage-buttoncontainer-reject");
-
-
 
     // document.querySelectorAll('input[name="study-location-edit"]').forEach(checkbox => {
     //     if (selectedCountries.includes(checkbox.value)) {
@@ -143,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //         customCountryInput.value = '';
     //     }
     // });
-    document.querySelector('.mailnbfcbutton').addEventListener('click', () => {
+    document.querySelector(".mailnbfcbutton").addEventListener("click", () => {
         sendDocumenttoEmail();
     });
 
@@ -154,69 +145,80 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error("fetchUnreadCount failed in setInterval:", err);
         }
     }, 3000);
-
-
 });
 
 async function displayEducationDetails() {
-    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const userIdElement = document.querySelector(
+        ".personalinfo-secondrow .personal_info_id",
+    );
     const userId = userIdElement ? userIdElement.textContent.trim() : "";
 
     try {
         const url = `/api/education?user_id=${encodeURIComponent(userId)}`;
         const response = await fetch(url, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
         });
 
         const data = await response.json();
 
         if (data.success) {
-            const educationSection = document.querySelector('.studentdashboardprofile-educationeditsection');
-            const secondRow = educationSection.querySelector('.educationeditsection-secondrow');
-            const secondRowEdit = educationSection.querySelector('.educationeditsection-secondrow-edit');
+            const educationSection = document.querySelector(
+                ".studentdashboardprofile-educationeditsection",
+            );
+            const secondRow = educationSection.querySelector(
+                ".educationeditsection-secondrow",
+            );
+            const secondRowEdit = educationSection.querySelector(
+                ".educationeditsection-secondrow-edit",
+            );
 
             // View mode
             secondRow.innerHTML = `
-                <p>Course: ${data.data.course_name || 'N/A'}</p>
-                <p>University: ${data.data.university_school_name || 'N/A'}</p>
+                <p>Course: ${data.data.course_name || "N/A"}</p>
+                <p>University: ${data.data.university_school_name || "N/A"}</p>
             `;
 
             // Edit mode inputs
             secondRowEdit.innerHTML = `
-                <input type="text" class="course_name_input" value="${data.data.course_name || ''}" placeholder="Enter course name">
-                <input type="text" class="university_name_input" value="${data.data.university_school_name || ''}" placeholder="Enter university/school name">
+                <input type="text" class="course_name_input" value="${data.data.course_name || ""}" placeholder="Enter course name">
+                <input type="text" class="university_name_input" value="${data.data.university_school_name || ""}" placeholder="Enter university/school name">
             `;
         } else {
-            console.error('Failed to fetch education details:', data.error);
+            console.error("Failed to fetch education details:", data.error);
         }
     } catch (error) {
-        console.error('Error fetching education details:', error);
+        console.error("Error fetching education details:", error);
     }
 }
 
-
-
-function handleIndividualCards(mode = 'index1') {
+function handleIndividualCards(mode = "index1") {
     const checkInterval = setInterval(() => {
-        const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
+        const individualCards = document.querySelectorAll(
+            ".indivudalloanstatus-cards",
+        );
 
         if (individualCards.length > 0) {
-
             clearInterval(checkInterval);
 
             individualCards.forEach((card) => {
-                const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
-                const groupButtonContainer = card.querySelector('.individual-bankmessages-buttoncontainer');
-                const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
+                const triggeredMessageButton = card.querySelector(
+                    ".individual-bankmessages .triggeredbutton",
+                );
+                const groupButtonContainer = card.querySelector(
+                    ".individual-bankmessages-buttoncontainer",
+                );
+                const individualBankMessageInput = card.querySelector(
+                    ".individual-bankmessage-input",
+                );
 
-                if (mode === 'index1') {
+                if (mode === "index1") {
                     // Inbox behavior (Index 1)
                     if (triggeredMessageButton && groupButtonContainer) {
                         triggeredMessageButton.style.display = "flex";
                         groupButtonContainer.style.display = "none";
                     }
-                } else if (mode === 'index0') {
+                } else if (mode === "index0") {
                     card.style.height = "fit-content";
 
                     if (individualBankMessageInput) {
@@ -233,9 +235,6 @@ function handleIndividualCards(mode = 'index1') {
         }
     }, 50);
 }
-
-
-
 
 const initializeSideBarTabs = () => {
     const sideBarTopItems = document.querySelectorAll(
@@ -266,21 +265,27 @@ const initializeSideBarTabs = () => {
         ".studentdashboardprofile-testscoreseditsection",
     );
 
-
-
-
-
     sideBarTopItems.forEach((item, index) => {
         item.addEventListener("click", () => {
             sideBarTopItems.forEach((i) => i.classList.remove("active"));
             item.classList.add("active");
 
             if (index === 1) {
-                const personalDivContainer = document.querySelector(".personalinfo-secondrow");
-                const personalDivContainerEdit = document.querySelector(".personalinfosecondrow-editsection");
-                const academicsMarksDivEdit = document.querySelector(".testscoreseditsection-secondrow-editsection");
-                const academicsMarksDiv = document.querySelector(".testscoreseditsection-secondrow");
-                const adminMsgContainer = document.querySelector(".admin-msg-container");
+                const personalDivContainer = document.querySelector(
+                    ".personalinfo-secondrow",
+                );
+                const personalDivContainerEdit = document.querySelector(
+                    ".personalinfosecondrow-editsection",
+                );
+                const academicsMarksDivEdit = document.querySelector(
+                    ".testscoreseditsection-secondrow-editsection",
+                );
+                const academicsMarksDiv = document.querySelector(
+                    ".testscoreseditsection-secondrow",
+                );
+                const adminMsgContainer = document.querySelector(
+                    ".admin-msg-container",
+                );
                 if (adminMsgContainer) {
                     adminMsgContainer.style.display = "block";
                 }
@@ -289,7 +294,6 @@ const initializeSideBarTabs = () => {
                 personalDivContainer.style.display = "flex";
                 academicsMarksDivEdit.style.display = "none";
                 academicsMarksDiv.style.display = "flex";
-
 
                 lastTabHiddenDiv.style.display = "flex";
                 lastTabVisibleDiv.style.display = "none";
@@ -310,17 +314,25 @@ const initializeSideBarTabs = () => {
                 profileImgEditIcon.style.display = "none";
                 educationEditSection.style.display = "none";
                 testScoresEditSection.style.display = "none";
-                const adminMsgContainer = document.querySelector(".admin-msg-container");
+                const adminMsgContainer = document.querySelector(
+                    ".admin-msg-container",
+                );
                 if (adminMsgContainer) {
                     adminMsgContainer.style.display = "none";
                 }
 
-                const personalDivContainer = document.querySelector(".personalinfo-secondrow");
-                const personalDivContainerEdit = document.querySelector(".personalinfosecondrow-editsection");
-                const academicsMarksDivEdit = document.querySelector(".testscoreseditsection-secondrow-editsection");
-                const academicsMarksDiv = document.querySelector(".testscoreseditsection-secondrow");
-
-
+                const personalDivContainer = document.querySelector(
+                    ".personalinfo-secondrow",
+                );
+                const personalDivContainerEdit = document.querySelector(
+                    ".personalinfosecondrow-editsection",
+                );
+                const academicsMarksDivEdit = document.querySelector(
+                    ".testscoreseditsection-secondrow-editsection",
+                );
+                const academicsMarksDiv = document.querySelector(
+                    ".testscoreseditsection-secondrow",
+                );
 
                 personalDivContainerEdit.style.display = "none";
                 personalDivContainer.style.display = "flex";
@@ -329,13 +341,11 @@ const initializeSideBarTabs = () => {
 
                 handleIndividualCards("index0");
                 dynamicHeader.textContent = "Loan Proposals";
-
-
             } else if (index === 2) {
-
-
-                const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
-                saveChangesButton.textContent = 'Edit';
+                const saveChangesButton = document.querySelector(
+                    ".personalinfo-firstrow button",
+                );
+                saveChangesButton.textContent = "Edit";
                 saveChangesButton.style.backgroundColor = "transparent";
                 saveChangesButton.style.color = "#260254";
 
@@ -349,8 +359,7 @@ const initializeSideBarTabs = () => {
             }
         });
     });
-}
-
+};
 
 function sendDocumenttoEmail(event) {
     // console.log(event);
@@ -359,8 +368,6 @@ function sendDocumenttoEmail(event) {
     const userId = uniqueIdElement
         ? uniqueIdElement.textContent || uniqueIdElement.innerHTML
         : null;
-
-
 
     const userNameElement = document.querySelector("#referenceNameId p");
     const name = userNameElement
@@ -392,7 +399,7 @@ function sendDocumenttoEmail(event) {
         .then((response) => {
             if (!response.ok) {
                 throw new Error(
-                    "Network response was not ok " + response.statusText
+                    "Network response was not ok " + response.statusText,
                 );
             }
             return response.json();
@@ -437,34 +444,100 @@ function addUserToRequest(userId) {
         });
 }
 
-
-
 // Global object to store document URLs
 
 const endpoints = [
-    { url: "/retrieve-file", selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
-    { url: "/retrieve-file", selector: ".uploaded-pan-name", fileType: "pan-card-name" },
-    { url: "/retrieve-file", selector: ".passport-name-selector", fileType: "passport-card-name" },
-    { url: "/retrieve-file", selector: ".sslc-marksheet", fileType: "tenth-grade-name" },
-    { url: "/retrieve-file", selector: ".hsc-marksheet", fileType: "twelfth-grade-name" },
-    { url: "/retrieve-file", selector: ".graduation-marksheet", fileType: "graduation-grade-name" },
-    { url: "/retrieve-file", selector: ".sslc-grade", fileType: "secured-tenth-name" },
-    { url: "/retrieve-file", selector: ".hsc-grade", fileType: "secured-twelfth-name" },
-    { url: "/retrieve-file", selector: ".graduation-grade", fileType: "secured-graduation-name" },
-    { url: "/retrieve-file", selector: ".experience-letter", fileType: "work-experience-experience-letter" },
-    { url: "/retrieve-file", selector: ".salary-slip", fileType: "work-experience-monthly-slip" },
-    { url: "/retrieve-file", selector: ".office-id", fileType: "work-experience-office-id" },
-    { url: "/retrieve-file", selector: ".joining-letter", fileType: "work-experience-joining-letter" },
-    { url: "/retrieve-file", selector: ".coborrower-pancard", fileType: "co-pan-card-name" },
-    { url: "/retrieve-file", selector: ".coborrower-aadharcard", fileType: "co-aadhar-card-name" },
-    { url: "/retrieve-file", selector: ".coborrower-addressproof", fileType: "co-addressproof" },
+    {
+        url: "/retrieve-file",
+        selector: ".uploaded-aadhar-name",
+        fileType: "aadhar-card-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".uploaded-pan-name",
+        fileType: "pan-card-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".passport-name-selector",
+        fileType: "passport-card-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".sslc-marksheet",
+        fileType: "tenth-grade-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".hsc-marksheet",
+        fileType: "twelfth-grade-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".graduation-marksheet",
+        fileType: "graduation-grade-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".sslc-grade",
+        fileType: "secured-tenth-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".hsc-grade",
+        fileType: "secured-twelfth-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".graduation-grade",
+        fileType: "secured-graduation-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".experience-letter",
+        fileType: "work-experience-experience-letter",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".salary-slip",
+        fileType: "work-experience-monthly-slip",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".office-id",
+        fileType: "work-experience-office-id",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".joining-letter",
+        fileType: "work-experience-joining-letter",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".coborrower-pancard",
+        fileType: "co-pan-card-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".coborrower-aadharcard",
+        fileType: "co-aadhar-card-name",
+    },
+    {
+        url: "/retrieve-file",
+        selector: ".coborrower-addressproof",
+        fileType: "co-addressproof",
+    },
 ];
 
 const documentUrls = {}; // make sure this is declared in your script scope
 
 const initialiseAllViews = () => {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content");
-    const userId = document.querySelector(".personalinfo-secondrow .personal_info_id")?.textContent.trim();
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        ?.getAttribute("content");
+    const userId = document
+        .querySelector(".personalinfo-secondrow .personal_info_id")
+        ?.textContent.trim();
 
     if (!csrfToken || !userId) {
         console.error("CSRF token or User ID is missing");
@@ -472,7 +545,7 @@ const initialiseAllViews = () => {
     }
 
     // Extract fileTypes from endpoints, but backend may return more keys
-    const fileTypes = endpoints.map(ep => ep.fileType);
+    const fileTypes = endpoints.map((ep) => ep.fileType);
 
     return fetch("/retrieve-file", {
         method: "POST",
@@ -483,8 +556,8 @@ const initialiseAllViews = () => {
         },
         body: JSON.stringify({ userId, fileTypes }),
     })
-        .then(res => res.json())
-        .then(data => {
+        .then((res) => res.json())
+        .then((data) => {
             // data could be a flat object with all files (static + dynamic)
             const allFiles = data.staticFiles || data;
 
@@ -495,13 +568,19 @@ const initialiseAllViews = () => {
                     const fileName = fileUrl.split("/").pop();
 
                     // Find matching selector from endpoints (if any)
-                    const endpoint = endpoints.find(ep => ep.fileType === fileType);
+                    const endpoint = endpoints.find(
+                        (ep) => ep.fileType === fileType,
+                    );
                     if (endpoint) {
-                        const element = document.querySelector(endpoint.selector);
+                        const element = document.querySelector(
+                            endpoint.selector,
+                        );
                         if (element) {
                             element.textContent = fileName;
                         } else {
-                            console.warn(`Element not found for selector: ${endpoint.selector}`);
+                            console.warn(
+                                `Element not found for selector: ${endpoint.selector}`,
+                            );
                         }
                     }
 
@@ -511,25 +590,26 @@ const initialiseAllViews = () => {
                 }
             });
         })
-        .catch(error => {
+        .catch((error) => {
             console.error("Error fetching files:", error);
         });
 };
 
-
-
-
 const triggerEditButton = () => {
-    const disabledInputs = document.querySelectorAll('.studentdashboardprofile-myapplication input');
+    const disabledInputs = document.querySelectorAll(
+        ".studentdashboardprofile-myapplication input",
+    );
     const defaultDisabledInput = document.getElementById("plan-to-study-edit");
-    disabledInputs.forEach(inputItems => {
-        inputItems.removeAttribute('disabled');
+    disabledInputs.forEach((inputItems) => {
+        inputItems.removeAttribute("disabled");
     });
     // defaultDisabledInput.setAttribute('disabled')
 
-    const disabledRadios = document.querySelectorAll('.studentdashboardprofile-myapplication input[type="radio"][disabled]');
-    disabledRadios.forEach(radio => {
-        radio.removeAttribute('disabled');
+    const disabledRadios = document.querySelectorAll(
+        '.studentdashboardprofile-myapplication input[type="radio"][disabled]',
+    );
+    disabledRadios.forEach((radio) => {
+        radio.removeAttribute("disabled");
     });
 
     const otherDegreeInput = document.getElementById("otherDegreeInput");
@@ -538,14 +618,12 @@ const triggerEditButton = () => {
     }
 };
 
-
-
 const initialiseProfileUpload = () => {
     const editIcon = document.querySelector(
-        ".studentdashboardprofile-profilesection .fa-pen-to-square"
+        ".studentdashboardprofile-profilesection .fa-pen-to-square",
     );
     const profileImageInput = document.querySelector(
-        ".studentdashboardprofile-profilesection .profile-upload"
+        ".studentdashboardprofile-profilesection .profile-upload",
     );
 
     if (editIcon && profileImageInput) {
@@ -553,10 +631,7 @@ const initialiseProfileUpload = () => {
             profileImageInput.click();
         });
 
-
-
-
-        profileImageInput.addEventListener('change', function (event) {
+        profileImageInput.addEventListener("change", function (event) {
             const file = event.target.files[0];
 
             if (!file) {
@@ -564,7 +639,7 @@ const initialiseProfileUpload = () => {
                 return;
             }
             const userIdElement = document.querySelector(
-                ".personalinfo-secondrow .personal_info_id"
+                ".personalinfo-secondrow .personal_info_id",
             );
 
             const userId = userIdElement ? userIdElement.textContent : "";
@@ -576,7 +651,7 @@ const initialiseProfileUpload = () => {
             const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
             if (!allowedTypes.includes(fileType)) {
                 console.error(
-                    "Invalid file type. Only jpg, png, and gif are allowed."
+                    "Invalid file type. Only jpg, png, and gif are allowed.",
                 );
                 return;
             }
@@ -606,7 +681,8 @@ const initialiseProfileUpload = () => {
                     if (!response.ok) {
                         return response.json().then((errorData) => {
                             throw new Error(
-                                errorData.error || "Network response was not ok"
+                                errorData.error ||
+                                    "Network response was not ok",
                             );
                         });
                     }
@@ -619,14 +695,14 @@ const initialiseProfileUpload = () => {
                             document.querySelector("#profile-photo-id");
                         imgElement.src = data.file_path;
                         const navImageElement = document.querySelector(
-                            "#nav-profile-photo-id"
+                            "#nav-profile-photo-id",
                         );
                         navImageElement.src = data.file_path;
                         // console.log(data);
                     } else {
                         console.error(
                             "Error: No URL returned from the server",
-                            data
+                            data,
                         );
                     }
                 })
@@ -636,7 +712,6 @@ const initialiseProfileUpload = () => {
         });
     }
 };
-
 
 const initialiseEightcolumn = () => {
     const section = document.querySelector(".eightcolumn-firstsection");
@@ -662,7 +737,7 @@ const initialiseSeventhcolumn = () => {
 };
 const initialiseSeventhAdditionalColumn = () => {
     const section = document.querySelector(
-        ".seventhcolumn-additional-firstcolumn"
+        ".seventhcolumn-additional-firstcolumn",
     );
 
     section.addEventListener("click", function () {
@@ -674,21 +749,15 @@ const initialiseSeventhAdditionalColumn = () => {
     });
 };
 const initialiseNinthcolumn = () => {
-
-    const section = document.querySelector('.ninthcolumn-firstsection');
-    section.addEventListener('click', function () {
-        if (section.style.height === '') {
-            section.style.height = 'fit-content';
+    const section = document.querySelector(".ninthcolumn-firstsection");
+    section.addEventListener("click", function () {
+        if (section.style.height === "") {
+            section.style.height = "fit-content";
         } else {
             section.style.height = "";
         }
     });
-
-}
-
-
-
-
+};
 
 const initialiseTenthcolumn = () => {
     const section = document.querySelector(".tenthcolumn-firstsection");
@@ -699,37 +768,44 @@ const initialiseTenthcolumn = () => {
             section.style.height = "";
         }
     });
-
-}
+};
 
 window.adminFileStorage = window.adminFileStorage || {};
 
 function initializeSimpleChat() {
-
     // console.log("inizializesimplechat")
-    const chatContainers = document.querySelectorAll('.individual-bankmessage-input');
+    const chatContainers = document.querySelectorAll(
+        ".individual-bankmessage-input",
+    );
 
     // console.log(chatContainers)
     if (chatContainers.length === 0) return;
 
     chatContainers.forEach((chatContainer, index) => {
-
         const chatId = `loan-chat-${index}`;
-        chatContainer.setAttribute('data-chat-id', chatId);
+        chatContainer.setAttribute("data-chat-id", chatId);
 
-        const parentContainer = chatContainer.closest('.indivudalloanstatus-cards');
-        const messageButton = parentContainer ? parentContainer.querySelector('.triggeredbutton') : null;
+        const parentContainer = chatContainer.closest(
+            ".indivudalloanstatus-cards",
+        );
+        const messageButton = parentContainer
+            ? parentContainer.querySelector(".triggeredbutton")
+            : null;
 
         // console.log(messageButton)
 
-        chatContainer.style.display = 'none';
+        chatContainer.style.display = "none";
 
-        let messagesWrapper = parentContainer ? parentContainer.querySelector(`.messages-wrapper[data-chat-id="${chatId}"]`) : null;
+        let messagesWrapper = parentContainer
+            ? parentContainer.querySelector(
+                  `.messages-wrapper[data-chat-id="${chatId}"]`,
+              )
+            : null;
 
         if (!messagesWrapper) {
             messagesWrapper = document.createElement("div");
             messagesWrapper.classList.add("messages-wrapper");
-            messagesWrapper.setAttribute('data-chat-id', chatId);
+            messagesWrapper.setAttribute("data-chat-id", chatId);
             messagesWrapper.style.cssText = `
         display: none;
         flex-direction: column;
@@ -743,7 +819,10 @@ function initializeSimpleChat() {
         font-family: 'Poppins', sans-serif;
         margin-bottom: 10px;
     `;
-            chatContainer.parentNode.insertBefore(messagesWrapper, chatContainer);
+            chatContainer.parentNode.insertBefore(
+                messagesWrapper,
+                chatContainer,
+            );
         }
 
         const clearButtonContainer = document.createElement("div");
@@ -766,12 +845,15 @@ function initializeSimpleChat() {
             cursor: pointer;
             font-family: 'Poppins', sans-serif;
         `;
-        clearButton.addEventListener('click', function () {
+        clearButton.addEventListener("click", function () {
             clearChat(chatId);
         });
 
         clearButtonContainer.appendChild(clearButton);
-        messagesWrapper.parentNode.insertBefore(clearButtonContainer, messagesWrapper);
+        messagesWrapper.parentNode.insertBefore(
+            clearButtonContainer,
+            messagesWrapper,
+        );
         // Get elements within the container
         const messageInput = chatContainer.querySelector("input[type='text']");
         const sendButton = chatContainer.querySelector(".send-img");
@@ -783,9 +865,9 @@ function initializeSimpleChat() {
 
         // Function to show chat
         function showChat() {
-            messagesWrapper.style.display = 'flex';
-            chatContainer.style.display = 'flex';
-            clearButtonContainer.style.display = 'flex';
+            messagesWrapper.style.display = "flex";
+            chatContainer.style.display = "flex";
+            clearButtonContainer.style.display = "flex";
 
             if (parentContainer) {
                 parentContainer.style.height = "auto";
@@ -794,15 +876,14 @@ function initializeSimpleChat() {
             // Update button text if needed
             if (messageButton) {
                 messageButton.textContent = "Close";
-
             }
         }
 
         // Function to hide chat
         function hideChat() {
-            messagesWrapper.style.display = 'none';
-            chatContainer.style.display = 'none';
-            clearButtonContainer.style.display = 'none';
+            messagesWrapper.style.display = "none";
+            chatContainer.style.display = "none";
+            clearButtonContainer.style.display = "none";
 
             if (parentContainer) {
                 parentContainer.style.height = "fit-content";
@@ -817,14 +898,23 @@ function initializeSimpleChat() {
             if (messageElement && messagesWrapper.contains(messageElement)) {
                 messagesWrapper.removeChild(messageElement);
 
-                const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
-                const fileMessages = JSON.parse(localStorage.getItem(`file-messages-${chatId}`) || '[]');
+                const messages = JSON.parse(
+                    localStorage.getItem(`messages-${chatId}`) || "[]",
+                );
+                const fileMessages = JSON.parse(
+                    localStorage.getItem(`file-messages-${chatId}`) || "[]",
+                );
 
                 if (messageId && fileStorage[messageId]) {
                     delete fileStorage[messageId];
 
-                    const updatedFileMessages = fileMessages.filter(fm => fm.id !== messageId);
-                    localStorage.setItem(`file-messages-${chatId}`, JSON.stringify(updatedFileMessages));
+                    const updatedFileMessages = fileMessages.filter(
+                        (fm) => fm.id !== messageId,
+                    );
+                    localStorage.setItem(
+                        `file-messages-${chatId}`,
+                        JSON.stringify(updatedFileMessages),
+                    );
                 }
             }
         }
@@ -839,7 +929,7 @@ function initializeSimpleChat() {
             localStorage.removeItem(`file-messages-${chatId}`);
 
             // Clear file storage
-            Object.keys(fileStorage).forEach(key => {
+            Object.keys(fileStorage).forEach((key) => {
                 delete fileStorage[key];
             });
 
@@ -866,26 +956,27 @@ function initializeSimpleChat() {
 
         // Toggle chat visibility
         function toggleChat(student_id, messageInputNbfcids, messagesWrapper) {
-
-            if (messagesWrapper.style.display === 'none') {
+            if (messagesWrapper.style.display === "none") {
                 viewChat(student_id, messageInputNbfcids);
             } else {
                 hideChat(student_id, messageInputNbfcids);
             }
         }
 
-
         if (messageButton) {
-            messageButton.addEventListener('click', function (e) {
+            messageButton.addEventListener("click", function (e) {
                 // console.log("code here ")
                 // console.log(messagesWrapper)
 
                 e.preventDefault();
-                const student_id = document.querySelector(".personalinfo-secondrow .personal_info_id").textContent;
-                var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
+                const student_id = document.querySelector(
+                    ".personalinfo-secondrow .personal_info_id",
+                ).textContent;
+                var messageInputNbfcids = document.querySelectorAll(
+                    ".messageinputnbfcids",
+                );
 
                 messageInputNbfcids = messageInputNbfcids[index].textContent;
-
 
                 toggleChat(student_id, messageInputNbfcids, messagesWrapper);
             });
@@ -894,7 +985,6 @@ function initializeSimpleChat() {
         function sendMessage(messageInput, messageInputNbfcids) {
             if (!messageInput) return;
             // console.log(messageInput.value);
-
 
             const content = messageInput.value.trim();
             if (content) {
@@ -925,16 +1015,17 @@ function initializeSimpleChat() {
                 // messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
 
                 sendMessageToBackend(content, messageInputNbfcids);
-
             }
         }
         async function sendMessageToBackend(content, messageInputNbfcids) {
             const nbfcId = messageInputNbfcids;
             const receiverId = nbfcId;
-            const student_id = document.querySelector(".personalinfo-secondrow .personal_info_id").textContent;
+            const student_id = document.querySelector(
+                ".personalinfo-secondrow .personal_info_id",
+            ).textContent;
 
             if (!student_id) {
-                console.error('User not found or invalid student_id');
+                console.error("User not found or invalid student_id");
                 return;
             }
 
@@ -947,16 +1038,18 @@ function initializeSimpleChat() {
                     receiver_id: receiverId,
                     message: content,
                     is_read: false,
-
                 };
 
-                const response = await fetch('/send-message', {
-                    method: 'POST',
+                const response = await fetch("/api/send-message", {
+                    method: "POST",
                     headers: {
-                        'Content-Type': 'application/json',
-                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ""
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN":
+                            document
+                                .querySelector('meta[name="csrf-token"]')
+                                ?.getAttribute("content") || "",
                     },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(payload),
                 });
 
                 const data = await response.json();
@@ -989,43 +1082,41 @@ function initializeSimpleChat() {
 
                     viewChat(student_id, nbfcId);
                 } else {
-                    console.error('Failed to send message:', data.error || 'Unknown error');
+                    console.error(
+                        "Failed to send message:",
+                        data.error || "Unknown error",
+                    );
                 }
             } catch (error) {
-                console.error('Error sending message:', error);
+                console.error("Error sending message:", error);
             }
         }
 
-
-
-
-
-
         if (messageInput) {
-            messageInput.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
+            messageInput.addEventListener("keypress", function (e) {
+                if (e.key === "Enter") {
+                    var messageInputNbfcids = document.querySelectorAll(
+                        ".messageinputnbfcids",
+                    );
                     // console.log(messageInputNbfcids[index].textContent);
 
-                    messageInputNbfcids = messageInputNbfcids[index].textContent;
-
+                    messageInputNbfcids =
+                        messageInputNbfcids[index].textContent;
 
                     e.preventDefault();
 
                     sendMessage(messageInput, messageInputNbfcids);
-
-
                 }
             });
         }
 
-
         // Add click event to send button
         if (sendButton) {
-
-            sendButton.addEventListener('click', function (e) {
+            sendButton.addEventListener("click", function (e) {
                 e.preventDefault();
-                var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
+                var messageInputNbfcids = document.querySelectorAll(
+                    ".messageinputnbfcids",
+                );
                 // console.log(messageInputNbfcids[index].textContent);
 
                 messageInputNbfcids = messageInputNbfcids[index].textContent;
@@ -1034,7 +1125,7 @@ function initializeSimpleChat() {
         }
 
         if (smileIcon) {
-            smileIcon.addEventListener('click', function (e) {
+            smileIcon.addEventListener("click", function (e) {
                 e.stopPropagation();
                 const emojis = ["😊", "👍", "😀", "🙂", "👋", "👌", "✨"];
 
@@ -1061,7 +1152,7 @@ function initializeSimpleChat() {
                     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
                 `;
 
-                emojis.forEach(emoji => {
+                emojis.forEach((emoji) => {
                     const button = document.createElement("button");
                     button.textContent = emoji;
                     button.style.cssText = `
@@ -1103,43 +1194,58 @@ function initializeSimpleChat() {
                     const file = e.target.files[0];
                     if (file) {
                         const formData = new FormData();
-                        formData.append('file', file);
-                        formData.append('chatId', chatId);
+                        formData.append("file", file);
+                        formData.append("chatId", chatId);
 
-                        fetch('/upload-documents-chat', {
-                            method: 'POST',
+                        fetch("/api/upload-documents-chat", {
+                            method: "POST",
                             headers: {
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                                "X-CSRF-TOKEN":
+                                    document
+                                        .querySelector(
+                                            'meta[name="csrf-token"]',
+                                        )
+                                        ?.getAttribute("content") || "",
                             },
-                            body: formData
+                            body: formData,
                         })
-                            .then(res => res.json())
-                            .then(data => {
+                            .then((res) => res.json())
+                            .then((data) => {
                                 if (data.success && data.fileUrl) {
                                     const fileUrl = data.fileUrl;
 
-                                    var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
+                                    var messageInputNbfcids =
+                                        document.querySelectorAll(
+                                            ".messageinputnbfcids",
+                                        );
 
-                                    messageInputNbfcids = messageInputNbfcids[index].textContent;
-
+                                    messageInputNbfcids =
+                                        messageInputNbfcids[index].textContent;
 
                                     const fileName = file.name;
-                                    const fileSize = (file.size / 1024 / 1024).toFixed(2);
+                                    const fileSize = (
+                                        file.size /
+                                        1024 /
+                                        1024
+                                    ).toFixed(2);
                                     const fileId = `file-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-                                    if (!adminFileStorage[chatId]) adminFileStorage[chatId] = {};
+                                    if (!adminFileStorage[chatId])
+                                        adminFileStorage[chatId] = {};
                                     adminFileStorage[chatId][fileId] = file;
 
-                                    sendMessageToBackend(fileUrl, messageInputNbfcids);
-
-
-
+                                    sendMessageToBackend(
+                                        fileUrl,
+                                        messageInputNbfcids,
+                                    );
                                 } else {
                                     alert("File upload failed.");
                                 }
                             })
-                            .catch(err => {
+                            .catch((err) => {
                                 console.error("Upload error:", err);
-                                alert("Something went wrong while uploading the file.");
+                                alert(
+                                    "Something went wrong while uploading the file.",
+                                );
                             });
                     }
                 };
@@ -1150,12 +1256,9 @@ function initializeSimpleChat() {
             });
         }
 
-
-
-
-
-
-        const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
+        const savedMessages = JSON.parse(
+            localStorage.getItem(`messages-${chatId}`) || "[]",
+        );
         // console.log(savedMessages)
         // if (savedMessages.length > 0) {
         //     savedMessages.forEach(content => {
@@ -1190,37 +1293,48 @@ function initializeSimpleChat() {
             const apiUrl = `/get-messages/${nbfc_id}/${student_id}`;
 
             fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    console.log('API response:', data); // Log the full response to check its structure
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("API response:", data); // Log the full response to check its structure
                     if (data && data.messages && data.messages.length > 0) {
-                        data.messages.forEach(message => {
-                            const existingMessage = messagesWrapper.querySelector(`[data-message-id="${message.id}"]`);
+                        data.messages.forEach((message) => {
+                            const existingMessage =
+                                messagesWrapper.querySelector(
+                                    `[data-message-id="${message.id}"]`,
+                                );
                             if (!existingMessage) {
-                                const messageElement = document.createElement("div");
-                                messageElement.setAttribute('data-message-id', message.id); // Unique message ID for checking duplicates
+                                const messageElement =
+                                    document.createElement("div");
+                                messageElement.setAttribute(
+                                    "data-message-id",
+                                    message.id,
+                                ); // Unique message ID for checking duplicates
                                 messageElement.style.cssText = `
                                         display: flex;
-                                        justify-content: ${message.sender_id === student_id ? 'flex-end' : 'flex-start'};
+                                        justify-content: ${message.sender_id === student_id ? "flex-end" : "flex-start"};
                                         width: 100%;
                                         margin-bottom: 10px;
                                     `;
-                                const messageContent = document.createElement("div");
+                                const messageContent =
+                                    document.createElement("div");
                                 messageContent.style.cssText = `
                                         max-width: 80%;
                                         padding: 8px 12px;
                                         border-radius: 8px;
-                                        background-color: ${message.sender_id === student_id ? '#DCF8C6' : '#FFF'};
+                                        background-color: ${message.sender_id === student_id ? "#DCF8C6" : "#FFF"};
                                         word-wrap: break-word;
                                         font-family: 'Poppins', sans-serif;
                                         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
                                         color:rgb(102, 102, 102);
                                     `;
-                                if (message.message.match(/\.(pdf|docx?|txt)$/i)) {
+                                if (
+                                    message.message.match(/\.(pdf|docx?|txt)$/i)
+                                ) {
                                     // Show file download style
-                                    const downloadLink = document.createElement('a');
+                                    const downloadLink =
+                                        document.createElement("a");
                                     downloadLink.href = message.message;
-                                    downloadLink.target = '_blank';
+                                    downloadLink.target = "_blank";
                                     downloadLink.style.cssText = `
                                         display: flex;
                                         align-items: center;
@@ -1228,7 +1342,9 @@ function initializeSimpleChat() {
                                         color: #666;
                                         text-decoration: none;
                                     `;
-                                    const fileName = message.message.split('/').pop();
+                                    const fileName = message.message
+                                        .split("/")
+                                        .pop();
                                     downloadLink.innerHTML = `
                                         <i class="fa-solid fa-file"></i>
                                         <span>${fileName}</span>
@@ -1236,7 +1352,8 @@ function initializeSimpleChat() {
                                     messageContent.appendChild(downloadLink);
                                 } else {
                                     // Regular text message
-                                    messageContent.textContent = message.message;
+                                    messageContent.textContent =
+                                        message.message;
                                 }
 
                                 messageElement.appendChild(messageContent);
@@ -1246,16 +1363,16 @@ function initializeSimpleChat() {
                             }
                         });
                     } else {
-                        console.log('No messages found');
+                        console.log("No messages found");
                     }
                 })
-                .catch(error => {
-                    console.error('Error fetching messages:', error);
+                .catch((error) => {
+                    console.error("Error fetching messages:", error);
                 });
 
-            messagesWrapper.style.display = 'flex';
-            chatContainer.style.display = 'flex';
-            clearButtonContainer.style.display = 'flex';
+            messagesWrapper.style.display = "flex";
+            chatContainer.style.display = "flex";
+            clearButtonContainer.style.display = "flex";
 
             if (parentContainer) {
                 parentContainer.style.height = "auto";
@@ -1266,32 +1383,35 @@ function initializeSimpleChat() {
             }
         }
 
-
         function scrollToBottom() {
             messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
         }
-
     });
-
 }
 
 function saveMessage(content, chatId) {
-    const messages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
+    const messages = JSON.parse(
+        localStorage.getItem(`messages-${chatId}`) || "[]",
+    );
     messages.push(content);
     localStorage.setItem(`messages-${chatId}`, JSON.stringify(messages));
 }
 
-
 // Add this function to properly save file messages
 function saveFileMessage(fileData, chatId) {
-    const fileMessages = JSON.parse(localStorage.getItem(`file-messages-${chatId}`) || '[]');
+    const fileMessages = JSON.parse(
+        localStorage.getItem(`file-messages-${chatId}`) || "[]",
+    );
     fileMessages.push(fileData);
-    localStorage.setItem(`file-messages-${chatId}`, JSON.stringify(fileMessages));
+    localStorage.setItem(
+        `file-messages-${chatId}`,
+        JSON.stringify(fileMessages),
+    );
 }
 
 const initialiseProfileView = () => {
     const userIdElement = document.querySelector(
-        ".personalinfo-secondrow .personal_info_id"
+        ".personalinfo-secondrow .personal_info_id",
     );
     const userId = userIdElement ? userIdElement.textContent : "";
 
@@ -1326,21 +1446,26 @@ const initialiseProfileView = () => {
         .catch((error) => {
             console.error("Error retrieving profile picture", error);
         });
-}
+};
 const checkUserStatusCount = () => {
-    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+    const userIdElement = document.querySelector(
+        ".personalinfo-secondrow .personal_info_id",
+    );
+    const userId = userIdElement ? userIdElement.textContent.trim() : "";
 
-    return fetch('/count-user-status', {
-        method: 'POST',
+    return fetch("/api/count-user-status", {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json',
-            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ""
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN":
+                document
+                    .querySelector('meta[name="csrf-token"]')
+                    ?.getAttribute("content") || "",
         },
-        body: JSON.stringify({ userId })
+        body: JSON.stringify({ userId }),
     })
-        .then(response => response.json())
-        .then(data => {
+        .then((response) => response.json())
+        .then((data) => {
             if (data.success) {
                 // console.log("Successfully retrieved count");
                 const finalCounting = data.count;
@@ -1352,15 +1477,15 @@ const checkUserStatusCount = () => {
 };
 
 const waitForCards = () => {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
         const observer = new MutationObserver(async (mutations, obs) => {
-            const cards = document.querySelectorAll('.indivudalloanstatus-cards');
+            const cards = document.querySelectorAll(
+                ".indivudalloanstatus-cards",
+            );
 
             const retrieveCount = await checkUserStatusCount();
 
-
             if (cards.length > retrieveCount) {
-
                 obs.disconnect();
                 resolve(cards);
             }
@@ -1383,38 +1508,38 @@ const initializeIndividualCards = () => {
     const handleCardClick = (card, messageInput, index) => {
         return () => {
             const computedStyle = window.getComputedStyle(messageInput);
-            const isInputVisible = computedStyle.display === 'flex';
+            const isInputVisible = computedStyle.display === "flex";
 
-            console.log(`Card ${index} clicked, input currently ${isInputVisible ? 'visible' : 'hidden'}`);
+            console.log(
+                `Card ${index} clicked, input currently ${isInputVisible ? "visible" : "hidden"}`,
+            );
 
             // Collapse all other inputs
-            document.querySelectorAll('.individual-bankmessage-input').forEach(input => {
-                if (input !== messageInput) {
-                    input.style.display = 'none';
-                    const parentCard = input.closest('.individual-card');
-                    if (parentCard) {
-                        parentCard.style.height = 'fit-content';
+            document
+                .querySelectorAll(".individual-bankmessage-input")
+                .forEach((input) => {
+                    if (input !== messageInput) {
+                        input.style.display = "none";
+                        const parentCard = input.closest(".individual-card");
+                        if (parentCard) {
+                            parentCard.style.height = "fit-content";
+                        }
                     }
-                }
-            });
+                });
 
             // Toggle the clicked input
-            messageInput.style.display = isInputVisible ? 'none' : 'flex';
-            card.style.height = 'fit-content';
-
-
+            messageInput.style.display = isInputVisible ? "none" : "flex";
+            card.style.height = "fit-content";
 
             // e.preventDefault();
-            const student_id = document.querySelector(".personalinfo-secondrow .personal_info_id").textContent;
-            var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
+            const student_id = document.querySelector(
+                ".personalinfo-secondrow .personal_info_id",
+            ).textContent;
+            var messageInputNbfcids = document.querySelectorAll(
+                ".messageinputnbfcids",
+            );
 
             messageInputNbfcids = messageInputNbfcids[index].textContent;
-
-
-
-
-
-
         };
     };
 
@@ -1431,15 +1556,23 @@ const initializeIndividualCards = () => {
                 individualCards.forEach((card, index) => {
                     // console.log(`Initializing card ${index}:`, card);
 
-                    const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
-                    const messageInput = card.querySelector('.individual-bankmessage-input');
+                    const triggeredMessageButton = card.querySelector(
+                        ".individual-bankmessages .triggeredbutton",
+                    );
+                    const messageInput = card.querySelector(
+                        ".individual-bankmessage-input",
+                    );
 
                     if (triggeredMessageButton && messageInput) {
                         // Clone and replace button to avoid duplicate listeners
-                        const newButton = triggeredMessageButton.cloneNode(true);
+                        const newButton =
+                            triggeredMessageButton.cloneNode(true);
                         triggeredMessageButton.replaceWith(newButton);
 
-                        newButton.addEventListener('click', handleCardClick(card, messageInput, index));
+                        newButton.addEventListener(
+                            "click",
+                            handleCardClick(card, messageInput, index),
+                        );
                     }
                 });
                 await initializeSimpleChat();
@@ -1454,7 +1587,7 @@ const initializeIndividualCards = () => {
     };
 
     // Initial check
-    initCards().then(initialized => {
+    initCards().then((initialized) => {
         if (!initialized) {
             checkInterval = setInterval(async () => {
                 const initialized = await initCards();
@@ -1469,10 +1602,9 @@ const initializeIndividualCards = () => {
     return cleanup;
 };
 
-
 const initializeKycDocumentUpload = () => {
     const individualKycDocumentsUpload = document.querySelectorAll(
-        ".individualkycdocuments"
+        ".individualkycdocuments",
     );
 
     individualKycDocumentsUpload.forEach((card) => {
@@ -1492,7 +1624,7 @@ const initializeKycDocumentUpload = () => {
             const fileTypeKey = `${documentType}-card-name`;
             const fileUrl = documentUrls[fileTypeKey];
             const fileNameElement = card.querySelector(
-                `.uploaded-${documentType}-name`
+                `.uploaded-${documentType}-name`,
             );
             const fileName = fileNameElement
                 ? fileNameElement.textContent
@@ -1514,12 +1646,14 @@ const initializeKycDocumentUpload = () => {
             }
 
             const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
-            const isImage = [".jpg", ".jpeg", ".png"].some(ext =>
-                fileUrl.toLowerCase().endsWith(ext)
+            const isImage = [".jpg", ".jpeg", ".png"].some((ext) =>
+                fileUrl.toLowerCase().endsWith(ext),
             );
 
             const overlay = document.createElement("div");
-            overlay.className = isPDF ? "pdf-preview-overlay" : "image-preview-overlay";
+            overlay.className = isPDF
+                ? "pdf-preview-overlay"
+                : "image-preview-overlay";
             overlay.style.cssText = `
                 position: fixed;
                 top: 0;
@@ -1531,7 +1665,9 @@ const initializeKycDocumentUpload = () => {
             `;
 
             const previewWrapper = document.createElement("div");
-            previewWrapper.className = isPDF ? "pdf-preview-wrapper" : "image-preview-wrapper";
+            previewWrapper.className = isPDF
+                ? "pdf-preview-wrapper"
+                : "image-preview-wrapper";
             previewWrapper.style.cssText = `
                 position: fixed;
                 top: 50%;
@@ -1612,7 +1748,7 @@ const initializeKycDocumentUpload = () => {
                 zoomOut.textContent = "−";
                 zoomIn.textContent = "+";
 
-                [zoomOut, zoomIn].forEach(btn => {
+                [zoomOut, zoomIn].forEach((btn) => {
                     btn.style.cssText = `
                         background: none;
                         border: 1px solid #fff;
@@ -1654,16 +1790,19 @@ const initializeKycDocumentUpload = () => {
                 iframeContainer.appendChild(iframe);
                 previewWrapper.appendChild(iframeContainer);
 
-                header.querySelectorAll("button")[1]?.addEventListener("click", () => {
-                    currentZoom += 0.1;
-                    iframe.style.transform = `scale(${currentZoom})`;
-                });
+                header
+                    .querySelectorAll("button")[1]
+                    ?.addEventListener("click", () => {
+                        currentZoom += 0.1;
+                        iframe.style.transform = `scale(${currentZoom})`;
+                    });
 
-                header.querySelectorAll("button")[0]?.addEventListener("click", () => {
-                    currentZoom = Math.max(currentZoom - 0.1, 0.5);
-                    iframe.style.transform = `scale(${currentZoom})`;
-                });
-
+                header
+                    .querySelectorAll("button")[0]
+                    ?.addEventListener("click", () => {
+                        currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                        iframe.style.transform = `scale(${currentZoom})`;
+                    });
             } else if (isImage) {
                 const imgContainer = document.createElement("div");
                 imgContainer.style.cssText = `
@@ -1684,13 +1823,15 @@ const initializeKycDocumentUpload = () => {
                 imgContainer.appendChild(img);
                 previewWrapper.appendChild(imgContainer);
             } else {
-                alert("Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported.");
+                alert(
+                    "Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported.",
+                );
                 return;
             }
 
             document.body.appendChild(overlay);
             document.body.appendChild(previewWrapper);
-            document.addEventListener("keydown", e => {
+            document.addEventListener("keydown", (e) => {
                 if (e.key === "Escape") closePreview();
             });
 
@@ -1739,16 +1880,20 @@ const initializeMarksheetUpload = () => {
             }
 
             const fileUrl = documentUrls[fileTypeKey];
-            const fileNameElement = card.querySelector(`.${fileTypeKey.replace("-name", "-marksheet")}`);
+            const fileNameElement = card.querySelector(
+                `.${fileTypeKey.replace("-name", "-marksheet")}`,
+            );
             const fileName = fileNameElement?.textContent || "Document";
 
             const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
-            const isImage = [".jpg", ".jpeg", ".png"].some(ext =>
-                fileUrl.toLowerCase().endsWith(ext)
+            const isImage = [".jpg", ".jpeg", ".png"].some((ext) =>
+                fileUrl.toLowerCase().endsWith(ext),
             );
 
             const overlay = document.createElement("div");
-            overlay.className = isPDF ? "pdf-preview-overlay" : "image-preview-overlay";
+            overlay.className = isPDF
+                ? "pdf-preview-overlay"
+                : "image-preview-overlay";
             overlay.style.cssText = `
                 position: fixed;
                 top: 0;
@@ -1760,7 +1905,9 @@ const initializeMarksheetUpload = () => {
             `;
 
             const previewWrapper = document.createElement("div");
-            previewWrapper.className = isPDF ? "pdf-preview-wrapper" : "image-preview-wrapper";
+            previewWrapper.className = isPDF
+                ? "pdf-preview-wrapper"
+                : "image-preview-wrapper";
             previewWrapper.style.cssText = `
                 position: fixed;
                 top: 50%;
@@ -1839,7 +1986,7 @@ const initializeMarksheetUpload = () => {
                 zoomOut.textContent = "−";
                 zoomIn.textContent = "+";
 
-                [zoomOut, zoomIn].forEach(btn => {
+                [zoomOut, zoomIn].forEach((btn) => {
                     btn.style.cssText = `
                         background: none;
                         border: 1px solid #fff;
@@ -1875,16 +2022,19 @@ const initializeMarksheetUpload = () => {
 
                 let currentZoom = 1;
 
-                header.querySelectorAll("button")[1]?.addEventListener("click", () => {
-                    currentZoom += 0.1;
-                    iframe.style.transform = `scale(${currentZoom})`;
-                });
+                header
+                    .querySelectorAll("button")[1]
+                    ?.addEventListener("click", () => {
+                        currentZoom += 0.1;
+                        iframe.style.transform = `scale(${currentZoom})`;
+                    });
 
-                header.querySelectorAll("button")[0]?.addEventListener("click", () => {
-                    currentZoom = Math.max(currentZoom - 0.1, 0.5);
-                    iframe.style.transform = `scale(${currentZoom})`;
-                });
-
+                header
+                    .querySelectorAll("button")[0]
+                    ?.addEventListener("click", () => {
+                        currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                        iframe.style.transform = `scale(${currentZoom})`;
+                    });
             } else if (isImage) {
                 const imgContainer = document.createElement("div");
                 imgContainer.style.cssText = `
@@ -1905,14 +2055,16 @@ const initializeMarksheetUpload = () => {
                 imgContainer.appendChild(img);
                 previewWrapper.appendChild(imgContainer);
             } else {
-                alert("Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported.");
+                alert(
+                    "Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported.",
+                );
                 return;
             }
 
             document.body.appendChild(overlay);
             document.body.appendChild(previewWrapper);
 
-            document.addEventListener("keydown", e => {
+            document.addEventListener("keydown", (e) => {
                 if (e.key === "Escape") closePreview();
             });
 
@@ -1922,13 +2074,9 @@ const initializeMarksheetUpload = () => {
     });
 };
 
-
-
-
-
 const initializeSecuredAdmissionDocumentUpload = () => {
     const securedAdmissionDocuments = document.querySelectorAll(
-        ".individual-secured-admission-documents"
+        ".individual-secured-admission-documents",
     );
 
     securedAdmissionDocuments.forEach((card) => {
@@ -1955,7 +2103,7 @@ const initializeSecuredAdmissionDocumentUpload = () => {
             // Get the URL from documentUrls
             const fileUrl = documentUrls[fileTypeKey];
             const fileNameElement = card.querySelector(
-                `.${fileTypeKey.replace("-name", "-grade")}`
+                `.${fileTypeKey.replace("-name", "-grade")}`,
             );
             const fileName = fileNameElement
                 ? fileNameElement.textContent
@@ -1963,15 +2111,15 @@ const initializeSecuredAdmissionDocumentUpload = () => {
 
             console.log(
                 `Previewing secured admission (${fileTypeKey}):`,
-                fileUrl
+                fileUrl,
             );
 
             if (eyeIcon.classList.contains("preview-active")) {
                 const previewWrapper = document.querySelector(
-                    ".pdf-preview-wrapper, .image-preview-wrapper"
+                    ".pdf-preview-wrapper, .image-preview-wrapper",
                 );
                 const overlay = document.querySelector(
-                    ".pdf-preview-overlay, .image-preview-overlay"
+                    ".pdf-preview-overlay, .image-preview-overlay",
                 );
                 if (previewWrapper) previewWrapper.remove();
                 if (overlay) overlay.remove();
@@ -1988,7 +2136,7 @@ const initializeSecuredAdmissionDocumentUpload = () => {
             // Check if it's a PDF or image based on file extension
             const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
             const isImage = [".jpg", ".jpeg", ".png"].some((ext) =>
-                fileUrl.toLowerCase().endsWith(ext)
+                fileUrl.toLowerCase().endsWith(ext),
             );
 
             if (isPDF) {
@@ -2280,7 +2428,7 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                 eyeIcon.src = "/assets/images/close.png";
             } else {
                 alert(
-                    "Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported."
+                    "Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported.",
                 );
             }
         });
@@ -2296,12 +2444,9 @@ function truncateFileName(fileName) {
     return name.slice(0, 16) + "..." + extension;
 }
 
-
-
-
 const initializeWorkExperienceDocumentUpload = () => {
     const workExperienceDocuments = document.querySelectorAll(
-        ".individual-work-experiencecolumn-documents"
+        ".individual-work-experiencecolumn-documents",
     );
 
     workExperienceDocuments.forEach((card) => {
@@ -2330,7 +2475,7 @@ const initializeWorkExperienceDocumentUpload = () => {
             // Get the URL from documentUrls
             const fileUrl = documentUrls[fileTypeKey];
             const fileNameElement = card.querySelector(
-                `.${fileTypeKey.split("-").slice(2).join("-")}`
+                `.${fileTypeKey.split("-").slice(2).join("-")}`,
             );
             const fileName = fileNameElement
                 ? fileNameElement.textContent
@@ -2338,15 +2483,15 @@ const initializeWorkExperienceDocumentUpload = () => {
 
             console.log(
                 `Previewing work experience (${fileTypeKey}):`,
-                fileUrl
+                fileUrl,
             );
 
             if (eyeIcon.classList.contains("preview-active")) {
                 const previewWrapper = document.querySelector(
-                    ".pdf-preview-wrapper, .image-preview-wrapper"
+                    ".pdf-preview-wrapper, .image-preview-wrapper",
                 );
                 const overlay = document.querySelector(
-                    ".pdf-preview-overlay, .image-preview-overlay"
+                    ".pdf-preview-overlay, .image-preview-overlay",
                 );
                 if (previewWrapper) previewWrapper.remove();
                 if (overlay) overlay.remove();
@@ -2363,7 +2508,7 @@ const initializeWorkExperienceDocumentUpload = () => {
             // Check if it's a PDF or image based on file extension
             const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
             const isImage = [".jpg", ".jpeg", ".png"].some((ext) =>
-                fileUrl.toLowerCase().endsWith(ext)
+                fileUrl.toLowerCase().endsWith(ext),
             );
 
             if (isPDF) {
@@ -2655,7 +2800,7 @@ const initializeWorkExperienceDocumentUpload = () => {
                 eyeIcon.src = "/assets/images/close.png";
             } else {
                 alert(
-                    "Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported."
+                    "Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported.",
                 );
             }
         });
@@ -2663,7 +2808,9 @@ const initializeWorkExperienceDocumentUpload = () => {
 };
 
 const initializeCoBorrowerDocumentUpload = () => {
-    const coBorrowerDocuments = document.querySelectorAll(".individual-coborrower-kyc-documents");
+    const coBorrowerDocuments = document.querySelectorAll(
+        ".individual-coborrower-kyc-documents",
+    );
 
     coBorrowerDocuments.forEach((card) => {
         const eyeIcon = card.querySelector(".fa-eye");
@@ -2685,9 +2832,16 @@ const initializeCoBorrowerDocumentUpload = () => {
             }
 
             const fileUrl = documentUrls[fileTypeKey];
-            const fileNameElement = card.querySelector(`.${fileTypeKey?.replace("-name", "-grade")}`);
-            const rawFileName = fileNameElement ? fileNameElement.textContent.trim() : "Document";
-            const fileName = typeof truncateFileName === "function" ? truncateFileName(rawFileName) : rawFileName;
+            const fileNameElement = card.querySelector(
+                `.${fileTypeKey?.replace("-name", "-grade")}`,
+            );
+            const rawFileName = fileNameElement
+                ? fileNameElement.textContent.trim()
+                : "Document";
+            const fileName =
+                typeof truncateFileName === "function"
+                    ? truncateFileName(rawFileName)
+                    : rawFileName;
 
             const closePreview = () => {
                 document.querySelector(".pdf-preview-wrapper")?.remove();
@@ -2714,10 +2868,14 @@ const initializeCoBorrowerDocumentUpload = () => {
             }
 
             const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
-            const isImage = [".jpg", ".jpeg", ".png"].some(ext => fileUrl.toLowerCase().endsWith(ext));
+            const isImage = [".jpg", ".jpeg", ".png"].some((ext) =>
+                fileUrl.toLowerCase().endsWith(ext),
+            );
 
             const overlay = document.createElement("div");
-            overlay.className = isPDF ? "pdf-preview-overlay" : "image-preview-overlay";
+            overlay.className = isPDF
+                ? "pdf-preview-overlay"
+                : "image-preview-overlay";
             overlay.style.cssText = `
                 position: fixed;
                 top: 0;
@@ -2729,7 +2887,9 @@ const initializeCoBorrowerDocumentUpload = () => {
             `;
 
             const previewWrapper = document.createElement("div");
-            previewWrapper.className = isPDF ? "pdf-preview-wrapper" : "image-preview-wrapper";
+            previewWrapper.className = isPDF
+                ? "pdf-preview-wrapper"
+                : "image-preview-wrapper";
             previewWrapper.style.cssText = `
                 position: fixed;
                 top: 50%;
@@ -2798,7 +2958,7 @@ const initializeCoBorrowerDocumentUpload = () => {
                 zoomOut.textContent = "−";
                 zoomIn.textContent = "+";
 
-                [zoomOut, zoomIn].forEach(btn => {
+                [zoomOut, zoomIn].forEach((btn) => {
                     btn.style.cssText = `
                         background: none;
                         border: 1px solid #fff;
@@ -2831,18 +2991,21 @@ const initializeCoBorrowerDocumentUpload = () => {
                 previewWrapper.appendChild(iframe);
 
                 let currentZoom = 1;
-                header.querySelectorAll("button")[1]?.addEventListener("click", () => {
-                    currentZoom += 0.1;
-                    iframe.style.transform = `scale(${currentZoom})`;
-                    iframe.style.transformOrigin = "top center";
-                });
+                header
+                    .querySelectorAll("button")[1]
+                    ?.addEventListener("click", () => {
+                        currentZoom += 0.1;
+                        iframe.style.transform = `scale(${currentZoom})`;
+                        iframe.style.transformOrigin = "top center";
+                    });
 
-                header.querySelectorAll("button")[0]?.addEventListener("click", () => {
-                    currentZoom = Math.max(currentZoom - 0.1, 0.5);
-                    iframe.style.transform = `scale(${currentZoom})`;
-                    iframe.style.transformOrigin = "top center";
-                });
-
+                header
+                    .querySelectorAll("button")[0]
+                    ?.addEventListener("click", () => {
+                        currentZoom = Math.max(currentZoom - 0.1, 0.5);
+                        iframe.style.transform = `scale(${currentZoom})`;
+                        iframe.style.transformOrigin = "top center";
+                    });
             } else if (isImage) {
                 const imgContainer = document.createElement("div");
                 imgContainer.style.cssText = `
@@ -2864,7 +3027,9 @@ const initializeCoBorrowerDocumentUpload = () => {
                 imgContainer.appendChild(img);
                 previewWrapper.appendChild(imgContainer);
             } else {
-                alert("Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported.");
+                alert(
+                    "Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported.",
+                );
                 return;
             }
 
@@ -2878,33 +3043,36 @@ const initializeCoBorrowerDocumentUpload = () => {
     });
 };
 
-
 const bankListedThroughNBFC = async () => {
-
     // console.log("_______")
 
-    const nbfcContainer = document.querySelector(".loanproposals-loanstatuscards");
+    const nbfcContainer = document.querySelector(
+        ".loanproposals-loanstatuscards",
+    );
 
     if (nbfcContainer) {
         // consle.log("______")
 
-        const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-        const userId = userIdElement ? userIdElement.textContent : '';
+        const userIdElement = document.querySelector(
+            ".personalinfo-secondrow .personal_info_id",
+        );
+        const userId = userIdElement ? userIdElement.textContent : "";
 
         fetch("/getnbfcdata-proposals", {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document
+                    .querySelector('meta[name="csrf-token"]')
+                    .getAttribute("content"),
             },
-            body: JSON.stringify({ userId })
+            body: JSON.stringify({ userId }),
         })
-            .then(response => response.json())
-            .then(async data => {
+            .then((response) => response.json())
+            .then(async (data) => {
                 if (data.success) {
-                    console.log(data)
+                    console.log(data);
                     const finalData = data.result;
-
 
                     // if (!finalData) {
                     //     const noDataMessage = document.createElement("p");
@@ -2914,80 +3082,97 @@ const bankListedThroughNBFC = async () => {
                     //     return;
                     // }
 
-
-
                     if (finalData) {
                         finalData.forEach(async (items) => {
-                            const eachCards = document.createElement('div');
-                            eachCards.classList.add("indivudalloanstatus-cards");
+                            const eachCards = document.createElement("div");
+                            eachCards.classList.add(
+                                "indivudalloanstatus-cards",
+                            );
 
-                            const insideCard = document.createElement('div');
+                            const insideCard = document.createElement("div");
                             insideCard.classList.add("individual-bankname");
 
                             const header = document.createElement("h1");
                             header.textContent = items.nbfc_name;
 
-                            const messageInputNbfcids = document.createElement("p");
-                            messageInputNbfcids.classList.add("messageinputnbfcids");
+                            const messageInputNbfcids =
+                                document.createElement("p");
+                            messageInputNbfcids.classList.add(
+                                "messageinputnbfcids",
+                            );
                             messageInputNbfcids.textContent = items.nbfc_id;
-
-
-
 
                             insideCard.append(header, messageInputNbfcids);
 
-
-
-
-
                             const insideSecond = document.createElement("div");
-                            insideSecond.classList.add("individual-bankmessages");
+                            insideSecond.classList.add(
+                                "individual-bankmessages",
+                            );
 
                             const bankMessage = document.createElement("p");
-                            bankMessage.textContent = "Lorem ipsum dolor sit amet...";
+                            bankMessage.textContent =
+                                "Lorem ipsum dolor sit amet...";
                             insideSecond.append(bankMessage);
 
-                            await fetchStatus(items.nbfc_id, insideSecond, items);
+                            await fetchStatus(
+                                items.nbfc_id,
+                                insideSecond,
+                                items,
+                            );
 
+                            const buttonContainer =
+                                document.createElement("div");
+                            buttonContainer.classList.add(
+                                "individual-bankmessages-buttoncontainer",
+                            );
+                            const bankMessageContainer =
+                                document.createElement("div");
+                            bankMessageContainer.classList.add(
+                                "individual-bankmessage-input",
+                            );
 
-
-
-                            const buttonContainer = document.createElement("div");
-                            buttonContainer.classList.add('individual-bankmessages-buttoncontainer');
-                            const bankMessageContainer = document.createElement("div");
-                            bankMessageContainer.classList.add("individual-bankmessage-input");
-
-                            const messageInput = document.createElement("input");
+                            const messageInput =
+                                document.createElement("input");
                             messageInput.placeholder = "Send message";
                             messageInput.type = "text";
 
                             const sendIcon = document.createElement("img");
                             sendIcon.classList.add("send-img");
-                            sendIcon.src = 'assets/images/send.png';
+                            sendIcon.src = "assets/images/send.png";
 
                             const documentAttach = document.createElement("i");
-                            documentAttach.classList.add("fa-solid", "fa-paperclip");
+                            documentAttach.classList.add(
+                                "fa-solid",
+                                "fa-paperclip",
+                            );
 
                             const smileAttach = document.createElement("i");
-                            smileAttach.classList.add("fa-regular", "fa-face-smile");
+                            smileAttach.classList.add(
+                                "fa-regular",
+                                "fa-face-smile",
+                            );
 
-                            bankMessageContainer.append(messageInput, sendIcon, documentAttach, smileAttach);
+                            bankMessageContainer.append(
+                                messageInput,
+                                sendIcon,
+                                documentAttach,
+                                smileAttach,
+                            );
 
-                            eachCards.append(insideCard, insideSecond, bankMessageContainer);
+                            eachCards.append(
+                                insideCard,
+                                insideSecond,
+                                bankMessageContainer,
+                            );
                             nbfcContainer.append(eachCards);
                         });
 
                         bindAcceptRejectButtons(finalData);
-
-
                     }
-
-
 
                     await initializeSideBarTabs();
                     await initializeIndividualCards();
                     await initializeSimpleChat();
-
                 } else if (data.error) {
                     console.error("Error: ", data.error);
                 }
@@ -2996,29 +3181,9 @@ const bankListedThroughNBFC = async () => {
                 console.error("Error caused in server: ", error);
             });
     }
-
 };
 
 // Helper function to truncate file names
-function truncateFileName(fileName) {
-    if (fileName.length <= 20) return fileName;
-
-    const extension = fileName.slice(fileName.lastIndexOf('.'));
-    const name = fileName.slice(0, fileName.lastIndexOf('.'));
-
-    return name.slice(0, 16) + '...' + extension;
-}
-
-// Initialize the document uploads when the page loads
-// document.addEventListener('DOMContentLoaded', function () {
-//     initializeWorkExperienceDocumentUpload();
-// });
-
-
-
-
-
-
 function truncateFileName(fileName) {
     if (fileName.length <= 20) return fileName;
 
@@ -3028,7 +3193,19 @@ function truncateFileName(fileName) {
     return name.slice(0, 16) + "..." + extension;
 }
 
+// Initialize the document uploads when the page loads
+// document.addEventListener('DOMContentLoaded', function () {
+//     initializeWorkExperienceDocumentUpload();
+// });
 
+function truncateFileName(fileName) {
+    if (fileName.length <= 20) return fileName;
+
+    const extension = fileName.slice(fileName.lastIndexOf("."));
+    const name = fileName.slice(0, fileName.lastIndexOf("."));
+
+    return name.slice(0, 16) + "..." + extension;
+}
 
 function toggleOtherDegreeInput(event) {
     const otherDegreeInput = document.getElementById("otherDegreeInput");
@@ -3052,8 +3229,10 @@ function toggleOtherDegreeInput(event) {
 }
 
 const initializeProgressRing = () => {
-    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+    const userIdElement = document.querySelector(
+        ".personalinfo-secondrow .personal_info_id",
+    );
+    const userId = userIdElement ? userIdElement.textContent.trim() : "";
     let percentage = 0;
 
     fetch("/getprofilecompletionpercentage", {
@@ -3066,8 +3245,8 @@ const initializeProgressRing = () => {
         },
         body: JSON.stringify({ userId }),
     })
-        .then(response => response.json())
-        .then(data => {
+        .then((response) => response.json())
+        .then((data) => {
             if (data) {
                 console.log("Overall Completion:", data);
                 percentage = data.overall_completion_percentage / 100;
@@ -3075,8 +3254,12 @@ const initializeProgressRing = () => {
                 const radius = 52;
                 const circumference = 2 * Math.PI * radius;
                 const offset = circumference * (1 - percentage);
-                const progressRingFill = document.querySelector(".progress-ring-fill");
-                const progressText = document.querySelector(".progress-ring-text");
+                const progressRingFill = document.querySelector(
+                    ".progress-ring-fill",
+                );
+                const progressText = document.querySelector(
+                    ".progress-ring-text",
+                );
 
                 progressRingFill.style.strokeDasharray = `${circumference} ${circumference}`;
                 progressRingFill.style.strokeDashoffset = offset;
@@ -3087,17 +3270,22 @@ const initializeProgressRing = () => {
                 console.error("Unexpected response format:", data);
             }
         })
-        .catch(error => {
+        .catch((error) => {
             console.error("Fetch Error:", error);
         });
 };
 
 const initialisedocumentsCount = () => {
-
-    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-    const userId = userIdElement ? userIdElement.textContent.trim() : '';
-    const documentCountText = document.querySelector(".profilestatus-graph-secondsection .profilestatus-noofdocuments-section p");
-    const overAll = document.querySelector(".profilestatus-graph-secondsection .profilestatus-noofdocuments-section span");
+    const userIdElement = document.querySelector(
+        ".personalinfo-secondrow .personal_info_id",
+    );
+    const userId = userIdElement ? userIdElement.textContent.trim() : "";
+    const documentCountText = document.querySelector(
+        ".profilestatus-graph-secondsection .profilestatus-noofdocuments-section p",
+    );
+    const overAll = document.querySelector(
+        ".profilestatus-graph-secondsection .profilestatus-noofdocuments-section span",
+    );
 
     if (!userId || !documentCountText) {
         console.error("User ID or count element not found.");
@@ -3114,9 +3302,9 @@ const initialisedocumentsCount = () => {
         },
         body: JSON.stringify({ userId }),
     })
-        .then(response => response.json())
-        .then(data => {
-            if (data && typeof data.documentscount === 'number') {
+        .then((response) => response.json())
+        .then((data) => {
+            if (data && typeof data.documentscount === "number") {
                 const count = data.documentscount;
                 const totalDoc = data.totalDocuments;
 
@@ -3130,30 +3318,26 @@ const initialisedocumentsCount = () => {
                 }
 
                 // 🔹 Set total documents value
-                if (typeof totalDoc === 'number') {
+                if (typeof totalDoc === "number") {
                     overAll.textContent = "/" + totalDoc;
                 } else {
                     overAll.textContent = "00"; // fallback
                 }
             }
         })
-        .catch(error => {
+        .catch((error) => {
             console.error("Fetch Error:", error);
         });
 };
 
-
-
-
 const triggerSave = (event) => {
     console.log(event);
+};
 
-}
-
-document.querySelectorAll('input[name="education-level"]').forEach(radio => {
-    radio.addEventListener('change', function () {
-        var otherInput = document.getElementById('otherDegreeInput');
-        if (this.value === 'Others' && this.checked) {
+document.querySelectorAll('input[name="education-level"]').forEach((radio) => {
+    radio.addEventListener("change", function () {
+        var otherInput = document.getElementById("otherDegreeInput");
+        if (this.value === "Others" && this.checked) {
             otherInput.disabled = false;
         } else {
             otherInput.disabled = true;
@@ -3161,130 +3345,206 @@ document.querySelectorAll('input[name="education-level"]').forEach(radio => {
     });
 });
 
-
-
-
-
-
 const saveChangesFunctionality = () => {
     let isEditing = false;
-    const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
-    const savedMsg = document.querySelector(".studentdashboardprofile-myapplication .myapplication-firstcolumn .personalinfo-firstrow .saved-msg");
-    const personalDivContainer = document.querySelector(".personalinfo-secondrow");
-    const personalDivContainerEdit = document.querySelector(".personalinfosecondrow-editsection");
-    const academicsMarksDivEdit = document.querySelector(".testscoreseditsection-secondrow-editsection");
-    const academicsMarksDiv = document.querySelector(".testscoreseditsection-secondrow");
-    const otherExamName = document.querySelector(".other_exam_name_input")?.value || '';
-    const otherExamScore = document.querySelector(".other_exam_score_input")?.value || '';
-
-
+    const saveChangesButton = document.querySelector(
+        ".personalinfo-firstrow button",
+    );
+    const savedMsg = document.querySelector(
+        ".studentdashboardprofile-myapplication .myapplication-firstcolumn .personalinfo-firstrow .saved-msg",
+    );
+    const personalDivContainer = document.querySelector(
+        ".personalinfo-secondrow",
+    );
+    const personalDivContainerEdit = document.querySelector(
+        ".personalinfosecondrow-editsection",
+    );
+    const academicsMarksDivEdit = document.querySelector(
+        ".testscoreseditsection-secondrow-editsection",
+    );
+    const academicsMarksDiv = document.querySelector(
+        ".testscoreseditsection-secondrow",
+    );
+    const otherExamName =
+        document.querySelector(".other_exam_name_input")?.value || "";
+    const otherExamScore =
+        document.querySelector(".other_exam_score_input")?.value || "";
 
     const planToStudy = document.getElementById("plan-to-study-edit");
 
     const toggleSaveState = () => {
         isEditing = true;
 
-        saveChangesButton.textContent = 'Save';
+        saveChangesButton.textContent = "Save";
         saveChangesButton.style.backgroundColor = "rgba(111, 37, 206, 1)";
         saveChangesButton.style.color = "#fff";
         personalDivContainerEdit.style.display = "flex";
         personalDivContainer.style.display = "none";
         academicsMarksDivEdit.style.display = "flex";
         academicsMarksDiv.style.display = "none";
-        document.querySelector(".educationeditsection-secondrow").style.display = "none";
-        document.querySelector(".educationeditsection-secondrow-edit").style.display = "flex";
+        document.querySelector(
+            ".educationeditsection-secondrow",
+        ).style.display = "none";
+        document.querySelector(
+            ".educationeditsection-secondrow-edit",
+        ).style.display = "flex";
 
         document.getElementById("plan-to-study-edit").disabled = false;
         document.getElementById("country-edit").disabled = false;
 
-        document.querySelectorAll('input[name="study-location-edit"]').forEach(cb => cb.disabled = false);
-        document.querySelectorAll('input[name="education-level"]').forEach(rb => rb.disabled = false);
+        document
+            .querySelectorAll('input[name="study-location-edit"]')
+            .forEach((cb) => (cb.disabled = false));
+        document
+            .querySelectorAll('input[name="education-level"]')
+            .forEach((rb) => (rb.disabled = false));
 
         document.getElementById("otherDegreeInput").disabled = false;
 
-        document.querySelector(".myapplication-fourthcolumn-additional input").disabled = false;
-        document.querySelector(".myapplication-fourthcolumn input").disabled = false;
+        document.querySelector(
+            ".myapplication-fourthcolumn-additional input",
+        ).disabled = false;
+        document.querySelector(".myapplication-fourthcolumn input").disabled =
+            false;
 
-        document.querySelector(".myapplication-fifthcolumn input").disabled = false;
-
-
+        document.querySelector(".myapplication-fifthcolumn input").disabled =
+            false;
     };
 
     if (saveChangesButton) {
-        saveChangesButton.textContent = 'Edit';
+        saveChangesButton.textContent = "Edit";
         saveChangesButton.style.backgroundColor = "transparent";
         saveChangesButton.style.color = "#260254";
 
-        saveChangesButton.addEventListener('click', (event) => {
-
+        saveChangesButton.addEventListener("click", (event) => {
             isEditing = !isEditing;
 
             if (isEditing) {
                 toggleSaveState();
-            }
-            else {
+            } else {
                 Loader.show();
-                saveChangesButton.textContent = 'Edit';
+                saveChangesButton.textContent = "Edit";
                 saveChangesButton.style.backgroundColor = "transparent";
                 saveChangesButton.style.color = "#260254";
                 personalDivContainer.style.display = "flex";
                 personalDivContainerEdit.style.display = "none";
                 academicsMarksDivEdit.style.display = "none";
                 academicsMarksDiv.style.display = "flex";
-                document.querySelector(".educationeditsection-secondrow").style.display = "flex";
-                document.querySelector(".educationeditsection-secondrow-edit").style.display = "none";
+                document.querySelector(
+                    ".educationeditsection-secondrow",
+                ).style.display = "flex";
+                document.querySelector(
+                    ".educationeditsection-secondrow-edit",
+                ).style.display = "none";
 
+                const editedName = document.querySelector(
+                    ".personalinfosecondrow-editsection .personal_info_name input",
+                ).value;
+                const editedPhone = document.querySelector(
+                    ".personalinfosecondrow-editsection .personal_info_phone input",
+                ).value;
+                const editedEmail = document.querySelector(
+                    ".personalinfosecondrow-editsection .personal_info_email input",
+                ).value;
+                const editedState = document.querySelector(
+                    ".personalinfosecondrow-editsection .personal_info_state input",
+                ).value;
+                const iletsScore = document.querySelector(
+                    ".testscoreseditsection-secondrow-editsection .ilets_score",
+                ).value;
+                const greScore = document.querySelector(
+                    ".testscoreseditsection-secondrow-editsection .gre_score",
+                ).value;
+                const tofelScore = document.querySelector(
+                    ".testscoreseditsection-secondrow-editsection .tofel_score",
+                ).value;
+                const otherExamName = document.querySelector(
+                    ".other_exam_name_input",
+                )?.value;
+                const otherExamScore = document.querySelector(
+                    ".other_exam_score_input",
+                )?.value;
 
-                const editedName = document.querySelector(".personalinfosecondrow-editsection .personal_info_name input").value;
-                const editedPhone = document.querySelector(".personalinfosecondrow-editsection .personal_info_phone input").value;
-                const editedEmail = document.querySelector(".personalinfosecondrow-editsection .personal_info_email input").value;
-                const editedState = document.querySelector(".personalinfosecondrow-editsection .personal_info_state input").value;
-                const iletsScore = document.querySelector(".testscoreseditsection-secondrow-editsection .ilets_score").value;
-                const greScore = document.querySelector(".testscoreseditsection-secondrow-editsection .gre_score").value;
-                const tofelScore = document.querySelector(".testscoreseditsection-secondrow-editsection .tofel_score").value;
-                const otherExamName = document.querySelector('.other_exam_name_input')?.value;
-                const otherExamScore = document.querySelector('.other_exam_score_input')?.value;
+                const oldPlanToStudy =
+                    document.getElementById("plan-to-study-edit").value;
+                const oldPlanToStudyArray = oldPlanToStudy
+                    ? oldPlanToStudy.split(",").map((item) => item.trim())
+                    : [];
 
-                const oldPlanToStudy = document.getElementById("plan-to-study-edit").value;
-                const oldPlanToStudyArray = oldPlanToStudy ? oldPlanToStudy.split(',').map(item => item.trim()) : [];
+                const checkboxes = document.querySelectorAll(
+                    'input[name="study-location-edit"]:checked',
+                );
+                let selectedCountries = Array.from(checkboxes).map(
+                    (checkbox) => checkbox.value,
+                );
 
-                const checkboxes = document.querySelectorAll('input[name="study-location-edit"]:checked');
-                let selectedCountries = Array.from(checkboxes).map(checkbox => checkbox.value);
-
-                const customCountry = document.getElementById('country-edit').value.trim();
+                const customCountry = document
+                    .getElementById("country-edit")
+                    .value.trim();
                 if (customCountry) {
                     selectedCountries.push(customCountry);
                 }
 
-                selectedCountries = selectedCountries.filter(item => item.toLowerCase() !== 'others');
+                selectedCountries = selectedCountries.filter(
+                    (item) => item.toLowerCase() !== "others",
+                );
 
-                const finalPlanToStudy = oldPlanToStudyArray.filter(item => item.toLowerCase() !== 'others');
+                const finalPlanToStudy = oldPlanToStudyArray.filter(
+                    (item) => item.toLowerCase() !== "others",
+                );
 
-                let mergedPlanToStudy = [...new Set([...finalPlanToStudy, ...selectedCountries])];
+                let mergedPlanToStudy = [
+                    ...new Set([...finalPlanToStudy, ...selectedCountries]),
+                ];
 
-                mergedPlanToStudy = mergedPlanToStudy.filter(item => item.toLowerCase() !== 'other');
+                mergedPlanToStudy = mergedPlanToStudy.filter(
+                    (item) => item.toLowerCase() !== "other",
+                );
 
+                const courseDuration = document.querySelector(
+                    ".myapplication-fourthcolumn-additional input",
+                ).value;
+                const loanAmount = document.querySelector(
+                    ".myapplication-fourthcolumn input",
+                ).value;
 
+                const userIdElement = document.querySelector(
+                    ".personalinfo-secondrow .personal_info_id",
+                );
+                const userId = userIdElement ? userIdElement.textContent : "";
 
-                const courseDuration = document.querySelector(".myapplication-fourthcolumn-additional input").value;
-                const loanAmount = document.querySelector(".myapplication-fourthcolumn input").value;
+                console.log(
+                    editedName,
+                    editedPhone,
+                    editedEmail,
+                    editedState,
+                    userId,
+                );
 
-                const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-                const userId = userIdElement ? userIdElement.textContent : '';
+                const selectedDegree = document.querySelector(
+                    'input[name="education-level"]:checked',
+                ).value;
+                const otherDegreeInput =
+                    document.getElementById("otherDegreeInput").value;
 
-                console.log(editedName, editedPhone, editedEmail, editedState, userId);
-
-                const selectedDegree = document.querySelector('input[name="education-level"]:checked').value;
-                const otherDegreeInput = document.getElementById('otherDegreeInput').value;
-
-                const updatedDegreeType = selectedDegree === 'Others' ? otherDegreeInput : selectedDegree;
-                const editedCourseName = document.querySelector(".educationeditsection-secondrow-edit .course_name_input")?.value || '';
-                const editedUniversityName = document.querySelector(".educationeditsection-secondrow-edit .university_name_input")?.value || '';
-                const updatedScRef = document.querySelector(".myapplication-fifthcolumn input")?.value || '';
-
+                const updatedDegreeType =
+                    selectedDegree === "Others"
+                        ? otherDegreeInput
+                        : selectedDegree;
+                const editedCourseName =
+                    document.querySelector(
+                        ".educationeditsection-secondrow-edit .course_name_input",
+                    )?.value || "";
+                const editedUniversityName =
+                    document.querySelector(
+                        ".educationeditsection-secondrow-edit .university_name_input",
+                    )?.value || "";
+                const updatedScRef =
+                    document.querySelector(".myapplication-fifthcolumn input")
+                        ?.value || "";
 
                 const updatedData = {
-                    degreeType: updatedDegreeType
+                    degreeType: updatedDegreeType,
                 };
 
                 const updatedInfos = {
@@ -3305,74 +3565,109 @@ const saveChangesFunctionality = () => {
                     universitySchoolName: editedUniversityName,
                     others: {
                         otherExamName: otherExamName,
-                        otherExamScore: otherExamScore
-                    }
+                        otherExamScore: otherExamScore,
+                    },
                 };
 
-
-
-
-
-                fetch('/from-profileupdate', {
+                fetch("/api/from-profileupdate", {
                     method: "POST",
                     headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document
+                            .querySelector('meta[name="csrf-token"]')
+                            .getAttribute("content"),
                     },
-                    body: JSON.stringify(updatedInfos)
+                    body: JSON.stringify(updatedInfos),
                 })
-                    .then(response => response.json())
-                    .then(data => {
+                    .then((response) => response.json())
+                    .then((data) => {
                         console.log("Response Data:", data);
 
                         alert("Student Details Updated Successfully");
                         Loader.hide();
                         if (editedName) {
-                            document.querySelector("#referenceNameId p").textContent = editedName;
-                            document.getElementById("personal_state_id").textContent = editedState;
+                            document.querySelector(
+                                "#referenceNameId p",
+                            ).textContent = editedName;
+                            document.getElementById(
+                                "personal_state_id",
+                            ).textContent = editedState;
                             if (editedName) {
-                                document.querySelector("#referenceNameId p").textContent = editedName;
+                                document.querySelector(
+                                    "#referenceNameId p",
+                                ).textContent = editedName;
                             }
                             if (editedState) {
-                                document.getElementById("personal_state_id").textContent = editedState;
+                                document.getElementById(
+                                    "personal_state_id",
+                                ).textContent = editedState;
                             }
 
                             // ✅ Update academic info section dynamically
                             if (editedCourseName) {
-                                document.querySelector(".educationeditsection-secondrow p:nth-child(2)").textContent = `2. ${editedCourseName}`;
+                                document.querySelector(
+                                    ".educationeditsection-secondrow p:nth-child(2)",
+                                ).textContent = `2. ${editedCourseName}`;
                             }
                             if (editedUniversityName) {
-                                document.querySelector(".educationeditsection-secondrow p:nth-child(1)").textContent = `1. ${editedUniversityName}`;
+                                document.querySelector(
+                                    ".educationeditsection-secondrow p:nth-child(1)",
+                                ).textContent = `1. ${editedUniversityName}`;
                             }
 
                             // ✅ Exit edit mode
                             isEditing = false;
 
-                            saveChangesButton.textContent = 'Edit';
-                            saveChangesButton.style.backgroundColor = "transparent";
+                            saveChangesButton.textContent = "Edit";
+                            saveChangesButton.style.backgroundColor =
+                                "transparent";
                             saveChangesButton.style.color = "#260254";
 
                             personalDivContainer.style.display = "flex";
                             personalDivContainerEdit.style.display = "none";
                             academicsMarksDivEdit.style.display = "none";
                             academicsMarksDiv.style.display = "flex";
-                            document.querySelector(".educationeditsection-secondrow").style.display = "flex";
-                            document.querySelector(".educationeditsection-secondrow-edit").style.display = "none";
-                            const scoresContainer = document.querySelector(".testscoreseditsection-secondrow");
+                            document.querySelector(
+                                ".educationeditsection-secondrow",
+                            ).style.display = "flex";
+                            document.querySelector(
+                                ".educationeditsection-secondrow-edit",
+                            ).style.display = "none";
+                            const scoresContainer = document.querySelector(
+                                ".testscoreseditsection-secondrow",
+                            );
                             // Disable inputs again after saving
-                            document.getElementById("plan-to-study-edit").disabled = true;
-                            document.getElementById("country-edit").disabled = true;
+                            document.getElementById(
+                                "plan-to-study-edit",
+                            ).disabled = true;
+                            document.getElementById("country-edit").disabled =
+                                true;
 
-                            document.querySelectorAll('input[name="study-location-edit"]').forEach(cb => cb.disabled = true);
-                            document.querySelectorAll('input[name="education-level"]').forEach(rb => rb.disabled = true);
+                            document
+                                .querySelectorAll(
+                                    'input[name="study-location-edit"]',
+                                )
+                                .forEach((cb) => (cb.disabled = true));
+                            document
+                                .querySelectorAll(
+                                    'input[name="education-level"]',
+                                )
+                                .forEach((rb) => (rb.disabled = true));
 
-                            document.getElementById("otherDegreeInput").disabled = true;
+                            document.getElementById(
+                                "otherDegreeInput",
+                            ).disabled = true;
 
-                            document.querySelector(".myapplication-fourthcolumn-additional input").disabled = true;
-                            document.querySelector(".myapplication-fourthcolumn input").disabled = true;
+                            document.querySelector(
+                                ".myapplication-fourthcolumn-additional input",
+                            ).disabled = true;
+                            document.querySelector(
+                                ".myapplication-fourthcolumn input",
+                            ).disabled = true;
 
-                            document.querySelector(".myapplication-fifthcolumn input").disabled = true;
-
+                            document.querySelector(
+                                ".myapplication-fifthcolumn input",
+                            ).disabled = true;
 
                             // Clear existing scores
                             // Clear existing scores
@@ -3396,48 +3691,47 @@ const saveChangesFunctionality = () => {
                             }
 
                             // ✅ Other Exam
-                            if (otherExamName && otherExamScore && !isNaN(otherExamScore)) {
+                            if (
+                                otherExamName &&
+                                otherExamScore &&
+                                !isNaN(otherExamScore)
+                            ) {
                                 scoresContainer.innerHTML += `<p>${scoreCounter++}. ${otherExamName} <span>${otherExamScore}</span></p>`;
                             }
-
-
-
-
-
-
                         }
-
 
                         if (data.errors) {
                             Loader.hide();
-                            console.error('Validation errors:', data.errors);
+                            console.error("Validation errors:", data.errors);
                         } else {
                             console.log("Success", data);
                         }
                     })
-                    .catch(error => {
+                    .catch((error) => {
                         console.error("Error", error);
                     });
             }
         });
     }
 
-    const degreeRadioButtons = document.querySelectorAll('input[name="education-level"]');
-    degreeRadioButtons.forEach(button => {
-        button.addEventListener('change', toggleSaveState);
+    const degreeRadioButtons = document.querySelectorAll(
+        'input[name="education-level"]',
+    );
+    degreeRadioButtons.forEach((button) => {
+        button.addEventListener("change", toggleSaveState);
     });
 };
 
-
-
-
 function loadSavedMessages() {
-
     // Load text messages
-    const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
+    const savedMessages = JSON.parse(
+        localStorage.getItem(`messages-${chatId}`) || "[]",
+    );
 
     // Load file messages
-    const savedFileMessages = JSON.parse(localStorage.getItem(`file-messages-${chatId}`) || '[]');
+    const savedFileMessages = JSON.parse(
+        localStorage.getItem(`file-messages-${chatId}`) || "[]",
+    );
 
     // If there are any saved messages, we'll automatically show the chat area
     if (savedMessages.length > 0 || savedFileMessages.length > 0) {
@@ -3449,7 +3743,7 @@ function loadSavedMessages() {
 
     // Add text messages to UI
     if (savedMessages.length > 0) {
-        savedMessages.forEach(content => {
+        savedMessages.forEach((content) => {
             const messageElement = document.createElement("div");
             messageElement.style.cssText = `
                 display: flex;
@@ -3476,9 +3770,9 @@ function loadSavedMessages() {
 
     // Add file messages to UI
     if (savedFileMessages.length > 0) {
-        savedFileMessages.forEach(fileData => {
+        savedFileMessages.forEach((fileData) => {
             const messageElement = document.createElement("div");
-            messageElement.setAttribute('data-file-id', fileData.id);
+            messageElement.setAttribute("data-file-id", fileData.id);
             messageElement.style.cssText = `
                 display: flex;
                 justify-content: flex-end;
@@ -3512,12 +3806,14 @@ function loadSavedMessages() {
                 <i class="fa-solid fa-file"></i>
                 <span>${fileData.name} (${fileData.size} MB)</span>
             `;
-            downloadLink.addEventListener('click', function (e) {
+            downloadLink.addEventListener("click", function (e) {
                 e.preventDefault();
                 e.stopPropagation();
 
                 // Alert user that the file needs to be re-uploaded after page refresh
-                alert("File attachments cannot be retrieved after page refresh. Please re-upload the file if needed.");
+                alert(
+                    "File attachments cannot be retrieved after page refresh. Please re-upload the file if needed.",
+                );
             });
 
             // Create remove button
@@ -3532,7 +3828,7 @@ function loadSavedMessages() {
                 padding: 2px 5px;
                 margin-left: 5px;
             `;
-            removeButton.addEventListener('click', function (e) {
+            removeButton.addEventListener("click", function (e) {
                 e.preventDefault();
                 e.stopPropagation();
                 removeMessage(messageElement, fileData.id);
@@ -3548,23 +3844,29 @@ function loadSavedMessages() {
 
 // loadSavedMessages();
 function fetchUnreadCount() {
-    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+    const userIdElement = document.querySelector(
+        ".personalinfo-secondrow .personal_info_id",
+    );
+    const userId = userIdElement ? userIdElement.textContent.trim() : "";
     const receiverId = userId;
 
     if (!receiverId) return;
 
-    fetch('/unread-message-count', {
-        method: 'POST',
+    fetch("/api/unread-message-count", {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content"),
         },
-        body: JSON.stringify({ receiverId })
+        body: JSON.stringify({ receiverId }),
     })
-        .then(res => res.json())
-        .then(data => {
-            const countNotify = document.querySelector(".unread-notify-container p");
+        .then((res) => res.json())
+        .then((data) => {
+            const countNotify = document.querySelector(
+                ".unread-notify-container p",
+            );
             if (data.success && data.count > 0 && countNotify) {
                 countNotify.style.display = "flex";
                 countNotify.textContent = data.count;
@@ -3572,104 +3874,135 @@ function fetchUnreadCount() {
                 countNotify.style.display = "none";
             }
         })
-        .catch(error => {
-            console.error('Error fetching unread count:', error);
+        .catch((error) => {
+            console.error("Error fetching unread count:", error);
         });
 }
 
 function sessionLogoutInitial() {
-    const logoutUrl = '/logout'; // Hardcoded logout endpoint
-    const loginUrl = '/login';  // Hardcoded login page
-    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+    const logoutUrl = "/logout"; // Hardcoded logout endpoint
+    const loginUrl = "/login"; // Hardcoded login page
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        ?.getAttribute("content");
 
     // Check for CSRF token
     if (!csrfToken) {
-        console.error('CSRF token not found');
+        console.error("CSRF token not found");
         return;
     }
 
     fetch(logoutUrl, {
-        method: 'POST',
+        method: "POST",
         headers: {
-            'X-CSRF-TOKEN': csrfToken,
-            'Content-Type': 'application/json'
+            "X-CSRF-TOKEN": csrfToken,
+            "Content-Type": "application/json",
         },
-        body: JSON.stringify({})
+        body: JSON.stringify({}),
     })
-        .then(response => {
+        .then((response) => {
             if (response.ok) {
-                console.log('Logout successful', response);
+                console.log("Logout successful", response);
                 window.location.href = loginUrl;
             } else {
-                console.error('Logout failed:', response.status, response.statusText);
+                console.error(
+                    "Logout failed:",
+                    response.status,
+                    response.statusText,
+                );
             }
         })
-        .catch(error => {
-            console.error('Fetch error:', error);
+        .catch((error) => {
+            console.error("Fetch error:", error);
         });
 }
-
 
 function seenMessage() {
-    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-    const userId = userIdElement ? userIdElement.textContent.trim() : '';
-    fetch('/messages/mark-all-read', {
-        method: 'POST',
+    const userIdElement = document.querySelector(
+        ".personalinfo-secondrow .personal_info_id",
+    );
+    const userId = userIdElement ? userIdElement.textContent.trim() : "";
+    fetch("/api/messages/mark-all-read", {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content"),
         },
-        body: JSON.stringify({ userId })
+        body: JSON.stringify({ userId }),
     })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Messages marked as read:', data);
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("Messages marked as read:", data);
         })
-        .catch(error => {
-            console.error('Error marking messages as read:', error);
+        .catch((error) => {
+            console.error("Error marking messages as read:", error);
         });
 }
 
-
 function markAsRead() {
-    const notifyContainer = document.querySelector(".nav-searchnotificationbars .unread-notify");
-    const sideBarTopItems = document.querySelectorAll('.studentdashboardprofile-sidebarlists-top li');
-    const lastTabHiddenDiv = document.querySelector(".studentdashboardprofile-trackprogress");
-    const lastTabVisibleDiv = document.querySelector(".studentdashboardprofile-myapplication");
-    const dynamicHeader = document.getElementById('loanproposals-header');
+    const notifyContainer = document.querySelector(
+        ".nav-searchnotificationbars .unread-notify",
+    );
+    const sideBarTopItems = document.querySelectorAll(
+        ".studentdashboardprofile-sidebarlists-top li",
+    );
+    const lastTabHiddenDiv = document.querySelector(
+        ".studentdashboardprofile-trackprogress",
+    );
+    const lastTabVisibleDiv = document.querySelector(
+        ".studentdashboardprofile-myapplication",
+    );
+    const dynamicHeader = document.getElementById("loanproposals-header");
 
-    const individualCards = document.querySelectorAll('.loanproposals-loanstatuscards .indivudalloanstatus-cards');
-    const communityJoinCard = document.querySelector('.studentdashboardprofile-communityjoinsection');
-    const profileStatusCard = document.querySelector(".personalinfo-profilestatus");
-    const profileImgEditIcon = document.querySelector(".studentdashboardprofile-profilesection .fa-pen-to-square");
-    const educationEditSection = document.querySelector(".studentdashboardprofile-educationeditsection");
-    const testScoresEditSection = document.querySelector(".studentdashboardprofile-testscoreseditsection");
+    const individualCards = document.querySelectorAll(
+        ".loanproposals-loanstatuscards .indivudalloanstatus-cards",
+    );
+    const communityJoinCard = document.querySelector(
+        ".studentdashboardprofile-communityjoinsection",
+    );
+    const profileStatusCard = document.querySelector(
+        ".personalinfo-profilestatus",
+    );
+    const profileImgEditIcon = document.querySelector(
+        ".studentdashboardprofile-profilesection .fa-pen-to-square",
+    );
+    const educationEditSection = document.querySelector(
+        ".studentdashboardprofile-educationeditsection",
+    );
+    const testScoresEditSection = document.querySelector(
+        ".studentdashboardprofile-testscoreseditsection",
+    );
 
     if (notifyContainer && sideBarTopItems.length > 1) {
-        notifyContainer.addEventListener('click', () => {
-            sideBarTopItems.forEach(i => i.classList.remove('active'));
-            sideBarTopItems[1].classList.add('active');
-            console.log('Inbox tab selected and activated');
+        notifyContainer.addEventListener("click", () => {
+            sideBarTopItems.forEach((i) => i.classList.remove("active"));
+            sideBarTopItems[1].classList.add("active");
+            console.log("Inbox tab selected and activated");
 
             if (lastTabHiddenDiv) lastTabHiddenDiv.style.display = "flex";
             if (lastTabVisibleDiv) lastTabVisibleDiv.style.display = "none";
             if (communityJoinCard) communityJoinCard.style.display = "flex";
             if (profileStatusCard) profileStatusCard.style.display = "block";
             if (profileImgEditIcon) profileImgEditIcon.style.display = "none";
-            if (educationEditSection) educationEditSection.style.display = "none";
-            if (testScoresEditSection) testScoresEditSection.style.display = "none";
-            const buttonGroups = document.querySelectorAll(".individual-bankmessages-buttoncontainer");
-            const triggeredMessageButton = document.querySelectorAll('.individual-bankmessages .triggeredbutton');
+            if (educationEditSection)
+                educationEditSection.style.display = "none";
+            if (testScoresEditSection)
+                testScoresEditSection.style.display = "none";
+            const buttonGroups = document.querySelectorAll(
+                ".individual-bankmessages-buttoncontainer",
+            );
+            const triggeredMessageButton = document.querySelectorAll(
+                ".individual-bankmessages .triggeredbutton",
+            );
 
             if (buttonGroups) {
                 buttonGroups.forEach((buttonGroups, index) => {
                     buttonGroups.style.display = "none";
                     triggeredMessageButton[index].style.display = "flex";
-
-                })
+                });
             }
-
-
 
             if (dynamicHeader) dynamicHeader.textContent = "Inbox";
 
@@ -3679,7 +4012,7 @@ function markAsRead() {
                 window.scrollTo({
                     top: 300,
                     left: 0,
-                    behavior: 'smooth'
+                    behavior: "smooth",
                 });
             }
             seenMessage();
@@ -3687,51 +4020,61 @@ function markAsRead() {
     }
 }
 
-
-
 function unReadDots() {
-    const messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
+    const messageInputNbfcids = document.querySelectorAll(
+        ".messageinputnbfcids",
+    );
 
     if (messageInputNbfcids.length > 0) {
         console.log(messageInputNbfcids);
     }
 
-    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+    const userIdElement = document.querySelector(
+        ".personalinfo-secondrow .personal_info_id",
+    );
+    const userId = userIdElement ? userIdElement.textContent.trim() : "";
 
     if (userId) {
         messageInputNbfcids.forEach((item) => {
-            const nbfc_id = item.getAttribute('data-nbfc-id');
-            const student_id = item.getAttribute('data-student-id');
+            const nbfc_id = item.getAttribute("data-nbfc-id");
+            const student_id = item.getAttribute("data-student-id");
 
             if (nbfc_id && student_id) {
-                fetch(`/get-messages-byconversations/${nbfc_id}/${student_id}`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                fetch(
+                    `/get-messages-byconversations/${nbfc_id}/${student_id}`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": document
+                                .querySelector('meta[name="csrf-token"]')
+                                .getAttribute("content"),
+                        },
+                        body: JSON.stringify({}),
                     },
-                    body: JSON.stringify({})
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(`Messages for NBFC ${nbfc_id} and student ${student_id}:`, data);
+                )
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(
+                            `Messages for NBFC ${nbfc_id} and student ${student_id}:`,
+                            data,
+                        );
                         if (data.unreadCount && data.unreadCount > 0) {
-                            const triggeredButton = document.querySelector('.triggeredbutton');
+                            const triggeredButton =
+                                document.querySelector(".triggeredbutton");
                             if (triggeredButton) {
-                                triggeredButton.classList.add('has-unread');
+                                triggeredButton.classList.add("has-unread");
                                 console.log(triggeredButton);
                             }
                         }
                     })
-                    .catch(error => {
+                    .catch((error) => {
                         console.error("Error fetching messages:", error);
                     });
             }
         });
     }
 }
-
 
 async function bindAcceptRejectButtons(finalData) {
     // console.log("Binding buttons for:", finalData);
@@ -3744,17 +4087,19 @@ async function bindAcceptRejectButtons(finalData) {
                 const data = {
                     user_id,
                     nbfc_id,
-                    proposal_accept: true
+                    proposal_accept: true,
                 };
 
                 try {
-                    const response = await fetch('/proposalcompletion', {
+                    const response = await fetch("/api/proposalcompletion", {
                         method: "POST",
                         headers: {
-                            'Content-Type': "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": document
+                                .querySelector('meta[name="csrf-token"]')
+                                .getAttribute("content"),
                         },
-                        body: JSON.stringify(data)
+                        body: JSON.stringify(data),
                     });
 
                     const result = await response.json();
@@ -3781,17 +4126,19 @@ async function bindAcceptRejectButtons(finalData) {
                 const data = {
                     user_id,
                     nbfc_id,
-                    proposal_accept: false
+                    proposal_accept: false,
                 };
 
                 try {
-                    const response = await fetch('/proposalcompletion', {
+                    const response = await fetch("/api/proposalcompletion", {
                         method: "POST",
                         headers: {
-                            'Content-Type': "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": document
+                                .querySelector('meta[name="csrf-token"]')
+                                .getAttribute("content"),
                         },
-                        body: JSON.stringify(data)
+                        body: JSON.stringify(data),
                     });
 
                     const result = await response.json();
@@ -3813,52 +4160,46 @@ async function bindAcceptRejectButtons(finalData) {
             });
         }
     });
-
-
 }
 
-
-
-
-
-
 const findOutAcceptedOrNot = async () => {
-    fetch('/proposalcompletion', {
+    fetch("/api/proposalcompletion", {
         method: "POST",
         headers: {
-            'Content-Type': "application/json",
-            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content"),
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
     })
-        .then(response => response.json())
-        .then(result => {
+        .then((response) => response.json())
+        .then((result) => {
             console.log("✅ Accepted:", proposal);
             console.log("✅ Server Response:", result);
             if (btn && rejectButtons) {
                 btn.style.backgroundColor = "transparent";
                 btn.style.color = "#4CAF50";
-                btn.textContent = "Accepted"
-                btn.style.width = "82px"
-                btn.style.border = "none"
-                rejectButtons[index].style.display = "none"
+                btn.textContent = "Accepted";
+                btn.style.width = "82px";
+                btn.style.border = "none";
+                rejectButtons[index].style.display = "none";
             }
         })
-        .catch(error => {
+        .catch((error) => {
             console.error("❌ Error during fetch (Accept):", error);
         });
+};
 
-
-
-}
-
-
-
-
-
-async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = null) {
-    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+async function fetchStatus(
+    nbfcId = null,
+    insideSecond = null,
+    currentItem = null,
+) {
+    const userIdElement = document.querySelector(
+        ".personalinfo-secondrow .personal_info_id",
+    );
+    const userId = userIdElement ? userIdElement.textContent.trim() : "";
     let statusCount = 0;
 
     try {
@@ -3866,9 +4207,11 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                "X-CSRF-TOKEN": document
+                    .querySelector('meta[name="csrf-token"]')
+                    .getAttribute("content"),
             },
-            body: JSON.stringify({ user_id: userId, nbfc_id: nbfcId })
+            body: JSON.stringify({ user_id: userId, nbfc_id: nbfcId }),
         });
 
         if (!response.ok) throw new Error("Network response was not ok");
@@ -3881,7 +4224,9 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
 
         // Create button container
         const buttonContainer = document.createElement("div");
-        buttonContainer.classList.add('individual-bankmessages-buttoncontainer');
+        buttonContainer.classList.add(
+            "individual-bankmessages-buttoncontainer",
+        );
 
         // Always create the "View" button
         const firstButton = document.createElement("button");
@@ -3890,26 +4235,28 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
 
         firstButton.addEventListener("click", async () => {
             try {
-                const response = await fetch('/getproposalfileurl', {
-                    method: 'POST',
+                const response = await fetch("/api/getproposalfileurl", {
+                    method: "POST",
                     headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        "Content-Type": "application/json",
+                        "X-CSRF-Token": document
+                            .querySelector('meta[name="csrf-token"]')
+                            .getAttribute("content"),
                     },
-                    body: JSON.stringify({ userId, nbfcId })
+                    body: JSON.stringify({ userId, nbfcId }),
                 });
 
                 const data = await response.json();
                 if (data.file_path) {
                     const fileName = data.file_path.split("/").pop(); // Extract filename from URL
-                    showDocumentPreview(data.file_path, fileName);     // Show the document
+                    showDocumentPreview(data.file_path, fileName); // Show the document
                 } else {
                     alert("No document found to preview.");
-                    console.error('No file found:', data.message);
+                    console.error("No file found:", data.message);
                 }
             } catch (error) {
                 alert("Error fetching document. Please try again.");
-                console.error('Error fetching file URL:', error);
+                console.error("Error fetching file URL:", error);
             }
         });
 
@@ -3917,7 +4264,7 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
             // Case: No data returned (initial state)
             const secondButton = document.createElement("button");
             secondButton.textContent = "Accept";
-            secondButton.classList.add('user-accept-trigger');
+            secondButton.classList.add("user-accept-trigger");
 
             const thirdButton = document.createElement("button");
             thirdButton.textContent = "Reject";
@@ -3935,13 +4282,13 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
                 nbfc_id: nbfcId,
                 element: currentItem,
                 acceptButton: secondButton,
-                rejectButton: thirdButton
+                rejectButton: thirdButton,
             });
         } else if (proposal_accept_update) {
             // Case: Proposal accepted
             const secondButton = document.createElement("button");
             secondButton.textContent = "Accepted";
-            secondButton.classList.add('user-accept-trigger');
+            secondButton.classList.add("user-accept-trigger");
             secondButton.style.backgroundColor = "transparent";
             secondButton.style.color = "#4CAF50";
             secondButton.style.width = "82px";
@@ -3959,7 +4306,7 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
                 nbfc_id: nbfcId,
                 element: currentItem,
                 acceptButton: secondButton,
-                rejectButton: null
+                rejectButton: null,
             });
 
             statusCount++;
@@ -3985,7 +4332,7 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
                 nbfc_id: nbfcId,
                 element: currentItem,
                 acceptButton: null,
-                rejectButton: thirdButton
+                rejectButton: thirdButton,
             });
 
             statusCount++;
@@ -3993,13 +4340,10 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
 
         bindAcceptRejectButtons(itemsNeedingButtons);
         return statusCount;
-
     } catch (error) {
         console.error("Error checking user ID:", error);
     }
 }
-
-
 
 const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
     if (!fileUrl) {
@@ -4009,7 +4353,7 @@ const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
 
     const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
     const isImage = [".jpg", ".jpeg", ".png"].some((ext) =>
-        fileUrl.toLowerCase().endsWith(ext)
+        fileUrl.toLowerCase().endsWith(ext),
     );
 
     const truncatedFileName = truncateFileName(fileName || "Document.pdf");
@@ -4096,16 +4440,19 @@ const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
             try {
                 console.log("Attempting to download:", fileUrl); // Debug URL
                 const response = await fetch(fileUrl, {
-                    method: 'GET',
+                    method: "GET",
                     headers: {
-                        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'Accept': isPDF ? 'application/pdf' : 'image/*'
+                        "X-CSRF-Token": document
+                            .querySelector('meta[name="csrf-token"]')
+                            .getAttribute("content"),
+                        Accept: isPDF ? "application/pdf" : "image/*",
                     },
-                    credentials: 'include' // Include cookies for authentication
+                    credentials: "include", // Include cookies for authentication
                 });
 
                 console.log("Response status:", response.status); // Debug response
-                if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+                if (!response.ok)
+                    throw new Error(`HTTP error ${response.status}`);
 
                 const blob = await response.blob();
                 console.log("Blob size:", blob.size, "type:", blob.type); // Debug blob
@@ -4115,7 +4462,8 @@ const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement("a");
                 a.href = url;
-                a.download = fileName || (isPDF ? "document.pdf" : "document.png");
+                a.download =
+                    fileName || (isPDF ? "document.pdf" : "document.png");
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -4128,7 +4476,8 @@ const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
                 console.log("Attempting fallback download...");
                 const a = document.createElement("a");
                 a.href = fileUrl;
-                a.download = fileName || (isPDF ? "document.pdf" : "document.png");
+                a.download =
+                    fileName || (isPDF ? "document.pdf" : "document.png");
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -4319,16 +4668,19 @@ const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
             try {
                 console.log("Attempting to download:", fileUrl); // Debug URL
                 const response = await fetch(fileUrl, {
-                    method: 'GET',
+                    method: "GET",
                     headers: {
-                        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'Accept': isPDF ? 'application/pdf' : 'image/*'
+                        "X-CSRF-Token": document
+                            .querySelector('meta[name="csrf-token"]')
+                            .getAttribute("content"),
+                        Accept: isPDF ? "application/pdf" : "image/*",
                     },
-                    credentials: 'include' // Include cookies for authentication
+                    credentials: "include", // Include cookies for authentication
                 });
 
                 console.log("Response status:", response.status); // Debug response
-                if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+                if (!response.ok)
+                    throw new Error(`HTTP error ${response.status}`);
 
                 const blob = await response.blob();
                 console.log("Blob size:", blob.size, "type:", blob.type); // Debug blob
@@ -4338,7 +4690,8 @@ const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement("a");
                 a.href = url;
-                a.download = fileName || (isPDF ? "document.pdf" : "document.png");
+                a.download =
+                    fileName || (isPDF ? "document.pdf" : "document.png");
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -4351,7 +4704,8 @@ const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
                 console.log("Attempting fallback download...");
                 const a = document.createElement("a");
                 a.href = fileUrl;
-                a.download = fileName || (isPDF ? "document.pdf" : "document.png");
+                a.download =
+                    fileName || (isPDF ? "document.pdf" : "document.png");
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -4429,101 +4783,120 @@ const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
             eyeIcon.src = "/assets/images/close.png";
         }
     } else {
-        alert("Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported.");
+        alert(
+            "Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported.",
+        );
     }
 };
 const loanStatusCount = () => {
-    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-    const userId = userIdElement ? userIdElement.textContent.trim() : '';
+    const userIdElement = document.querySelector(
+        ".personalinfo-secondrow .personal_info_id",
+    );
+    const userId = userIdElement ? userIdElement.textContent.trim() : "";
 
     if (!userId) {
         console.error("User ID not found.");
         return;
     }
 
-    fetch('/loanstatuscount', {
-        method: 'POST',
+    fetch("/api/loanstatuscount", {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            "Content-Type": "application/json",
+            "X-CSRF-Token": document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content"),
         },
-        body: JSON.stringify({ user_id: userId })
+        body: JSON.stringify({ user_id: userId }),
     })
-        .then(response => {
+        .then((response) => {
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error("Network response was not ok");
             }
             return response.json();
         })
-        .then(data => {
+        .then((data) => {
             console.log("Loan Status Data:", data);
 
-            const formatCount = (num) => num.toString().padStart(2, '0');
+            const formatCount = (num) => num.toString().padStart(2, "0");
 
-            document.querySelector(".leftsection-detailsinfo .loan-receivedsection h1").textContent = formatCount(data.received_proposals);
-            document.querySelector("#studentdashboardprofile-loanproposals-id .loanproposal-headerstudentside p").textContent = formatCount(data.received_proposals);
-            document.querySelector(".leftsection-detailsinfo .loan-onholdsection h1").textContent = formatCount(data.hold_requests);
+            document.querySelector(
+                ".leftsection-detailsinfo .loan-receivedsection h1",
+            ).textContent = formatCount(data.received_proposals);
+            document.querySelector(
+                "#studentdashboardprofile-loanproposals-id .loanproposal-headerstudentside p",
+            ).textContent = formatCount(data.received_proposals);
+            document.querySelector(
+                ".leftsection-detailsinfo .loan-onholdsection h1",
+            ).textContent = formatCount(data.hold_requests);
 
             let rejectedTotal = 0;
             if (Array.isArray(data.rejected_by_nbfc)) {
-                rejectedTotal = data.rejected_by_nbfc.reduce((sum, item) => sum + (item.count || 0), 0);
+                rejectedTotal = data.rejected_by_nbfc.reduce(
+                    (sum, item) => sum + (item.count || 0),
+                    0,
+                );
             }
 
-            document.querySelector(".leftsection-detailsinfo .loan-rejectedsection h1").textContent = formatCount(rejectedTotal);
+            document.querySelector(
+                ".leftsection-detailsinfo .loan-rejectedsection h1",
+            ).textContent = formatCount(rejectedTotal);
         })
-        .catch(error => {
+        .catch((error) => {
             console.error("Error fetching loan status:", error);
-
         });
 };
 
-
-
 const passwordForgot = () => {
-    const forgotMailTrigger = document.querySelector(".footer-passwordchange p");
+    const forgotMailTrigger = document.querySelector(
+        ".footer-passwordchange p",
+    );
 
     if (forgotMailTrigger) {
-        forgotMailTrigger.addEventListener('click', () => {
-
-            const email = document.querySelector("#referenceEmailId p").textContent;
-
-
+        forgotMailTrigger.addEventListener("click", () => {
+            const email = document.querySelector(
+                "#referenceEmailId p",
+            ).textContent;
 
             fetch("/forgot-passwordmailsent", {
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    "Content-Type": "application/json",
+                    "X-CSRF-Token": document
+                        .querySelector('meta[name="csrf-token"]')
+                        .getAttribute("content"),
                 },
-                body: JSON.stringify({ email: email })
+                body: JSON.stringify({ email: email }),
             })
-                .then(response => response.json())
-                .then(data => {
+                .then((response) => response.json())
+                .then((data) => {
                     console.log(data);
                     if (data.message) {
                         alert(data.message);
                     }
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error("Error:", error);
                     alert("There was an error while sending the email.");
                 });
         });
     }
-}
+};
 
 async function createAdminChatStudent() {
-    const container = document.querySelector('.adminmessage-inboxnbfc');
+    const container = document.querySelector(".adminmessage-inboxnbfc");
     if (!container) return;
 
-    const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
+    const userIdElement = document.querySelector(
+        ".personalinfo-secondrow .personal_info_id",
+    );
     const student_id = userIdElement ? userIdElement.textContent.trim() : "";
-    const admin_id = 'admin001';
+    const admin_id = "admin001";
 
-    if (document.querySelector('.admin-msg-container')) return;
+    if (document.querySelector(".admin-msg-container")) return;
 
-    const adminMsgContainer = document.createElement('div');
-    adminMsgContainer.classList.add('admin-msg-container');
+    const adminMsgContainer = document.createElement("div");
+    adminMsgContainer.classList.add("admin-msg-container");
     adminMsgContainer.style.cssText = `
         border: 1px solid #ddd;
         display:none;
@@ -4533,7 +4906,7 @@ async function createAdminChatStudent() {
         font-family: 'Poppins', sans-serif;
     `;
 
-    const header = document.createElement('div');
+    const header = document.createElement("div");
     header.style.cssText = `
         display: flex;
         justify-content: space-between;
@@ -4543,14 +4916,14 @@ async function createAdminChatStudent() {
         border-bottom: 1px solid #eee;
     `;
 
-    const title = document.createElement('div');
+    const title = document.createElement("div");
     title.innerHTML = `Admin<br><p style="color:rgba(144, 144, 144, 1)">Support & Communication Desk</p>`;
     title.style.cssText = `font-size: 14px; color: rgba(93, 92, 92, 1)`;
 
-    const btnGroup = document.createElement('div');
+    const btnGroup = document.createElement("div");
 
-    const toggleBtn = document.createElement('button');
-    toggleBtn.textContent = 'Message';
+    const toggleBtn = document.createElement("button");
+    toggleBtn.textContent = "Message";
     toggleBtn.style.cssText = `
         background-color: #6f25ce;
         color: white;
@@ -4566,8 +4939,8 @@ async function createAdminChatStudent() {
     btnGroup.append(toggleBtn);
     header.append(title, btnGroup);
 
-    const chatWrapper = document.createElement('div');
-    chatWrapper.classList.add('admin-chat-wrapper');
+    const chatWrapper = document.createElement("div");
+    chatWrapper.classList.add("admin-chat-wrapper");
     chatWrapper.style.cssText = `
         display: none;
         flex-direction: column;
@@ -4577,7 +4950,7 @@ async function createAdminChatStudent() {
         background: white;
     `;
 
-    const inputContainer = document.createElement('div');
+    const inputContainer = document.createElement("div");
     inputContainer.style.cssText = `
         display: none;
         align-items: center;
@@ -4587,10 +4960,10 @@ async function createAdminChatStudent() {
         position: relative;
     `;
 
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.placeholder = 'Send message';
-    input.classList.add('nbfc-message-input');
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "Send message";
+    input.classList.add("nbfc-message-input");
     input.style.cssText = `
         flex: 1;
         padding: 8px 12px;
@@ -4599,20 +4972,20 @@ async function createAdminChatStudent() {
         margin-right: 10px;
     `;
 
-    const emoji = document.createElement('i');
-    emoji.classList.add('fa-regular', 'fa-face-smile');
+    const emoji = document.createElement("i");
+    emoji.classList.add("fa-regular", "fa-face-smile");
     emoji.style.cssText = `font-size: 18px; margin-right: 8px; color: #888; cursor: pointer;`;
 
-    const paperclip = document.createElement('i');
-    paperclip.classList.add('fa-solid', 'fa-paperclip');
+    const paperclip = document.createElement("i");
+    paperclip.classList.add("fa-solid", "fa-paperclip");
     paperclip.style.cssText = `font-size: 18px; margin-right: 8px; color: #888; cursor: pointer;`;
 
-    const sendIcon = document.createElement('img');
-    sendIcon.src = 'assets/images/send-nbfc.png';
-    sendIcon.alt = 'send icon';
+    const sendIcon = document.createElement("img");
+    sendIcon.src = "assets/images/send-nbfc.png";
+    sendIcon.alt = "send icon";
     sendIcon.style.cssText = `width: 22px; height: 22px; cursor: pointer;`;
 
-    const emojiPicker = document.createElement('div');
+    const emojiPicker = document.createElement("div");
     emojiPicker.style.cssText = `
         position: absolute;
         bottom: 45px;
@@ -4628,7 +5001,7 @@ async function createAdminChatStudent() {
 
     inputContainer.append(emoji, paperclip, input, sendIcon, emojiPicker);
     // Emoji Picker Integration
-    emoji.addEventListener('click', function (e) {
+    emoji.addEventListener("click", function (e) {
         e.stopPropagation();
 
         const emojis = ["😊", "👍", "😀", "🙂", "👋", "👌", "✨"];
@@ -4655,7 +5028,7 @@ async function createAdminChatStudent() {
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     `;
 
-        emojis.forEach(emojiChar => {
+        emojis.forEach((emojiChar) => {
             const button = document.createElement("button");
             button.textContent = emojiChar;
             button.style.cssText = `
@@ -4665,7 +5038,7 @@ async function createAdminChatStudent() {
             cursor: pointer;
             padding: 4px;
         `;
-            button.addEventListener('click', function (e) {
+            button.addEventListener("click", function (e) {
                 e.stopPropagation();
                 input.value += emojiChar;
                 picker.remove();
@@ -4691,30 +5064,31 @@ async function createAdminChatStudent() {
         fileInput.style.display = "none";
         const chatId = `${student_id}_${admin_id}`; // or fetch from backend
 
-
         fileInput.onchange = async (e) => {
             const file = e.target.files[0];
             if (!file) return;
 
             const formData = new FormData();
-            formData.append('file', file);
-            formData.append('chatId', chatId);
-
+            formData.append("file", file);
+            formData.append("chatId", chatId);
 
             try {
-                const res = await fetch('/upload-documents-chat', {
-                    method: 'POST',
+                const res = await fetch("/api/upload-documents-chat", {
+                    method: "POST",
                     headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                        "X-CSRF-TOKEN":
+                            document
+                                .querySelector('meta[name="csrf-token"]')
+                                ?.getAttribute("content") || "",
                     },
-                    body: formData
+                    body: formData,
                 });
 
                 const data = await res.json();
 
                 if (data.success && data.fileUrl) {
                     const fileUrl = data.fileUrl;
-                    console.log(data.fileUrl)
+                    console.log(data.fileUrl);
 
                     const payload = {
                         id: student_id,
@@ -4722,19 +5096,28 @@ async function createAdminChatStudent() {
                         sender_id: student_id,
                         receiver_id: admin_id,
                         message: fileUrl, // This is the URL sent
-                        is_read: false
+                        is_read: false,
                     };
 
-                    const messageRes = await fetch('/send-message-from-adminstudent', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                    const messageRes = await fetch(
+                        "/api/send-message-from-adminstudent",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN":
+                                    document
+                                        .querySelector(
+                                            'meta[name="csrf-token"]',
+                                        )
+                                        ?.getAttribute("content") || "",
+                            },
+                            body: JSON.stringify(payload),
                         },
-                        body: JSON.stringify(payload)
-                    });
+                    );
 
-                    if (!messageRes.ok) throw new Error("Failed to send file message");
+                    if (!messageRes.ok)
+                        throw new Error("Failed to send file message");
 
                     await loadMessages(student_id, admin_id);
                 } else {
@@ -4751,40 +5134,39 @@ async function createAdminChatStudent() {
         document.body.removeChild(fileInput);
     });
 
-
     adminMsgContainer.append(header, chatWrapper, inputContainer);
     container.appendChild(adminMsgContainer);
 
     async function loadMessages(student_id, admin_id) {
-        const chatWrapper = document.querySelector('.admin-chat-wrapper');
+        const chatWrapper = document.querySelector(".admin-chat-wrapper");
         if (!chatWrapper) return;
 
         const apiUrl = `/get-messages-adminstudent/${student_id}/${admin_id}`;
 
         try {
             const res = await fetch(apiUrl);
-            if (!res.ok) throw new Error('Failed to fetch messages');
+            if (!res.ok) throw new Error("Failed to fetch messages");
 
             const data = await res.json();
             const messages = Array.isArray(data.messages) ? data.messages : [];
 
-            chatWrapper.innerHTML = '';
+            chatWrapper.innerHTML = "";
 
-            messages.forEach(msg => {
-                const messageDiv = document.createElement('div');
+            messages.forEach((msg) => {
+                const messageDiv = document.createElement("div");
                 messageDiv.style.cssText = `
                     display: flex;
-                    justify-content: ${msg.sender_id === admin_id ? 'flex-start' : 'flex-end'};
+                    justify-content: ${msg.sender_id === admin_id ? "flex-start" : "flex-end"};
                     margin-bottom: 10px;
                     width: 100%;
                 `;
 
-                const bubble = document.createElement('div');
+                const bubble = document.createElement("div");
                 bubble.style.cssText = `
                     max-width: 80%;
                     padding: 10px 14px;
                     border-radius: 12px;
-                    background-color: ${msg.sender_id === admin_id ? '#f0f0f0' : '#DCF8C6'};
+                    background-color: ${msg.sender_id === admin_id ? "#f0f0f0" : "#DCF8C6"};
                     font-size: 14px;
                     word-wrap: break-word;
                     font-family: 'Poppins', sans-serif;
@@ -4795,16 +5177,18 @@ async function createAdminChatStudent() {
                 let isFileUrl = false;
                 try {
                     const url = new URL(msg.message, window.location.origin);
-                    const fileExts = ['pdf', 'doc', 'docx', 'txt'];
+                    const fileExts = ["pdf", "doc", "docx", "txt"];
                     const path = url.pathname.toLowerCase();
-                    isFileUrl = fileExts.some(ext => path.endsWith(`.${ext}`));
+                    isFileUrl = fileExts.some((ext) =>
+                        path.endsWith(`.${ext}`),
+                    );
                 } catch {
                     isFileUrl = false;
                 }
 
                 if (isFileUrl) {
-                    const fileName = msg.message.split('/').pop().split('?')[0];
-                    const link = document.createElement('a');
+                    const fileName = msg.message.split("/").pop().split("?")[0];
+                    const link = document.createElement("a");
                     link.href = msg.message;
                     link.target = "_blank";
                     link.innerHTML = `<i class="fa-solid fa-file"></i> ${fileName}`;
@@ -4819,24 +5203,25 @@ async function createAdminChatStudent() {
             });
 
             chatWrapper.scrollTop = chatWrapper.scrollHeight;
-
         } catch (err) {
-            console.error('Error loading messages:', err);
+            console.error("Error loading messages:", err);
             chatWrapper.innerHTML = `<div style="color: red; text-align:center;">Failed to load messages</div>`;
         }
     }
 
     async function sendMessageAdmin() {
-        const input = document.querySelector('.nbfc-message-input');
+        const input = document.querySelector(".nbfc-message-input");
         if (!input) return;
 
         const messageText = input.value.trim();
         if (!messageText) return;
 
-        const studentIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
-        const student_id = studentIdElement ? studentIdElement.textContent.trim() : "";
-
-
+        const studentIdElement = document.querySelector(
+            ".personalinfo-secondrow .personal_info_id",
+        );
+        const student_id = studentIdElement
+            ? studentIdElement.textContent.trim()
+            : "";
 
         if (!student_id) {
             alert("Student ID not found");
@@ -4849,56 +5234,58 @@ async function createAdminChatStudent() {
             sender_id: student_id,
             receiver_id: admin_id,
             message: messageText,
-            is_read: false
+            is_read: false,
         };
 
         try {
-            const res = await fetch('/send-message-from-adminstudent', {
-                method: 'POST',
+            const res = await fetch("/api/send-message-from-adminstudent", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN":
+                        document.querySelector('meta[name="csrf-token"]')
+                            ?.content || "",
                 },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(payload),
             });
 
-            if (!res.ok) throw new Error('Failed to send message');
+            if (!res.ok) throw new Error("Failed to send message");
 
-            input.value = '';
+            input.value = "";
             await loadMessages(student_id, admin_id);
         } catch (err) {
-            console.error('Error sending message:', err);
-            alert('Failed to send message. Please try again.');
+            console.error("Error sending message:", err);
+            alert("Failed to send message. Please try again.");
         }
     }
 
     let isChatOpen = false;
 
-    toggleBtn.addEventListener('click', async () => {
+    toggleBtn.addEventListener("click", async () => {
         if (!isChatOpen) {
-            chatWrapper.style.display = 'flex';
-            inputContainer.style.display = 'flex';
-            toggleBtn.textContent = 'Close';
-            toggleBtn.style.border = '1px solid #6f25ce';
-            toggleBtn.style.background = 'transparent';
-            toggleBtn.style.color = '#6f25ce';
+            chatWrapper.style.display = "flex";
+            inputContainer.style.display = "flex";
+            toggleBtn.textContent = "Close";
+            toggleBtn.style.border = "1px solid #6f25ce";
+            toggleBtn.style.background = "transparent";
+            toggleBtn.style.color = "#6f25ce";
             isChatOpen = true;
             await loadMessages(student_id, admin_id);
         } else {
-            chatWrapper.style.display = 'none';
-            inputContainer.style.display = 'none';
-            toggleBtn.textContent = 'Message';
-            toggleBtn.style.background = '#6f25ce';
-            toggleBtn.style.color = '#fff';
+            chatWrapper.style.display = "none";
+            inputContainer.style.display = "none";
+            toggleBtn.textContent = "Message";
+            toggleBtn.style.background = "#6f25ce";
+            toggleBtn.style.color = "#fff";
             toggleBtn.style.border = "none";
-            emojiPicker.style.display = 'none';
+            emojiPicker.style.display = "none";
             isChatOpen = false;
         }
     });
 
-    sendIcon.addEventListener('click', sendMessageAdmin);
-    input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
+    sendIcon.addEventListener("click", sendMessageAdmin);
+    input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
             sendMessageAdmin();
         }
     });

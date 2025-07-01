@@ -1,0 +1,3706 @@
+.
+├── app
+│   ├── Console
+│   ├── Exceptions
+│   ├── Http
+│   │   ├── Controllers
+│   │   │   └── Admin
+│   │   ├── Middleware
+│   │   └── Requests
+│   ├── Imports
+│   ├── Jobs
+│   ├── Mail
+│   ├── Models
+│   └── Providers
+├── bootstrap
+│   └── cache
+├── config
+├── database
+│   ├── factories
+│   ├── migrations
+│   └── seeders
+├── lang
+│   └── en
+├── public
+│   ├── assets
+│   │   ├── css
+│   │   │   └── Fonts
+│   │   └── images
+│   │       ├── footerlayers
+│   │       ├── graphvectors
+│   │       ├── iconrecords
+│   │       └── Icons
+│   │           └── adminsidebar
+│   ├── build
+│   │   └── assets
+│   ├── js
+│   └── vendor
+│       └── telescope
+├── resources
+│   ├── css
+│   │   └── Fonts
+│   ├── images
+│   │   ├── footerlayers
+│   │   ├── graphvectors
+│   │   ├── iconrecords
+│   │   └── Icons
+│   │       └── adminsidebar
+│   ├── js
+│   └── views
+│       ├── components
+│       │   └── admin
+│       ├── email
+│       ├── layouts
+│       ├── pages
+│       └── reports
+├── routes
+├── storage
+│   ├── app
+│   │   └── public
+│   ├── framework
+│   │   ├── cache
+│   │   │   └── data
+│   │   ├── sessions
+│   │   ├── testing
+│   │   └── views
+│   └── logs
+├── tests
+│   ├── Feature
+│   └── Unit
+└── vendor
+    ├── aws
+    │   ├── aws-crt-php
+    │   │   └── src
+    │   │       └── AWS
+    │   │           └── CRT
+    │   │               ├── Auth
+    │   │               ├── HTTP
+    │   │               ├── Internal
+    │   │               └── IO
+    │   ├── aws-sdk-php
+    │   │   └── src
+    │   │       ├── AccessAnalyzer
+    │   │       │   └── Exception
+    │   │       ├── Account
+    │   │       │   └── Exception
+    │   │       ├── Acm
+    │   │       │   └── Exception
+    │   │       ├── ACMPCA
+    │   │       │   └── Exception
+    │   │       ├── Amplify
+    │   │       │   └── Exception
+    │   │       ├── AmplifyBackend
+    │   │       │   └── Exception
+    │   │       ├── AmplifyUIBuilder
+    │   │       │   └── Exception
+    │   │       ├── Api
+    │   │       │   ├── ErrorParser
+    │   │       │   ├── Parser
+    │   │       │   │   └── Exception
+    │   │       │   └── Serializer
+    │   │       ├── ApiGateway
+    │   │       │   └── Exception
+    │   │       ├── ApiGatewayManagementApi
+    │   │       │   └── Exception
+    │   │       ├── ApiGatewayV2
+    │   │       │   └── Exception
+    │   │       ├── AppConfig
+    │   │       │   └── Exception
+    │   │       ├── AppConfigData
+    │   │       │   └── Exception
+    │   │       ├── AppFabric
+    │   │       │   └── Exception
+    │   │       ├── Appflow
+    │   │       │   └── Exception
+    │   │       ├── AppIntegrationsService
+    │   │       │   └── Exception
+    │   │       ├── ApplicationAutoScaling
+    │   │       │   └── Exception
+    │   │       ├── ApplicationCostProfiler
+    │   │       │   └── Exception
+    │   │       ├── ApplicationDiscoveryService
+    │   │       │   └── Exception
+    │   │       ├── ApplicationInsights
+    │   │       │   └── Exception
+    │   │       ├── ApplicationSignals
+    │   │       │   └── Exception
+    │   │       ├── AppMesh
+    │   │       │   └── Exception
+    │   │       ├── AppRegistry
+    │   │       │   └── Exception
+    │   │       ├── AppRunner
+    │   │       │   └── Exception
+    │   │       ├── Appstream
+    │   │       │   └── Exception
+    │   │       ├── AppSync
+    │   │       │   └── Exception
+    │   │       ├── AppTest
+    │   │       │   └── Exception
+    │   │       ├── ARCZonalShift
+    │   │       │   └── Exception
+    │   │       ├── Arn
+    │   │       │   ├── Exception
+    │   │       │   └── S3
+    │   │       ├── Artifact
+    │   │       │   └── Exception
+    │   │       ├── Athena
+    │   │       │   └── Exception
+    │   │       ├── AuditManager
+    │   │       │   └── Exception
+    │   │       ├── AugmentedAIRuntime
+    │   │       │   └── Exception
+    │   │       ├── Auth
+    │   │       │   └── Exception
+    │   │       ├── AutoScaling
+    │   │       │   └── Exception
+    │   │       ├── AutoScalingPlans
+    │   │       │   └── Exception
+    │   │       ├── B2bi
+    │   │       │   └── Exception
+    │   │       ├── Backup
+    │   │       │   └── Exception
+    │   │       ├── BackupGateway
+    │   │       │   └── Exception
+    │   │       ├── BackupSearch
+    │   │       │   └── Exception
+    │   │       ├── Batch
+    │   │       │   └── Exception
+    │   │       ├── BCMDataExports
+    │   │       │   └── Exception
+    │   │       ├── BCMPricingCalculator
+    │   │       │   └── Exception
+    │   │       ├── Bedrock
+    │   │       │   └── Exception
+    │   │       ├── BedrockAgent
+    │   │       │   └── Exception
+    │   │       ├── BedrockAgentRuntime
+    │   │       │   └── Exception
+    │   │       ├── BedrockDataAutomation
+    │   │       │   └── Exception
+    │   │       ├── BedrockDataAutomationRuntime
+    │   │       │   └── Exception
+    │   │       ├── BedrockRuntime
+    │   │       │   └── Exception
+    │   │       ├── Billing
+    │   │       │   └── Exception
+    │   │       ├── BillingConductor
+    │   │       │   └── Exception
+    │   │       ├── Braket
+    │   │       │   └── Exception
+    │   │       ├── Budgets
+    │   │       │   └── Exception
+    │   │       ├── Chatbot
+    │   │       │   └── Exception
+    │   │       ├── Chime
+    │   │       │   └── Exception
+    │   │       ├── ChimeSDKIdentity
+    │   │       │   └── Exception
+    │   │       ├── ChimeSDKMediaPipelines
+    │   │       │   └── Exception
+    │   │       ├── ChimeSDKMeetings
+    │   │       │   └── Exception
+    │   │       ├── ChimeSDKMessaging
+    │   │       │   └── Exception
+    │   │       ├── ChimeSDKVoice
+    │   │       │   └── Exception
+    │   │       ├── CleanRooms
+    │   │       │   └── Exception
+    │   │       ├── CleanRoomsML
+    │   │       │   └── Exception
+    │   │       ├── ClientSideMonitoring
+    │   │       │   └── Exception
+    │   │       ├── Cloud9
+    │   │       │   └── Exception
+    │   │       ├── CloudControlApi
+    │   │       │   └── Exception
+    │   │       ├── CloudDirectory
+    │   │       │   └── Exception
+    │   │       ├── CloudFormation
+    │   │       │   └── Exception
+    │   │       ├── CloudFront
+    │   │       │   └── Exception
+    │   │       ├── CloudFrontKeyValueStore
+    │   │       │   └── Exception
+    │   │       ├── CloudHsm
+    │   │       │   └── Exception
+    │   │       ├── CloudHSMV2
+    │   │       │   └── Exception
+    │   │       ├── CloudSearch
+    │   │       │   └── Exception
+    │   │       ├── CloudSearchDomain
+    │   │       │   └── Exception
+    │   │       ├── CloudTrail
+    │   │       │   └── Exception
+    │   │       ├── CloudTrailData
+    │   │       │   └── Exception
+    │   │       ├── CloudWatch
+    │   │       │   └── Exception
+    │   │       ├── CloudWatchEvents
+    │   │       │   └── Exception
+    │   │       ├── CloudWatchEvidently
+    │   │       │   └── Exception
+    │   │       ├── CloudWatchLogs
+    │   │       │   └── Exception
+    │   │       ├── CloudWatchRUM
+    │   │       │   └── Exception
+    │   │       ├── CodeArtifact
+    │   │       │   └── Exception
+    │   │       ├── CodeBuild
+    │   │       │   └── Exception
+    │   │       ├── CodeCatalyst
+    │   │       │   └── Exception
+    │   │       ├── CodeCommit
+    │   │       │   └── Exception
+    │   │       ├── CodeConnections
+    │   │       │   └── Exception
+    │   │       ├── CodeDeploy
+    │   │       │   └── Exception
+    │   │       ├── CodeGuruProfiler
+    │   │       │   └── Exception
+    │   │       ├── CodeGuruReviewer
+    │   │       │   └── Exception
+    │   │       ├── CodeGuruSecurity
+    │   │       │   └── Exception
+    │   │       ├── CodePipeline
+    │   │       │   └── Exception
+    │   │       ├── CodeStarconnections
+    │   │       │   └── Exception
+    │   │       ├── CodeStarNotifications
+    │   │       │   └── Exception
+    │   │       ├── CognitoIdentity
+    │   │       │   └── Exception
+    │   │       ├── CognitoIdentityProvider
+    │   │       │   └── Exception
+    │   │       ├── CognitoSync
+    │   │       │   └── Exception
+    │   │       ├── Comprehend
+    │   │       │   └── Exception
+    │   │       ├── ComprehendMedical
+    │   │       │   └── Exception
+    │   │       ├── ComputeOptimizer
+    │   │       │   └── Exception
+    │   │       ├── ConfigService
+    │   │       │   └── Exception
+    │   │       ├── Configuration
+    │   │       ├── Connect
+    │   │       │   └── Exception
+    │   │       ├── ConnectCampaignService
+    │   │       │   └── Exception
+    │   │       ├── ConnectCampaignsV2
+    │   │       │   └── Exception
+    │   │       ├── ConnectCases
+    │   │       │   └── Exception
+    │   │       ├── ConnectContactLens
+    │   │       │   └── Exception
+    │   │       ├── ConnectParticipant
+    │   │       │   └── Exception
+    │   │       ├── ConnectWisdomService
+    │   │       │   └── Exception
+    │   │       ├── ControlCatalog
+    │   │       │   └── Exception
+    │   │       ├── ControlTower
+    │   │       │   └── Exception
+    │   │       ├── CostandUsageReportService
+    │   │       │   └── Exception
+    │   │       ├── CostExplorer
+    │   │       │   └── Exception
+    │   │       ├── CostOptimizationHub
+    │   │       │   └── Exception
+    │   │       ├── Credentials
+    │   │       ├── Crypto
+    │   │       │   ├── Cipher
+    │   │       │   └── Polyfill
+    │   │       ├── CustomerProfiles
+    │   │       │   └── Exception
+    │   │       ├── data
+    │   │       │   ├── accessanalyzer
+    │   │       │   │   └── 2019-11-01
+    │   │       │   ├── account
+    │   │       │   │   └── 2021-02-01
+    │   │       │   ├── acm
+    │   │       │   │   └── 2015-12-08
+    │   │       │   ├── acm-pca
+    │   │       │   │   └── 2017-08-22
+    │   │       │   ├── amp
+    │   │       │   │   └── 2020-08-01
+    │   │       │   ├── amplify
+    │   │       │   │   └── 2017-07-25
+    │   │       │   ├── amplifybackend
+    │   │       │   │   └── 2020-08-11
+    │   │       │   ├── amplifyuibuilder
+    │   │       │   │   └── 2021-08-11
+    │   │       │   ├── apigateway
+    │   │       │   │   └── 2015-07-09
+    │   │       │   ├── apigatewaymanagementapi
+    │   │       │   │   └── 2018-11-29
+    │   │       │   ├── apigatewayv2
+    │   │       │   │   └── 2018-11-29
+    │   │       │   ├── appconfig
+    │   │       │   │   └── 2019-10-09
+    │   │       │   ├── appconfigdata
+    │   │       │   │   └── 2021-11-11
+    │   │       │   ├── appfabric
+    │   │       │   │   └── 2023-05-19
+    │   │       │   ├── appflow
+    │   │       │   │   └── 2020-08-23
+    │   │       │   ├── appintegrations
+    │   │       │   │   └── 2020-07-29
+    │   │       │   ├── application-autoscaling
+    │   │       │   │   └── 2016-02-06
+    │   │       │   ├── applicationcostprofiler
+    │   │       │   │   └── 2020-09-10
+    │   │       │   ├── application-insights
+    │   │       │   │   └── 2018-11-25
+    │   │       │   ├── application-signals
+    │   │       │   │   └── 2024-04-15
+    │   │       │   ├── appmesh
+    │   │       │   │   ├── 2018-10-01
+    │   │       │   │   └── 2019-01-25
+    │   │       │   ├── apprunner
+    │   │       │   │   └── 2020-05-15
+    │   │       │   ├── appstream
+    │   │       │   │   └── 2016-12-01
+    │   │       │   ├── appsync
+    │   │       │   │   └── 2017-07-25
+    │   │       │   ├── apptest
+    │   │       │   │   └── 2022-12-06
+    │   │       │   ├── arc-zonal-shift
+    │   │       │   │   └── 2022-10-30
+    │   │       │   ├── artifact
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── athena
+    │   │       │   │   └── 2017-05-18
+    │   │       │   ├── auditmanager
+    │   │       │   │   └── 2017-07-25
+    │   │       │   ├── autoscaling
+    │   │       │   │   └── 2011-01-01
+    │   │       │   ├── autoscaling-plans
+    │   │       │   │   └── 2018-01-06
+    │   │       │   ├── b2bi
+    │   │       │   │   └── 2022-06-23
+    │   │       │   ├── backup
+    │   │       │   │   └── 2018-11-15
+    │   │       │   ├── backup-gateway
+    │   │       │   │   └── 2021-01-01
+    │   │       │   ├── backupsearch
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── batch
+    │   │       │   │   └── 2016-08-10
+    │   │       │   ├── bcm-data-exports
+    │   │       │   │   └── 2023-11-26
+    │   │       │   ├── bcm-pricing-calculator
+    │   │       │   │   └── 2024-06-19
+    │   │       │   ├── bedrock
+    │   │       │   │   └── 2023-04-20
+    │   │       │   ├── bedrock-agent
+    │   │       │   │   └── 2023-06-05
+    │   │       │   ├── bedrock-agent-runtime
+    │   │       │   │   └── 2023-07-26
+    │   │       │   ├── bedrock-data-automation
+    │   │       │   │   └── 2023-07-26
+    │   │       │   ├── bedrock-data-automation-runtime
+    │   │       │   │   └── 2024-06-13
+    │   │       │   ├── bedrock-runtime
+    │   │       │   │   └── 2023-09-30
+    │   │       │   ├── billing
+    │   │       │   │   └── 2023-09-07
+    │   │       │   ├── billingconductor
+    │   │       │   │   └── 2021-07-30
+    │   │       │   ├── braket
+    │   │       │   │   └── 2019-09-01
+    │   │       │   ├── budgets
+    │   │       │   │   └── 2016-10-20
+    │   │       │   ├── ce
+    │   │       │   │   └── 2017-10-25
+    │   │       │   ├── chatbot
+    │   │       │   │   └── 2017-10-11
+    │   │       │   ├── chime
+    │   │       │   │   └── 2018-05-01
+    │   │       │   ├── chime-sdk-identity
+    │   │       │   │   └── 2021-04-20
+    │   │       │   ├── chime-sdk-media-pipelines
+    │   │       │   │   └── 2021-07-15
+    │   │       │   ├── chime-sdk-meetings
+    │   │       │   │   └── 2021-07-15
+    │   │       │   ├── chime-sdk-messaging
+    │   │       │   │   └── 2021-05-15
+    │   │       │   ├── chime-sdk-voice
+    │   │       │   │   └── 2022-08-03
+    │   │       │   ├── cleanrooms
+    │   │       │   │   └── 2022-02-17
+    │   │       │   ├── cleanroomsml
+    │   │       │   │   └── 2023-09-06
+    │   │       │   ├── cloud9
+    │   │       │   │   └── 2017-09-23
+    │   │       │   ├── cloudcontrol
+    │   │       │   │   └── 2021-09-30
+    │   │       │   ├── clouddirectory
+    │   │       │   │   ├── 2016-05-10
+    │   │       │   │   └── 2017-01-11
+    │   │       │   ├── cloudformation
+    │   │       │   │   └── 2010-05-15
+    │   │       │   ├── cloudfront
+    │   │       │   │   ├── 2015-07-27
+    │   │       │   │   ├── 2016-01-28
+    │   │       │   │   ├── 2016-08-01
+    │   │       │   │   ├── 2016-08-20
+    │   │       │   │   ├── 2016-09-07
+    │   │       │   │   ├── 2016-09-29
+    │   │       │   │   ├── 2016-11-25
+    │   │       │   │   ├── 2017-03-25
+    │   │       │   │   ├── 2017-10-30
+    │   │       │   │   ├── 2018-06-18
+    │   │       │   │   ├── 2018-11-05
+    │   │       │   │   ├── 2019-03-26
+    │   │       │   │   └── 2020-05-31
+    │   │       │   ├── cloudfront-keyvaluestore
+    │   │       │   │   └── 2022-07-26
+    │   │       │   ├── cloudhsm
+    │   │       │   │   └── 2014-05-30
+    │   │       │   ├── cloudhsmv2
+    │   │       │   │   └── 2017-04-28
+    │   │       │   ├── cloudsearch
+    │   │       │   │   └── 2013-01-01
+    │   │       │   ├── cloudsearchdomain
+    │   │       │   │   └── 2013-01-01
+    │   │       │   ├── cloudtrail
+    │   │       │   │   └── 2013-11-01
+    │   │       │   ├── cloudtrail-data
+    │   │       │   │   └── 2021-08-11
+    │   │       │   ├── codeartifact
+    │   │       │   │   └── 2018-09-22
+    │   │       │   ├── codebuild
+    │   │       │   │   └── 2016-10-06
+    │   │       │   ├── codecatalyst
+    │   │       │   │   └── 2022-09-28
+    │   │       │   ├── codecommit
+    │   │       │   │   └── 2015-04-13
+    │   │       │   ├── codeconnections
+    │   │       │   │   └── 2023-12-01
+    │   │       │   ├── codedeploy
+    │   │       │   │   └── 2014-10-06
+    │   │       │   ├── codeguruprofiler
+    │   │       │   │   └── 2019-07-18
+    │   │       │   ├── codeguru-reviewer
+    │   │       │   │   └── 2019-09-19
+    │   │       │   ├── codeguru-security
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── codepipeline
+    │   │       │   │   └── 2015-07-09
+    │   │       │   ├── codestar-connections
+    │   │       │   │   └── 2019-12-01
+    │   │       │   ├── codestar-notifications
+    │   │       │   │   └── 2019-10-15
+    │   │       │   ├── cognito-identity
+    │   │       │   │   └── 2014-06-30
+    │   │       │   ├── cognito-idp
+    │   │       │   │   └── 2016-04-18
+    │   │       │   ├── cognito-sync
+    │   │       │   │   └── 2014-06-30
+    │   │       │   ├── comprehend
+    │   │       │   │   └── 2017-11-27
+    │   │       │   ├── comprehendmedical
+    │   │       │   │   └── 2018-10-30
+    │   │       │   ├── compute-optimizer
+    │   │       │   │   └── 2019-11-01
+    │   │       │   ├── config
+    │   │       │   │   └── 2014-11-12
+    │   │       │   ├── connect
+    │   │       │   │   └── 2017-08-08
+    │   │       │   ├── connectcampaigns
+    │   │       │   │   └── 2021-01-30
+    │   │       │   ├── connectcampaignsv2
+    │   │       │   │   └── 2024-04-23
+    │   │       │   ├── connectcases
+    │   │       │   │   └── 2022-10-03
+    │   │       │   ├── connect-contact-lens
+    │   │       │   │   └── 2020-08-21
+    │   │       │   ├── connectparticipant
+    │   │       │   │   └── 2018-09-07
+    │   │       │   ├── controlcatalog
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── controltower
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── cost-optimization-hub
+    │   │       │   │   └── 2022-07-26
+    │   │       │   ├── cur
+    │   │       │   │   └── 2017-01-06
+    │   │       │   ├── customer-profiles
+    │   │       │   │   └── 2020-08-15
+    │   │       │   ├── databrew
+    │   │       │   │   └── 2017-07-25
+    │   │       │   ├── dataexchange
+    │   │       │   │   └── 2017-07-25
+    │   │       │   ├── data.iot
+    │   │       │   │   └── 2015-05-28
+    │   │       │   ├── datapipeline
+    │   │       │   │   └── 2012-10-29
+    │   │       │   ├── datasync
+    │   │       │   │   └── 2018-11-09
+    │   │       │   ├── datazone
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── dax
+    │   │       │   │   └── 2017-04-19
+    │   │       │   ├── deadline
+    │   │       │   │   └── 2023-10-12
+    │   │       │   ├── detective
+    │   │       │   │   └── 2018-10-26
+    │   │       │   ├── devicefarm
+    │   │       │   │   └── 2015-06-23
+    │   │       │   ├── devops-guru
+    │   │       │   │   └── 2020-12-01
+    │   │       │   ├── directconnect
+    │   │       │   │   └── 2012-10-25
+    │   │       │   ├── directory-service-data
+    │   │       │   │   └── 2023-05-31
+    │   │       │   ├── discovery
+    │   │       │   │   └── 2015-11-01
+    │   │       │   ├── dlm
+    │   │       │   │   └── 2018-01-12
+    │   │       │   ├── dms
+    │   │       │   │   └── 2016-01-01
+    │   │       │   ├── docdb
+    │   │       │   │   └── 2014-10-31
+    │   │       │   ├── docdb-elastic
+    │   │       │   │   └── 2022-11-28
+    │   │       │   ├── drs
+    │   │       │   │   └── 2020-02-26
+    │   │       │   ├── ds
+    │   │       │   │   └── 2015-04-16
+    │   │       │   ├── dsql
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── dynamodb
+    │   │       │   │   ├── 2011-12-05
+    │   │       │   │   └── 2012-08-10
+    │   │       │   ├── ebs
+    │   │       │   │   └── 2019-11-02
+    │   │       │   ├── ec2
+    │   │       │   │   ├── 2015-10-01
+    │   │       │   │   ├── 2016-04-01
+    │   │       │   │   ├── 2016-09-15
+    │   │       │   │   └── 2016-11-15
+    │   │       │   ├── ec2-instance-connect
+    │   │       │   │   └── 2018-04-02
+    │   │       │   ├── ecr
+    │   │       │   │   └── 2015-09-21
+    │   │       │   ├── ecr-public
+    │   │       │   │   └── 2020-10-30
+    │   │       │   ├── ecs
+    │   │       │   │   └── 2014-11-13
+    │   │       │   ├── eks
+    │   │       │   │   └── 2017-11-01
+    │   │       │   ├── eks-auth
+    │   │       │   │   └── 2023-11-26
+    │   │       │   ├── elasticache
+    │   │       │   │   └── 2015-02-02
+    │   │       │   ├── elasticbeanstalk
+    │   │       │   │   └── 2010-12-01
+    │   │       │   ├── elasticfilesystem
+    │   │       │   │   └── 2015-02-01
+    │   │       │   ├── elastic-inference
+    │   │       │   │   └── 2017-07-25
+    │   │       │   ├── elasticloadbalancing
+    │   │       │   │   └── 2012-06-01
+    │   │       │   ├── elasticloadbalancingv2
+    │   │       │   │   └── 2015-12-01
+    │   │       │   ├── elasticmapreduce
+    │   │       │   │   └── 2009-03-31
+    │   │       │   ├── elastictranscoder
+    │   │       │   │   └── 2012-09-25
+    │   │       │   ├── email
+    │   │       │   │   └── 2010-12-01
+    │   │       │   ├── emr-containers
+    │   │       │   │   └── 2020-10-01
+    │   │       │   ├── emr-serverless
+    │   │       │   │   └── 2021-07-13
+    │   │       │   ├── entitlement.marketplace
+    │   │       │   │   └── 2017-01-11
+    │   │       │   ├── entityresolution
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── es
+    │   │       │   │   └── 2015-01-01
+    │   │       │   ├── eventbridge
+    │   │       │   │   └── 2015-10-07
+    │   │       │   ├── events
+    │   │       │   │   └── 2015-10-07
+    │   │       │   ├── evidently
+    │   │       │   │   └── 2021-02-01
+    │   │       │   ├── finspace
+    │   │       │   │   └── 2021-03-12
+    │   │       │   ├── finspace-data
+    │   │       │   │   └── 2020-07-13
+    │   │       │   ├── firehose
+    │   │       │   │   └── 2015-08-04
+    │   │       │   ├── fis
+    │   │       │   │   └── 2020-12-01
+    │   │       │   ├── fms
+    │   │       │   │   └── 2018-01-01
+    │   │       │   ├── forecast
+    │   │       │   │   └── 2018-06-26
+    │   │       │   ├── forecastquery
+    │   │       │   │   └── 2018-06-26
+    │   │       │   ├── frauddetector
+    │   │       │   │   └── 2019-11-15
+    │   │       │   ├── freetier
+    │   │       │   │   └── 2023-09-07
+    │   │       │   ├── fsx
+    │   │       │   │   └── 2018-03-01
+    │   │       │   ├── gamelift
+    │   │       │   │   └── 2015-10-01
+    │   │       │   ├── geo-maps
+    │   │       │   │   └── 2020-11-19
+    │   │       │   ├── geo-places
+    │   │       │   │   └── 2020-11-19
+    │   │       │   ├── geo-routes
+    │   │       │   │   └── 2020-11-19
+    │   │       │   ├── glacier
+    │   │       │   │   └── 2012-06-01
+    │   │       │   ├── globalaccelerator
+    │   │       │   │   └── 2018-08-08
+    │   │       │   ├── glue
+    │   │       │   │   └── 2017-03-31
+    │   │       │   ├── grafana
+    │   │       │   │   └── 2020-08-18
+    │   │       │   ├── greengrass
+    │   │       │   │   └── 2017-06-07
+    │   │       │   ├── greengrassv2
+    │   │       │   │   └── 2020-11-30
+    │   │       │   ├── groundstation
+    │   │       │   │   └── 2019-05-23
+    │   │       │   ├── guardduty
+    │   │       │   │   └── 2017-11-28
+    │   │       │   ├── health
+    │   │       │   │   └── 2016-08-04
+    │   │       │   ├── healthlake
+    │   │       │   │   └── 2017-07-01
+    │   │       │   ├── iam
+    │   │       │   │   └── 2010-05-08
+    │   │       │   ├── identitystore
+    │   │       │   │   └── 2020-06-15
+    │   │       │   ├── imagebuilder
+    │   │       │   │   └── 2019-12-02
+    │   │       │   ├── importexport
+    │   │       │   │   └── 2010-06-01
+    │   │       │   ├── inspector
+    │   │       │   │   └── 2016-02-16
+    │   │       │   ├── inspector2
+    │   │       │   │   └── 2020-06-08
+    │   │       │   ├── inspector-scan
+    │   │       │   │   └── 2023-08-08
+    │   │       │   ├── internetmonitor
+    │   │       │   │   └── 2021-06-03
+    │   │       │   ├── invoicing
+    │   │       │   │   └── 2024-12-01
+    │   │       │   ├── iot
+    │   │       │   │   └── 2015-05-28
+    │   │       │   ├── iotanalytics
+    │   │       │   │   └── 2017-11-27
+    │   │       │   ├── iotdeviceadvisor
+    │   │       │   │   └── 2020-09-18
+    │   │       │   ├── iotevents
+    │   │       │   │   └── 2018-07-27
+    │   │       │   ├── iotevents-data
+    │   │       │   │   └── 2018-10-23
+    │   │       │   ├── iotfleethub
+    │   │       │   │   └── 2020-11-03
+    │   │       │   ├── iotfleetwise
+    │   │       │   │   └── 2021-06-17
+    │   │       │   ├── iot-jobs-data
+    │   │       │   │   └── 2017-09-29
+    │   │       │   ├── iotsecuretunneling
+    │   │       │   │   └── 2018-10-05
+    │   │       │   ├── iotsitewise
+    │   │       │   │   └── 2019-12-02
+    │   │       │   ├── iotthingsgraph
+    │   │       │   │   └── 2018-09-06
+    │   │       │   ├── iottwinmaker
+    │   │       │   │   └── 2021-11-29
+    │   │       │   ├── iotwireless
+    │   │       │   │   └── 2020-11-22
+    │   │       │   ├── ivs
+    │   │       │   │   └── 2020-07-14
+    │   │       │   ├── ivschat
+    │   │       │   │   └── 2020-07-14
+    │   │       │   ├── ivs-realtime
+    │   │       │   │   └── 2020-07-14
+    │   │       │   ├── kafka
+    │   │       │   │   └── 2018-11-14
+    │   │       │   ├── kafkaconnect
+    │   │       │   │   └── 2021-09-14
+    │   │       │   ├── kendra
+    │   │       │   │   └── 2019-02-03
+    │   │       │   ├── kendra-ranking
+    │   │       │   │   └── 2022-10-19
+    │   │       │   ├── keyspaces
+    │   │       │   │   └── 2022-02-10
+    │   │       │   ├── kinesis
+    │   │       │   │   └── 2013-12-02
+    │   │       │   ├── kinesisanalytics
+    │   │       │   │   └── 2015-08-14
+    │   │       │   ├── kinesisanalyticsv2
+    │   │       │   │   └── 2018-05-23
+    │   │       │   ├── kinesisvideo
+    │   │       │   │   └── 2017-09-30
+    │   │       │   ├── kinesis-video-archived-media
+    │   │       │   │   └── 2017-09-30
+    │   │       │   ├── kinesis-video-media
+    │   │       │   │   └── 2017-09-30
+    │   │       │   ├── kinesis-video-signaling
+    │   │       │   │   └── 2019-12-04
+    │   │       │   ├── kinesis-video-webrtc-storage
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── kms
+    │   │       │   │   └── 2014-11-01
+    │   │       │   ├── lakeformation
+    │   │       │   │   └── 2017-03-31
+    │   │       │   ├── lambda
+    │   │       │   │   └── 2015-03-31
+    │   │       │   ├── launch-wizard
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── lex-models
+    │   │       │   │   └── 2017-04-19
+    │   │       │   ├── license-manager
+    │   │       │   │   └── 2018-08-01
+    │   │       │   ├── license-manager-linux-subscriptions
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── license-manager-user-subscriptions
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── lightsail
+    │   │       │   │   └── 2016-11-28
+    │   │       │   ├── location
+    │   │       │   │   └── 2020-11-19
+    │   │       │   ├── logs
+    │   │       │   │   └── 2014-03-28
+    │   │       │   ├── lookoutequipment
+    │   │       │   │   └── 2020-12-15
+    │   │       │   ├── lookoutmetrics
+    │   │       │   │   └── 2017-07-25
+    │   │       │   ├── lookoutvision
+    │   │       │   │   └── 2020-11-20
+    │   │       │   ├── m2
+    │   │       │   │   └── 2021-04-28
+    │   │       │   ├── machinelearning
+    │   │       │   │   └── 2014-12-12
+    │   │       │   ├── macie2
+    │   │       │   │   └── 2020-01-01
+    │   │       │   ├── mailmanager
+    │   │       │   │   └── 2023-10-17
+    │   │       │   ├── managedblockchain
+    │   │       │   │   └── 2018-09-24
+    │   │       │   ├── managedblockchain-query
+    │   │       │   │   └── 2023-05-04
+    │   │       │   ├── marketplace-agreement
+    │   │       │   │   └── 2020-03-01
+    │   │       │   ├── marketplace-catalog
+    │   │       │   │   └── 2018-09-17
+    │   │       │   ├── marketplacecommerceanalytics
+    │   │       │   │   └── 2015-07-01
+    │   │       │   ├── marketplace-deployment
+    │   │       │   │   └── 2023-01-25
+    │   │       │   ├── marketplace-reporting
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── mediaconnect
+    │   │       │   │   └── 2018-11-14
+    │   │       │   ├── mediaconvert
+    │   │       │   │   └── 2017-08-29
+    │   │       │   ├── medialive
+    │   │       │   │   └── 2017-10-14
+    │   │       │   ├── mediapackage
+    │   │       │   │   └── 2017-10-12
+    │   │       │   ├── mediapackagev2
+    │   │       │   │   └── 2022-12-25
+    │   │       │   ├── mediapackage-vod
+    │   │       │   │   └── 2018-11-07
+    │   │       │   ├── mediastore
+    │   │       │   │   └── 2017-09-01
+    │   │       │   ├── mediastore-data
+    │   │       │   │   └── 2017-09-01
+    │   │       │   ├── mediatailor
+    │   │       │   │   └── 2018-04-23
+    │   │       │   ├── medical-imaging
+    │   │       │   │   └── 2023-07-19
+    │   │       │   ├── memorydb
+    │   │       │   │   └── 2021-01-01
+    │   │       │   ├── metering.marketplace
+    │   │       │   │   └── 2016-01-14
+    │   │       │   ├── mgh
+    │   │       │   │   └── 2017-05-31
+    │   │       │   ├── mgn
+    │   │       │   │   └── 2020-02-26
+    │   │       │   ├── migrationhub-config
+    │   │       │   │   └── 2019-06-30
+    │   │       │   ├── migrationhuborchestrator
+    │   │       │   │   └── 2021-08-28
+    │   │       │   ├── migration-hub-refactor-spaces
+    │   │       │   │   └── 2021-10-26
+    │   │       │   ├── migrationhubstrategy
+    │   │       │   │   └── 2020-02-19
+    │   │       │   ├── models.lex.v2
+    │   │       │   │   └── 2020-08-07
+    │   │       │   ├── monitoring
+    │   │       │   │   └── 2010-08-01
+    │   │       │   ├── mq
+    │   │       │   │   └── 2017-11-27
+    │   │       │   ├── mturk-requester
+    │   │       │   │   └── 2017-01-17
+    │   │       │   ├── mwaa
+    │   │       │   │   └── 2020-07-01
+    │   │       │   ├── neptune
+    │   │       │   │   └── 2014-10-31
+    │   │       │   ├── neptunedata
+    │   │       │   │   └── 2023-08-01
+    │   │       │   ├── neptune-graph
+    │   │       │   │   └── 2023-11-29
+    │   │       │   ├── network-firewall
+    │   │       │   │   └── 2020-11-12
+    │   │       │   ├── networkflowmonitor
+    │   │       │   │   └── 2023-04-19
+    │   │       │   ├── networkmanager
+    │   │       │   │   └── 2019-07-05
+    │   │       │   ├── networkmonitor
+    │   │       │   │   └── 2023-08-01
+    │   │       │   ├── notifications
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── notificationscontacts
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── oam
+    │   │       │   │   └── 2022-06-10
+    │   │       │   ├── observabilityadmin
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── omics
+    │   │       │   │   └── 2022-11-28
+    │   │       │   ├── opensearch
+    │   │       │   │   └── 2021-01-01
+    │   │       │   ├── opensearchserverless
+    │   │       │   │   └── 2021-11-01
+    │   │       │   ├── opsworks
+    │   │       │   │   └── 2013-02-18
+    │   │       │   ├── opsworkscm
+    │   │       │   │   └── 2016-11-01
+    │   │       │   ├── organizations
+    │   │       │   │   └── 2016-11-28
+    │   │       │   ├── osis
+    │   │       │   │   └── 2022-01-01
+    │   │       │   ├── outposts
+    │   │       │   │   └── 2019-12-03
+    │   │       │   ├── panorama
+    │   │       │   │   └── 2019-07-24
+    │   │       │   ├── partnercentral-selling
+    │   │       │   │   └── 2022-07-26
+    │   │       │   ├── payment-cryptography
+    │   │       │   │   └── 2021-09-14
+    │   │       │   ├── payment-cryptography-data
+    │   │       │   │   └── 2022-02-03
+    │   │       │   ├── pca-connector-ad
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── pca-connector-scep
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── pcs
+    │   │       │   │   └── 2023-02-10
+    │   │       │   ├── personalize
+    │   │       │   │   └── 2018-05-22
+    │   │       │   ├── personalize-events
+    │   │       │   │   └── 2018-03-22
+    │   │       │   ├── personalize-runtime
+    │   │       │   │   └── 2018-05-22
+    │   │       │   ├── pi
+    │   │       │   │   └── 2018-02-27
+    │   │       │   ├── pinpoint
+    │   │       │   │   └── 2016-12-01
+    │   │       │   ├── pinpoint-email
+    │   │       │   │   └── 2018-07-26
+    │   │       │   ├── pinpoint-sms-voice-v2
+    │   │       │   │   └── 2022-03-31
+    │   │       │   ├── pipes
+    │   │       │   │   └── 2015-10-07
+    │   │       │   ├── polly
+    │   │       │   │   └── 2016-06-10
+    │   │       │   ├── pricing
+    │   │       │   │   └── 2017-10-15
+    │   │       │   ├── privatenetworks
+    │   │       │   │   └── 2021-12-03
+    │   │       │   ├── proton
+    │   │       │   │   └── 2020-07-20
+    │   │       │   ├── qapps
+    │   │       │   │   └── 2023-11-27
+    │   │       │   ├── qbusiness
+    │   │       │   │   └── 2023-11-27
+    │   │       │   ├── qconnect
+    │   │       │   │   └── 2020-10-19
+    │   │       │   ├── qldb
+    │   │       │   │   └── 2019-01-02
+    │   │       │   ├── qldb-session
+    │   │       │   │   └── 2019-07-11
+    │   │       │   ├── quicksight
+    │   │       │   │   └── 2018-04-01
+    │   │       │   ├── ram
+    │   │       │   │   └── 2018-01-04
+    │   │       │   ├── rbin
+    │   │       │   │   └── 2021-06-15
+    │   │       │   ├── rds
+    │   │       │   │   ├── 2014-09-01
+    │   │       │   │   └── 2014-10-31
+    │   │       │   ├── rds-data
+    │   │       │   │   └── 2018-08-01
+    │   │       │   ├── redshift
+    │   │       │   │   └── 2012-12-01
+    │   │       │   ├── redshift-data
+    │   │       │   │   └── 2019-12-20
+    │   │       │   ├── redshift-serverless
+    │   │       │   │   └── 2021-04-21
+    │   │       │   ├── rekognition
+    │   │       │   │   └── 2016-06-27
+    │   │       │   ├── repostspace
+    │   │       │   │   └── 2022-05-13
+    │   │       │   ├── resiliencehub
+    │   │       │   │   └── 2020-04-30
+    │   │       │   ├── resource-explorer-2
+    │   │       │   │   └── 2022-07-28
+    │   │       │   ├── resource-groups
+    │   │       │   │   └── 2017-11-27
+    │   │       │   ├── resourcegroupstaggingapi
+    │   │       │   │   └── 2017-01-26
+    │   │       │   ├── robomaker
+    │   │       │   │   └── 2018-06-29
+    │   │       │   ├── rolesanywhere
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── route53
+    │   │       │   │   └── 2013-04-01
+    │   │       │   ├── route53domains
+    │   │       │   │   └── 2014-05-15
+    │   │       │   ├── route53profiles
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── route53-recovery-cluster
+    │   │       │   │   └── 2019-12-02
+    │   │       │   ├── route53-recovery-control-config
+    │   │       │   │   └── 2020-11-02
+    │   │       │   ├── route53-recovery-readiness
+    │   │       │   │   └── 2019-12-02
+    │   │       │   ├── route53resolver
+    │   │       │   │   └── 2018-04-01
+    │   │       │   ├── rum
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── runtime.lex
+    │   │       │   │   └── 2016-11-28
+    │   │       │   ├── runtime.lex.v2
+    │   │       │   │   └── 2020-08-07
+    │   │       │   ├── runtime.sagemaker
+    │   │       │   │   └── 2017-05-13
+    │   │       │   ├── s3
+    │   │       │   │   └── 2006-03-01
+    │   │       │   ├── s3control
+    │   │       │   │   └── 2018-08-20
+    │   │       │   ├── s3outposts
+    │   │       │   │   └── 2017-07-25
+    │   │       │   ├── s3tables
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── sagemaker
+    │   │       │   │   └── 2017-07-24
+    │   │       │   ├── sagemaker-a2i-runtime
+    │   │       │   │   └── 2019-11-07
+    │   │       │   ├── sagemaker-edge
+    │   │       │   │   └── 2020-09-23
+    │   │       │   ├── sagemaker-featurestore-runtime
+    │   │       │   │   └── 2020-07-01
+    │   │       │   ├── sagemaker-geospatial
+    │   │       │   │   └── 2020-05-27
+    │   │       │   ├── sagemaker-metrics
+    │   │       │   │   └── 2022-09-30
+    │   │       │   ├── savingsplans
+    │   │       │   │   └── 2019-06-28
+    │   │       │   ├── scheduler
+    │   │       │   │   └── 2021-06-30
+    │   │       │   ├── schemas
+    │   │       │   │   └── 2019-12-02
+    │   │       │   ├── secretsmanager
+    │   │       │   │   └── 2017-10-17
+    │   │       │   ├── securityhub
+    │   │       │   │   └── 2018-10-26
+    │   │       │   ├── security-ir
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── securitylake
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── serverlessrepo
+    │   │       │   │   └── 2017-09-08
+    │   │       │   ├── servicecatalog
+    │   │       │   │   └── 2015-12-10
+    │   │       │   ├── servicecatalog-appregistry
+    │   │       │   │   └── 2020-06-24
+    │   │       │   ├── servicediscovery
+    │   │       │   │   └── 2017-03-14
+    │   │       │   ├── service-quotas
+    │   │       │   │   └── 2019-06-24
+    │   │       │   ├── sesv2
+    │   │       │   │   └── 2019-09-27
+    │   │       │   ├── shield
+    │   │       │   │   └── 2016-06-02
+    │   │       │   ├── signer
+    │   │       │   │   └── 2017-08-25
+    │   │       │   ├── simspaceweaver
+    │   │       │   │   └── 2022-10-28
+    │   │       │   ├── sms
+    │   │       │   │   └── 2016-10-24
+    │   │       │   ├── sms-voice
+    │   │       │   │   └── 2018-09-05
+    │   │       │   ├── snowball
+    │   │       │   │   └── 2016-06-30
+    │   │       │   ├── snow-device-management
+    │   │       │   │   └── 2021-08-04
+    │   │       │   ├── sns
+    │   │       │   │   └── 2010-03-31
+    │   │       │   ├── socialmessaging
+    │   │       │   │   └── 2024-01-01
+    │   │       │   ├── sqs
+    │   │       │   │   └── 2012-11-05
+    │   │       │   ├── ssm
+    │   │       │   │   └── 2014-11-06
+    │   │       │   ├── ssm-contacts
+    │   │       │   │   └── 2021-05-03
+    │   │       │   ├── ssm-incidents
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── ssm-quicksetup
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── ssm-sap
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── sso
+    │   │       │   │   └── 2019-06-10
+    │   │       │   ├── sso-admin
+    │   │       │   │   └── 2020-07-20
+    │   │       │   ├── sso-oidc
+    │   │       │   │   └── 2019-06-10
+    │   │       │   ├── states
+    │   │       │   │   └── 2016-11-23
+    │   │       │   ├── storagegateway
+    │   │       │   │   └── 2013-06-30
+    │   │       │   ├── streams.dynamodb
+    │   │       │   │   └── 2012-08-10
+    │   │       │   ├── sts
+    │   │       │   │   └── 2011-06-15
+    │   │       │   ├── supplychain
+    │   │       │   │   └── 2024-01-01
+    │   │       │   ├── support
+    │   │       │   │   └── 2013-04-15
+    │   │       │   ├── support-app
+    │   │       │   │   └── 2021-08-20
+    │   │       │   ├── swf
+    │   │       │   │   └── 2012-01-25
+    │   │       │   ├── synthetics
+    │   │       │   │   └── 2017-10-11
+    │   │       │   ├── taxsettings
+    │   │       │   │   └── 2018-05-10
+    │   │       │   ├── textract
+    │   │       │   │   └── 2018-06-27
+    │   │       │   ├── timestream-influxdb
+    │   │       │   │   └── 2023-01-27
+    │   │       │   ├── timestream-query
+    │   │       │   │   └── 2018-11-01
+    │   │       │   ├── timestream-write
+    │   │       │   │   └── 2018-11-01
+    │   │       │   ├── tnb
+    │   │       │   │   └── 2008-10-21
+    │   │       │   ├── transcribe
+    │   │       │   │   └── 2017-10-26
+    │   │       │   ├── transfer
+    │   │       │   │   └── 2018-11-05
+    │   │       │   ├── translate
+    │   │       │   │   └── 2017-07-01
+    │   │       │   ├── trustedadvisor
+    │   │       │   │   └── 2022-09-15
+    │   │       │   ├── verifiedpermissions
+    │   │       │   │   └── 2021-12-01
+    │   │       │   ├── voice-id
+    │   │       │   │   └── 2021-09-27
+    │   │       │   ├── vpc-lattice
+    │   │       │   │   └── 2022-11-30
+    │   │       │   ├── waf
+    │   │       │   │   └── 2015-08-24
+    │   │       │   ├── waf-regional
+    │   │       │   │   └── 2016-11-28
+    │   │       │   ├── wafv2
+    │   │       │   │   └── 2019-07-29
+    │   │       │   ├── wellarchitected
+    │   │       │   │   └── 2020-03-31
+    │   │       │   ├── wisdom
+    │   │       │   │   └── 2020-10-19
+    │   │       │   ├── workdocs
+    │   │       │   │   └── 2016-05-01
+    │   │       │   ├── workmail
+    │   │       │   │   └── 2017-10-01
+    │   │       │   ├── workmailmessageflow
+    │   │       │   │   └── 2019-05-01
+    │   │       │   ├── workspaces
+    │   │       │   │   └── 2015-04-08
+    │   │       │   ├── workspaces-thin-client
+    │   │       │   │   └── 2023-08-22
+    │   │       │   ├── workspaces-web
+    │   │       │   │   └── 2020-07-08
+    │   │       │   └── xray
+    │   │       │       └── 2016-04-12
+    │   │       ├── DatabaseMigrationService
+    │   │       │   └── Exception
+    │   │       ├── DataExchange
+    │   │       │   └── Exception
+    │   │       ├── DataPipeline
+    │   │       │   └── Exception
+    │   │       ├── DataSync
+    │   │       │   └── Exception
+    │   │       ├── DataZone
+    │   │       │   └── Exception
+    │   │       ├── DAX
+    │   │       │   └── Exception
+    │   │       ├── Deadline
+    │   │       │   └── Exception
+    │   │       ├── DefaultsMode
+    │   │       │   └── Exception
+    │   │       ├── Detective
+    │   │       │   └── Exception
+    │   │       ├── DeviceFarm
+    │   │       │   └── Exception
+    │   │       ├── DevOpsGuru
+    │   │       │   └── Exception
+    │   │       ├── DirectConnect
+    │   │       │   └── Exception
+    │   │       ├── DirectoryService
+    │   │       │   └── Exception
+    │   │       ├── DirectoryServiceData
+    │   │       │   └── Exception
+    │   │       ├── DLM
+    │   │       │   └── Exception
+    │   │       ├── DocDB
+    │   │       │   └── Exception
+    │   │       ├── DocDBElastic
+    │   │       │   └── Exception
+    │   │       ├── drs
+    │   │       │   └── Exception
+    │   │       ├── DSQL
+    │   │       │   └── Exception
+    │   │       ├── DynamoDb
+    │   │       │   └── Exception
+    │   │       ├── DynamoDbStreams
+    │   │       │   └── Exception
+    │   │       ├── EBS
+    │   │       │   └── Exception
+    │   │       ├── Ec2
+    │   │       │   └── Exception
+    │   │       ├── EC2InstanceConnect
+    │   │       │   └── Exception
+    │   │       ├── Ecr
+    │   │       │   └── Exception
+    │   │       ├── ECRPublic
+    │   │       │   └── Exception
+    │   │       ├── Ecs
+    │   │       │   └── Exception
+    │   │       ├── Efs
+    │   │       │   └── Exception
+    │   │       ├── EKS
+    │   │       │   └── Exception
+    │   │       ├── EKSAuth
+    │   │       │   └── Exception
+    │   │       ├── ElastiCache
+    │   │       │   └── Exception
+    │   │       ├── ElasticBeanstalk
+    │   │       │   └── Exception
+    │   │       ├── ElasticInference
+    │   │       │   └── Exception
+    │   │       ├── ElasticLoadBalancing
+    │   │       │   └── Exception
+    │   │       ├── ElasticLoadBalancingV2
+    │   │       │   └── Exception
+    │   │       ├── ElasticsearchService
+    │   │       │   └── Exception
+    │   │       ├── ElasticTranscoder
+    │   │       │   └── Exception
+    │   │       ├── Emr
+    │   │       │   └── Exception
+    │   │       ├── EMRContainers
+    │   │       │   └── Exception
+    │   │       ├── EMRServerless
+    │   │       │   └── Exception
+    │   │       ├── Endpoint
+    │   │       │   ├── UseDualstackEndpoint
+    │   │       │   │   └── Exception
+    │   │       │   └── UseFipsEndpoint
+    │   │       │       └── Exception
+    │   │       ├── EndpointDiscovery
+    │   │       │   └── Exception
+    │   │       ├── EndpointV2
+    │   │       │   ├── Rule
+    │   │       │   └── Ruleset
+    │   │       ├── EntityResolution
+    │   │       │   └── Exception
+    │   │       ├── EventBridge
+    │   │       │   └── Exception
+    │   │       ├── Exception
+    │   │       ├── finspace
+    │   │       │   └── Exception
+    │   │       ├── FinSpaceData
+    │   │       │   └── Exception
+    │   │       ├── Firehose
+    │   │       │   └── Exception
+    │   │       ├── FIS
+    │   │       │   └── Exception
+    │   │       ├── FMS
+    │   │       │   └── Exception
+    │   │       ├── ForecastQueryService
+    │   │       │   └── Exception
+    │   │       ├── ForecastService
+    │   │       │   └── Exception
+    │   │       ├── FraudDetector
+    │   │       │   └── Exception
+    │   │       ├── FreeTier
+    │   │       │   └── Exception
+    │   │       ├── FSx
+    │   │       │   └── Exception
+    │   │       ├── GameLift
+    │   │       │   └── Exception
+    │   │       ├── GeoMaps
+    │   │       │   └── Exception
+    │   │       ├── GeoPlaces
+    │   │       │   └── Exception
+    │   │       ├── GeoRoutes
+    │   │       │   └── Exception
+    │   │       ├── Glacier
+    │   │       │   └── Exception
+    │   │       ├── GlobalAccelerator
+    │   │       │   └── Exception
+    │   │       ├── Glue
+    │   │       │   └── Exception
+    │   │       ├── GlueDataBrew
+    │   │       │   └── Exception
+    │   │       ├── Greengrass
+    │   │       │   └── Exception
+    │   │       ├── GreengrassV2
+    │   │       │   └── Exception
+    │   │       ├── GroundStation
+    │   │       │   └── Exception
+    │   │       ├── GuardDuty
+    │   │       │   └── Exception
+    │   │       ├── Handler
+    │   │       │   ├── GuzzleV5
+    │   │       │   └── GuzzleV6
+    │   │       ├── Health
+    │   │       │   └── Exception
+    │   │       ├── HealthLake
+    │   │       │   └── Exception
+    │   │       ├── Iam
+    │   │       │   └── Exception
+    │   │       ├── Identity
+    │   │       │   └── S3
+    │   │       ├── IdentityStore
+    │   │       │   └── Exception
+    │   │       ├── imagebuilder
+    │   │       │   └── Exception
+    │   │       ├── ImportExport
+    │   │       │   └── Exception
+    │   │       ├── Inspector
+    │   │       │   └── Exception
+    │   │       ├── Inspector2
+    │   │       │   └── Exception
+    │   │       ├── InspectorScan
+    │   │       │   └── Exception
+    │   │       ├── InternetMonitor
+    │   │       │   └── Exception
+    │   │       ├── Invoicing
+    │   │       │   └── Exception
+    │   │       ├── Iot
+    │   │       │   └── Exception
+    │   │       ├── IoTAnalytics
+    │   │       │   └── Exception
+    │   │       ├── IotDataPlane
+    │   │       │   └── Exception
+    │   │       ├── IoTDeviceAdvisor
+    │   │       │   └── Exception
+    │   │       ├── IoTEvents
+    │   │       │   └── Exception
+    │   │       ├── IoTEventsData
+    │   │       │   └── Exception
+    │   │       ├── IoTFleetHub
+    │   │       │   └── Exception
+    │   │       ├── IoTFleetWise
+    │   │       │   └── Exception
+    │   │       ├── IoTJobsDataPlane
+    │   │       │   └── Exception
+    │   │       ├── IoTSecureTunneling
+    │   │       │   └── Exception
+    │   │       ├── IoTSiteWise
+    │   │       │   └── Exception
+    │   │       ├── IoTThingsGraph
+    │   │       │   └── Exception
+    │   │       ├── IoTTwinMaker
+    │   │       │   └── Exception
+    │   │       ├── IoTWireless
+    │   │       │   └── Exception
+    │   │       ├── IVS
+    │   │       │   └── Exception
+    │   │       ├── ivschat
+    │   │       │   └── Exception
+    │   │       ├── IVSRealTime
+    │   │       │   └── Exception
+    │   │       ├── Kafka
+    │   │       │   └── Exception
+    │   │       ├── KafkaConnect
+    │   │       │   └── Exception
+    │   │       ├── kendra
+    │   │       │   └── Exception
+    │   │       ├── KendraRanking
+    │   │       │   └── Exception
+    │   │       ├── Keyspaces
+    │   │       │   └── Exception
+    │   │       ├── Kinesis
+    │   │       │   └── Exception
+    │   │       ├── KinesisAnalytics
+    │   │       │   └── Exception
+    │   │       ├── KinesisAnalyticsV2
+    │   │       │   └── Exception
+    │   │       ├── KinesisVideo
+    │   │       │   └── Exception
+    │   │       ├── KinesisVideoArchivedMedia
+    │   │       │   └── Exception
+    │   │       ├── KinesisVideoMedia
+    │   │       │   └── Exception
+    │   │       ├── KinesisVideoSignalingChannels
+    │   │       │   └── Exception
+    │   │       ├── KinesisVideoWebRTCStorage
+    │   │       │   └── Exception
+    │   │       ├── Kms
+    │   │       │   └── Exception
+    │   │       ├── LakeFormation
+    │   │       │   └── Exception
+    │   │       ├── Lambda
+    │   │       │   └── Exception
+    │   │       ├── LaunchWizard
+    │   │       │   └── Exception
+    │   │       ├── LexModelBuildingService
+    │   │       │   └── Exception
+    │   │       ├── LexModelsV2
+    │   │       │   └── Exception
+    │   │       ├── LexRuntimeService
+    │   │       │   └── Exception
+    │   │       ├── LexRuntimeV2
+    │   │       │   └── Exception
+    │   │       ├── LicenseManager
+    │   │       │   └── Exception
+    │   │       ├── LicenseManagerLinuxSubscriptions
+    │   │       │   └── Exception
+    │   │       ├── LicenseManagerUserSubscriptions
+    │   │       │   └── Exception
+    │   │       ├── Lightsail
+    │   │       │   └── Exception
+    │   │       ├── LocationService
+    │   │       │   └── Exception
+    │   │       ├── LookoutEquipment
+    │   │       │   └── Exception
+    │   │       ├── LookoutforVision
+    │   │       │   └── Exception
+    │   │       ├── LookoutMetrics
+    │   │       │   └── Exception
+    │   │       ├── MachineLearning
+    │   │       │   └── Exception
+    │   │       ├── Macie2
+    │   │       │   └── Exception
+    │   │       ├── MailManager
+    │   │       │   └── Exception
+    │   │       ├── MainframeModernization
+    │   │       │   └── Exception
+    │   │       ├── ManagedBlockchain
+    │   │       │   └── Exception
+    │   │       ├── ManagedBlockchainQuery
+    │   │       │   └── Exception
+    │   │       ├── ManagedGrafana
+    │   │       │   └── Exception
+    │   │       ├── MarketplaceAgreement
+    │   │       │   └── Exception
+    │   │       ├── MarketplaceCatalog
+    │   │       │   └── Exception
+    │   │       ├── MarketplaceCommerceAnalytics
+    │   │       │   └── Exception
+    │   │       ├── MarketplaceDeployment
+    │   │       │   └── Exception
+    │   │       ├── MarketplaceEntitlementService
+    │   │       │   └── Exception
+    │   │       ├── MarketplaceMetering
+    │   │       │   └── Exception
+    │   │       ├── MarketplaceReporting
+    │   │       │   └── Exception
+    │   │       ├── MediaConnect
+    │   │       │   └── Exception
+    │   │       ├── MediaConvert
+    │   │       │   └── Exception
+    │   │       ├── MediaLive
+    │   │       │   └── Exception
+    │   │       ├── MediaPackage
+    │   │       │   └── Exception
+    │   │       ├── MediaPackageV2
+    │   │       │   └── Exception
+    │   │       ├── MediaPackageVod
+    │   │       │   └── Exception
+    │   │       ├── MediaStore
+    │   │       │   └── Exception
+    │   │       ├── MediaStoreData
+    │   │       │   └── Exception
+    │   │       ├── MediaTailor
+    │   │       │   └── Exception
+    │   │       ├── MedicalImaging
+    │   │       │   └── Exception
+    │   │       ├── MemoryDB
+    │   │       │   └── Exception
+    │   │       ├── mgn
+    │   │       │   └── Exception
+    │   │       ├── MigrationHub
+    │   │       │   └── Exception
+    │   │       ├── MigrationHubConfig
+    │   │       │   └── Exception
+    │   │       ├── MigrationHubOrchestrator
+    │   │       │   └── Exception
+    │   │       ├── MigrationHubRefactorSpaces
+    │   │       │   └── Exception
+    │   │       ├── MigrationHubStrategyRecommendations
+    │   │       │   └── Exception
+    │   │       ├── MQ
+    │   │       │   └── Exception
+    │   │       ├── MTurk
+    │   │       │   └── Exception
+    │   │       ├── Multipart
+    │   │       ├── MWAA
+    │   │       │   └── Exception
+    │   │       ├── Neptune
+    │   │       │   └── Exception
+    │   │       ├── Neptunedata
+    │   │       │   └── Exception
+    │   │       ├── NeptuneGraph
+    │   │       │   └── Exception
+    │   │       ├── NetworkFirewall
+    │   │       │   └── Exception
+    │   │       ├── NetworkFlowMonitor
+    │   │       │   └── Exception
+    │   │       ├── NetworkManager
+    │   │       │   └── Exception
+    │   │       ├── NetworkMonitor
+    │   │       │   └── Exception
+    │   │       ├── Notifications
+    │   │       │   └── Exception
+    │   │       ├── NotificationsContacts
+    │   │       │   └── Exception
+    │   │       ├── OAM
+    │   │       │   └── Exception
+    │   │       ├── ObservabilityAdmin
+    │   │       │   └── Exception
+    │   │       ├── Omics
+    │   │       │   └── Exception
+    │   │       ├── OpenSearchServerless
+    │   │       │   └── Exception
+    │   │       ├── OpenSearchService
+    │   │       │   └── Exception
+    │   │       ├── OpsWorks
+    │   │       │   └── Exception
+    │   │       ├── OpsWorksCM
+    │   │       │   └── Exception
+    │   │       ├── Organizations
+    │   │       │   └── Exception
+    │   │       ├── OSIS
+    │   │       │   └── Exception
+    │   │       ├── Outposts
+    │   │       │   └── Exception
+    │   │       ├── Panorama
+    │   │       │   └── Exception
+    │   │       ├── PartnerCentralSelling
+    │   │       │   └── Exception
+    │   │       ├── PaymentCryptography
+    │   │       │   └── Exception
+    │   │       ├── PaymentCryptographyData
+    │   │       │   └── Exception
+    │   │       ├── PcaConnectorAd
+    │   │       │   └── Exception
+    │   │       ├── PcaConnectorScep
+    │   │       │   └── Exception
+    │   │       ├── PCS
+    │   │       │   └── Exception
+    │   │       ├── Personalize
+    │   │       │   └── Exception
+    │   │       ├── PersonalizeEvents
+    │   │       │   └── Exception
+    │   │       ├── PersonalizeRuntime
+    │   │       │   └── Exception
+    │   │       ├── PI
+    │   │       │   └── Exception
+    │   │       ├── Pinpoint
+    │   │       │   └── Exception
+    │   │       ├── PinpointEmail
+    │   │       │   └── Exception
+    │   │       ├── PinpointSMSVoice
+    │   │       │   └── Exception
+    │   │       ├── PinpointSMSVoiceV2
+    │   │       │   └── Exception
+    │   │       ├── Pipes
+    │   │       │   └── Exception
+    │   │       ├── Polly
+    │   │       │   └── Exception
+    │   │       ├── Pricing
+    │   │       │   └── Exception
+    │   │       ├── PrivateNetworks
+    │   │       │   └── Exception
+    │   │       ├── PrometheusService
+    │   │       │   └── Exception
+    │   │       ├── Proton
+    │   │       │   └── Exception
+    │   │       ├── QApps
+    │   │       │   └── Exception
+    │   │       ├── QBusiness
+    │   │       │   └── Exception
+    │   │       ├── QConnect
+    │   │       │   └── Exception
+    │   │       ├── QLDB
+    │   │       │   └── Exception
+    │   │       ├── QLDBSession
+    │   │       │   └── Exception
+    │   │       ├── QuickSight
+    │   │       │   └── Exception
+    │   │       ├── RAM
+    │   │       │   └── Exception
+    │   │       ├── Rds
+    │   │       │   └── Exception
+    │   │       ├── RDSDataService
+    │   │       │   └── Exception
+    │   │       ├── RecycleBin
+    │   │       │   └── Exception
+    │   │       ├── Redshift
+    │   │       │   └── Exception
+    │   │       ├── RedshiftDataAPIService
+    │   │       │   └── Exception
+    │   │       ├── RedshiftServerless
+    │   │       │   └── Exception
+    │   │       ├── Rekognition
+    │   │       │   └── Exception
+    │   │       ├── Repostspace
+    │   │       │   └── Exception
+    │   │       ├── ResilienceHub
+    │   │       │   └── Exception
+    │   │       ├── ResourceExplorer2
+    │   │       │   └── Exception
+    │   │       ├── ResourceGroups
+    │   │       │   └── Exception
+    │   │       ├── ResourceGroupsTaggingAPI
+    │   │       │   └── Exception
+    │   │       ├── Retry
+    │   │       │   └── Exception
+    │   │       ├── RoboMaker
+    │   │       │   └── Exception
+    │   │       ├── RolesAnywhere
+    │   │       │   └── Exception
+    │   │       ├── Route53
+    │   │       │   └── Exception
+    │   │       ├── Route53Domains
+    │   │       │   └── Exception
+    │   │       ├── Route53Profiles
+    │   │       │   └── Exception
+    │   │       ├── Route53RecoveryCluster
+    │   │       │   └── Exception
+    │   │       ├── Route53RecoveryControlConfig
+    │   │       │   └── Exception
+    │   │       ├── Route53RecoveryReadiness
+    │   │       │   └── Exception
+    │   │       ├── Route53Resolver
+    │   │       │   └── Exception
+    │   │       ├── S3
+    │   │       │   ├── Crypto
+    │   │       │   ├── Exception
+    │   │       │   ├── Parser
+    │   │       │   ├── RegionalEndpoint
+    │   │       │   │   └── Exception
+    │   │       │   └── UseArnRegion
+    │   │       │       └── Exception
+    │   │       ├── S3Control
+    │   │       │   └── Exception
+    │   │       ├── S3Outposts
+    │   │       │   └── Exception
+    │   │       ├── S3Tables
+    │   │       │   └── Exception
+    │   │       ├── SageMaker
+    │   │       │   └── Exception
+    │   │       ├── SagemakerEdgeManager
+    │   │       │   └── Exception
+    │   │       ├── SageMakerFeatureStoreRuntime
+    │   │       │   └── Exception
+    │   │       ├── SageMakerGeospatial
+    │   │       │   └── Exception
+    │   │       ├── SageMakerMetrics
+    │   │       │   └── Exception
+    │   │       ├── SageMakerRuntime
+    │   │       │   └── Exception
+    │   │       ├── SavingsPlans
+    │   │       │   └── Exception
+    │   │       ├── Scheduler
+    │   │       │   └── Exception
+    │   │       ├── Schemas
+    │   │       │   └── Exception
+    │   │       ├── Script
+    │   │       │   └── Composer
+    │   │       ├── SecretsManager
+    │   │       │   └── Exception
+    │   │       ├── SecurityHub
+    │   │       │   └── Exception
+    │   │       ├── SecurityIR
+    │   │       │   └── Exception
+    │   │       ├── SecurityLake
+    │   │       │   └── Exception
+    │   │       ├── ServerlessApplicationRepository
+    │   │       │   └── Exception
+    │   │       ├── ServiceCatalog
+    │   │       │   └── Exception
+    │   │       ├── ServiceDiscovery
+    │   │       │   └── Exception
+    │   │       ├── ServiceQuotas
+    │   │       │   └── Exception
+    │   │       ├── Ses
+    │   │       │   └── Exception
+    │   │       ├── SesV2
+    │   │       │   └── Exception
+    │   │       ├── Sfn
+    │   │       │   └── Exception
+    │   │       ├── Shield
+    │   │       │   └── Exception
+    │   │       ├── Signature
+    │   │       ├── signer
+    │   │       │   └── Exception
+    │   │       ├── SimSpaceWeaver
+    │   │       │   └── Exception
+    │   │       ├── Sms
+    │   │       │   └── Exception
+    │   │       ├── SnowBall
+    │   │       │   └── Exception
+    │   │       ├── SnowDeviceManagement
+    │   │       │   └── Exception
+    │   │       ├── Sns
+    │   │       │   └── Exception
+    │   │       ├── SocialMessaging
+    │   │       │   └── Exception
+    │   │       ├── Sqs
+    │   │       │   └── Exception
+    │   │       ├── Ssm
+    │   │       │   └── Exception
+    │   │       ├── SSMContacts
+    │   │       │   └── Exception
+    │   │       ├── SSMIncidents
+    │   │       │   └── Exception
+    │   │       ├── SSMQuickSetup
+    │   │       │   └── Exception
+    │   │       ├── SsmSap
+    │   │       │   └── Exception
+    │   │       ├── SSO
+    │   │       │   └── Exception
+    │   │       ├── SSOAdmin
+    │   │       │   └── Exception
+    │   │       ├── SSOOIDC
+    │   │       │   └── Exception
+    │   │       ├── StorageGateway
+    │   │       │   └── Exception
+    │   │       ├── Sts
+    │   │       │   ├── Exception
+    │   │       │   └── RegionalEndpoints
+    │   │       │       └── Exception
+    │   │       ├── SupplyChain
+    │   │       │   └── Exception
+    │   │       ├── Support
+    │   │       │   └── Exception
+    │   │       ├── SupportApp
+    │   │       │   └── Exception
+    │   │       ├── Swf
+    │   │       │   └── Exception
+    │   │       ├── Synthetics
+    │   │       │   └── Exception
+    │   │       ├── TaxSettings
+    │   │       │   └── Exception
+    │   │       ├── Textract
+    │   │       │   └── Exception
+    │   │       ├── TimestreamInfluxDB
+    │   │       │   └── Exception
+    │   │       ├── TimestreamQuery
+    │   │       │   └── Exception
+    │   │       ├── TimestreamWrite
+    │   │       │   └── Exception
+    │   │       ├── Tnb
+    │   │       │   └── Exception
+    │   │       ├── Token
+    │   │       ├── TranscribeService
+    │   │       │   └── Exception
+    │   │       ├── Transfer
+    │   │       │   └── Exception
+    │   │       ├── Translate
+    │   │       │   └── Exception
+    │   │       ├── TrustedAdvisor
+    │   │       │   └── Exception
+    │   │       ├── VerifiedPermissions
+    │   │       │   └── Exception
+    │   │       ├── VoiceID
+    │   │       │   └── Exception
+    │   │       ├── VPCLattice
+    │   │       │   └── Exception
+    │   │       ├── Waf
+    │   │       │   └── Exception
+    │   │       ├── WafRegional
+    │   │       │   └── Exception
+    │   │       ├── WAFV2
+    │   │       │   └── Exception
+    │   │       ├── WellArchitected
+    │   │       │   └── Exception
+    │   │       ├── WorkDocs
+    │   │       │   └── Exception
+    │   │       ├── WorkMail
+    │   │       │   └── Exception
+    │   │       ├── WorkMailMessageFlow
+    │   │       │   └── Exception
+    │   │       ├── WorkSpaces
+    │   │       │   └── Exception
+    │   │       ├── WorkSpacesThinClient
+    │   │       │   └── Exception
+    │   │       ├── WorkSpacesWeb
+    │   │       │   └── Exception
+    │   │       └── XRay
+    │   │           └── Exception
+    │   └── aws-sdk-php-laravel
+    │       ├── config
+    │       └── src
+    ├── barryvdh
+    │   ├── laravel-dompdf
+    │   │   ├── config
+    │   │   └── src
+    │   │       └── Facade
+    │   └── laravel-snappy
+    │       ├── config
+    │       └── src
+    │           └── Facades
+    ├── bin
+    ├── brick
+    │   └── math
+    │       └── src
+    │           ├── Exception
+    │           └── Internal
+    │               └── Calculator
+    ├── carbonphp
+    │   └── carbon-doctrine-types
+    │       └── src
+    │           └── Carbon
+    │               └── Doctrine
+    ├── composer
+    │   ├── pcre
+    │   │   └── src
+    │   │       └── PHPStan
+    │   └── semver
+    │       └── src
+    │           └── Constraint
+    ├── dflydev
+    │   └── dot-access-data
+    │       └── src
+    │           └── Exception
+    ├── doctrine
+    │   ├── cache
+    │   │   └── lib
+    │   │       └── Doctrine
+    │   │           └── Common
+    │   │               └── Cache
+    │   │                   └── Psr6
+    │   ├── dbal
+    │   │   ├── bin
+    │   │   └── src
+    │   │       ├── ArrayParameters
+    │   │       │   └── Exception
+    │   │       ├── Cache
+    │   │       ├── Connections
+    │   │       ├── Driver
+    │   │       │   ├── AbstractOracleDriver
+    │   │       │   ├── AbstractSQLiteDriver
+    │   │       │   │   └── Middleware
+    │   │       │   ├── AbstractSQLServerDriver
+    │   │       │   │   └── Exception
+    │   │       │   ├── API
+    │   │       │   │   ├── IBMDB2
+    │   │       │   │   ├── MySQL
+    │   │       │   │   ├── OCI
+    │   │       │   │   ├── PostgreSQL
+    │   │       │   │   ├── SQLite
+    │   │       │   │   └── SQLSrv
+    │   │       │   ├── Exception
+    │   │       │   ├── IBMDB2
+    │   │       │   │   └── Exception
+    │   │       │   ├── Middleware
+    │   │       │   ├── Mysqli
+    │   │       │   │   ├── Exception
+    │   │       │   │   └── Initializer
+    │   │       │   ├── OCI8
+    │   │       │   │   ├── Exception
+    │   │       │   │   └── Middleware
+    │   │       │   ├── PDO
+    │   │       │   │   ├── MySQL
+    │   │       │   │   ├── OCI
+    │   │       │   │   ├── PgSQL
+    │   │       │   │   ├── SQLite
+    │   │       │   │   └── SQLSrv
+    │   │       │   ├── PgSQL
+    │   │       │   │   └── Exception
+    │   │       │   ├── SQLite3
+    │   │       │   └── SQLSrv
+    │   │       │       └── Exception
+    │   │       ├── Event
+    │   │       │   └── Listeners
+    │   │       ├── Exception
+    │   │       ├── Id
+    │   │       ├── Logging
+    │   │       ├── Platforms
+    │   │       │   ├── Keywords
+    │   │       │   ├── MySQL
+    │   │       │   │   └── CollationMetadataProvider
+    │   │       │   ├── SQLite
+    │   │       │   └── SQLServer
+    │   │       │       └── SQL
+    │   │       │           └── Builder
+    │   │       ├── Portability
+    │   │       ├── Query
+    │   │       │   ├── Expression
+    │   │       │   └── ForUpdate
+    │   │       ├── Schema
+    │   │       │   ├── Exception
+    │   │       │   └── Visitor
+    │   │       ├── SQL
+    │   │       │   ├── Builder
+    │   │       │   └── Parser
+    │   │       │       └── Exception
+    │   │       ├── Tools
+    │   │       │   └── Console
+    │   │       │       ├── Command
+    │   │       │       └── ConnectionProvider
+    │   │       └── Types
+    │   ├── deprecations
+    │   │   └── src
+    │   │       └── PHPUnit
+    │   ├── event-manager
+    │   │   └── src
+    │   ├── inflector
+    │   │   ├── docs
+    │   │   │   └── en
+    │   │   └── lib
+    │   │       └── Doctrine
+    │   │           └── Inflector
+    │   │               └── Rules
+    │   │                   ├── English
+    │   │                   ├── French
+    │   │                   ├── NorwegianBokmal
+    │   │                   ├── Portuguese
+    │   │                   ├── Spanish
+    │   │                   └── Turkish
+    │   ├── instantiator
+    │   │   ├── docs
+    │   │   │   └── en
+    │   │   └── src
+    │   │       └── Doctrine
+    │   │           └── Instantiator
+    │   │               └── Exception
+    │   └── lexer
+    │       └── src
+    ├── dompdf
+    │   └── dompdf
+    │       ├── lib
+    │       │   ├── fonts
+    │       │   └── res
+    │       └── src
+    │           ├── Adapter
+    │           ├── Css
+    │           ├── Exception
+    │           ├── Frame
+    │           ├── FrameDecorator
+    │           ├── FrameReflower
+    │           ├── Image
+    │           ├── Positioner
+    │           └── Renderer
+    ├── dragonmantank
+    │   └── cron-expression
+    │       └── src
+    │           └── Cron
+    ├── egulias
+    │   └── email-validator
+    │       └── src
+    │           ├── Parser
+    │           │   └── CommentStrategy
+    │           ├── Result
+    │           │   └── Reason
+    │           ├── Validation
+    │           │   ├── Exception
+    │           │   └── Extra
+    │           └── Warning
+    ├── ezyang
+    │   └── htmlpurifier
+    │       └── library
+    │           └── HTMLPurifier
+    │               ├── AttrDef
+    │               │   ├── CSS
+    │               │   ├── HTML
+    │               │   └── URI
+    │               │       └── Email
+    │               ├── AttrTransform
+    │               ├── ChildDef
+    │               ├── ConfigSchema
+    │               │   ├── Builder
+    │               │   ├── Interchange
+    │               │   └── schema
+    │               ├── DefinitionCache
+    │               │   ├── Decorator
+    │               │   └── Serializer
+    │               ├── EntityLookup
+    │               ├── Filter
+    │               ├── HTMLModule
+    │               │   └── Tidy
+    │               ├── Injector
+    │               ├── Language
+    │               │   └── messages
+    │               ├── Lexer
+    │               ├── Node
+    │               ├── Printer
+    │               ├── Strategy
+    │               ├── TagTransform
+    │               ├── Token
+    │               ├── URIFilter
+    │               ├── URIScheme
+    │               └── VarParser
+    ├── fakerphp
+    │   └── faker
+    │       └── src
+    │           └── Faker
+    │               ├── Calculator
+    │               ├── Container
+    │               ├── Core
+    │               ├── Extension
+    │               ├── Guesser
+    │               ├── ORM
+    │               │   ├── CakePHP
+    │               │   ├── Doctrine
+    │               │   ├── Mandango
+    │               │   ├── Propel
+    │               │   ├── Propel2
+    │               │   └── Spot
+    │               └── Provider
+    │                   ├── ar_EG
+    │                   ├── ar_JO
+    │                   ├── ar_SA
+    │                   ├── at_AT
+    │                   ├── bg_BG
+    │                   ├── bn_BD
+    │                   ├── cs_CZ
+    │                   ├── da_DK
+    │                   ├── de_AT
+    │                   ├── de_CH
+    │                   ├── de_DE
+    │                   ├── el_CY
+    │                   ├── el_GR
+    │                   ├── en_AU
+    │                   ├── en_CA
+    │                   ├── en_GB
+    │                   ├── en_HK
+    │                   ├── en_IN
+    │                   ├── en_NG
+    │                   ├── en_NZ
+    │                   ├── en_PH
+    │                   ├── en_SG
+    │                   ├── en_UG
+    │                   ├── en_US
+    │                   ├── en_ZA
+    │                   ├── es_AR
+    │                   ├── es_ES
+    │                   ├── es_PE
+    │                   ├── es_VE
+    │                   ├── et_EE
+    │                   ├── fa_IR
+    │                   ├── fi_FI
+    │                   ├── fr_BE
+    │                   ├── fr_CA
+    │                   ├── fr_CH
+    │                   ├── fr_FR
+    │                   ├── he_IL
+    │                   ├── hr_HR
+    │                   ├── hu_HU
+    │                   ├── hy_AM
+    │                   ├── id_ID
+    │                   ├── is_IS
+    │                   ├── it_CH
+    │                   ├── it_IT
+    │                   ├── ja_JP
+    │                   ├── ka_GE
+    │                   ├── kk_KZ
+    │                   ├── ko_KR
+    │                   ├── lt_LT
+    │                   ├── lv_LV
+    │                   ├── me_ME
+    │                   ├── mn_MN
+    │                   ├── ms_MY
+    │                   ├── nb_NO
+    │                   ├── ne_NP
+    │                   ├── nl_BE
+    │                   ├── nl_NL
+    │                   ├── pl_PL
+    │                   ├── pt_BR
+    │                   ├── pt_PT
+    │                   ├── ro_MD
+    │                   ├── ro_RO
+    │                   ├── ru_RU
+    │                   ├── sk_SK
+    │                   ├── sl_SI
+    │                   ├── sr_Cyrl_RS
+    │                   ├── sr_Latn_RS
+    │                   ├── sr_RS
+    │                   ├── sv_SE
+    │                   ├── th_TH
+    │                   ├── tr_TR
+    │                   ├── uk_UA
+    │                   ├── vi_VN
+    │                   ├── zh_CN
+    │                   └── zh_TW
+    ├── filp
+    │   └── whoops
+    │       └── src
+    │           └── Whoops
+    │               ├── Exception
+    │               ├── Handler
+    │               ├── Inspector
+    │               ├── Resources
+    │               │   ├── css
+    │               │   ├── js
+    │               │   └── views
+    │               └── Util
+    ├── firebase
+    │   └── php-jwt
+    │       └── src
+    ├── fruitcake
+    │   └── php-cors
+    │       └── src
+    │           └── Exceptions
+    ├── graham-campbell
+    │   └── result-type
+    │       └── src
+    ├── guzzlehttp
+    │   ├── guzzle
+    │   │   └── src
+    │   │       ├── Cookie
+    │   │       ├── Exception
+    │   │       └── Handler
+    │   ├── promises
+    │   │   └── src
+    │   ├── psr7
+    │   │   └── src
+    │   │       └── Exception
+    │   └── uri-template
+    │       └── src
+    ├── hamcrest
+    │   └── hamcrest-php
+    │       ├── generator
+    │       │   └── parts
+    │       └── hamcrest
+    │           └── Hamcrest
+    │               ├── Arrays
+    │               ├── Collection
+    │               ├── Core
+    │               ├── Internal
+    │               ├── Number
+    │               ├── Text
+    │               ├── Type
+    │               └── Xml
+    ├── intervention
+    │   └── image
+    │       └── src
+    │           ├── config
+    │           └── Intervention
+    │               └── Image
+    │                   ├── Commands
+    │                   ├── Exception
+    │                   ├── Facades
+    │                   ├── Filters
+    │                   ├── Gd
+    │                   │   ├── Commands
+    │                   │   └── Shapes
+    │                   └── Imagick
+    │                       ├── Commands
+    │                       └── Shapes
+    ├── knplabs
+    │   └── knp-snappy
+    │       ├── doc
+    │       └── src
+    │           └── Knp
+    │               └── Snappy
+    │                   └── Exception
+    ├── laravel
+    │   ├── framework
+    │   │   └── src
+    │   │       └── Illuminate
+    │   │           ├── Auth
+    │   │           │   ├── Access
+    │   │           │   │   └── Events
+    │   │           │   ├── Console
+    │   │           │   │   └── stubs
+    │   │           │   │       └── make
+    │   │           │   │           └── views
+    │   │           │   │               └── layouts
+    │   │           │   ├── Events
+    │   │           │   ├── Listeners
+    │   │           │   ├── Middleware
+    │   │           │   ├── Notifications
+    │   │           │   └── Passwords
+    │   │           ├── Broadcasting
+    │   │           │   └── Broadcasters
+    │   │           ├── Bus
+    │   │           │   └── Events
+    │   │           ├── Cache
+    │   │           │   ├── Console
+    │   │           │   │   └── stubs
+    │   │           │   ├── Events
+    │   │           │   └── RateLimiting
+    │   │           ├── Collections
+    │   │           │   └── Traits
+    │   │           ├── Conditionable
+    │   │           │   └── Traits
+    │   │           ├── Config
+    │   │           ├── Console
+    │   │           │   ├── Concerns
+    │   │           │   ├── Contracts
+    │   │           │   ├── Events
+    │   │           │   ├── resources
+    │   │           │   │   └── views
+    │   │           │   │       └── components
+    │   │           │   ├── Scheduling
+    │   │           │   └── View
+    │   │           │       └── Components
+    │   │           │           └── Mutators
+    │   │           ├── Container
+    │   │           ├── Contracts
+    │   │           │   ├── Auth
+    │   │           │   │   ├── Access
+    │   │           │   │   └── Middleware
+    │   │           │   ├── Broadcasting
+    │   │           │   ├── Bus
+    │   │           │   ├── Cache
+    │   │           │   ├── Config
+    │   │           │   ├── Console
+    │   │           │   ├── Container
+    │   │           │   ├── Cookie
+    │   │           │   ├── Database
+    │   │           │   │   ├── Eloquent
+    │   │           │   │   ├── Events
+    │   │           │   │   └── Query
+    │   │           │   ├── Debug
+    │   │           │   ├── Encryption
+    │   │           │   ├── Events
+    │   │           │   ├── Filesystem
+    │   │           │   ├── Foundation
+    │   │           │   ├── Hashing
+    │   │           │   ├── Http
+    │   │           │   ├── Mail
+    │   │           │   ├── Notifications
+    │   │           │   ├── Pagination
+    │   │           │   ├── Pipeline
+    │   │           │   ├── Queue
+    │   │           │   ├── Redis
+    │   │           │   ├── Routing
+    │   │           │   ├── Session
+    │   │           │   │   └── Middleware
+    │   │           │   ├── Support
+    │   │           │   ├── Translation
+    │   │           │   ├── Validation
+    │   │           │   └── View
+    │   │           ├── Cookie
+    │   │           │   └── Middleware
+    │   │           ├── Database
+    │   │           │   ├── Capsule
+    │   │           │   ├── Concerns
+    │   │           │   ├── Connectors
+    │   │           │   ├── Console
+    │   │           │   │   ├── Factories
+    │   │           │   │   │   └── stubs
+    │   │           │   │   ├── Migrations
+    │   │           │   │   └── Seeds
+    │   │           │   │       └── stubs
+    │   │           │   ├── DBAL
+    │   │           │   ├── Eloquent
+    │   │           │   │   ├── Casts
+    │   │           │   │   ├── Concerns
+    │   │           │   │   ├── Factories
+    │   │           │   │   └── Relations
+    │   │           │   │       └── Concerns
+    │   │           │   ├── Events
+    │   │           │   ├── Migrations
+    │   │           │   │   └── stubs
+    │   │           │   ├── PDO
+    │   │           │   │   └── Concerns
+    │   │           │   ├── Query
+    │   │           │   │   ├── Grammars
+    │   │           │   │   └── Processors
+    │   │           │   └── Schema
+    │   │           │       └── Grammars
+    │   │           ├── Encryption
+    │   │           ├── Events
+    │   │           ├── Filesystem
+    │   │           ├── Foundation
+    │   │           │   ├── Auth
+    │   │           │   │   └── Access
+    │   │           │   ├── Bootstrap
+    │   │           │   ├── Bus
+    │   │           │   ├── Concerns
+    │   │           │   ├── Console
+    │   │           │   │   └── stubs
+    │   │           │   ├── Events
+    │   │           │   ├── Exceptions
+    │   │           │   │   ├── views
+    │   │           │   │   └── Whoops
+    │   │           │   ├── Http
+    │   │           │   │   ├── Events
+    │   │           │   │   ├── Exceptions
+    │   │           │   │   └── Middleware
+    │   │           │   ├── Providers
+    │   │           │   ├── resources
+    │   │           │   ├── Routing
+    │   │           │   ├── stubs
+    │   │           │   ├── Support
+    │   │           │   │   └── Providers
+    │   │           │   ├── Testing
+    │   │           │   │   ├── Concerns
+    │   │           │   │   └── Traits
+    │   │           │   └── Validation
+    │   │           ├── Hashing
+    │   │           ├── Http
+    │   │           │   ├── Client
+    │   │           │   │   ├── Concerns
+    │   │           │   │   └── Events
+    │   │           │   ├── Concerns
+    │   │           │   ├── Exceptions
+    │   │           │   ├── Middleware
+    │   │           │   ├── Resources
+    │   │           │   │   └── Json
+    │   │           │   └── Testing
+    │   │           ├── Log
+    │   │           │   └── Events
+    │   │           ├── Macroable
+    │   │           │   └── Traits
+    │   │           ├── Mail
+    │   │           │   ├── Events
+    │   │           │   ├── Mailables
+    │   │           │   ├── resources
+    │   │           │   │   └── views
+    │   │           │   │       ├── html
+    │   │           │   │       │   └── themes
+    │   │           │   │       └── text
+    │   │           │   └── Transport
+    │   │           ├── Notifications
+    │   │           │   ├── Channels
+    │   │           │   ├── Console
+    │   │           │   │   └── stubs
+    │   │           │   ├── Events
+    │   │           │   ├── Messages
+    │   │           │   └── resources
+    │   │           │       └── views
+    │   │           ├── Pagination
+    │   │           │   └── resources
+    │   │           │       └── views
+    │   │           ├── Pipeline
+    │   │           ├── Queue
+    │   │           │   ├── Capsule
+    │   │           │   ├── Connectors
+    │   │           │   ├── Console
+    │   │           │   │   └── stubs
+    │   │           │   ├── Events
+    │   │           │   ├── Failed
+    │   │           │   ├── Jobs
+    │   │           │   └── Middleware
+    │   │           ├── Redis
+    │   │           │   ├── Connections
+    │   │           │   ├── Connectors
+    │   │           │   ├── Events
+    │   │           │   └── Limiters
+    │   │           ├── Routing
+    │   │           │   ├── Console
+    │   │           │   │   └── stubs
+    │   │           │   ├── Contracts
+    │   │           │   ├── Controllers
+    │   │           │   ├── Events
+    │   │           │   ├── Exceptions
+    │   │           │   ├── Matching
+    │   │           │   └── Middleware
+    │   │           ├── Session
+    │   │           │   ├── Console
+    │   │           │   │   └── stubs
+    │   │           │   └── Middleware
+    │   │           ├── Support
+    │   │           │   ├── Exceptions
+    │   │           │   ├── Facades
+    │   │           │   ├── Testing
+    │   │           │   │   └── Fakes
+    │   │           │   └── Traits
+    │   │           ├── Testing
+    │   │           │   ├── Concerns
+    │   │           │   ├── Constraints
+    │   │           │   └── Fluent
+    │   │           │       └── Concerns
+    │   │           ├── Translation
+    │   │           ├── Validation
+    │   │           │   ├── Concerns
+    │   │           │   └── Rules
+    │   │           └── View
+    │   │               ├── Compilers
+    │   │               │   └── Concerns
+    │   │               ├── Concerns
+    │   │               ├── Engines
+    │   │               └── Middleware
+    │   ├── pint
+    │   │   └── builds
+    │   ├── sail
+    │   │   ├── bin
+    │   │   ├── database
+    │   │   │   ├── mariadb
+    │   │   │   ├── mysql
+    │   │   │   └── pgsql
+    │   │   ├── runtimes
+    │   │   │   ├── 8.0
+    │   │   │   ├── 8.1
+    │   │   │   ├── 8.2
+    │   │   │   ├── 8.3
+    │   │   │   └── 8.4
+    │   │   ├── src
+    │   │   │   └── Console
+    │   │   │       └── Concerns
+    │   │   └── stubs
+    │   ├── sanctum
+    │   │   ├── config
+    │   │   ├── database
+    │   │   │   └── migrations
+    │   │   └── src
+    │   │       ├── Console
+    │   │       │   └── Commands
+    │   │       ├── Contracts
+    │   │       ├── Events
+    │   │       ├── Exceptions
+    │   │       └── Http
+    │   │           ├── Controllers
+    │   │           └── Middleware
+    │   ├── serializable-closure
+    │   │   └── src
+    │   │       ├── Contracts
+    │   │       ├── Exceptions
+    │   │       ├── Serializers
+    │   │       ├── Signers
+    │   │       └── Support
+    │   ├── socialite
+    │   │   └── src
+    │   │       ├── Contracts
+    │   │       ├── Exceptions
+    │   │       ├── Facades
+    │   │       ├── One
+    │   │       └── Two
+    │   ├── telescope
+    │   │   ├── config
+    │   │   ├── database
+    │   │   │   ├── factories
+    │   │   │   └── migrations
+    │   │   ├── public
+    │   │   ├── resources
+    │   │   │   ├── js
+    │   │   │   │   ├── components
+    │   │   │   │   ├── mixins
+    │   │   │   │   └── screens
+    │   │   │   │       ├── batches
+    │   │   │   │       ├── cache
+    │   │   │   │       ├── client-requests
+    │   │   │   │       ├── commands
+    │   │   │   │       ├── dumps
+    │   │   │   │       ├── events
+    │   │   │   │       ├── exceptions
+    │   │   │   │       ├── gates
+    │   │   │   │       ├── jobs
+    │   │   │   │       ├── logs
+    │   │   │   │       ├── mail
+    │   │   │   │       ├── models
+    │   │   │   │       ├── monitoring
+    │   │   │   │       ├── notifications
+    │   │   │   │       ├── queries
+    │   │   │   │       ├── redis
+    │   │   │   │       ├── requests
+    │   │   │   │       ├── schedule
+    │   │   │   │       └── views
+    │   │   │   ├── sass
+    │   │   │   └── views
+    │   │   ├── routes
+    │   │   ├── src
+    │   │   │   ├── Console
+    │   │   │   ├── Contracts
+    │   │   │   ├── Http
+    │   │   │   │   ├── Controllers
+    │   │   │   │   └── Middleware
+    │   │   │   ├── Jobs
+    │   │   │   ├── Storage
+    │   │   │   └── Watchers
+    │   │   ├── stubs
+    │   │   └── workbench
+    │   │       ├── app
+    │   │       │   └── Providers
+    │   │       └── database
+    │   │           └── seeders
+    │   └── tinker
+    │       ├── config
+    │       └── src
+    │           └── Console
+    ├── league
+    │   ├── commonmark
+    │   │   └── src
+    │   │       ├── Delimiter
+    │   │       │   └── Processor
+    │   │       ├── Environment
+    │   │       ├── Event
+    │   │       ├── Exception
+    │   │       ├── Extension
+    │   │       │   ├── Attributes
+    │   │       │   │   ├── Event
+    │   │       │   │   ├── Node
+    │   │       │   │   ├── Parser
+    │   │       │   │   └── Util
+    │   │       │   ├── Autolink
+    │   │       │   ├── CommonMark
+    │   │       │   │   ├── Delimiter
+    │   │       │   │   │   └── Processor
+    │   │       │   │   ├── Node
+    │   │       │   │   │   ├── Block
+    │   │       │   │   │   └── Inline
+    │   │       │   │   ├── Parser
+    │   │       │   │   │   ├── Block
+    │   │       │   │   │   └── Inline
+    │   │       │   │   └── Renderer
+    │   │       │   │       ├── Block
+    │   │       │   │       └── Inline
+    │   │       │   ├── DefaultAttributes
+    │   │       │   ├── DescriptionList
+    │   │       │   │   ├── Event
+    │   │       │   │   ├── Node
+    │   │       │   │   ├── Parser
+    │   │       │   │   └── Renderer
+    │   │       │   ├── DisallowedRawHtml
+    │   │       │   ├── Embed
+    │   │       │   │   └── Bridge
+    │   │       │   ├── ExternalLink
+    │   │       │   ├── Footnote
+    │   │       │   │   ├── Event
+    │   │       │   │   ├── Node
+    │   │       │   │   ├── Parser
+    │   │       │   │   └── Renderer
+    │   │       │   ├── FrontMatter
+    │   │       │   │   ├── Data
+    │   │       │   │   ├── Exception
+    │   │       │   │   ├── Input
+    │   │       │   │   ├── Listener
+    │   │       │   │   └── Output
+    │   │       │   ├── HeadingPermalink
+    │   │       │   ├── InlinesOnly
+    │   │       │   ├── Mention
+    │   │       │   │   └── Generator
+    │   │       │   ├── SmartPunct
+    │   │       │   ├── Strikethrough
+    │   │       │   ├── Table
+    │   │       │   ├── TableOfContents
+    │   │       │   │   ├── Node
+    │   │       │   │   └── Normalizer
+    │   │       │   └── TaskList
+    │   │       ├── Input
+    │   │       ├── Node
+    │   │       │   ├── Block
+    │   │       │   ├── Inline
+    │   │       │   └── Query
+    │   │       ├── Normalizer
+    │   │       ├── Output
+    │   │       ├── Parser
+    │   │       │   ├── Block
+    │   │       │   └── Inline
+    │   │       ├── Reference
+    │   │       ├── Renderer
+    │   │       │   ├── Block
+    │   │       │   └── Inline
+    │   │       ├── Util
+    │   │       └── Xml
+    │   ├── config
+    │   │   └── src
+    │   │       └── Exception
+    │   ├── flysystem
+    │   │   └── src
+    │   │       ├── UnixVisibility
+    │   │       └── UrlGeneration
+    │   ├── flysystem-aws-s3-v3
+    │   ├── flysystem-local
+    │   ├── glide
+    │   │   └── src
+    │   │       ├── Api
+    │   │       ├── Filesystem
+    │   │       ├── Manipulators
+    │   │       │   └── Helpers
+    │   │       ├── Responses
+    │   │       ├── Signatures
+    │   │       └── Urls
+    │   ├── mime-type-detection
+    │   │   └── src
+    │   └── oauth1-client
+    │       └── src
+    │           ├── Credentials
+    │           ├── Server
+    │           └── Signature
+    ├── maatwebsite
+    │   └── excel
+    │       ├── config
+    │       └── src
+    │           ├── Cache
+    │           ├── Concerns
+    │           ├── Console
+    │           │   └── stubs
+    │           ├── Events
+    │           ├── Exceptions
+    │           ├── Facades
+    │           ├── Factories
+    │           ├── Fakes
+    │           ├── Files
+    │           ├── Filters
+    │           ├── Helpers
+    │           ├── Imports
+    │           ├── Jobs
+    │           │   └── Middleware
+    │           ├── Mixins
+    │           ├── Transactions
+    │           └── Validators
+    ├── maennchen
+    │   └── zipstream-php
+    │       ├── guides
+    │       ├── src
+    │       │   ├── Exception
+    │       │   └── Option
+    │       └── test
+    │           └── bug
+    ├── markbaker
+    │   ├── complex
+    │   │   ├── classes
+    │   │   │   └── src
+    │   │   └── examples
+    │   └── matrix
+    │       ├── classes
+    │       │   └── src
+    │       │       ├── Decomposition
+    │       │       └── Operators
+    │       └── examples
+    ├── masterminds
+    │   └── html5
+    │       ├── bin
+    │       └── src
+    │           └── HTML5
+    │               ├── Parser
+    │               └── Serializer
+    ├── mockery
+    │   └── mockery
+    │       ├── docs
+    │       │   ├── cookbook
+    │       │   ├── getting_started
+    │       │   ├── mockery
+    │       │   ├── reference
+    │       │   └── _static
+    │       └── library
+    │           └── Mockery
+    │               ├── Adapter
+    │               │   └── Phpunit
+    │               ├── CountValidator
+    │               ├── Exception
+    │               ├── Generator
+    │               │   └── StringManipulation
+    │               │       └── Pass
+    │               ├── Loader
+    │               └── Matcher
+    ├── monolog
+    │   └── monolog
+    │       └── src
+    │           └── Monolog
+    │               ├── Attribute
+    │               ├── Formatter
+    │               ├── Handler
+    │               │   ├── Curl
+    │               │   ├── FingersCrossed
+    │               │   ├── Slack
+    │               │   └── SyslogUdp
+    │               ├── Processor
+    │               └── Test
+    ├── mtdowling
+    │   └── jmespath.php
+    │       ├── bin
+    │       └── src
+    ├── myclabs
+    │   ├── deep-copy
+    │   │   └── src
+    │   │       └── DeepCopy
+    │   │           ├── Exception
+    │   │           ├── Filter
+    │   │           │   └── Doctrine
+    │   │           ├── Matcher
+    │   │           │   └── Doctrine
+    │   │           ├── Reflection
+    │   │           ├── TypeFilter
+    │   │           │   ├── Date
+    │   │           │   └── Spl
+    │   │           └── TypeMatcher
+    │   └── php-enum
+    │       ├── src
+    │       │   └── PHPUnit
+    │       └── stubs
+    ├── nesbot
+    │   └── carbon
+    │       ├── bin
+    │       ├── lazy
+    │       │   └── Carbon
+    │       │       ├── MessageFormatter
+    │       │       └── PHPStan
+    │       └── src
+    │           └── Carbon
+    │               ├── Cli
+    │               ├── Exceptions
+    │               ├── Lang
+    │               ├── Laravel
+    │               ├── List
+    │               ├── MessageFormatter
+    │               ├── PHPStan
+    │               └── Traits
+    ├── nette
+    │   ├── schema
+    │   │   └── src
+    │   │       └── Schema
+    │   │           └── Elements
+    │   └── utils
+    │       └── src
+    │           ├── Iterators
+    │           └── Utils
+    ├── nicmart
+    │   └── tree
+    │       └── src
+    │           ├── Builder
+    │           ├── Node
+    │           └── Visitor
+    ├── nikic
+    │   └── php-parser
+    │       ├── bin
+    │       └── lib
+    │           └── PhpParser
+    │               ├── Builder
+    │               ├── Comment
+    │               ├── ErrorHandler
+    │               ├── Internal
+    │               ├── Lexer
+    │               │   └── TokenEmulator
+    │               ├── Node
+    │               │   ├── Expr
+    │               │   │   ├── AssignOp
+    │               │   │   ├── BinaryOp
+    │               │   │   └── Cast
+    │               │   ├── Name
+    │               │   ├── Scalar
+    │               │   │   └── MagicConst
+    │               │   └── Stmt
+    │               │       └── TraitUseAdaptation
+    │               ├── NodeVisitor
+    │               ├── Parser
+    │               └── PrettyPrinter
+    ├── nunomaduro
+    │   ├── collision
+    │   │   └── src
+    │   │       ├── Adapters
+    │   │       │   ├── Laravel
+    │   │       │   │   ├── Commands
+    │   │       │   │   └── Exceptions
+    │   │       │   └── Phpunit
+    │   │       ├── Contracts
+    │   │       │   └── Adapters
+    │   │       │       └── Phpunit
+    │   │       ├── Exceptions
+    │   │       └── SolutionsRepositories
+    │   └── termwind
+    │       └── src
+    │           ├── Actions
+    │           ├── Components
+    │           ├── Enums
+    │           ├── Exceptions
+    │           ├── Helpers
+    │           ├── Html
+    │           ├── Laravel
+    │           ├── Repositories
+    │           └── ValueObjects
+    ├── nyholm
+    │   └── psr7
+    │       └── src
+    │           └── Factory
+    ├── paragonie
+    │   ├── constant_time_encoding
+    │   │   └── src
+    │   └── random_compat
+    │       ├── lib
+    │       └── other
+    ├── phar-io
+    │   ├── manifest
+    │   │   ├── src
+    │   │   │   ├── exceptions
+    │   │   │   ├── values
+    │   │   │   └── xml
+    │   │   └── tools
+    │   │       └── php-cs-fixer.d
+    │   └── version
+    │       └── src
+    │           ├── constraints
+    │           └── exceptions
+    ├── phenx
+    │   ├── php-font-lib
+    │   │   ├── maps
+    │   │   └── src
+    │   │       └── FontLib
+    │   │           ├── EOT
+    │   │           ├── Exception
+    │   │           ├── Glyph
+    │   │           ├── OpenType
+    │   │           ├── Table
+    │   │           │   └── Type
+    │   │           ├── TrueType
+    │   │           └── WOFF
+    │   └── php-svg-lib
+    │       └── src
+    │           └── Svg
+    │               ├── Gradient
+    │               ├── Surface
+    │               └── Tag
+    ├── phpoffice
+    │   └── phpspreadsheet
+    │       └── src
+    │           └── PhpSpreadsheet
+    │               ├── Calculation
+    │               │   ├── Database
+    │               │   ├── DateTimeExcel
+    │               │   ├── Engine
+    │               │   │   └── Operands
+    │               │   ├── Engineering
+    │               │   ├── Financial
+    │               │   │   ├── CashFlow
+    │               │   │   │   ├── Constant
+    │               │   │   │   │   └── Periodic
+    │               │   │   │   └── Variable
+    │               │   │   └── Securities
+    │               │   ├── Information
+    │               │   ├── Internal
+    │               │   ├── locale
+    │               │   │   ├── bg
+    │               │   │   ├── cs
+    │               │   │   ├── da
+    │               │   │   ├── de
+    │               │   │   ├── en
+    │               │   │   │   └── uk
+    │               │   │   ├── es
+    │               │   │   ├── fi
+    │               │   │   ├── fr
+    │               │   │   ├── hu
+    │               │   │   ├── it
+    │               │   │   ├── nb
+    │               │   │   ├── nl
+    │               │   │   ├── pl
+    │               │   │   ├── pt
+    │               │   │   │   └── br
+    │               │   │   ├── ru
+    │               │   │   ├── sv
+    │               │   │   └── tr
+    │               │   ├── Logical
+    │               │   ├── LookupRef
+    │               │   ├── MathTrig
+    │               │   │   └── Trig
+    │               │   ├── Statistical
+    │               │   │   ├── Averages
+    │               │   │   └── Distributions
+    │               │   ├── TextData
+    │               │   ├── Token
+    │               │   └── Web
+    │               ├── Cell
+    │               ├── Chart
+    │               │   └── Renderer
+    │               ├── Collection
+    │               │   └── Memory
+    │               ├── Document
+    │               ├── Helper
+    │               ├── Reader
+    │               │   ├── Csv
+    │               │   ├── Gnumeric
+    │               │   ├── Ods
+    │               │   ├── Security
+    │               │   ├── Xls
+    │               │   │   ├── Color
+    │               │   │   └── Style
+    │               │   ├── Xlsx
+    │               │   └── Xml
+    │               │       └── Style
+    │               ├── RichText
+    │               ├── Shared
+    │               │   ├── Escher
+    │               │   │   ├── DgContainer
+    │               │   │   │   └── SpgrContainer
+    │               │   │   └── DggContainer
+    │               │   │       └── BstoreContainer
+    │               │   │           └── BSE
+    │               │   ├── OLE
+    │               │   │   └── PPS
+    │               │   └── Trend
+    │               ├── Style
+    │               │   ├── ConditionalFormatting
+    │               │   │   └── Wizard
+    │               │   └── NumberFormat
+    │               │       └── Wizard
+    │               ├── Worksheet
+    │               │   ├── AutoFilter
+    │               │   │   └── Column
+    │               │   ├── Drawing
+    │               │   └── Table
+    │               └── Writer
+    │                   ├── Ods
+    │                   │   └── Cell
+    │                   ├── Pdf
+    │                   ├── Xls
+    │                   │   └── Style
+    │                   └── Xlsx
+    ├── phpoption
+    │   └── phpoption
+    │       └── src
+    │           └── PhpOption
+    ├── phpseclib
+    │   └── phpseclib
+    │       └── phpseclib
+    │           ├── Common
+    │           │   └── Functions
+    │           ├── Crypt
+    │           │   ├── Common
+    │           │   │   ├── Formats
+    │           │   │   │   ├── Keys
+    │           │   │   │   └── Signature
+    │           │   │   └── Traits
+    │           │   ├── DH
+    │           │   │   └── Formats
+    │           │   │       └── Keys
+    │           │   ├── DSA
+    │           │   │   └── Formats
+    │           │   │       ├── Keys
+    │           │   │       └── Signature
+    │           │   ├── EC
+    │           │   │   ├── BaseCurves
+    │           │   │   ├── Curves
+    │           │   │   └── Formats
+    │           │   │       ├── Keys
+    │           │   │       └── Signature
+    │           │   └── RSA
+    │           │       └── Formats
+    │           │           └── Keys
+    │           ├── Exception
+    │           ├── File
+    │           │   └── ASN1
+    │           │       └── Maps
+    │           ├── Math
+    │           │   ├── BigInteger
+    │           │   │   └── Engines
+    │           │   │       ├── BCMath
+    │           │   │       │   └── Reductions
+    │           │   │       ├── GMP
+    │           │   │       └── PHP
+    │           │   │           └── Reductions
+    │           │   ├── BinaryField
+    │           │   ├── Common
+    │           │   │   └── FiniteField
+    │           │   └── PrimeField
+    │           ├── Net
+    │           │   └── SFTP
+    │           └── System
+    │               └── SSH
+    │                   ├── Agent
+    │                   └── Common
+    │                       └── Traits
+    ├── phpunit
+    │   ├── php-code-coverage
+    │   │   ├── build
+    │   │   │   └── scripts
+    │   │   └── src
+    │   │       ├── Driver
+    │   │       ├── Exception
+    │   │       ├── Node
+    │   │       ├── Report
+    │   │       │   ├── Html
+    │   │       │   │   └── Renderer
+    │   │       │   │       └── Template
+    │   │       │   │           ├── css
+    │   │       │   │           ├── icons
+    │   │       │   │           └── js
+    │   │       │   └── Xml
+    │   │       ├── StaticAnalysis
+    │   │       └── Util
+    │   ├── php-file-iterator
+    │   │   └── src
+    │   ├── php-invoker
+    │   │   └── src
+    │   │       └── exceptions
+    │   ├── php-text-template
+    │   │   └── src
+    │   │       └── exceptions
+    │   ├── php-timer
+    │   │   └── src
+    │   │       └── exceptions
+    │   └── phpunit
+    │       ├── schema
+    │       └── src
+    │           ├── Framework
+    │           │   ├── Assert
+    │           │   ├── Constraint
+    │           │   │   ├── Boolean
+    │           │   │   ├── Cardinality
+    │           │   │   ├── Equality
+    │           │   │   ├── Exception
+    │           │   │   ├── Filesystem
+    │           │   │   ├── Math
+    │           │   │   ├── Object
+    │           │   │   ├── Operator
+    │           │   │   ├── String
+    │           │   │   ├── Traversable
+    │           │   │   └── Type
+    │           │   ├── Error
+    │           │   ├── Exception
+    │           │   └── MockObject
+    │           │       ├── Api
+    │           │       ├── Builder
+    │           │       ├── Exception
+    │           │       ├── Generator
+    │           │       ├── Rule
+    │           │       └── Stub
+    │           ├── Runner
+    │           │   ├── Extension
+    │           │   ├── Filter
+    │           │   └── Hook
+    │           ├── TextUI
+    │           │   ├── CliArguments
+    │           │   ├── Exception
+    │           │   └── XmlConfiguration
+    │           │       ├── CodeCoverage
+    │           │       │   ├── Filter
+    │           │       │   └── Report
+    │           │       ├── Filesystem
+    │           │       ├── Group
+    │           │       ├── Logging
+    │           │       │   └── TestDox
+    │           │       ├── Migration
+    │           │       │   └── Migrations
+    │           │       ├── PHP
+    │           │       ├── PHPUnit
+    │           │       └── TestSuite
+    │           └── Util
+    │               ├── Annotation
+    │               ├── Log
+    │               ├── PHP
+    │               │   └── Template
+    │               ├── TestDox
+    │               └── Xml
+    ├── psr
+    │   ├── cache
+    │   │   └── src
+    │   ├── clock
+    │   │   └── src
+    │   ├── container
+    │   │   └── src
+    │   ├── event-dispatcher
+    │   │   └── src
+    │   ├── http-client
+    │   │   └── src
+    │   ├── http-factory
+    │   │   └── src
+    │   ├── http-message
+    │   │   ├── docs
+    │   │   └── src
+    │   ├── log
+    │   │   └── src
+    │   └── simple-cache
+    │       └── src
+    ├── psy
+    │   └── psysh
+    │       ├── bin
+    │       └── src
+    │           ├── CodeCleaner
+    │           ├── Command
+    │           │   ├── ListCommand
+    │           │   └── TimeitCommand
+    │           ├── Exception
+    │           ├── ExecutionLoop
+    │           ├── Formatter
+    │           ├── Input
+    │           ├── Output
+    │           ├── Readline
+    │           │   └── Hoa
+    │           │       └── Terminfo
+    │           │           ├── 77
+    │           │           └── 78
+    │           ├── Reflection
+    │           ├── Sudo
+    │           ├── TabCompletion
+    │           │   └── Matcher
+    │           ├── Util
+    │           ├── VarDumper
+    │           └── VersionUpdater
+    │               └── Downloader
+    ├── ralouphie
+    │   └── getallheaders
+    │       └── src
+    ├── ramsey
+    │   ├── collection
+    │   │   └── src
+    │   │       ├── Exception
+    │   │       ├── Map
+    │   │       └── Tool
+    │   └── uuid
+    │       └── src
+    │           ├── Builder
+    │           ├── Codec
+    │           ├── Converter
+    │           │   ├── Number
+    │           │   └── Time
+    │           ├── Exception
+    │           ├── Fields
+    │           ├── Generator
+    │           ├── Guid
+    │           ├── Lazy
+    │           ├── Math
+    │           ├── Nonstandard
+    │           ├── Provider
+    │           │   ├── Dce
+    │           │   ├── Node
+    │           │   └── Time
+    │           ├── Rfc4122
+    │           ├── Type
+    │           └── Validator
+    ├── sabberworm
+    │   └── php-css-parser
+    │       └── src
+    │           ├── Comment
+    │           ├── CSSList
+    │           ├── Parsing
+    │           ├── Property
+    │           ├── Rule
+    │           ├── RuleSet
+    │           └── Value
+    ├── sebastian
+    │   ├── cli-parser
+    │   │   └── src
+    │   │       └── exceptions
+    │   ├── code-unit
+    │   │   └── src
+    │   │       └── exceptions
+    │   ├── code-unit-reverse-lookup
+    │   │   └── src
+    │   ├── comparator
+    │   │   └── src
+    │   │       └── exceptions
+    │   ├── complexity
+    │   │   └── src
+    │   │       ├── Complexity
+    │   │       ├── Exception
+    │   │       └── Visitor
+    │   ├── diff
+    │   │   └── src
+    │   │       ├── Exception
+    │   │       └── Output
+    │   ├── environment
+    │   │   └── src
+    │   ├── exporter
+    │   │   └── src
+    │   ├── global-state
+    │   │   └── src
+    │   │       └── exceptions
+    │   ├── lines-of-code
+    │   │   └── src
+    │   │       └── Exception
+    │   ├── object-enumerator
+    │   │   └── src
+    │   ├── object-reflector
+    │   │   └── src
+    │   ├── recursion-context
+    │   │   └── src
+    │   ├── resource-operations
+    │   │   ├── build
+    │   │   └── src
+    │   ├── type
+    │   │   └── src
+    │   │       ├── exception
+    │   │       └── type
+    │   └── version
+    │       └── src
+    ├── spatie
+    │   ├── backtrace
+    │   │   └── src
+    │   │       ├── Arguments
+    │   │       │   ├── ReducedArgument
+    │   │       │   └── Reducers
+    │   │       └── CodeSnippets
+    │   ├── browsershot
+    │   │   ├── bin
+    │   │   └── src
+    │   │       └── Exceptions
+    │   ├── crawler
+    │   │   └── src
+    │   │       ├── CrawlObservers
+    │   │       ├── CrawlProfiles
+    │   │       ├── CrawlQueues
+    │   │       ├── Exceptions
+    │   │       └── Handlers
+    │   ├── flare-client-php
+    │   │   └── src
+    │   │       ├── Concerns
+    │   │       ├── Context
+    │   │       ├── Contracts
+    │   │       ├── Enums
+    │   │       ├── FlareMiddleware
+    │   │       ├── Glows
+    │   │       ├── Http
+    │   │       │   └── Exceptions
+    │   │       ├── Solutions
+    │   │       ├── Support
+    │   │       ├── Time
+    │   │       └── Truncation
+    │   ├── ignition
+    │   │   ├── resources
+    │   │   │   ├── compiled
+    │   │   │   └── views
+    │   │   └── src
+    │   │       ├── Config
+    │   │       ├── Contracts
+    │   │       ├── ErrorPage
+    │   │       └── Solutions
+    │   │           ├── OpenAi
+    │   │           └── SolutionProviders
+    │   ├── image
+    │   │   └── src
+    │   │       └── Exceptions
+    │   ├── image-optimizer
+    │   │   └── src
+    │   │       └── Optimizers
+    │   ├── laravel-export
+    │   │   ├── config
+    │   │   └── src
+    │   │       ├── Console
+    │   │       ├── Crawler
+    │   │       ├── Destinations
+    │   │       ├── Jobs
+    │   │       └── Traits
+    │   ├── laravel-ignition
+    │   │   ├── config
+    │   │   └── src
+    │   │       ├── Commands
+    │   │       │   └── stubs
+    │   │       ├── ContextProviders
+    │   │       ├── Exceptions
+    │   │       ├── Facades
+    │   │       ├── FlareMiddleware
+    │   │       ├── Http
+    │   │       │   ├── Controllers
+    │   │       │   ├── Middleware
+    │   │       │   └── Requests
+    │   │       ├── Recorders
+    │   │       │   ├── DumpRecorder
+    │   │       │   ├── JobRecorder
+    │   │       │   ├── LogRecorder
+    │   │       │   └── QueryRecorder
+    │   │       ├── Renderers
+    │   │       ├── Solutions
+    │   │       │   ├── SolutionProviders
+    │   │       │   └── SolutionTransformers
+    │   │       ├── Support
+    │   │       │   └── Composer
+    │   │       └── Views
+    │   ├── robots-txt
+    │   │   └── src
+    │   └── temporary-directory
+    │       └── src
+    │           └── Exceptions
+    ├── symfony
+    │   ├── console
+    │   │   ├── Attribute
+    │   │   ├── CI
+    │   │   ├── Command
+    │   │   ├── CommandLoader
+    │   │   ├── Completion
+    │   │   │   └── Output
+    │   │   ├── DataCollector
+    │   │   ├── Debug
+    │   │   ├── DependencyInjection
+    │   │   ├── Descriptor
+    │   │   ├── Event
+    │   │   ├── EventListener
+    │   │   ├── Exception
+    │   │   ├── Formatter
+    │   │   ├── Helper
+    │   │   ├── Input
+    │   │   ├── Logger
+    │   │   ├── Messenger
+    │   │   ├── Output
+    │   │   ├── Question
+    │   │   ├── Resources
+    │   │   │   └── bin
+    │   │   ├── SignalRegistry
+    │   │   ├── Style
+    │   │   └── Tester
+    │   │       └── Constraint
+    │   ├── css-selector
+    │   │   ├── Exception
+    │   │   ├── Node
+    │   │   ├── Parser
+    │   │   │   ├── Handler
+    │   │   │   ├── Shortcut
+    │   │   │   └── Tokenizer
+    │   │   └── XPath
+    │   │       └── Extension
+    │   ├── deprecation-contracts
+    │   ├── dom-crawler
+    │   │   ├── Field
+    │   │   └── Test
+    │   │       └── Constraint
+    │   ├── error-handler
+    │   │   ├── Error
+    │   │   ├── ErrorEnhancer
+    │   │   ├── ErrorRenderer
+    │   │   ├── Exception
+    │   │   ├── Internal
+    │   │   └── Resources
+    │   │       ├── assets
+    │   │       │   ├── css
+    │   │       │   ├── images
+    │   │       │   └── js
+    │   │       ├── bin
+    │   │       └── views
+    │   ├── event-dispatcher
+    │   │   ├── Attribute
+    │   │   ├── Debug
+    │   │   └── DependencyInjection
+    │   ├── event-dispatcher-contracts
+    │   ├── finder
+    │   │   ├── Comparator
+    │   │   ├── Exception
+    │   │   └── Iterator
+    │   ├── http-foundation
+    │   │   ├── Exception
+    │   │   ├── File
+    │   │   │   └── Exception
+    │   │   ├── RateLimiter
+    │   │   ├── RequestMatcher
+    │   │   ├── Session
+    │   │   │   ├── Attribute
+    │   │   │   ├── Flash
+    │   │   │   └── Storage
+    │   │   │       ├── Handler
+    │   │   │       └── Proxy
+    │   │   └── Test
+    │   │       └── Constraint
+    │   ├── http-kernel
+    │   │   ├── Attribute
+    │   │   ├── Bundle
+    │   │   ├── CacheClearer
+    │   │   ├── CacheWarmer
+    │   │   ├── Config
+    │   │   ├── Controller
+    │   │   │   └── ArgumentResolver
+    │   │   ├── ControllerMetadata
+    │   │   ├── DataCollector
+    │   │   ├── Debug
+    │   │   ├── DependencyInjection
+    │   │   ├── Event
+    │   │   ├── EventListener
+    │   │   ├── Exception
+    │   │   ├── Fragment
+    │   │   ├── HttpCache
+    │   │   ├── Log
+    │   │   ├── Profiler
+    │   │   └── Resources
+    │   ├── mailer
+    │   │   ├── Command
+    │   │   ├── DataCollector
+    │   │   ├── Event
+    │   │   ├── EventListener
+    │   │   ├── Exception
+    │   │   ├── Header
+    │   │   ├── Messenger
+    │   │   ├── Test
+    │   │   │   └── Constraint
+    │   │   └── Transport
+    │   │       └── Smtp
+    │   │           ├── Auth
+    │   │           └── Stream
+    │   ├── mime
+    │   │   ├── Crypto
+    │   │   ├── DependencyInjection
+    │   │   ├── Encoder
+    │   │   ├── Exception
+    │   │   ├── Header
+    │   │   ├── HtmlToTextConverter
+    │   │   ├── Part
+    │   │   │   └── Multipart
+    │   │   ├── Resources
+    │   │   │   └── bin
+    │   │   └── Test
+    │   │       └── Constraint
+    │   ├── polyfill-ctype
+    │   ├── polyfill-intl-grapheme
+    │   ├── polyfill-intl-idn
+    │   │   └── Resources
+    │   │       └── unidata
+    │   ├── polyfill-intl-normalizer
+    │   │   └── Resources
+    │   │       ├── stubs
+    │   │       └── unidata
+    │   ├── polyfill-mbstring
+    │   │   └── Resources
+    │   │       └── unidata
+    │   ├── polyfill-php80
+    │   │   └── Resources
+    │   │       └── stubs
+    │   ├── polyfill-php83
+    │   │   └── Resources
+    │   │       └── stubs
+    │   ├── polyfill-uuid
+    │   ├── process
+    │   │   ├── Exception
+    │   │   ├── Messenger
+    │   │   └── Pipes
+    │   ├── psr-http-message-bridge
+    │   │   ├── ArgumentValueResolver
+    │   │   ├── EventListener
+    │   │   └── Factory
+    │   ├── routing
+    │   │   ├── Annotation
+    │   │   ├── Attribute
+    │   │   ├── DependencyInjection
+    │   │   ├── Exception
+    │   │   ├── Generator
+    │   │   │   └── Dumper
+    │   │   ├── Loader
+    │   │   │   ├── Configurator
+    │   │   │   │   └── Traits
+    │   │   │   └── schema
+    │   │   │       └── routing
+    │   │   ├── Matcher
+    │   │   │   └── Dumper
+    │   │   └── Requirement
+    │   ├── service-contracts
+    │   │   ├── Attribute
+    │   │   └── Test
+    │   ├── string
+    │   │   ├── Exception
+    │   │   ├── Inflector
+    │   │   ├── Resources
+    │   │   │   ├── bin
+    │   │   │   └── data
+    │   │   └── Slugger
+    │   ├── translation
+    │   │   ├── Catalogue
+    │   │   ├── Command
+    │   │   ├── DataCollector
+    │   │   ├── DependencyInjection
+    │   │   ├── Dumper
+    │   │   ├── Exception
+    │   │   ├── Extractor
+    │   │   │   └── Visitor
+    │   │   ├── Formatter
+    │   │   ├── Loader
+    │   │   ├── Provider
+    │   │   ├── Reader
+    │   │   ├── Resources
+    │   │   │   ├── bin
+    │   │   │   ├── data
+    │   │   │   └── schemas
+    │   │   ├── Test
+    │   │   ├── Util
+    │   │   └── Writer
+    │   ├── translation-contracts
+    │   │   └── Test
+    │   ├── uid
+    │   │   ├── Command
+    │   │   └── Factory
+    │   ├── var-dumper
+    │   │   ├── Caster
+    │   │   ├── Cloner
+    │   │   │   └── Internal
+    │   │   ├── Command
+    │   │   │   └── Descriptor
+    │   │   ├── Dumper
+    │   │   │   └── ContextProvider
+    │   │   ├── Exception
+    │   │   ├── Resources
+    │   │   │   ├── bin
+    │   │   │   ├── css
+    │   │   │   ├── functions
+    │   │   │   └── js
+    │   │   ├── Server
+    │   │   └── Test
+    │   └── yaml
+    │       ├── Command
+    │       ├── Exception
+    │       ├── Resources
+    │       │   └── bin
+    │       └── Tag
+    ├── theseer
+    │   └── tokenizer
+    │       └── src
+    ├── tijsverkoyen
+    │   └── css-to-inline-styles
+    │       └── src
+    │           └── Css
+    │               ├── Property
+    │               └── Rule
+    ├── twilio
+    │   └── sdk
+    │       ├── advanced-examples
+    │       ├── example
+    │       └── src
+    │           └── Twilio
+    │               ├── AuthStrategy
+    │               ├── Base
+    │               ├── CredentialProvider
+    │               ├── Exceptions
+    │               ├── Http
+    │               │   └── BearerToken
+    │               ├── Jwt
+    │               │   ├── Client
+    │               │   ├── Grants
+    │               │   └── TaskRouter
+    │               ├── Rest
+    │               │   ├── Accounts
+    │               │   │   └── V1
+    │               │   │       └── Credential
+    │               │   ├── Api
+    │               │   │   └── V2010
+    │               │   │       └── Account
+    │               │   │           ├── Address
+    │               │   │           ├── AvailablePhoneNumberCountry
+    │               │   │           ├── Call
+    │               │   │           ├── Conference
+    │               │   │           ├── IncomingPhoneNumber
+    │               │   │           │   └── AssignedAddOn
+    │               │   │           ├── Message
+    │               │   │           ├── Queue
+    │               │   │           ├── Recording
+    │               │   │           │   └── AddOnResult
+    │               │   │           │       └── Payload
+    │               │   │           ├── Sip
+    │               │   │           │   ├── CredentialList
+    │               │   │           │   ├── Domain
+    │               │   │           │   │   └── AuthTypes
+    │               │   │           │   │       ├── AuthTypeCalls
+    │               │   │           │   │       └── AuthTypeRegistrations
+    │               │   │           │   └── IpAccessControlList
+    │               │   │           └── Usage
+    │               │   │               └── Record
+    │               │   ├── Assistants
+    │               │   │   └── V1
+    │               │   │       ├── Assistant
+    │               │   │       ├── Knowledge
+    │               │   │       └── Session
+    │               │   ├── Bulkexports
+    │               │   │   └── V1
+    │               │   │       └── Export
+    │               │   ├── Chat
+    │               │   │   ├── V1
+    │               │   │   │   └── Service
+    │               │   │   │       ├── Channel
+    │               │   │   │       └── User
+    │               │   │   ├── V2
+    │               │   │   │   └── Service
+    │               │   │   │       ├── Channel
+    │               │   │   │       └── User
+    │               │   │   └── V3
+    │               │   ├── Content
+    │               │   │   ├── V1
+    │               │   │   │   └── Content
+    │               │   │   └── V2
+    │               │   ├── Conversations
+    │               │   │   └── V1
+    │               │   │       ├── Configuration
+    │               │   │       ├── Conversation
+    │               │   │       │   └── Message
+    │               │   │       ├── Service
+    │               │   │       │   ├── Configuration
+    │               │   │       │   ├── Conversation
+    │               │   │       │   │   └── Message
+    │               │   │       │   └── User
+    │               │   │       └── User
+    │               │   ├── Events
+    │               │   │   └── V1
+    │               │   │       ├── Schema
+    │               │   │       ├── Sink
+    │               │   │       └── Subscription
+    │               │   ├── FlexApi
+    │               │   │   ├── V1
+    │               │   │   │   ├── Interaction
+    │               │   │   │   │   └── InteractionChannel
+    │               │   │   │   ├── Plugin
+    │               │   │   │   └── PluginConfiguration
+    │               │   │   └── V2
+    │               │   ├── FrontlineApi
+    │               │   │   └── V1
+    │               │   ├── Iam
+    │               │   │   └── V1
+    │               │   ├── Insights
+    │               │   │   └── V1
+    │               │   │       ├── Call
+    │               │   │       ├── Conference
+    │               │   │       └── Room
+    │               │   ├── Intelligence
+    │               │   │   └── V2
+    │               │   │       └── Transcript
+    │               │   ├── IpMessaging
+    │               │   │   ├── V1
+    │               │   │   │   └── Service
+    │               │   │   │       ├── Channel
+    │               │   │   │       └── User
+    │               │   │   └── V2
+    │               │   │       └── Service
+    │               │   │           ├── Channel
+    │               │   │           └── User
+    │               │   ├── Knowledge
+    │               │   │   └── V1
+    │               │   │       └── Knowledge
+    │               │   ├── Lookups
+    │               │   │   ├── V1
+    │               │   │   └── V2
+    │               │   ├── Marketplace
+    │               │   │   └── V1
+    │               │   │       ├── AvailableAddOn
+    │               │   │       └── InstalledAddOn
+    │               │   ├── Messaging
+    │               │   │   ├── V1
+    │               │   │   │   ├── BrandRegistration
+    │               │   │   │   └── Service
+    │               │   │   └── V2
+    │               │   ├── Microvisor
+    │               │   │   └── V1
+    │               │   │       ├── App
+    │               │   │       └── Device
+    │               │   ├── Monitor
+    │               │   │   └── V1
+    │               │   ├── Notify
+    │               │   │   └── V1
+    │               │   │       └── Service
+    │               │   ├── Numbers
+    │               │   │   ├── V1
+    │               │   │   └── V2
+    │               │   │       ├── AuthorizationDocument
+    │               │   │       └── RegulatoryCompliance
+    │               │   │           └── Bundle
+    │               │   ├── Oauth
+    │               │   │   └── V1
+    │               │   ├── Preview
+    │               │   │   ├── HostedNumbers
+    │               │   │   │   └── AuthorizationDocument
+    │               │   │   ├── Marketplace
+    │               │   │   │   ├── AvailableAddOn
+    │               │   │   │   └── InstalledAddOn
+    │               │   │   └── Wireless
+    │               │   │       └── Sim
+    │               │   ├── PreviewIam
+    │               │   │   ├── V1
+    │               │   │   └── Versionless
+    │               │   │       └── Organization
+    │               │   ├── Pricing
+    │               │   │   ├── V1
+    │               │   │   │   ├── Messaging
+    │               │   │   │   ├── PhoneNumber
+    │               │   │   │   └── Voice
+    │               │   │   └── V2
+    │               │   │       └── Voice
+    │               │   ├── Proxy
+    │               │   │   └── V1
+    │               │   │       └── Service
+    │               │   │           └── Session
+    │               │   │               └── Participant
+    │               │   ├── Routes
+    │               │   │   └── V2
+    │               │   ├── Serverless
+    │               │   │   └── V1
+    │               │   │       └── Service
+    │               │   │           ├── Asset
+    │               │   │           ├── Build
+    │               │   │           ├── Environment
+    │               │   │           └── TwilioFunction
+    │               │   │               └── FunctionVersion
+    │               │   ├── Studio
+    │               │   │   ├── V1
+    │               │   │   │   └── Flow
+    │               │   │   │       ├── Engagement
+    │               │   │   │       │   └── Step
+    │               │   │   │       └── Execution
+    │               │   │   │           └── ExecutionStep
+    │               │   │   └── V2
+    │               │   │       └── Flow
+    │               │   │           └── Execution
+    │               │   │               └── ExecutionStep
+    │               │   ├── Supersim
+    │               │   │   └── V1
+    │               │   │       ├── NetworkAccessProfile
+    │               │   │       └── Sim
+    │               │   ├── Sync
+    │               │   │   └── V1
+    │               │   │       └── Service
+    │               │   │           ├── Document
+    │               │   │           ├── SyncList
+    │               │   │           ├── SyncMap
+    │               │   │           └── SyncStream
+    │               │   ├── Taskrouter
+    │               │   │   └── V1
+    │               │   │       └── Workspace
+    │               │   │           ├── Task
+    │               │   │           ├── TaskQueue
+    │               │   │           ├── Worker
+    │               │   │           └── Workflow
+    │               │   ├── Trunking
+    │               │   │   └── V1
+    │               │   │       └── Trunk
+    │               │   ├── Trusthub
+    │               │   │   └── V1
+    │               │   │       ├── CustomerProfiles
+    │               │   │       └── TrustProducts
+    │               │   ├── Verify
+    │               │   │   └── V2
+    │               │   │       └── Service
+    │               │   │           ├── Entity
+    │               │   │           │   └── Challenge
+    │               │   │           └── RateLimit
+    │               │   ├── Video
+    │               │   │   └── V1
+    │               │   │       └── Room
+    │               │   │           └── Participant
+    │               │   ├── Voice
+    │               │   │   └── V1
+    │               │   │       ├── ConnectionPolicy
+    │               │   │       └── DialingPermissions
+    │               │   │           └── Country
+    │               │   └── Wireless
+    │               │       └── V1
+    │               │           └── Sim
+    │               ├── Security
+    │               ├── TaskRouter
+    │               └── TwiML
+    │                   ├── Fax
+    │                   ├── Messaging
+    │                   ├── Video
+    │                   └── Voice
+    ├── vlucas
+    │   └── phpdotenv
+    │       └── src
+    │           ├── Exception
+    │           ├── Loader
+    │           ├── Parser
+    │           ├── Repository
+    │           │   └── Adapter
+    │           ├── Store
+    │           │   └── File
+    │           └── Util
+    ├── voku
+    │   └── portable-ascii
+    │       └── src
+    │           └── voku
+    │               └── helper
+    │                   └── data
+    └── webmozart
+        └── assert
+            └── src
+
+3704 directories

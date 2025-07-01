@@ -1,4 +1,4 @@
-@import '@fortawesome/fontawesome-free/css/all.min.css';
+@import "@fortawesome/fontawesome-free/css/all.min.css";
 @import "styles.css";
 @import "login.css";
 @import "navbar.css";
@@ -19,3 +19,5 @@
 @import "adminmanagestudent.css";
 @import "adminrolemanagement.css";
 @import "adminpromotional.css";
+@import "adminindex.css";
+@import "adminstudapplication.css";

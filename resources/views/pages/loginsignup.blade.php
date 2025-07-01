@@ -36,6 +36,7 @@
                     <img src="assets/images/loginsinguprightsideimg.png" class="rightsidevector-img" alt="User onboarding illustration">
                     <h1>Get Started Now</h1>
                     <form class="loginsingupcontainer-rightpanel-inside" id="signupForm" onsubmit="submitForm(event)">
+                        @csrf
                         <div class="rightpanel-namecontainer">
                             <label for="name">Your Name</label>
                             <input type="text" name="name" id="name" placeholder="Name (as per Aadhar)" required>
@@ -291,7 +292,7 @@
                         name: nameInput.value,
                         otp: generatedOTP
                     };
-                    fetch('/send-mobotp', {
+                    fetch('/api/send-mobotp', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -342,7 +343,7 @@
                         otp: finalOTP
                     };
                     console.log(JSON.stringify(mailOtpdata));
-                    fetch('/verify-mobotp', {
+                    fetch('/api/verify-mobotp', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -368,6 +369,7 @@
 
                 function submitForm(event) {
                     event.preventDefault();
+                    console.log("datainform",event)
                     const name = document.getElementById('name').value;
                     const phoneInput = document.getElementById('phone').value;
                     const email = document.getElementById('email').value;
@@ -398,7 +400,7 @@
                         return;
                     }
 
-                    fetch("/emailuniquecheck", {
+                    fetch("/api/emailuniquecheck", {
                         method: "POST",
                         headers: {
                             'Content-Type': 'application/json',
@@ -441,7 +443,7 @@
 
     console.log(registerFormData);
 
-    fetch('/registerformdata', {
+    fetch('/api/registerformdata', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

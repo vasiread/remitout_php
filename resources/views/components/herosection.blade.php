@@ -390,7 +390,7 @@
         if (triggerVideo) {
             triggerVideo.addEventListener('click', async () => {
                 try {
-                    const response = await fetch('/video-url');
+                    const response = await fetch('/api/video-url');
                     const data = await response.json();
 
                     if (data.videoUrl) {

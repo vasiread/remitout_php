@@ -736,7 +736,7 @@ $studentDocumentDetailsInfo = [
                     date_added: new Date().toISOString().split('T')[0]
                 };
 
-                fetch('/submit-query', {
+                fetch('/api/submit-query', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -849,7 +849,7 @@ $studentDocumentDetailsInfo = [
                         return;
                     }
 
-                    fetch('/upload-scuserprofile-photo', {
+                    fetch('/api/upload-scuserprofile-photo', {
                         method: "POST",
                         headers: {
                             'X-CSRF-TOKEN': csrfToken,
@@ -898,7 +898,7 @@ $studentDocumentDetailsInfo = [
                 console.error('CSRF token not found');
                 return;
             }
-            fetch('/view-scuserprofile-photo', {
+            fetch('/api/view-scuserprofile-photo', {
                 method: "POST",
                 headers: {
                     'X-CSRF-TOKEN': csrfToken,
@@ -1260,7 +1260,7 @@ $studentDocumentDetailsInfo = [
                 return;
             }
 
-            fetch("/getuserbyref", {
+            fetch("/api/getuserbyref", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -1875,7 +1875,7 @@ $studentDocumentDetailsInfo = [
                     return;
                 }
 
-                fetch('/raise-query', {
+                fetch('/api/raise-query', {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
@@ -1956,7 +1956,7 @@ $studentDocumentDetailsInfo = [
                 return;
             }
 
-            fetch("/updatescuserdetails", {
+            fetch("/api/updatescuserdetails", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -1997,7 +1997,7 @@ $studentDocumentDetailsInfo = [
                 return;
             }
 
-            fetch('/scuserone', {
+            fetch('/api/scuserone', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -2224,7 +2224,7 @@ $studentDocumentDetailsInfo = [
             }
 
             try {
-                const response = await fetch('/multipleregisterbyscuser', {
+                const response = await fetch('/api/multipleregisterbyscuser', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2284,7 +2284,7 @@ $studentDocumentDetailsInfo = [
                 return;
             }
 
-            fetch("/getstatusofusers", {
+            fetch("/api/getstatusofusers", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -2440,7 +2440,7 @@ $studentDocumentDetailsInfo = [
 
 
 
-                    fetch("/forgot-passwordmailsentsc", {
+                    fetch("/api/forgot-passwordmailsentsc", {
                         method: "POST",
                         headers: {
                             'Content-Type': 'application/json',

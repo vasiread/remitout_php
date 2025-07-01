@@ -44,7 +44,6 @@ Route::get('/signup', function () {
     return view('pages.loginsignup');
 })->name('signup');
 
-Route::get('/terms', [TermsController::class, 'index'])->name('terms');
 
 Route::get('/login', function () {
     return view('pages.login');
@@ -66,6 +65,7 @@ Route::get('/admin-page', function () {
 
 
 
+Route::get('/terms', [TermsController::class, 'index'])->name('terms');
 
 Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
 

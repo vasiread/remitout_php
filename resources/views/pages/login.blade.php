@@ -30,6 +30,7 @@
                 <div class="logincontainer-rightinside">
                     <h1>Welcome back!</h1>
                     <form class="logincontainer-loginresources" id="loginForm" onsubmit="loginSubmitForm(event)">
+                        @csrf
                         <img src="assets/images/loginsinguprightsideimg.png" class="loginrightsidevector-img"
                             alt="Right side decorative vector">
 
@@ -160,7 +161,7 @@
                 const csrfToken = document.querySelector('meta[name="csrf-token"]');
 
                 if (csrfToken) {
-                    fetch('/session-logout', {
+                    fetch('/api/session-logout', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -204,7 +205,7 @@
                 const csrfToken = document.querySelector('meta[name="csrf-token"]');
 
                 if (csrfToken) {
-                    fetch('/loginformdata', {
+                    fetch('/api/loginformdata', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -262,7 +263,7 @@
                 } else {
                     emailError.style.display = "none";
 
-                    fetch('/send-reset-link', {
+                    fetch('/api/send-reset-link', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

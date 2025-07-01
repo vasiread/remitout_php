@@ -195,7 +195,7 @@
         // Function to fetch data from the API
        async function fetchStudentData() {
     try {
-        const response = await fetch('/mergestudents', {
+        const response = await fetch('/api/mergestudents', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

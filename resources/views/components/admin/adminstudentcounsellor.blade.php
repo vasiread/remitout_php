@@ -578,7 +578,7 @@
                 return;
             }
 
-            fetch("/suspendscuser", {
+            fetch("/api/suspendscuser", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -656,7 +656,7 @@
                     pincode: modelScProfile.querySelector("#scaddress-pincode").value || ''
                 };
 
-                fetch("/updatescuserdetails", {
+                fetch("/api/updatescuserdetails", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",

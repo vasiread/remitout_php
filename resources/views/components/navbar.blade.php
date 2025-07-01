@@ -401,7 +401,7 @@
                 if (!userSession || !userSession.referral_code) return;
                 const scuserRefid = userSession.referral_code;
                 try {
-                    const response = await fetch('/view-scuserprofile-photo', {
+                    const response = await fetch('/api/view-scuserprofile-photo', {
                         method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': csrfToken,
@@ -427,7 +427,7 @@
                 if (!userSession || !userSession.unique_id) return;
                 const userId = userSession.unique_id;
                 try {
-                    const response = await fetch('/retrieve-profile-picture', {
+                    const response = await fetch('/api/retrieve-profile-picture', {
                         method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': csrfToken,
@@ -538,7 +538,7 @@
                         currentPassword,
                         newPassword
                     };
-                    fetch("/passwordchange", {
+                    fetch("/api/passwordchange", {
                         method: "POST",
                         headers: {
                             'Content-Type': 'application/json',
