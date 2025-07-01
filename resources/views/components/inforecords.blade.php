@@ -82,7 +82,7 @@
 @endphp
 
 
-<section class="study-loans-section">
+<section class="study-loans-section" id="study-loan">
     <div class="study-loans-content">
 
         <!-- Left Section -->
@@ -101,10 +101,7 @@
 
     </div>
 
-</section>
-
-
-<div class="study-loans-graphview">
+    <div class="study-loans-graphview">
     <div class="study-loans-graphfirstbox">
         <h3>{{ trim($cms['study-loan']['Step 2 Header: Get Matched with Top NBFCs'] ?? 'Get Matched with Top NBFCs') }}
         </h3>
@@ -280,6 +277,11 @@
 
 </div>
 
+</section>
+
+
+
+
 
 
 </section>
@@ -424,7 +426,7 @@
     ?>
 
 
-    <div class="effort-section">
+    <div class="effort-section" id="services">
        
         <img src="{{ trim($cms['global-transfer']['Background Image'] ?? '') ?: asset('assets/images/effort-banner.webp') }}"
             alt="Background Image" class="effort-background-image">

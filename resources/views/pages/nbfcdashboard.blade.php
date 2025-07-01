@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+   
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 
@@ -785,27 +785,35 @@
                 </section>
 
 
-                <div class="overlay-password-change-nbfc"></div>
-                <div class="password-change-container-nbfc">
-                    <div class="password-change-triggered-view-headersection-nbfc">
-                        <h3>Password Change Request</h3>
-                        <img src="{{ asset('assets/images/Icons/close_small.png') }}" style="cursor:pointer"
-                            alt="">
-                    </div>
-                    <input type="password" placeholder="Current Password" id="current-password-nbfc">
-                    <span id="current-password-error-nbfc" class="error-message"></span>
+              <div class="overlay-password-change-nbfc"></div>
+<div class="password-change-container-nbfc">
+    <div class="password-change-triggered-view-headersection-nbfc">
+        <h3>Password Change Request</h3>
+        <img src="{{ asset('assets/images/Icons/close_small.png') }}" style="cursor:pointer" alt="">
+    </div>
+    <div class="password-input-wrapper">
+        <input type="password" placeholder="Current Password" id="current-password-nbfc">
+        <i class="fas fa-eye-slash toggle-password" data-target="current-password-nbfc"></i>
+    </div>
+    <span id="current-password-error-nbfc" class="error-message"></span>
 
-                    <input type="password" placeholder="New Password" id="new-password-nbfc">
-                    <span id="new-password-error-nbfc" class="error-message"></span>
+    <div class="password-input-wrapper">
+        <input type="password" placeholder="New Password" id="new-password-nbfc">
+        <i class="fas fa-eye-slash toggle-password" data-target="new-password-nbfc"></i>
+    </div>
+    <span id="new-password-error-nbfc" class="error-message"></span>
 
-                    <input type="password" placeholder="Confirm New Password" id="confirm-new-password-nbfc">
-                    <span id="confirm-password-error-nbfc" class="error-message"></span>
+    <div class="password-input-wrapper">
+        <input type="password" placeholder="Confirm New Password" id="confirm-new-password-nbfc">
+        <i class="fas fa-eye-slash toggle-password" data-target="confirm-new-password-nbfc"></i>
+    </div>
+    <span id="confirm-password-error-nbfc" class="error-message"></span>
 
-                    <div class="footer-passwordchange-nbfc">
-                        <p>Forgot Password</p>
-                        <button id="password-change-save-nbfc">Save</button>
-                    </div>
-                </div>
+    <div class="footer-passwordchange-nbfc">
+        <p>Forgot Password</p>
+        <button id="password-change-save-nbfc">Save</button>
+    </div>
+</div>
             </section>
         </body>
 
@@ -895,7 +903,7 @@
                 }
 
 
-
+                 setupPasswordToggle();
                 passwordModelTriggerNbfc();
                 passwordForgotNbfc();
                 userPopopuOpenNbfc();
@@ -3515,6 +3523,25 @@
                 }
             }
 
+         function setupPasswordToggle() {
+            const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+            togglePasswordButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-target');
+                    const passwordInput = document.getElementById(targetId);
+                    
+                    if (passwordInput.type === 'password') {
+                        passwordInput.type = 'text';
+                        button.classList.remove('fa-eye-slash');
+                        button.classList.add('fa-eye');
+                    } else {
+                        passwordInput.type = 'password';
+                        button.classList.remove('fa-eye');
+                        button.classList.add('fa-eye-slash');
+                    }
+                });
+            });
+        }
 
             const passwordChangeCheckNbfc = () => {
                 document.getElementById('password-change-save-nbfc').addEventListener('click', function() {

@@ -2741,6 +2741,8 @@ document.addEventListener("DOMContentLoaded", () => {
             label.textContent = selected.textContent;
         }
     }
+
+    
     let selectedCollege = null;
 
     const fallbackColleges = [

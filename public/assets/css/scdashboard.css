@@ -1222,6 +1222,7 @@ display: grid;
     filter: none !important;
 }
 
+.admin-new-registration-overlay,
 .sc-new-registration-overlay {
     display: none;
     position: fixed;
@@ -1232,10 +1233,32 @@ display: grid;
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
     z-index: 999;
-}
+}  
+
 
 .scdashboard-parentcontainer {
     filter: none !important;
+}
+
+/* Password container styles */
+.admin-student-password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.admin-student-password-input {
+    width: 100%;
+    padding-right: 40px; /* Space for the eye icon */
+    box-sizing: border-box;
+}
+
+.passwordClose {
+    position: absolute;
+    right: 10px;
+    font-size: 18px; /* Adjust size as needed */
+    cursor: pointer;
 }
 
 .studentAddBySCuserPopup,
@@ -1922,7 +1945,8 @@ display: grid;
 
     .individualstudentapplication-status {
         flex-direction: column;
-        position: relative;
+        position: relative;  
+        gap:20px;
     }
 
     .studentapplication-lists {

@@ -671,9 +671,12 @@
                 <div class="company-info">
 
                     <div class="footer-logo">
-                        <img src="{{ trim($cms['footer']['Footer Logo Image'] ?? 'assets/images/footer-logo.png') }}"
-                            alt="Remitout" class="logo-img">
+                        <a class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}" href="{{ url('/') }}">
+                            <img src="{{ trim($cms['footer']['Footer Logo Image'] ?? 'assets/images/footer-logo.png') }}"
+                                alt="Remitout" class="logo-img">
+                        </a>
                     </div>
+
                     <div class="company-info-container">
                         <div class="address-container">
                             <img src="assets/images/addres-icon.png " alt="Address" class="icon">

@@ -332,16 +332,30 @@ body {
     border-radius: 8px;
 }
 
+.password-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
 .password-change-container-nbfc input {
     width: 100%;
     min-height: 51px;
-    height: 100%;
     border-radius: 2px;
     border: 1px solid rgba(226, 226, 226, 1);
     outline: none;
     font-size: 14px;
     font-family: "Poppins", sans-serif;
     padding-left: 6px;
+    padding-right: 30px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
 }
 
 #password-change-save-nbfc {
@@ -390,7 +404,6 @@ body {
     z-index: 15;
     text-align: center;
     width: 190px;
-    width: 190px;
 }
 
 .popup-notify-list-nbfc p {
@@ -421,7 +434,6 @@ body {
     cursor: pointer;
     text-decoration: underline;
     color: #0056b3;
-    font-size: 12px;
     font-size: 12px;
 }
 
@@ -2774,18 +2786,13 @@ body {
     padding: 8px 12px 8px 36px;
     border: 1px solid #e2e2e2;
     border-radius: 4px;
-    width: auto;
+    width: 240px;
     font-family: "Poppins", sans-serif;
     background-color: #ffffff;
     font-size: 12px;
 }
 
-
-
-
 @media (min-width: 1700px) {
-
-
     .index-student-card {
         padding: 20px 10px;
         display: flex;
@@ -2883,11 +2890,11 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 5px;
+        padding: 6px 10px;
     }
 
     .index-student-card {
-        padding: 15px 0px;
+        padding: 25px 0px;
     }
 
     .index-student-info {

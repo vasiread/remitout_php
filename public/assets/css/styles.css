@@ -4,8 +4,9 @@
    box-sizing: border-box;
  }
 html, body {
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   width: 100%;
+  scroll-behavior: smooth;
 }
 
 
@@ -14,7 +15,7 @@ html, body {
    position: relative;
    width: 100%;
    height: auto;
-   background-image: url('../../assets/images/Banner_Remitout 1.png');
+   background-image: url('../../assets/images/Banner_Remitout 1.webp');
    background-size: cover;
    background-position: center top;
    display: flex;
@@ -30,8 +31,7 @@ html, body {
    width: 100%;
    min-height: 498px;
    position: relative;
-   margin-top: 90px;
-   margin-left: 9.37%;
+   margin:40px auto;
 
 
  }
@@ -432,6 +432,7 @@ html, body {
    height: 100%;
    object-fit: cover;
    z-index: -1;
+    
    /* ensures it stays behind all content */
  }
 
