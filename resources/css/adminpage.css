@@ -499,7 +499,6 @@
       margin-right: 10px;
   }
 
-  /* Mobile-Specific Navbar Styles */
   @media (max-width: 1024px) {
       .admin-nav {
           background-color: #ffffff;
@@ -519,7 +518,7 @@
       }
 
       .admin-nav-left .back-button {
-          display: none;
+          display: none !important;
       }
 
       .admin-nav-right {
@@ -548,6 +547,12 @@
           width: 24px;
           height: 24px;
       }
+  }
+  @media (max-width: 767px) {
+    .admin-nav-left .back-button {
+      display: none !important;
+  }
+
   }
 
 #adminside-password-change-overlay {
@@ -598,7 +603,9 @@
   }
 }
 
-
+.adminside-current-password{
+  top:30%;
+}
 #adminside-current-password,
 #adminside-new-password,
 #adminside-confirm-new-password {

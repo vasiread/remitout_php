@@ -141,16 +141,10 @@
                         <button class="promotional-toolbar-button" title="Insert Table"><i class="fas fa-table"></i></button>
                         <button class="promotional-toolbar-button" title="Text Color"><i class="fas fa-palette"></i></button>
                         <button class="promotional-toolbar-button" title="Background Color"><i class="fas fa-fill-drip"></i></button>
-                        <button class="promotional-toolbar-button" title="Special Characters"><i class="fas fa-omega"></i></button>
                         <button class="promotional-toolbar-button" title="Horizontal Rule"><i class="fas fa-minus"></i></button>
-                        <button class="promotional-toolbar-button" title="Insert Formula"><i class="fas fa-square-root-alt"></i></button>
                         <button class="promotional-toolbar-button" title="Code Block"><i class="fas fa-code"></i></button>
                         <button class="promotional-toolbar-button" title="Full Screen"><i class="fas fa-expand"></i></button>
-                        <button class="promotional-toolbar-button" title="Print"><i class="fas fa-print"></i></button>
                         <button class="promotional-toolbar-button" title="View HTML"><i class="fas fa-file-code"></i></button>
-                        <button class="promotional-toolbar-button" title="Insert Header"><i class="fas fa-heading"></i></button>
-                        <button class="promotional-toolbar-button" title="Insert Footer"><i class="fas fa-shoe-prints"></i></button>
-                        <button class="promotional-toolbar-button" title="Page Break"><i class="fas fa-page-break"></i></button>
                     </div>
                 </div>
                 <div class="promotional-content-area" contenteditable="true">
@@ -421,11 +415,29 @@
                         updateSelectAllCheckbox();
                     }
                 });
-                if (addRecipientBtn) {
+              if (addRecipientBtn) {
                     addRecipientBtn.addEventListener('click', function () {
-                        alert('Add new recipient functionality to be implemented');
+                        const newRecipient = {
+                            name: 'New Recipient',
+                            unique_id: 'USR' + (Math.floor(Math.random() * 9000) + 1000), // Random ID
+                            email: 'new@example.com',
+                            phone: '0000000000'
+                        };
+
+                        // Add the new recipient to the beginning of the main and filtered arrays
+                        recipients.unshift(newRecipient);
+                        filteredRecipients = [...recipients];
+
+                        // Reset to first page to show the new entry
+                        currentPage = 1;
+
+                        // Re-render the table and update pagination
+                        renderRecipientTable();
+                        updatePagination();
                     });
                 }
+                
+
                 if (searchInput) {
                     searchInput.addEventListener('input', handleSearchAndFilter);
                 }

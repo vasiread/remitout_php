@@ -48,14 +48,18 @@ $studyLocationsString = implode(', ', $studyLocations);
                     <i class="fa-regular fa-clipboard"></i> My Applications
                 </li>
             </ul>
-            <ul class="studentdashboardprofile-sidebarlists-bottom">
-                <li class="logoutBtn">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
-                </li>
-                <li>
-                    <img src="assets/images/Icons/support_agent.png" alt="The support icon"> Support
-                </li>
-            </ul>
+           <ul class="studentdashboardprofile-sidebarlists-bottom">
+    <li class="logoutBtn">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+    </li>
+    <li>
+        <a href="tel:+917578475788" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+            <img src="assets/images/Icons/support_agent.png" alt="The support icon" style="margin-right: 8px;"> Support
+        </a>
+    </li>
+</ul>
+
+
         </div>
         <div class="studentdashboardprofile">
 
