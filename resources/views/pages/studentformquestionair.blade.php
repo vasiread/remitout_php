@@ -1943,7 +1943,7 @@
                     </div>
                 @endforeach
 
-                                    <button type="submit" class="next-btn-kyc" id="saveandsubmit">Save and Submit</button>
+                <button type="submit" class="next-btn-kyc" id="saveandsubmit">Save and Submit</button>
 
 
             </div>
