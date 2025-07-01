@@ -114,11 +114,11 @@
                                 </th>
                                 <th class="manage-student-report-th" id="th-state">State</th>
                                 <th class="manage-student-report-th" id="th-city">City</th>
-                                <th class="manage-student-report-th" id="th-destination-country">Destination Country
+                                {{-- <th class="manage-student-report-th" id="th-destination-country">Destination Country
                                 </th>
-                                <th class="manage-student-report-th" id="th-nbfc">NBFC</th>
+                                <th class="manage-student-report-th" id="th-nbfc">NBFC</th> --}}
                                 <th class="manage-student-report-th" id="th-no-proposals">No. of Proposals</th>
-                                <th class="manage-student-report-th" id="th-status">Status</th>
+                                {{-- <th class="manage-student-report-th" id="th-status">Status</th> --}}
                                 <th class="manage-student-report-th" id="th-point-entry">Point of Entry</th>
                             </tr>
                         </thead>
@@ -383,12 +383,8 @@
                             <td class="manage-student-report-td">${student.counsellor}</td>
                             <td class="manage-student-report-td">${student.state}</td>
                             <td class="manage-student-report-td">${student.city}</td>
-                            <td class="manage-student-report-td">${student.country}</td>
-                            <td class="manage-student-report-td">${student.nbfc}</td>
                             <td class="manage-student-report-td">${student.noOfProposals}</td>
-                            <td class="manage-student-report-td"><button ${statusButtonStyle} disabled>${student.status}</button></td>
-                            <td class="manage-student-report-td">${student.pointOfEntry}</td>
-                        `;
+                            <td class="manage-student-report-td">${student.pointOfEntry}</td>`;
                         tableBody.appendChild(row);
                     });
                 }
@@ -440,8 +436,7 @@
                 console.error('Error applying filters:', error);
             }
         }
-
-        // Function to search table data based on search query
+ 
         function searchTable(query) {
             try {
                 query = query.toLowerCase().trim();

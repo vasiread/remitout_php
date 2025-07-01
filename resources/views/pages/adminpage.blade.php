@@ -14,14 +14,36 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .notification-badge {
+            display: none;
+            position: absolute;
+            top: -7px;
+            right: -7px;
+            background-color: #fd9c41;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            /* line-height: 1; */
+            height: 20px;
+            min-width: 16px;
+            text-align: center
+        }
+    </style>
 </head>
 
 <body>
+    @php
+        $admin = session('admin'); // returns null if not set
+    @endphp
     <nav class="admin-nav">
         <div class="admin-nav-left">
-            <div class="admin-nav-logo">
+            <div class="admin-nav-logo" onclick="window.location='/'" style="cursor: pointer;">
                 <img src="assets/images/admin-logo.png" alt="Remitout Logo" class="admin-nav-logo-img">
             </div>
+
             <div class="back-button">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
@@ -146,6 +168,8 @@
 
 
             <button class="admin-nav-notification">
+                <span class="notification-badge"></span>
+
                 <img src="/assets/images/notifications_unread.png" alt="the notification icon"
                     class="notification-icon">
             </button>
@@ -158,7 +182,12 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
                 <div class="admin-nav-dropdown-menu">
-                    <div class="admin-nav-dropdown-item" id="password-change-admin-side">Password Change</div>
+                    @if (!empty($admin) && $admin['email'] !== env('SUPERADMIN_EMAIL'))
+                        <div class="admin-nav-dropdown-item" id="password-change-admin-side">
+                            Password Change
+                        </div>
+                    @endif
+
                     <div class="admin-nav-dropdown-item" id="logout-admin-side">Logout</div>
                 </div>
             </div>
@@ -183,7 +212,7 @@
         <div class="admin-detailedviewcontainer">
             <x-admin.admindashboard />
             <x-admin.adminstudent :userDetails="$userDetails" />
-            
+
             <x-admin.adminstudentcounsellor />
             <x-admin.adminnbfc />
             <x-admin.adminindex />
@@ -327,7 +356,7 @@
             const adminPromotionalEmail = document.querySelector("#promotional-composer-main-section-id");
             const nbfcAdminsideAddAuthority = document.querySelector(".add-nbfc-datasection");
             const studentProfileContainerAdminSide = document.querySelector(
-            "#studentprofile-section-adminsideview");
+                "#studentprofile-section-adminsideview");
             const addCounsellorModelTrigger = document.getElementById("switch-addcounsellor");
             const adminsideScDashboard = document.querySelector("#scdashboard-profile-adminside");
 
@@ -352,7 +381,7 @@
             function handleItemClick(item, index, isMobile = false, isDropdownToggle = false) {
                 console.log(
                     `Item clicked: index=${index}, isMobile=${isMobile}, isDropdownToggle=${isDropdownToggle}, name=${item.querySelector('span')?.textContent || 'Unknown'}`
-                    );
+                );
 
                 if (!isDropdownToggle) {
                     currentIndex = index;
@@ -404,6 +433,9 @@
                 }
 
                 hideAllContainers();
+                getNotificationCount();
+                  setInterval(getNotificationCount, 3000);
+
 
                 if (index === 0) {
                     if (adminPropertyOne) adminPropertyOne.style.display = "flex";
@@ -670,7 +702,7 @@
                     const currentPassword = document.getElementById('adminside-current-password')?.value;
                     const newPassword = document.getElementById('adminside-new-password')?.value;
                     const confirmPassword = document.getElementById('adminside-confirm-new-password')
-                    ?.value;
+                        ?.value;
 
                     const currentError = document.getElementById('adminside-current-password-error');
                     const newError = document.getElementById('adminside-new-password-error');
@@ -968,7 +1000,7 @@
                 const currentPassword = document.getElementById('adminside-current-password').value.trim();
                 const newPassword = document.getElementById('adminside-new-password').value.trim();
                 const confirmNewPassword = document.getElementById('adminside-confirm-new-password').value
-                .trim();
+                    .trim();
                 const passwordChangeContainer = document.getElementById('adminside-password-change-container');
 
                 clearErrorMessages();
@@ -1119,11 +1151,28 @@
                 });
             }
         }
+
+        function getNotificationCount() {
+            fetch('/admin/messages/count')
+                .then(response => response.json())
+                .then(data => {
+                    const totalMessages = data.total_messages;
+                    const badge = document.querySelector('.notification-badge');
+
+                    if (totalMessages > 0) {
+                        badge.style.display = 'block';
+                        badge.textContent = totalMessages; // optional: show the number
+                    } else {
+                        badge.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching message count:', error);
+                });
+        }
     </script>
 </body>
 
-<script>
-   
+<script></script>
 
-</script>
 </html>

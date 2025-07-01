@@ -123,13 +123,13 @@
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Global arrays to store fetched data
-        let students = [];
-        let nbfcs = [];
-        let adminChatMessages = JSON.parse(localStorage.getItem('adminChatMessages')) || {};
- 
-        const adminFileStorage = {};
+        document.addEventListener('DOMContentLoaded', function() {
+            // Global arrays to store fetched data
+            let students = [];
+            let nbfcs = [];
+            let adminChatMessages = JSON.parse(localStorage.getItem('adminChatMessages')) || {};
+
+            const adminFileStorage = {};
 
             // Function to save messages to localStorage
             function saveMessagesToStorage() {
@@ -186,67 +186,67 @@
             // Fetch student data
             function fetchStudentData() {
 
-            fetch('/student-chat-members', {
-                    method: 'GET',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                            'content')
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        // console.log("Student data retrieved successfully!", data);
-                        students = data.data.map(student => ({
-                            ...student,
-                            created_at: getValidDate(student.created_at).toISOString()
-                        }));
-                        // console.log("Student created_at values:", students.map(s => ({
-                        //     name: s.name,
-                        //     created_at: s.created_at
-                        // })));
-                        initializeStudentChat(students);
-                        updateStudentCount();
-                    } else {
-                        console.error("Error retrieving student data:", data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error("Fetch student error:", error);
-                });
-        }
+                fetch('/student-chat-members', {
+                        method: 'GET',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            // console.log("Student data retrieved successfully!", data);
+                            students = data.data.map(student => ({
+                                ...student,
+                                created_at: getValidDate(student.created_at).toISOString()
+                            }));
+                            // console.log("Student created_at values:", students.map(s => ({
+                            //     name: s.name,
+                            //     created_at: s.created_at
+                            // })));
+                            initializeStudentChat(students);
+                            updateStudentCount();
+                        } else {
+                            console.error("Error retrieving student data:", data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Fetch student error:", error);
+                    });
+            }
 
-        // Fetch NBFC data
-        function fetchNbfcData() {
-            fetch('/nbfc-chat-members', {
-                    method: 'GET',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                            'content')
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        // console.log("NBFC data retrieved successfully!", data);
-                        nbfcs = data.data.map(nbfc => ({
-                            ...nbfc,
-                            created_at: getValidDate(nbfc.created_at).toISOString()
-                        }));
-                        // console.log("NBFC created_at values:", nbfcs.map(n => ({
-                        //     nbfc_name: n.nbfc_name,
-                        //     created_at: n.created_at
-                        // })));
-                        initializeNbfcChat(nbfcs);
-                        updateNbfcCount();
-                    } else {
-                        console.error("Error retrieving NBFC data:", data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error("Fetch NBFC error:", error);
-                });
-        }
+            // Fetch NBFC data
+            function fetchNbfcData() {
+                fetch('/nbfc-chat-members', {
+                        method: 'GET',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            // console.log("NBFC data retrieved successfully!", data);
+                            nbfcs = data.data.map(nbfc => ({
+                                ...nbfc,
+                                created_at: getValidDate(nbfc.created_at).toISOString()
+                            }));
+                            // console.log("NBFC created_at values:", nbfcs.map(n => ({
+                            //     nbfc_name: n.nbfc_name,
+                            //     created_at: n.created_at
+                            // })));
+                            initializeNbfcChat(nbfcs);
+                            updateNbfcCount();
+                        } else {
+                            console.error("Error retrieving NBFC data:", data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Fetch NBFC error:", error);
+                    });
+            }
 
             function initializeStudentChat(data) {
 
@@ -463,53 +463,55 @@
                 });
             }
 
-         function sendMessage(chatId, content, parentContainer, type, id) {
-    if (!content.trim()) return;
+            function sendMessage(chatId, content, parentContainer, type, id) {
+                if (!content.trim()) return;
 
-    const admin_id = 'admin001';
+                const admin_id = 'admin001';
 
-    const body = {
-        admin_id: admin_id,
-        sender_id: admin_id,
-        receiver_id: id,
-        message: content,
-        is_read: false
-    };
+                const body = {
+                    admin_id: admin_id,
+                    sender_id: admin_id,
+                    receiver_id: id,
+                    message: content,
+                    is_read: false
+                };
 
-    // Add the correct ID field for student or NBFC
-    if (id.includes("NBFC")) {
-        body.id = id; // for NBFC
-    } else {
-        body.student_id = id; // for Student
-    }
+                // Add the correct ID field for student or NBFC
+                if (id.includes("NBFC")) {
+                    body.id = id; // for NBFC
+                } else {
+                    body.student_id = id; // for Student
+                }
 
-    const apiurl = id.includes("NBFC") ? '/send-message-from-adminnbfc' : '/send-message-from-adminstudent';
+                const apiurl = id.includes("NBFC") ? '/send-message-from-adminnbfc' :
+                    '/send-message-from-adminstudent';
 
-    const messagesWrapper = document.querySelector(
-        type === 'nbfc' ? `#admin-nbfc-messages-${chatId}` : `#admin-student-messages-${chatId}`
-    );
+                const messagesWrapper = document.querySelector(
+                    type === 'nbfc' ? `#admin-nbfc-messages-${chatId}` : `#admin-student-messages-${chatId}`
+                );
 
-    fetch(apiurl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify(body)
-    })
-        .then(response => response.json())
-        .then(data => {
-            const inputField = document.querySelector(
-                type === 'nbfc' ? `#admin-nbfc-input-field-${chatId}` :
-                    `#admin-student-input-field-${chatId}`
-            );
-            inputField.value = '';
-            displayMessages(chatId, messagesWrapper, id);
-        })
-        .catch(error => {
-            console.error('Error sending message:', error);
-        });
-}
+                fetch(apiurl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: JSON.stringify(body)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const inputField = document.querySelector(
+                            type === 'nbfc' ? `#admin-nbfc-input-field-${chatId}` :
+                            `#admin-student-input-field-${chatId}`
+                        );
+                        inputField.value = '';
+                        displayMessages(chatId, messagesWrapper, id);
+                    })
+                    .catch(error => {
+                        console.error('Error sending message:', error);
+                    });
+            }
 
 
             function displayMessages(chatId, messagesWrapper, id) {
@@ -601,24 +603,25 @@
                         }
                         return response.json();
                     })
-                   .then(data => {
-                    messagesWrapper.innerHTML = '';
-                    const type = id.includes("NBFC") ? 'nbfc' : 'student';
+                    .then(data => {
+                        messagesWrapper.innerHTML = '';
+                        const type = id.includes("NBFC") ? 'nbfc' : 'student';
                         document.getElementById(`admin-${type}-input-${chatId}`).style.display = 'flex';
-                        document.getElementById(`admin-${type}-clear-container-${chatId}`).style.display = 'flex';
+                        document.getElementById(`admin-${type}-clear-container-${chatId}`).style.display =
+                            'flex';
 
-                    if (Array.isArray(data.messages) && data.messages.length > 0) {
-                        data.messages.forEach(msg => {
-                            const messageElement = createMessageElement(msg);
-                            messagesWrapper.appendChild(messageElement);
-                        });
-                        messagesWrapper.style.display = 'block';
+                        if (Array.isArray(data.messages) && data.messages.length > 0) {
+                            data.messages.forEach(msg => {
+                                const messageElement = createMessageElement(msg);
+                                messagesWrapper.appendChild(messageElement);
+                            });
+                            messagesWrapper.style.display = 'block';
 
-                    
-                    } else {
-                        messagesWrapper.innerHTML =
-                            '<div style="text-align:center; color:gray;">No conversation found.</div>';
-                    }
+
+                        } else {
+                            messagesWrapper.innerHTML =
+                                '<div style="text-align:center; color:gray;">No conversation found.</div>';
+                        }
 
                         // Scroll to the bottom of the chat
                         const messageContainer = document.getElementById(
@@ -1041,9 +1044,33 @@
 
                         fetchNbfcData();
                         updateNbfcCount();
+                        updateNbfcUnreadCount();
                     }
                 });
             });
+
+
+           function updateNbfcUnreadCount() {
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    fetch('/admin/messages/clear-nbfc', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': token
+        },
+        body: JSON.stringify({}) // You can pass an empty body if no data is needed
+    }).then(response => {
+        if (response.ok) {
+            console.log('NBFC unread messages marked as read');
+        } else {
+            console.error('Failed to update NBFC messages');
+        }
+    }).catch(error => {
+        console.error('Error:', error);
+    });
+}
+
 
             // Event delegation for dynamic buttons (excluding triggeredbutton for students)
             document.addEventListener('click', (e) => {

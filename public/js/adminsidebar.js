@@ -14,6 +14,8 @@ function initializeAdminSidebar() {
     const expandedStudentCounsellorFromAdmin = document.getElementById(
         "expanded-studentcounsellor-admin-side"
     );
+    const notificationButton = document.querySelector('.admin-nav-notification');
+
     const studentFirstListChild = document.querySelector(
         "#expanded-student-admin-side li:first-child"
     );
@@ -37,7 +39,50 @@ function initializeAdminSidebar() {
     const studentCounsellorList = document.querySelector(
         ".studentcounsellorlist-adminside"
     );
+    if (notificationButton && adminSidebarItems[1]) {
+        notificationButton.addEventListener('click', function () {
+            adminSidebarItems[1].click(); 
+        });
 
+    }
+    minusStudentSideMessaes();
+
+    function minusStudentSideMessaes() {
+        const notificationButton = document.querySelector('.admin-nav-notification');
+        const adminSidebarItems = document.querySelectorAll("#commonsidebar-admin .commonsidebar-sidebarlists-top li");
+
+        if (notificationButton && adminSidebarItems[1]) {
+            notificationButton.addEventListener('click', function () {
+                // Make AJAX call to clear student messages
+                fetch('/admin/messages/clear-student', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Updated NBFC count:', data.nbfc_unread_messages);
+
+                        // Hide badge or update it if needed
+                        const badge = document.querySelector('.notification-badge');
+                        if (badge) {
+                            if (data.nbfc_unread_messages > 0) {
+                                badge.style.display = 'inline-block';
+                                badge.textContent = data.nbfc_unread_messages;
+                            } else {
+                                badge.style.display = 'none';
+                            }
+                        }
+
+                        // Open the appropriate sidebar section
+                        adminSidebarItems[1].click();
+                    })
+                    .catch(error => console.error('Error clearing student messages:', error));
+            });
+        }
+    }
     const studentNBFCList = document.querySelector(".nbfclist-adminside");
     const studentIndexAdmin = document.querySelector("#index-section-admin-id");
     const studentEditIndex = document.querySelector("#edit-content-container-id");
