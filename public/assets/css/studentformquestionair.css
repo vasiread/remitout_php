@@ -1198,7 +1198,7 @@ form {
     .dropdown-label {
         font-size: 14px;
     }
-
+    
     .dropdown-options {
         max-height: auto;
         width: 100%;
@@ -1239,7 +1239,7 @@ form {
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    margin-top: 60px;
+    margin-top:62px;
     margin-bottom: 50px;
     margin-left: 50px;
     position: absolute;

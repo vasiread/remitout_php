@@ -17,17 +17,16 @@
     @php
         $profileImgPath = '';
         $uploadPanName = '';
-        $profileIconPath = "assets/images/account_circle.png";
-        $phoneIconPath = "assets/images/call.png";
-        $mailIconPath = "assets/images/mail.png";
-        $pindropIconPath = "assets/images/pin_drop.png";
-        $discordIconPath = "assets/images/icons/discordicon.png";
-        $viewIconPath = "assets/images/visibility.png";
-
+        $profileIconPath = 'assets/images/account_circle.png';
+        $phoneIconPath = 'assets/images/call.png';
+        $mailIconPath = 'assets/images/mail.png';
+        $pindropIconPath = 'assets/images/pin_drop.png';
+        $discordIconPath = 'assets/images/icons/discordicon.png';
+        $viewIconPath = 'assets/images/visibility.png';
 
         $nbfcdata = [];
 
-      @endphp
+    @endphp
 
     <div class="student-listcontainer" id="student-admin-section-id">
         <div class="globallistcontainer-header" id="studentlistcontainer-headersection">
@@ -95,10 +94,10 @@
                         <li class="scdashboard-nbfcstatus-pending">
                             <p>Status:</p>
                             <span>
-                                @if($users->reviewed == 0)
+                                @if ($users->reviewed == 0)
                                     Not yet reviewed
                                 @else
-                                    @if($users->type == 'request')
+                                    @if ($users->type == 'request')
                                         Pending
                                     @elseif($users->type == 'proposal')
                                         Accepted
@@ -119,7 +118,8 @@
                             <!-- PAN Card -->
                             <div class="document-box" id="pan-card-admin-view-{{ $users->user_id }}"
                                 style="display:none;flex-direction:column;">
-                                <div class="document-name" id="pan-card-document-name-{{ $users->user_id }}">PAN Card</div>
+                                <div class="document-name" id="pan-card-document-name-{{ $users->user_id }}">PAN Card
+                                </div>
                                 <div class="upload-field">
                                     <span id="pan-card-name-{{ $users->user_id }}">No File Chosen</span>
 
@@ -141,7 +141,8 @@
                                 </div>
 
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="pan-help-{{ $users->user_id }}">ⓘ Help</span>
+                                    <span class="help-trigger" data-target="pan-help-{{ $users->user_id }}">ⓘ
+                                        Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
                                 <div class="help-container pan-help-{{ $users->user_id }}" style="display: none;">
@@ -154,7 +155,8 @@
                             <!-- Aadhar Card -->
                             <div class="document-box" id="aadhar-card-admin-view-{{ $users->user_id }}"
                                 style="display:none">
-                                <div class="document-name" id="aadhar-card-document-name-{{ $users->user_id }}">Aadhar Card
+                                <div class="document-name" id="aadhar-card-document-name-{{ $users->user_id }}">Aadhar
+                                    Card
                                 </div>
                                 <div class="upload-field">
                                     <span id="aadhar-card-name-{{ $users->user_id }}">No File Chosen</span>
@@ -162,8 +164,8 @@
                                         id="aadhar-card-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" style="display: none;" id="aadhar-card-{{ $users->user_id }}"
-                                        accept=".jpg, .png, .pdf"
+                                    <input type="file" style="display: none;"
+                                        id="aadhar-card-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
                                         onchange="handleFileUpload(event, 'aadhar-card-name-{{ $users->user_id }}', 'aadhar-card-upload-icon-{{ $users->user_id }}', 'aadhar-card-remove-icon-{{ $users->user_id }}', '', 'static', '{{ $users->user_id }}')">
                                     <span id="aadhar-card-remove-icon-{{ $users->user_id }}" class="remove-icon"
                                         style="display: none;"
@@ -182,15 +184,18 @@
                                 </div>
                             </div>
                             <!-- Passport -->
-                            <div class="document-box" id="passport-view-{{ $users->user_id }}" style="display:none">
-                                <div class="document-name" id="passport-document-name-{{ $users->user_id }}">Passport</div>
+                            <div class="document-box" id="passport-card-admin-view-{{ $users->user_id }}"
+                                style="display:none">
+                                <div class="document-name" id="passport-document-name-{{ $users->user_id }}">Passport
+                                </div>
                                 <div class="upload-field">
                                     <span id="passport-name-{{ $users->user_id }}">No File Chosen</span>
                                     <label for="passport-{{ $users->user_id }}"
                                         id="passport-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="passport-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                    <input type="file" id="passport-{{ $users->user_id }}"
+                                        accept=".jpg, .png, .pdf"
                                         onchange="handleFileUpload(event, 'passport-name-{{ $users->user_id }}', 'passport-upload-icon-{{ $users->user_id }}', 'passport-remove-icon-{{ $users->user_id }}', '', 'static', '{{ $users->user_id }}')">
                                     <span id="passport-remove-icon-{{ $users->user_id }}" class="remove-icon"
                                         style="display: none;"
@@ -201,7 +206,8 @@
                                         Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container passport-help-{{ $users->user_id }}" style="display: none;">
+                                <div class="help-container passport-help-{{ $users->user_id }}"
+                                    style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
@@ -221,14 +227,16 @@
                                         id="tenth-grade-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="tenth-grade-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                    <input type="file" id="tenth-grade-{{ $users->user_id }}"
+                                        accept=".jpg, .png, .pdf"
                                         onchange="handleFileUpload(event, 'tenth-grade-name-{{ $users->user_id }}', 'tenth-grade-upload-icon-{{ $users->user_id }}', 'tenth-grade-remove-icon-{{ $users->user_id }}', '', 'static', '{{ $users->user_id }}')">
                                     <span id="tenth-grade-remove-icon-{{ $users->user_id }}" class="remove-icon"
                                         style="display:none;"
                                         onclick="removeFile('tenth-grade-{{ $users->user_id }}', 'tenth-grade-name-{{ $users->user_id }}', 'tenth-grade-upload-icon-{{ $users->user_id }}', 'tenth-grade-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="tenth-marksheet-help-{{ $users->user_id }}">ⓘ
+                                    <span class="help-trigger"
+                                        data-target="tenth-marksheet-help-{{ $users->user_id }}">ⓘ
                                         Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
@@ -251,14 +259,16 @@
                                         id="twelfth-grade-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="twelfth-grade-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                    <input type="file" id="twelfth-grade-{{ $users->user_id }}"
+                                        accept=".jpg, .png, .pdf"
                                         onchange="handleFileUpload(event, 'twelfth-grade-name-{{ $users->user_id }}', 'twelfth-grade-upload-icon-{{ $users->user_id }}', 'twelfth-grade-remove-icon-{{ $users->user_id }}',  '', 'static','{{ $users->user_id }}')">
                                     <span id="twelfth-grade-remove-icon-{{ $users->user_id }}" class="remove-icon"
                                         style="display:none;"
                                         onclick="removeFile('twelfth-grade-{{ $users->user_id }}', 'twelfth-grade-name-{{ $users->user_id }}', 'twelfth-grade-upload-icon-{{ $users->user_id }}', 'twelfth-grade-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="twelfth-marksheet-help-{{ $users->user_id }}">ⓘ
+                                    <span class="help-trigger"
+                                        data-target="twelfth-marksheet-help-{{ $users->user_id }}">ⓘ
                                         Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
@@ -281,10 +291,11 @@
                                         id="graduation-grade-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="graduation-grade-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                    <input type="file" id="graduation-grade-{{ $users->user_id }}"
+                                        accept=".jpg, .png, .pdf"
                                         onchange="handleFileUpload(event, 'graduation-grade-name-{{ $users->user_id }}', 'graduation-grade-upload-icon-{{ $users->user_id }}', 'graduation-grade-remove-icon-{{ $users->user_id }}',  '', 'static','{{ $users->user_id }}')">
-                                    <span id="graduation-grade-remove-icon-{{ $users->user_id }}" class="remove-icon"
-                                        style="display:none;"
+                                    <span id="graduation-grade-remove-icon-{{ $users->user_id }}"
+                                        class="remove-icon" style="display:none;"
                                         onclick="removeFile('graduation-grade-{{ $users->user_id }}', 'graduation-grade-name-{{ $users->user_id }}', 'graduation-grade-upload-icon-{{ $users->user_id }}', 'graduation-grade-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
@@ -303,7 +314,8 @@
                         </div>
                         <div class="document-container">
                             <!-- 10th Grade -->
-                            <div class="document-box" id="sslc-grade-adminview-{{ $users->user_id }}" style="display:none">
+                            <div class="document-box" id="sslc-grade-adminview-{{ $users->user_id }}"
+                                style="display:none">
                                 <div class="document-name" id="10th-grades-id-{{ $users->user_id }}">
                                     10th Grade</div>
                                 <div class="upload-field">
@@ -312,18 +324,21 @@
                                         id="secured-tenth-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="secured-tenth-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                    <input type="file" id="secured-tenth-{{ $users->user_id }}"
+                                        accept=".jpg, .png, .pdf"
                                         onchange="handleFileUpload(event, 'secured-tenth-name-{{ $users->user_id }}', 'secured-tenth-upload-icon-{{ $users->user_id }}', 'secured-tenth-remove-icon-{{ $users->user_id }}', '', 'static', '{{ $users->user_id }}')">
                                     <span id="secured-tenth-remove-icon-{{ $users->user_id }}" class="remove-icon"
                                         style="display:none;"
                                         onclick="removeFile('secured-tenth-{{ $users->user_id }}', 'secured-tenth-name-{{ $users->user_id }}', 'secured-tenth-upload-icon-{{ $users->user_id }}', 'secured-tenth-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="tenth-grade-help-{{ $users->user_id }}">ⓘ
+                                    <span class="help-trigger"
+                                        data-target="tenth-grade-help-{{ $users->user_id }}">ⓘ
                                         Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container tenth-grade-help-{{ $users->user_id }}" style="display: none;">
+                                <div class="help-container tenth-grade-help-{{ $users->user_id }}"
+                                    style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
@@ -331,7 +346,8 @@
                                 </div>
                             </div>
                             <!-- 12th Grade -->
-                            <div class="document-box" id="hsc-grade-adminview-{{ $users->user_id }}" style="display:none">
+                            <div class="document-box" id="hsc-grade-adminview-{{ $users->user_id }}"
+                                style="display:none">
                                 <div class="document-name" id="12th-grade-id-{{ $users->user_id }}">
                                     12th Grade</div>
                                 <div class="upload-field">
@@ -342,18 +358,21 @@
                                         id="secured-twelfth-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="secured-twelfth-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                    <input type="file" id="secured-twelfth-{{ $users->user_id }}"
+                                        accept=".jpg, .png, .pdf"
                                         onchange="handleFileUpload(event, 'secured-twelfth-name-{{ $users->user_id }}', 'secured-twelfth-upload-icon-{{ $users->user_id }}', 'secured-twelfth-remove-icon-{{ $users->user_id }}',  '', 'static','{{ $users->user_id }}')">
                                     <span id="secured-twelfth-remove-icon-{{ $users->user_id }}" class="remove-icon"
                                         style="display:none;"
                                         onclick="removeFile('secured-twelfth-{{ $users->user_id }}', 'secured-twelfth-name-{{ $users->user_id }}', 'secured-twelfth-upload-icon-{{ $users->user_id }}', 'secured-twelfth-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="twelfth-grade-help-{{ $users->user_id }}">ⓘ
+                                    <span class="help-trigger"
+                                        data-target="twelfth-grade-help-{{ $users->user_id }}">ⓘ
                                         Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container twelfth-grade-help-{{ $users->user_id }}" style="display: none;">
+                                <div class="help-container twelfth-grade-help-{{ $users->user_id }}"
+                                    style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
@@ -374,12 +393,13 @@
                                     <input type="file" id="secured-graduation-{{ $users->user_id }}"
                                         accept=".jpg, .png, .pdf"
                                         onchange="handleFileUpload(event, 'secured-graduation-name-{{ $users->user_id }}', 'secured-graduation-upload-icon-{{ $users->user_id }}', 'secured-graduation-remove-icon-{{ $users->user_id }}', '', 'static', '{{ $users->user_id }}')">
-                                    <span id="secured-graduation-remove-icon-{{ $users->user_id }}" class="remove-icon"
-                                        style="display:none;"
+                                    <span id="secured-graduation-remove-icon-{{ $users->user_id }}"
+                                        class="remove-icon" style="display:none;"
                                         onclick="removeFile('secured-graduation-{{ $users->user_id }}', 'secured-graduation-name-{{ $users->user_id }}', 'secured-graduation-upload-icon-{{ $users->user_id }}', 'secured-graduation-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
                                 </div>
                                 <div class="info" style="display:none">
-                                    <span class="help-trigger" data-target="graduation-grade-help-{{ $users->user_id }}">ⓘ
+                                    <span class="help-trigger"
+                                        data-target="graduation-grade-help-{{ $users->user_id }}">ⓘ
                                         Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
@@ -404,7 +424,8 @@
                                         id="co-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="co-pan-card-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                    <input type="file" id="co-pan-card-{{ $users->user_id }}"
+                                        accept=".jpg, .png, .pdf"
                                         onchange="handleFileUpload(event, 'co-pan-card-name-{{ $users->user_id }}', 'co-upload-icon-{{ $users->user_id }}', 'co-remove-icon-{{ $users->user_id }}',  '', 'static','{{ $users->user_id }}')">
                                     <span id="co-remove-icon-{{ $users->user_id }}" class="remove-icon"
                                         style="display:none;"
@@ -415,7 +436,8 @@
                                         Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container co-pan-help-{{ $users->user_id }}" style="display: none;">
+                                <div class="help-container co-pan-help-{{ $users->user_id }}"
+                                    style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
@@ -433,7 +455,8 @@
                                         id="co-aadhar-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="co-aadhar-card-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                    <input type="file" id="co-aadhar-card-{{ $users->user_id }}"
+                                        accept=".jpg, .png, .pdf"
                                         onchange="handleFileUpload(event, 'co-aadhar-card-name-{{ $users->user_id }}', 'co-aadhar-upload-icon-{{ $users->user_id }}', 'co-aadhar-remove-icon-{{ $users->user_id }}', '', 'static', '{{ $users->user_id }}')">
                                     <span id="co-aadhar-remove-icon-{{ $users->user_id }}" class="remove-icon"
                                         style="display:none;"
@@ -444,7 +467,8 @@
                                         Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container co-aadhar-help-{{ $users->user_id }}" style="display: none;">
+                                <div class="help-container co-aadhar-help-{{ $users->user_id }}"
+                                    style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
@@ -454,7 +478,8 @@
                             <!-- Co-borrower Address Proof -->
                             <div class="document-box" id="co-borrower-address-admin-view-{{ $users->user_id }}"
                                 style="display:none">
-                                <div class="document-name" id="address-proof-id-{{ $users->user_id }}">CoBorrower Address
+                                <div class="document-name" id="address-proof-id-{{ $users->user_id }}">CoBorrower
+                                    Address
                                     Proof</div>
                                 <div class="upload-field">
                                     <span id="co-addressproof-{{ $users->user_id }}">No File Chosen</span>
@@ -462,7 +487,8 @@
                                         id="co-passport-upload-icon-{{ $users->user_id }}">
                                         <img src="assets/images/upload.png" alt="Upload Icon" width="24">
                                     </label>
-                                    <input type="file" id="co-passport-{{ $users->user_id }}" accept=".jpg, .png, .pdf"
+                                    <input type="file" id="co-passport-{{ $users->user_id }}"
+                                        accept=".jpg, .png, .pdf"
                                         onchange="handleFileUpload(event, 'co-addressproof-{{ $users->user_id }}', 'co-passport-upload-icon-{{ $users->user_id }}', 'co-passport-remove-icon-{{ $users->user_id }}',  '', 'static','{{ $users->user_id }}')">
                                     <span id="co-passport-remove-icon-{{ $users->user_id }}" class="remove-icon"
                                         style="display:none;"
@@ -473,7 +499,243 @@
                                         Help</span>
                                     <span>*jpg, png, pdf formats</span>
                                 </div>
-                                <div class="help-container co-address-help-{{ $users->user_id }}" style="display: none;">
+                                <div class="help-container co-address-help-{{ $users->user_id }}"
+                                    style="display: none;">
+                                    <h3 class="help-title">Help</h3>
+                                    <div class="help-content">
+                                        <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="document-container">
+
+                            <!-- Work Experience Letter -->
+                            <div class="document-box" id="work-experience-letter-admin-view-{{ $users->user_id }}"
+                                style="display:none">
+                                <div class="document-name" id="experience-letter-id-{{ $users->user_id }}">
+                                    Experience Letter</div>
+                                <div class="upload-field">
+                                    <span id="work-experience-experience-letter-{{ $users->user_id }}">No File
+                                        Chosen</span>
+                                    <label for="work-experience-tenth-{{ $users->user_id }}"
+                                        id="work-experience-upload-icon-{{ $users->user_id }}">
+                                        <img src="assets/images/upload.png" alt="Upload Icon" width="24">
+                                    </label>
+                                    <input type="file" id="work-experience-tenth-{{ $users->user_id }}"
+                                        accept=".jpg, .png, .pdf"
+                                        onchange="handleFileUpload(event, 'work-experience-experience-letter-{{ $users->user_id }}', 'work-experience-upload-icon-{{ $users->user_id }}', 'work-experience-remove-icon-{{ $users->user_id }}', '', 'static', '{{ $users->user_id }}')">
+                                    <span id="work-experience-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display:none;"
+                                        onclick="removeFile(
+                                            'work-experience-tenth-{{ $users->user_id }}',
+                                            'work-experience-experience-letter-{{ $users->user_id }}',
+                                            'work-experience-upload-icon-{{ $users->user_id }}',
+                                            'work-experience-remove-icon-{{ $users->user_id }}',
+                                            '{{ $users->user_id }}'
+                                        )">✖</span>
+
+                                </div>
+                                <div class="info" style="display:none">
+                                    <span class="help-trigger"
+                                        data-target="work-experience-help-{{ $users->user_id }}">ⓘ Help</span>
+                                    <span>*jpg, png, pdf formats</span>
+                                </div>
+                                <div class="help-container work-experience-help-{{ $users->user_id }}"
+                                    style="display: none;">
+                                    <h3 class="help-title">Help</h3>
+                                    <div class="help-content">
+                                        <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Work Joining Letter -->
+                            <div class="document-box" id="work-experience-joining-admin-view-{{ $users->user_id }}"
+                                style="display:none">
+                                <div class="document-name" id="joining-letter-id-{{ $users->user_id }}">Joining
+                                    Letter</div>
+                                <div class="upload-field">
+                                    <span id="work-experience-joining-letter-{{ $users->user_id }}">No File
+                                        Chosen</span>
+                                    <label for="work-experience-fourth-{{ $users->user_id }}"
+                                        id="work-joining-upload-icon-{{ $users->user_id }}">
+                                        <img src="assets/images/upload.png" alt="Upload Icon" width="24">
+                                    </label>
+                                    <input type="file" id="work-experience-fourth-{{ $users->user_id }}"
+                                        accept=".jpg, .png, .pdf"
+                                        onchange="handleFileUpload(event, 'work-experience-joining-letter-{{ $users->user_id }}', 'work-joining-upload-icon-{{ $users->user_id }}', 'work-joining-remove-icon-{{ $users->user_id }}', '', 'static', '{{ $users->user_id }}')">
+                                    <span id="work-joining-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display:none;"
+                                        onclick="removeFile('work-experience-fourth-{{ $users->user_id }}', 'work-experience-joining-letter-{{ $users->user_id }}', 'work-joining-upload-icon-{{ $users->user_id }}', 'work-joining-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
+                                </div>
+                                <div class="info" style="display:none">
+                                    <span class="help-trigger" data-target="joining-help-{{ $users->user_id }}">ⓘ
+                                        Help</span>
+                                    <span>*jpg, png, pdf formats</span>
+                                </div>
+                                <div class="help-container joining-help-{{ $users->user_id }}"
+                                    style="display: none;">
+                                    <h3 class="help-title">Help</h3>
+                                    <div class="help-content">
+                                        <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Monthly Payslip -->
+                            <div class="document-box" id="work-experience-slip-admin-view-{{ $users->user_id }}"
+                                style="display:none">
+                                <div class="document-name" id="monthly-slip-id-{{ $users->user_id }}">Monthly
+                                    Payslip</div>
+                                <div class="upload-field">
+                                    <span id="work-experience-monthly-slip-{{ $users->user_id }}">No File
+                                        Chosen</span>
+                                    <label for="work-experience-twelfth-{{ $users->user_id }}"
+                                        id="work-slip-upload-icon-{{ $users->user_id }}">
+                                        <img src="assets/images/upload.png" alt="Upload Icon" width="24">
+                                    </label>
+                                    <input type="file" id="work-experience-twelfth-{{ $users->user_id }}"
+                                        accept=".jpg, .png, .pdf"
+                                        onchange="handleFileUpload(event, 'work-experience-monthly-slip-{{ $users->user_id }}', 'work-slip-upload-icon-{{ $users->user_id }}', 'work-slip-remove-icon-{{ $users->user_id }}', '', 'static', '{{ $users->user_id }}')">
+                                    <span id="work-slip-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display:none;"
+                                        onclick="removeFile('work-experience-twelfth-{{ $users->user_id }}', 'work-experience-monthly-slip-{{ $users->user_id }}', 'work-slip-upload-icon-{{ $users->user_id }}', 'work-slip-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
+                                </div>
+                                <div class="info" style="display:none">
+                                    <span class="help-trigger" data-target="slip-help-{{ $users->user_id }}">ⓘ
+                                        Help</span>
+                                    <span>*jpg, png, pdf formats</span>
+                                </div>
+                                <div class="help-container slip-help-{{ $users->user_id }}" style="display: none;">
+                                    <h3 class="help-title">Help</h3>
+                                    <div class="help-content">
+                                        <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Office ID Card -->
+                            <div class="document-box" id="work-experience-id-admin-view-{{ $users->user_id }}"
+                                style="display:none">
+                                <div class="document-name" id="office-id-{{ $users->user_id }}">Office ID Card</div>
+                                <div class="upload-field">
+                                    <span id="work-experience-office-id-{{ $users->user_id }}">No File Chosen</span>
+                                    <label for="work-experience-graduation-{{ $users->user_id }}"
+                                        id="work-id-upload-icon-{{ $users->user_id }}">
+                                        <img src="assets/images/upload.png" alt="Upload Icon" width="24">
+                                    </label>
+                                    <input type="file" id="work-experience-graduation-{{ $users->user_id }}"
+                                        accept=".jpg, .png, .pdf"
+                                        onchange="handleFileUpload(event, 'work-experience-office-id-{{ $users->user_id }}', 'work-id-upload-icon-{{ $users->user_id }}', 'work-id-remove-icon-{{ $users->user_id }}', '', 'static', '{{ $users->user_id }}')">
+                                    <span id="work-id-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display:none;"
+                                        onclick="removeFile('work-experience-graduation-{{ $users->user_id }}', 'work-experience-office-id-{{ $users->user_id }}', 'work-id-upload-icon-{{ $users->user_id }}', 'work-id-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
+                                </div>
+                                <div class="info" style="display:none">
+                                    <span class="help-trigger" data-target="id-help-{{ $users->user_id }}">ⓘ
+                                        Help</span>
+                                    <span>*jpg, png, pdf formats</span>
+                                </div>
+                                <div class="help-container id-help-{{ $users->user_id }}" style="display: none;">
+                                    <h3 class="help-title">Help</h3>
+                                    <div class="help-content">
+                                        <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="document-container">
+                            <!-- 3 Months Salary Slip -->
+                            <div class="document-box" id="salary-slip-admin-view-{{ $users->user_id }}"
+                                style="display:none">
+                                <div class="document-name">3 Months Salary Slip</div>
+                                <div class="upload-field">
+                                    <span id="salary-upload-salary-slip-name-{{ $users->user_id }}">No File
+                                        Chosen</span>
+                                    <label for="salary-upload-salary-slip-{{ $users->user_id }}"
+                                        id="salary-slip-upload-icon-{{ $users->user_id }}">
+                                        <img src="assets/images/upload.png" alt="Upload Icon" width="24">
+                                    </label>
+                                    <input type="file" id="salary-upload-salary-slip-{{ $users->user_id }}"
+                                        accept=".jpg,.png,.pdf"
+                                        onchange="handleFileUpload(event, 'salary-upload-salary-slip-name-{{ $users->user_id }}', 'salary-slip-upload-icon-{{ $users->user_id }}', 'salary-slip-remove-icon-{{ $users->user_id }}', '', 'static', '{{ $users->user_id }}')">
+                                    <span id="salary-slip-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display:none"
+                                        onclick="removeFile('salary-upload-salary-slip-{{ $users->user_id }}', 'salary-upload-salary-slip-name-{{ $users->user_id }}', 'salary-slip-upload-icon-{{ $users->user_id }}', 'salary-slip-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
+                                </div>
+                                 <div class="info" style="display:none">
+                                    <span class="help-trigger" data-target="slip-help-{{ $users->user_id }}">ⓘ
+                                        Help</span>
+                                    <span>*jpg, png, pdf formats</span>
+                                </div>
+                                <div class="help-container slip-help-{{ $users->user_id }}" style="display: none;">
+                                    <h3 class="help-title">Help</h3>
+                                    <div class="help-content">
+                                        <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 6 Months Salary Statement -->
+                            <div class="document-box" id="salary-statement-admin-view-{{ $users->user_id }}"
+                                style="display:none">
+                                <div class="document-name">6 Months Bank Statement</div>
+                                <div class="upload-field">
+                                    <span id="salary-upload-salary-statement-name-{{ $users->user_id }}">No File
+                                        Chosen</span>
+                                    <label for="salary-upload-salary-statement-{{ $users->user_id }}"
+                                        id="salary-statement-upload-icon-{{ $users->user_id }}">
+                                        <img src="assets/images/upload.png" alt="Upload Icon" width="24">
+                                    </label>
+                                    <input type="file"
+                                        id="salary-upload-salary-statement-{{ $users->user_id }}"
+                                        accept=".jpg,.png,.pdf"
+                                        onchange="handleFileUpload(event, 'salary-upload-salary-statement-name-{{ $users->user_id }}', 'salary-statement-upload-icon-{{ $users->user_id }}', 'salary-statement-remove-icon-{{ $users->user_id }}', '', 'static', '{{ $users->user_id }}')">
+                                    <span id="salary-statement-remove-icon-{{ $users->user_id }}"
+                                        class="remove-icon" style="display:none"
+                                        onclick="removeFile('salary-upload-salary-statement-{{ $users->user_id }}', 'salary-upload-salary-statement-name-{{ $users->user_id }}', 'salary-statement-upload-icon-{{ $users->user_id }}', 'salary-statement-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
+                                </div>
+                                 <div class="info" style="display:none">
+                                    <span class="help-trigger" data-target="slip-help-{{ $users->user_id }}">ⓘ
+                                        Help</span>
+                                    <span>*jpg, png, pdf formats</span>
+                                </div>
+                                <div class="help-container slip-help-{{ $users->user_id }}" style="display: none;">
+                                    <h3 class="help-title">Help</h3>
+                                    <div class="help-content">
+                                        <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Address Proof -->
+                            <div class="document-box" id="salary-addressproof-admin-view-{{ $users->user_id }}"
+                                style="display:none">
+                                <div class="document-name">Address Proof</div>
+                                <div class="upload-field">
+                                    <span id="salary-upload-address-proof-name-{{ $users->user_id }}">No File
+                                        Chosen</span>
+                                    <label for="salary-upload-address-proof-{{ $users->user_id }}"
+                                        id="salary-addressproof-upload-icon-{{ $users->user_id }}">
+                                        <img src="assets/images/upload.png" alt="Upload Icon" width="24">
+                                    </label>
+                                    <input type="file"
+                                        id="salary-upload-address-proof-{{ $users->user_id }}"
+                                        accept=".jpg,.png,.pdf"
+                                        onchange="handleFileUpload(event, 'salary-upload-address-proof-name-{{ $users->user_id }}', 'salary-addressproof-upload-icon-{{ $users->user_id }}', 'salary-addressproof-remove-icon-{{ $users->user_id }}', '', 'static', '{{ $users->user_id }}')">
+                                    <span id="salary-addressproof-remove-icon-{{ $users->user_id }}"
+                                        class="remove-icon" style="display:none"
+                                        onclick="removeFile('salary-upload-address-proof-{{ $users->user_id }}', 'salary-upload-address-proof-name-{{ $users->user_id }}', 'salary-addressproof-upload-icon-{{ $users->user_id }}', 'salary-addressproof-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
+                                </div>
+                                 <div class="info" style="display:none">
+                                    <span class="help-trigger" data-target="slip-help-{{ $users->user_id }}">ⓘ
+                                        Help</span>
+                                    <span>*jpg, png, pdf formats</span>
+                                </div>
+                                <div class="help-container slip-help-{{ $users->user_id }}" style="display: none;">
                                     <h3 class="help-title">Help</h3>
                                     <div class="help-content">
                                         <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
@@ -481,6 +743,103 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="document-container">
+                            <!-- 2 Years ITR -->
+                            <div class="document-box" id="business-itr-admin-view-{{ $users->user_id }}"
+                                style="display:none">
+                                <div class="document-name">2 Years ITR</div>
+                                <div class="upload-field">
+                                    <span id="salary-upload-itr-name-{{ $users->user_id }}">No File Chosen</span>
+                                    <label for="salary-upload-itr-{{ $users->user_id }}"
+                                        id="salary-upload-itr-upload-icon-{{ $users->user_id }}">
+                                        <img src="assets/images/upload.png" alt="Upload Icon" width="24">
+                                    </label>
+                                    <input type="file" id="salary-upload-itr-{{ $users->user_id }}"
+                                        accept=".jpg,.png,.pdf"
+                                        onchange="handleFileUpload(event, 'salary-upload-itr-name-{{ $users->user_id }}', 'salary-upload-itr-upload-icon-{{ $users->user_id }}', 'business-itr-remove-icon-{{ $users->user_id }}', '', 'static', '{{ $users->user_id }}')">
+                                    <span id="business-itr-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display:none"
+                                        onclick="removeFile('salary-upload-itr-{{ $users->user_id }}', 'salary-upload-itr-name-{{ $users->user_id }}', 'business-itr-upload-icon-{{ $users->user_id }}', 'business-itr-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
+                                </div>
+                                 <div class="info" style="display:none">
+                                    <span class="help-trigger" data-target="slip-help-{{ $users->user_id }}">ⓘ
+                                        Help</span>
+                                    <span>*jpg, png, pdf formats</span>
+                                </div>
+                                <div class="help-container slip-help-{{ $users->user_id }}" style="display: none;">
+                                    <h3 class="help-title">Help</h3>
+                                    <div class="help-content">
+                                        <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 6 Months Bank Statement -->
+                            <div class="document-box" id="business-bankstatement-admin-view-{{ $users->user_id }}"
+                                style="display:none">
+                                <div class="document-name">6 Months Bank Statement</div>
+                                <div class="upload-field">
+                                    <span id="salary-upload-fourth-document-name-{{ $users->user_id }}">No File
+                                        Chosen</span>
+                                    <label for="salary-upload-fourth-document-{{ $users->user_id }}"
+                                        id="business-bank-upload-icon-{{ $users->user_id }}">
+                                        <img src="assets/images/upload.png" alt="Upload Icon" width="24">
+                                    </label>
+                                    <input type="file"
+                                        id="salary-upload-fourth-document-{{ $users->user_id }}"
+                                        accept=".jpg,.png,.pdf"
+                                        onchange="handleFileUpload(event, 'salary-upload-fourth-document-name-{{ $users->user_id }}', 'business-bank-upload-icon-{{ $users->user_id }}', 'business-bank-remove-icon-{{ $users->user_id }}', '', 'static', '{{ $users->user_id }}')">
+                                    <span id="business-bank-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display:none"
+                                        onclick="removeFile('salary-upload-fourth-document-{{ $users->user_id }}', 'salary-upload-fourth-document-name-{{ $users->user_id }}', 'business-bank-upload-icon-{{ $users->user_id }}', 'business-bank-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
+                                </div>
+                                 <div class="info" style="display:none">
+                                    <span class="help-trigger" data-target="slip-help-{{ $users->user_id }}">ⓘ
+                                        Help</span>
+                                    <span>*jpg, png, pdf formats</span>
+                                </div>
+                                <div class="help-container slip-help-{{ $users->user_id }}" style="display: none;">
+                                    <h3 class="help-title">Help</h3>
+                                    <div class="help-content">
+                                        <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Office/Shop Photographs -->
+                            <div class="document-box" id="business-officephoto-admin-view-{{ $users->user_id }}"
+                                style="display:none">
+                                <div class="document-name">Office/Shop Photographs</div>
+                                <div class="upload-field">
+                                    <span id="salary-upload-fifth-document-name-{{ $users->user_id }}">No File
+                                        Chosen</span>
+                                    <label for="salary-upload-fifth-document-{{ $users->user_id }}"
+                                        id="business-photo-upload-icon-{{ $users->user_id }}">
+                                        <img src="assets/images/upload.png" alt="Upload Icon" width="24">
+                                    </label>
+                                    <input type="file"
+                                        id="salary-upload-fifth-document-{{ $users->user_id }}"
+                                        accept=".jpg,.png,.pdf"
+                                        onchange="handleFileUpload(event, 'salary-upload-fifth-document-name-{{ $users->user_id }}', 'business-photo-upload-icon-{{ $users->user_id }}', 'business-photo-remove-icon-{{ $users->user_id }}', '', 'static', '{{ $users->user_id }}')">
+                                    <span id="business-photo-remove-icon-{{ $users->user_id }}" class="remove-icon"
+                                        style="display:none"
+                                        onclick="removeFile('salary-upload-fifth-document-{{ $users->user_id }}', 'salary-upload-fifth-document-name-{{ $users->user_id }}', 'business-photo-upload-icon-{{ $users->user_id }}', 'business-photo-remove-icon-{{ $users->user_id }}', '{{ $users->user_id }}')">✖</span>
+                                </div>
+                                 <div class="info" style="display:none">
+                                    <span class="help-trigger" data-target="slip-help-{{ $users->user_id }}">ⓘ
+                                        Help</span>
+                                    <span>*jpg, png, pdf formats</span>
+                                </div>
+                                <div class="help-container slip-help-{{ $users->user_id }}" style="display: none;">
+                                    <h3 class="help-title">Help</h3>
+                                    <div class="help-content">
+                                        <p>Please upload a .jpg, .png, or .pdf file with a size less than 5MB.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
             @endforeach
@@ -499,22 +858,22 @@
                 </div>
 
                 <ul class="personalinfo-secondrow" id="personalinfo-secondrow-id">
-                    <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span class="personal_info_id"
-                            style="margin-left: 6px;">ABC123456</span></li>
+                    <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
+                            class="personal_info_id" style="margin-left: 6px;">ABC123456</span></li>
                     <li class="personal_info_name" id="referenceNameId">
-                        <img src="{{$profileIconPath}}" alt="">
+                        <img src="{{ $profileIconPath }}" alt="">
                         <p>John Doe</p>
                     </li>
                     <li class="personal_info_phone">
-                        <img src="{{$phoneIconPath}}" alt="">
+                        <img src="{{ $phoneIconPath }}" alt="">
                         <p>+91 9876543210</p>
                     </li>
                     <li class="personal_info_email" id="referenceEmailId">
-                        <img src="{{$mailIconPath}}" alt="">
+                        <img src="{{ $mailIconPath }}" alt="">
                         <p title="john@example.com">john@example.com</p>
                     </li>
                     <li class="personal_info_state">
-                        <img src="{{$pindropIconPath}}" alt="">
+                        <img src="{{ $pindropIconPath }}" alt="">
                         <p id="personal_state_id">Maharashtra</p>
                     </li>
                 </ul>
@@ -594,18 +953,20 @@
                 <div class="checkbox-group-edit" id="selected-study-location-edit">
                     <label><input type="checkbox" name="study-location-edit" value="USA" disabled> USA</label>
                     <label><input type="checkbox" name="study-location-edit" value="UK" disabled> UK</label>
-                    <label><input type="checkbox" name="study-location-edit" value="Ireland" disabled> Ireland</label>
+                    <label><input type="checkbox" name="study-location-edit" value="Ireland" disabled>
+                        Ireland</label>
                     <label><input type="checkbox" name="study-location-edit" value="New Zealand" disabled> New
                         Zealand</label>
-                    <label><input type="checkbox" name="study-location-edit" value="Germany" disabled> Germany</label>
+                    <label><input type="checkbox" name="study-location-edit" value="Germany" disabled>
+                        Germany</label>
                     <label><input type="checkbox" name="study-location-edit" value="France" disabled> France</label>
                     <label><input type="checkbox" name="study-location-edit" value="Sweden" disabled> Sweden</label>
                     <label><input type="checkbox" name="study-location-edit" value="Other" id="other-checkbox-edit"
                             disabled style="display:none"> Other</label>
                     <label>
                         <div class="add-country-box-edit">
-                            <input type="text" id="country-edit" class="custom-country-edit" placeholder="Add Country"
-                                disabled>
+                            <input type="text" id="country-edit" class="custom-country-edit"
+                                placeholder="Add Country" disabled>
                         </div>
                     </label>
                     <label><input type="checkbox" name="study-location-edit" value="Italy" disabled> Italy</label>
@@ -627,7 +988,7 @@
                     <br>
                     <label class="custom-radio">
                         <input type="radio" name="education-level" value="Masters"
-                            onclick="toggleOtherDegreeInput(event)" disabled style="display:none" >
+                            onclick="toggleOtherDegreeInput(event)" disabled style="display:none">
                         <span class="radio-button"></span>
                         <p>Masters</p>
                     </label>
@@ -676,7 +1037,7 @@
                             <div class="inputfilecontainer">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="uploaded-pan-name truncate-filename"> pan_card.jpg</p>
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-pan-card" />
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-pan-card" />
                             </div>
                             <input type="file" id="inputfilecontainer-real" />
                             <span class="document-status">420 MB uploaded</span>
@@ -687,7 +1048,7 @@
                             <div class="inputfilecontainer">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="uploaded-aadhar-name truncate-filename"> aadhar_card.jpg</p>
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-aadhar-card" />
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-aadhar-card" />
                             </div>
                             <input type="file" id="inputfilecontainer-real" />
                             <span class="document-status">420 MB uploaded</span>
@@ -698,7 +1059,7 @@
                             <div class="inputfilecontainer">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="passport-name-selector truncate-filename"> Passport.pdf</p>
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-passport-card" />
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-passport-card" />
                             </div>
                             <input type="file" id="inputfilecontainer-real" />
                             <span class="document-status">420 MB uploaded</span>
@@ -720,7 +1081,7 @@
                             <div class="inputfilecontainer-marksheet">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="sslc-marksheet truncate-filename"> 10th grade marksheet</p>
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-card" />
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-sslc-card" />
                             </div>
                             <input type="file" id="inputfilecontainer-real-marksheet" />
                             <span class="document-status">420 MB uploaded</span>
@@ -731,7 +1092,7 @@
                             <div class="inputfilecontainer-marksheet">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="hsc-marksheet truncate-filename"> 12th grade marksheet</p>
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-card" />
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-hsc-card" />
                             </div>
                             <input type="file" id="inputfilecontainer-real-marksheet" />
                             <span class="document-status">420 MB uploaded</span>
@@ -742,7 +1103,7 @@
                             <div class="inputfilecontainer-marksheet">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="graduation-marksheet truncate-filename"> Graduation Marksheet</p>
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-card" />
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-graduation-card" />
                             </div>
                             <input type="file" id="inputfilecontainer-real-marksheet" />
                             <span class="document-status">420 MB uploaded</span>
@@ -766,7 +1127,7 @@
                                 <i class="fa-solid fa-image"></i>
                                 <p class="sslc-grade truncate-filename">SSLC Grade</p>
 
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-sslc-grade"></>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-sslc-grade"></>
 
                             </div>
                             <input type="file" id="inputfilecontainer-real-marksheet">
@@ -780,7 +1141,7 @@
                                 <i class="fa-solid fa-image"></i>
                                 <p class="hsc-grade truncate-filename">HSC Grade</p>
 
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-hsc-grade"></>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-hsc-grade"></>
 
                             </div>
                             <input type="file" id="inputfilecontainer-real-marksheet">
@@ -794,7 +1155,7 @@
                                 <i class="fa-solid fa-image"></i>
                                 <p class="graduation-grade truncate-filename">Graduation</p>
 
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-graduation-grade"></>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-graduation-grade"></>
 
                             </div>
                             <input type="file" id="inputfilecontainer-real-marksheet">
@@ -820,7 +1181,8 @@
                                 <i class="fa-solid fa-image"></i>
                                 <p class="experience-letter truncate-filename">Experience Letter</p>
 
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-experience-letter"></>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-experience-letter">
+                                </>
 
                             </div>
                             <input type="file" id="inputfilecontainer-work-experience">
@@ -834,7 +1196,7 @@
                                 <i class="fa-solid fa-image"></i>
                                 <p class="salary-slip truncate-filename">3 month salary slip</p>
 
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-salary-slip"></>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-salary-slip"></>
 
                             </div>
                             <input type="file" id="inputfilecontainer-real-marksheet">
@@ -848,7 +1210,7 @@
                                 <i class="fa-solid fa-image"></i>
                                 <p class="office-id truncate-filename">Office ID</p>
 
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-office-id"></>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-office-id"></>
 
                             </div>
                             <input type="file" id="inputfilecontainer-real-marksheet">
@@ -862,7 +1224,7 @@
                                 <i class="fa-solid fa-image"></i>
                                 <p class="joining-letter truncate-filename">Joining Letter</p>
 
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-joining-letter"></>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-joining-letter"></>
 
                             </div>
                             <input type="file" id="inputfilecontainer-real-marksheet">
@@ -887,7 +1249,7 @@
                             <div class="inputfilecontainer-coborrower-kyccolumn">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="coborrower-pancard truncate-filename">Pan Card </p>
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-pan"></>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-coborrower-pan"></>
                             </div>
                             <input type="file" id="inputfilecontainer-kyccoborrwer">
                             <span class="document-status">420 MB uploaded</span>
@@ -898,7 +1260,9 @@
                             <div class="inputfilecontainer-coborrower-kyccolumn">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="coborrower-aadharcard truncate-filename">Aadhar Card </p>
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-aadhar"></>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}"
+                                    id="view-coborrower-aadhar">
+                                </>
                             </div>
                             <input type="file" id="inputfilecontainer-kyccoborrwer">
                             <span class="document-status">420 MB uploaded</span>
@@ -909,7 +1273,8 @@
                             <div class="inputfilecontainer-coborrower-kyccolumn">
                                 <i class="fa-solid fa-image"></i>
                                 <p class="coborrower-addressproof truncate-filename">Address Proof </p>
-                                <img class="fa-eye" src="{{asset($viewIconPath)}}" id="view-coborrower-addressproof"></>
+                                <img class="fa-eye" src="{{ asset($viewIconPath) }}"
+                                    id="view-coborrower-addressproof"></>
                             </div>
                             <input type="file" id="inputfilecontainer-kyccoborrwer">
                             <span class="document-status">420 MB uploaded</span>
@@ -968,7 +1333,6 @@
 </div>
 
     <script>
-
         document.addEventListener('DOMContentLoaded', () => {
             expandingStudentDetails();
             initializeSearchAndFilter();
@@ -995,7 +1359,8 @@
 
 
 
-        const applicationStatusElements = document.querySelectorAll(".individualstudentapplication-status .scdashboard-nbfcstatus-pending span");
+        const applicationStatusElements = document.querySelectorAll(
+            ".individualstudentapplication-status .scdashboard-nbfcstatus-pending span");
         const missingDocumentsCount = document.querySelectorAll(".scdashboard-missingdocumentsstatus");
 
         applicationStatusElements.forEach((items, index) => {
@@ -1009,8 +1374,7 @@
             if (items.textContent.includes("Not yet reviewed")) {
                 items.style.color = "#909090";
                 items.style.backgroundColor = "#F0F0F0";
-            }
-            else {
+            } else {
                 if (missingDocumentsCount[index]) {
                     missingDocumentsCount[index].style.display = "flex";
                 }
@@ -1019,26 +1383,28 @@
 
         const expandingStudentDetails = async () => {
             const listContainer = document.querySelectorAll(".studentapplication-lists");
-            const expandButton = document.querySelectorAll(".individualapplication-list .application-buttoncontainer .expand-arrow");
+            const expandButton = document.querySelectorAll(
+                ".individualapplication-list .application-buttoncontainer .expand-arrow");
             const documentsStatusBar = document.querySelectorAll(".studentapplication-lists-remainingdocuments");
-            const studentId = document.querySelectorAll(".studentapplication-lists .firstsection-lists [id^='hidden-id-elementforaccess-']");
+            const studentId = document.querySelectorAll(
+                ".studentapplication-lists .firstsection-lists [id^='hidden-id-elementforaccess-']");
 
             let previousUserId = null;
 
             for (let [index, item] of expandButton.entries()) {
-                item.addEventListener('click',  () => {
+                item.addEventListener('click', () => {
                     if (listContainer[index] && documentsStatusBar[index] && studentId[index]) {
                         const isExpanded = listContainer[index].style.height === "fit-content";
 
                         listContainer[index].style.height = isExpanded ? "140px" : "fit-content";
                         documentsStatusBar[index].style.display = isExpanded ? "none" : "block";
                         item.style.transform = isExpanded ? "rotate(0deg)" : "rotate(180deg)";
-                        item.style.transition = "transform 0.2s ease";  
+                        item.style.transition = "transform 0.2s ease";
 
                         const userId = studentId[index].textContent.trim();
                         if (!isExpanded && userId && userId !== previousUserId) {
                             previousUserId = userId;
-                             getRemainingDocuments(userId);
+                            getRemainingDocuments(userId);
                         }
                     }
                 });
@@ -1047,24 +1413,37 @@
 
         const getRemainingDocuments = async (userId) => {
             const documentIdPrefixMap = {
+                // 📄 Static documents
                 "pan-card-name": "pan-card-admin-view-",
                 "aadhar-card-name": "aadhar-card-admin-view-",
-                "passport-name": "passport-view-",
+                "passport-card-name": "passport-card-admin-view-",
                 "secured-tenth-name": "sslc-grade-adminview-",
                 "secured-twelfth-name": "hsc-grade-adminview-",
                 "secured-graduation-name": "graduation-grade-adminview-",
                 "tenth-grade-name": "sslc-grade-marksheet-adminview-",
                 "twelfth-grade-name": "hsc-grade-marksheet-adminview-",
                 "graduation-grade-name": "degree-grade-marksheet-adminview-",
+
+                // 🧑‍🤝‍🧑 Co-borrower
                 "co-pan-card-name": "co-borrower-pan-admin-view-",
                 "co-aadhar-card-name": "co-borrower-aadhar-admin-view-",
                 "co-addressproof": "co-borrower-address-admin-view-",
-                "salary-upload-address-proof-name": "salary-addressproof-admin-view-",
-                "salary-upload-salary-slip-name": "salary-slip-admin-view-",
+
+                // 💼 Work experience
                 "work-experience-experience-letter": "work-experience-letter-admin-view-",
                 "work-experience-joining-letter": "work-experience-joining-admin-view-",
                 "work-experience-monthly-slip": "work-experience-slip-admin-view-",
-                "work-experience-office-id": "work-experience-id-admin-view-"
+                "work-experience-office-id": "work-experience-id-admin-view-",
+
+                // 🧾 Salaried
+                "salary-upload-salary-slip-name": "salary-slip-admin-view-",
+                "salary-upload-salary-statement-name": "salary-statement-admin-view-",
+                "salary-upload-address-proof-name": "salary-addressproof-admin-view-",
+
+                // 🏢 Business
+                "salary-upload-itr-name": "business-itr-admin-view-",
+                "salary-upload-fourth-document-name": "business-bankstatement-admin-view-",
+                "salary-upload-fifth-document-name": "business-officephoto-admin-view-",
             };
 
             try {
@@ -1072,9 +1451,12 @@
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content')
                     },
-                    body: JSON.stringify({ userId })
+                    body: JSON.stringify({
+                        userId
+                    })
                 });
 
                 const data = await response.json();
@@ -1101,7 +1483,7 @@
 
                         if (documentElement) {
                             console.log("✅ Found element:", elementId);
-                            documentElement.style.display = "flex"; // Use "block" if needed
+                            documentElement.style.display = "flex"; // or "block"
                         } else {
                             console.warn("❌ Element not found in DOM:", elementId);
                         }
@@ -1135,13 +1517,17 @@
                 let visibleCount = 0;
 
                 studentListItems.forEach(item => {
-                    const studentName = item.querySelector('.firstsection-lists h1').textContent.toLowerCase();
+                    const studentName = item.querySelector('.firstsection-lists h1').textContent
+                        .toLowerCase();
                     const matchesSearch = studentName.includes(searchTerm);
-                    const currentFilter = document.querySelector('.student-list-dropdown-content a.active')?.dataset.filter || 'all';
+                    const currentFilter = document.querySelector(
+                        '.student-list-dropdown-content a.active')?.dataset.filter || 'all';
 
                     const matchesFilter = currentFilter === 'all' ||
-                        (currentFilter === 'pending' && item.dataset.status.toLowerCase() === 'pending') ||
-                        (currentFilter === 'approved' && item.dataset.status.toLowerCase() === 'approved');
+                        (currentFilter === 'pending' && item.dataset.status.toLowerCase() ===
+                            'pending') ||
+                        (currentFilter === 'approved' && item.dataset.status.toLowerCase() ===
+                            'approved');
 
                     if (matchesSearch && matchesFilter) {
                         item.style.display = 'block';
@@ -1176,11 +1562,14 @@
                     let visibleCount = 0;
 
                     studentListItems.forEach(item => {
-                        const studentName = item.querySelector('.firstsection-lists h1').textContent.toLowerCase();
+                        const studentName = item.querySelector('.firstsection-lists h1')
+                            .textContent.toLowerCase();
                         const matchesSearch = studentName.includes(searchTerm);
                         const matchesFilter = filter === 'all' ||
-                            (filter === 'pending' && item.dataset.status.toLowerCase() === 'pending') ||
-                            (filter === 'approved' && item.dataset.status.toLowerCase() === 'approved');
+                            (filter === 'pending' && item.dataset.status.toLowerCase() ===
+                                'pending') ||
+                            (filter === 'approved' && item.dataset.status.toLowerCase() ===
+                                'approved');
 
                         if (matchesSearch && matchesFilter) {
                             item.style.display = 'block';
@@ -1211,15 +1600,17 @@
 
             viewTriggers.forEach(trigger => {
                 trigger.addEventListener('click', () => {
-                    const uniqueId = document.getElementById(`hidden-id-elementforaccess-${trigger.dataset.userId}`).textContent.trim();
+                    const uniqueId = document.getElementById(
+                        `hidden-id-elementforaccess-${trigger.dataset.userId}`).textContent.trim();
 
                     Loader.show();
 
                     // Call both functions in parallel and wait for both
                     Promise.all([
-                        fetchProfile(uniqueId, false, studentProfileContainer, studentListContainer),
-                        initialiseAllViews(uniqueId)
-                    ])
+                            fetchProfile(uniqueId, false, studentProfileContainer,
+                                studentListContainer),
+                            initialiseAllViews(uniqueId)
+                        ])
                         .then(() => {
                             Loader.hide(); // ✅ Hide when both complete
                         })
@@ -1233,13 +1624,14 @@
 
             editTriggers.forEach(trigger => {
                 trigger.addEventListener('click', () => {
-                    const uniqueId = document.getElementById(`hidden-id-elementforaccess-${trigger.dataset.userId}`).textContent.trim();
+                    const uniqueId = document.getElementById(
+                        `hidden-id-elementforaccess-${trigger.dataset.userId}`).textContent.trim();
 
                     Loader.show(); // ✅ Show loader before starting fetch
 
                     Promise.resolve(
-                        fetchProfile(uniqueId, true, studentProfileContainer, studentListContainer)
-                    )
+                            fetchProfile(uniqueId, true, studentProfileContainer, studentListContainer)
+                        )
                         .then(() => {
                             Loader.hide(); // ✅ Hide loader after fetch completes
                         })
@@ -1297,8 +1689,10 @@
             document.getElementById("edit-state").value = userProfile.state || '';
 
             // Education
-            document.getElementById("education-course").textContent = userProfile.course_name || "Bachelor's Degree in Computer Science";
-            document.getElementById("education-university").textContent = userProfile.university_school_name || "Master's Degree in AI";
+            document.getElementById("education-course").textContent = userProfile.course_name ||
+                "Bachelor's Degree in Computer Science";
+            document.getElementById("education-university").textContent = userProfile.university_school_name ||
+                "Master's Degree in AI";
             document.getElementById("edit-course").value = userProfile.course_name || '';
             document.getElementById("edit-university").value = userProfile.university_school_name || '';
 
@@ -1355,7 +1749,7 @@
             document.getElementById("course-duration").value = userProfile.course_duration || '';
             document.getElementById("loan-amount").value = userProfile.loan_amount || '';
             document.getElementById("referral-code").value = userProfile.referral_code || '';
-          
+
 
             document.getElementById("course-details-container").setAttribute('data-course-details', JSON.stringify({
                 planToStudy: planToStudyArray,
@@ -1379,7 +1773,7 @@
             document.querySelector('.savecancelbuttoncontainer').style.display = 'flex';
 
             document.getElementById('edit-profile-btn').style.display = 'none';
- 
+
             const inputs = [
                 'edit-name', 'edit-phone', 'edit-email', 'edit-state',
                 'edit-course', 'edit-university',
@@ -1482,7 +1876,8 @@
             };
 
             const courseDetails = {
-                plan_to_study: Array.from(document.querySelectorAll('input[name="study-location-edit"]:checked')).map(cb => cb.value),
+                plan_to_study: Array.from(document.querySelectorAll('input[name="study-location-edit"]:checked'))
+                    .map(cb => cb.value),
                 degree_type: document.querySelector('input[name="education-level"]:checked')?.value || '',
                 course_duration: document.getElementById('course-duration').value,
                 loan_amount: document.getElementById('loan-amount').value,
@@ -1507,7 +1902,8 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content')
                     },
                     body: JSON.stringify(fullData)
                 });
@@ -1528,23 +1924,86 @@
             }
         }
 
-        const endpoints = [
-            { url: "/retrieve-file", selector: ".uploaded-aadhar-name", fileType: "aadhar-card-name" },
-            { url: "/retrieve-file", selector: ".uploaded-pan-name", fileType: "pan-card-name" },
-            { url: "/retrieve-file", selector: ".passport-name-selector", fileType: "passport-card-name" },
-            { url: "/retrieve-file", selector: ".sslc-marksheet", fileType: "tenth-grade-name" },
-            { url: "/retrieve-file", selector: ".hsc-marksheet", fileType: "twelfth-grade-name" },
-            { url: "/retrieve-file", selector: ".graduation-marksheet", fileType: "graduation-grade-name" },
-            { url: "/retrieve-file", selector: ".sslc-grade", fileType: "secured-tenth-name" },
-            { url: "/retrieve-file", selector: ".hsc-grade", fileType: "secured-twelfth-name" },
-            { url: "/retrieve-file", selector: ".graduation-grade", fileType: "secured-graduation-name" },
-            { url: "/retrieve-file", selector: ".experience-letter", fileType: "work-experience-experience-letter" },
-            { url: "/retrieve-file", selector: ".salary-slip", fileType: "work-experience-monthly-slip" },
-            { url: "/retrieve-file", selector: ".office-id", fileType: "work-experience-office-id" },
-            { url: "/retrieve-file", selector: ".joining-letter", fileType: "work-experience-joining-letter" },
-            { url: "/retrieve-file", selector: ".coborrower-pancard", fileType: "co-pan-card-name" },
-            { url: "/retrieve-file", selector: ".coborrower-aadharcard", fileType: "co-aadhar-card-name" },
-            { url: "/retrieve-file", selector: ".coborrower-addressproof", fileType: "co-addressproof" },
+        const endpoints = [{
+                url: "/retrieve-file",
+                selector: ".uploaded-aadhar-name",
+                fileType: "aadhar-card-name"
+            },
+            {
+                url: "/retrieve-file",
+                selector: ".uploaded-pan-name",
+                fileType: "pan-card-name"
+            },
+            {
+                url: "/retrieve-file",
+                selector: ".passport-name-selector",
+                fileType: "passport-card-name"
+            },
+            {
+                url: "/retrieve-file",
+                selector: ".sslc-marksheet",
+                fileType: "tenth-grade-name"
+            },
+            {
+                url: "/retrieve-file",
+                selector: ".hsc-marksheet",
+                fileType: "twelfth-grade-name"
+            },
+            {
+                url: "/retrieve-file",
+                selector: ".graduation-marksheet",
+                fileType: "graduation-grade-name"
+            },
+            {
+                url: "/retrieve-file",
+                selector: ".sslc-grade",
+                fileType: "secured-tenth-name"
+            },
+            {
+                url: "/retrieve-file",
+                selector: ".hsc-grade",
+                fileType: "secured-twelfth-name"
+            },
+            {
+                url: "/retrieve-file",
+                selector: ".graduation-grade",
+                fileType: "secured-graduation-name"
+            },
+            {
+                url: "/retrieve-file",
+                selector: ".experience-letter",
+                fileType: "work-experience-experience-letter"
+            },
+            {
+                url: "/retrieve-file",
+                selector: ".salary-slip",
+                fileType: "work-experience-monthly-slip"
+            },
+            {
+                url: "/retrieve-file",
+                selector: ".office-id",
+                fileType: "work-experience-office-id"
+            },
+            {
+                url: "/retrieve-file",
+                selector: ".joining-letter",
+                fileType: "work-experience-joining-letter"
+            },
+            {
+                url: "/retrieve-file",
+                selector: ".coborrower-pancard",
+                fileType: "co-pan-card-name"
+            },
+            {
+                url: "/retrieve-file",
+                selector: ".coborrower-aadharcard",
+                fileType: "co-aadhar-card-name"
+            },
+            {
+                url: "/retrieve-file",
+                selector: ".coborrower-addressproof",
+                fileType: "co-addressproof"
+            },
         ];
 
         const documentUrls = {};
@@ -1563,14 +2022,17 @@
             const fileTypes = endpoints.map(ep => ep.fileType);
 
             return fetch("/retrieve-file", {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": csrfToken,
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ userId, fileTypes }),
-            })
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        userId,
+                        fileTypes
+                    }),
+                })
                 .then(res => res.json())
                 .then(data => {
                     const allFiles = data.staticFiles || data;
@@ -1639,16 +2101,23 @@
                 item.addEventListener('click', (e) => {
                     e.preventDefault();
                     const sortContentsType = e.target.getAttribute('data-sort');
-                    const raisedQuestions = Array.from(querysContainer.querySelectorAll('.individual-raisedquestions'));
+                    const raisedQuestions = Array.from(querysContainer.querySelectorAll(
+                        '.individual-raisedquestions'));
 
                     if (sortContentsType === 'newest') {
-                        raisedQuestions.sort((a, b) => new Date(b.dataset.added) - new Date(a.dataset.added));
+                        raisedQuestions.sort((a, b) => new Date(b.dataset.added) - new Date(a.dataset
+                            .added));
                     } else if (sortContentsType === 'oldest') {
-                        raisedQuestions.sort((a, b) => new Date(a.dataset.added) - new Date(b.dataset.added));
+                        raisedQuestions.sort((a, b) => new Date(a.dataset.added) - new Date(b.dataset
+                            .added));
                     } else if (sortContentsType === 'alphabet') {
-                        raisedQuestions.sort((a, b) => a.querySelector('#queries-row').textContent.trim().localeCompare(b.querySelector('#queries-row').textContent.trim()));
+                        raisedQuestions.sort((a, b) => a.querySelector('#queries-row').textContent
+                            .trim().localeCompare(b.querySelector('#queries-row').textContent
+                                .trim()));
                     } else if (sortContentsType === 'alphabet-reverse') {
-                        raisedQuestions.sort((a, b) => b.querySelector('#queries-row').textContent.trim().localeCompare(a.querySelector('#queries-row').textContent.trim()));
+                        raisedQuestions.sort((a, b) => b.querySelector('#queries-row').textContent
+                            .trim().localeCompare(a.querySelector('#queries-row').textContent
+                                .trim()));
                     }
 
                     raisedQuestions.forEach((question) => {
@@ -1686,7 +2155,7 @@
                     return;
                 }
 
-                eyeIcon.addEventListener("click", function (event) {
+                eyeIcon.addEventListener("click", function(event) {
                     event.stopPropagation();
 
                     const documentType = eyeIcon.id
@@ -1697,9 +2166,9 @@
                     const fileNameElement = card.querySelector(
                         `.uploaded-${documentType}-name`
                     );
-                    const fileName = fileNameElement
-                        ? fileNameElement.textContent
-                        : "Document";
+                    const fileName = fileNameElement ?
+                        fileNameElement.textContent :
+                        "Document";
 
                     if (eyeIcon.classList.contains("preview-active")) {
                         document.querySelector(".pdf-preview-wrapper")?.remove();
@@ -1887,7 +2356,9 @@
                         imgContainer.appendChild(img);
                         previewWrapper.appendChild(imgContainer);
                     } else {
-                        alert("Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported.");
+                        alert(
+                            "Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported."
+                        );
                         return;
                     }
 
@@ -1914,7 +2385,7 @@
                     return;
                 }
 
-                eyeIcon.addEventListener("click", function (event) {
+                eyeIcon.addEventListener("click", function(event) {
                     event.stopPropagation();
 
                     if (eyeIcon.classList.contains("preview-active")) {
@@ -1942,7 +2413,8 @@
                     }
 
                     const fileUrl = documentUrls[fileTypeKey];
-                    const fileNameElement = card.querySelector(`.${fileTypeKey.replace("-name", "-marksheet")}`);
+                    const fileNameElement = card.querySelector(
+                        `.${fileTypeKey.replace("-name", "-marksheet")}`);
                     const fileName = fileNameElement?.textContent || "Document";
 
                     const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
@@ -2108,7 +2580,9 @@
                         imgContainer.appendChild(img);
                         previewWrapper.appendChild(imgContainer);
                     } else {
-                        alert("Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported.");
+                        alert(
+                            "Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported."
+                        );
                         return;
                     }
 
@@ -2137,7 +2611,7 @@
                     return;
                 }
 
-                eyeIcon.addEventListener("click", function (event) {
+                eyeIcon.addEventListener("click", function(event) {
                     event.stopPropagation();
 
                     // Determine document type based on which element exists
@@ -2155,9 +2629,9 @@
                     const fileNameElement = card.querySelector(
                         `.${fileTypeKey.replace("-name", "-grade")}`
                     );
-                    const fileName = fileNameElement
-                        ? fileNameElement.textContent
-                        : "Document.pdf";
+                    const fileName = fileNameElement ?
+                        fileNameElement.textContent :
+                        "Document.pdf";
 
                     console.log(
                         `Previewing secured admission (${fileTypeKey}):`,
@@ -2342,7 +2816,7 @@
                             iframe.style.transformOrigin = "top center";
                         });
 
-                        document.addEventListener("keydown", function (e) {
+                        document.addEventListener("keydown", function(e) {
                             if (e.key === "Escape") {
                                 closePreview();
                             }
@@ -2468,7 +2942,7 @@
                         document.body.appendChild(overlay);
                         document.body.appendChild(previewWrapper);
 
-                        document.addEventListener("keydown", function (e) {
+                        document.addEventListener("keydown", function(e) {
                             if (e.key === "Escape") {
                                 closePreview();
                             }
@@ -2513,7 +2987,7 @@
                     return;
                 }
 
-                eyeIcon.addEventListener("click", function (event) {
+                eyeIcon.addEventListener("click", function(event) {
                     event.stopPropagation();
 
                     // Determine document type based on which element exists
@@ -2533,9 +3007,9 @@
                     const fileNameElement = card.querySelector(
                         `.${fileTypeKey.split("-").slice(2).join("-")}`
                     );
-                    const fileName = fileNameElement
-                        ? fileNameElement.textContent
-                        : "Document.pdf";
+                    const fileName = fileNameElement ?
+                        fileNameElement.textContent :
+                        "Document.pdf";
 
                     console.log(
                         `Previewing work experience (${fileTypeKey}):`,
@@ -2720,7 +3194,7 @@
                             iframe.style.transformOrigin = "top center";
                         });
 
-                        document.addEventListener("keydown", function (e) {
+                        document.addEventListener("keydown", function(e) {
                             if (e.key === "Escape") {
                                 closePreview();
                             }
@@ -2846,7 +3320,7 @@
                         document.body.appendChild(overlay);
                         document.body.appendChild(previewWrapper);
 
-                        document.addEventListener("keydown", function (e) {
+                        document.addEventListener("keydown", function(e) {
                             if (e.key === "Escape") {
                                 closePreview();
                             }
@@ -2916,10 +3390,12 @@
     passwordToggleIcon.addEventListener("click", togglePasswordVisibility);
 };
         const addDynamicInputFields = () => {
-            const addStudentButtons = document.querySelectorAll(".studentAddBySCuserPopup-footerpart button:nth-child(2), #dynamic-add-student-button"); // Fixed class name
+            const addStudentButtons = document.querySelectorAll(
+                ".studentAddBySCuserPopup-footerpart button:nth-child(2), #dynamic-add-student-button"
+            ); // Fixed class name
             const studentFormContainer = document.querySelector(".studentAddBySCuserPopup-contentpart");
 
-            console.log(">>",studentFormContainer)
+            console.log(">>", studentFormContainer)
             if (!studentFormContainer) {
                 console.error("Student form container not found.");
                 return;
@@ -3003,13 +3479,13 @@
 
                     formData.append('excel_file', file);
 
-                    fetch('{{ route("students.import") }}', {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                        },
-                        body: formData
-                    })
+                    fetch('{{ route('students.import') }}', {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                            },
+                            body: formData
+                        })
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
@@ -3038,7 +3514,7 @@
                     return;
                 }
 
-                eyeIcon.addEventListener("click", function (event) {
+                eyeIcon.addEventListener("click", function(event) {
                     event.stopPropagation();
 
                     let fileTypeKey = null;
@@ -3051,9 +3527,12 @@
                     }
 
                     const fileUrl = documentUrls[fileTypeKey];
-                    const fileNameElement = card.querySelector(`.${fileTypeKey?.replace("-name", "-grade")}`);
-                    const rawFileName = fileNameElement ? fileNameElement.textContent.trim() : "Document";
-                    const fileName = typeof truncateFileName === "function" ? truncateFileName(rawFileName) : rawFileName;
+                    const fileNameElement = card.querySelector(
+                        `.${fileTypeKey?.replace("-name", "-grade")}`);
+                    const rawFileName = fileNameElement ? fileNameElement.textContent.trim() :
+                        "Document";
+                    const fileName = typeof truncateFileName === "function" ? truncateFileName(
+                        rawFileName) : rawFileName;
 
                     const closePreview = () => {
                         document.querySelector(".pdf-preview-wrapper")?.remove();
@@ -3080,7 +3559,8 @@
                     }
 
                     const isPDF = fileUrl.toLowerCase().endsWith(".pdf");
-                    const isImage = [".jpg", ".jpeg", ".png"].some(ext => fileUrl.toLowerCase().endsWith(ext));
+                    const isImage = [".jpg", ".jpeg", ".png"].some(ext => fileUrl.toLowerCase()
+                        .endsWith(ext));
 
                     const overlay = document.createElement("div");
                     overlay.className = isPDF ? "pdf-preview-overlay" : "image-preview-overlay";
@@ -3230,7 +3710,9 @@
                         imgContainer.appendChild(img);
                         previewWrapper.appendChild(imgContainer);
                     } else {
-                        alert("Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported.");
+                        alert(
+                            "Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported."
+                        );
                         return;
                     }
 
@@ -3272,13 +3754,17 @@
 
                 // Email check
                 if (student.email && !isValidEmail(student.email)) {
-                    console.error(`Invalid email for student ${index + 1} (${student.name || 'unnamed'}): "${student.email}"`);
+                    console.error(
+                        `Invalid email for student ${index + 1} (${student.name || 'unnamed'}): "${student.email}"`
+                    );
                     hasInvalidEmail = true;
                 }
 
                 // Phone check
                 if (student.phone && !isValidPhone(student.phone)) {
-                    console.error(`Invalid phone number for student ${index + 1} (${student.name || 'unnamed'}): "${student.phone}"`);
+                    console.error(
+                        `Invalid phone number for student ${index + 1} (${student.name || 'unnamed'}): "${student.phone}"`
+                    );
                     hasInvalidPhone = true;
                 }
 
@@ -3317,7 +3803,9 @@
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                     },
-                    body: JSON.stringify({ students })
+                    body: JSON.stringify({
+                        students
+                    })
                 });
 
                 const result = await response.json();
@@ -3376,7 +3864,7 @@
         const initialiseEightcolumn = () => {
             const section = document.querySelector(".eightcolumn-firstsection");
 
-            section.addEventListener("click", function () {
+            section.addEventListener("click", function() {
                 if (section.style.height === "") {
                     section.style.height = "fit-content";
                 } else {
@@ -3387,7 +3875,7 @@
         const initialiseSeventhcolumn = () => {
             const section = document.querySelector(".seventhcolum-firstsection");
 
-            section.addEventListener("click", function () {
+            section.addEventListener("click", function() {
                 if (section.style.height === "") {
                     section.style.height = "fit-content";
                 } else {
@@ -3400,7 +3888,7 @@
                 ".seventhcolumn-additional-firstcolumn"
             );
 
-            section.addEventListener("click", function () {
+            section.addEventListener("click", function() {
                 if (section.style.height === "") {
                     section.style.height = "fit-content";
                 } else {
@@ -3411,7 +3899,7 @@
         const initialiseNinthcolumn = () => {
 
             const section = document.querySelector('.ninthcolumn-firstsection');
-            section.addEventListener('click', function () {
+            section.addEventListener('click', function() {
                 if (section.style.height === '') {
                     section.style.height = 'fit-content';
                 } else {
@@ -3427,7 +3915,7 @@
 
         const initialiseTenthcolumn = () => {
             const section = document.querySelector(".tenthcolumn-firstsection");
-            section.addEventListener("click", function () {
+            section.addEventListener("click", function() {
                 if (section.style.height === "") {
                     section.style.height = "fit-content";
                 } else {
@@ -3491,7 +3979,7 @@
             uploadIconId,
             removeIconId,
             clearName = null,
-            sourceType = 'static',  // default value
+            sourceType = 'static', // default value
             studentId = null
         ) {
             alert(sourceType);
@@ -3542,9 +4030,9 @@
             }
             const fileSizeInKB = (file.size / 1024).toFixed(2);
             const fileSizeDisplay =
-                fileSizeInKB > 1024
-                    ? `${(fileSizeInKB / 1024).toFixed(2)} MB`
-                    : `${fileSizeInKB} KB`;
+                fileSizeInKB > 1024 ?
+                `${(fileSizeInKB / 1024).toFixed(2)} MB` :
+                `${fileSizeInKB} KB`;
             const truncatedFileName = truncateFileName(file.name);
             fileNameElement.textContent = truncatedFileName;
             uploadIcon.style.display = "none";
@@ -3597,8 +4085,8 @@
             formDetailsData.append("file", file);
             formDetailsData.append("userId", userId);
             formDetailsData.append("fileNameId", fileNameId);
-            formDetailsData.append("clearName", clearName);  // send clearName here
-            formDetailsData.append("sourceType", sourceType);  // send clearName here
+            formDetailsData.append("clearName", clearName); // send clearName here
+            formDetailsData.append("sourceType", sourceType); // send clearName here
 
             const csrfToken = document
                 .querySelector('meta[name="csrf-token"]')
@@ -3608,13 +4096,13 @@
                 return;
             }
             fetch("/upload-each-documents", {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": csrfToken,
-                    Accept: "application/json",
-                },
-                body: formDetailsData,
-            })
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                        Accept: "application/json",
+                    },
+                    body: formDetailsData,
+                })
                 .then((response) => {
                     if (!response.ok) {
                         return response.json().then((errorData) => {
@@ -3694,14 +4182,14 @@
                 fileNameId: fileNameId,
             };
             fetch("/remove-each-documents", {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": csrfToken,
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            })
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                })
                 .then((response) => {
                     if (!response.ok) {
                         return response.json().then((errorData) => {
@@ -3734,13 +4222,16 @@
                 const userId = statusElement.getAttribute('data-user-id');
 
                 fetch('/remaining-documents', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({ userId: userId })
-                })
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: JSON.stringify({
+                            userId: userId
+                        })
+                    })
                     .then(response => response.json())
                     .then(data => {
                         const missingCount = data.missingDocuments.length;
@@ -3755,7 +4246,6 @@
             });
 
         }
-
     </script>
     <script src="{{ asset('js/studentforms.js') }}"></script>
 
