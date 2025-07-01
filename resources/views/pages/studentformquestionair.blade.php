@@ -1904,7 +1904,6 @@
                             <p>Please upload your office/shop photographs in jpg, png, or pdf format.</p>
                         </div>
                     </div>
-                    <button type="submit" class="next-btn-kyc" id="saveandsubmit">Save and Submit</button>
                 </div>
                   @foreach ($documentTypes->where('slug', 'business-document') as $doc)
                     @php
@@ -1943,6 +1942,8 @@
                         </div>
                     </div>
                 @endforeach
+
+                                    <button type="submit" class="next-btn-kyc" id="saveandsubmit">Save and Submit</button>
 
 
             </div>

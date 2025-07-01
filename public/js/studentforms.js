@@ -880,11 +880,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (nextAcademicButton) {
         nextAcademicButton.addEventListener("click", () => {
-            if (currentBreadcrumbIndex === 1) {
+            if (currentBreadcrumbIndex === 2) {
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
                     (container) => (container.style.display = "none"),
                 );
-                currentBreadcrumbIndex = 2;
+                currentBreadcrumbIndex = 3;
                 currentContainerIndex = 0;
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
                     (container, index) => {
