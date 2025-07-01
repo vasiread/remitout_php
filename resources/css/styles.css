@@ -15,7 +15,8 @@ html, body {
    position: relative;
    width: 100%;
    height: auto;
-   background-image: url('../../assets/images/Banner_Remitout 1.webp');
+   /* background-image: url('../assets/images/Banner_Remitout 1.webp'); */
+   /* background-image:url('../../public/assets/images/Banner_Remitout\ 1.webp'); */
    background-size: cover;
    background-position: center top;
    display: flex;
@@ -850,7 +851,7 @@ html, body {
     display: flex;
     flex-direction: column;
     position: relative;
-    background-image: url("../Images/Testimonial-banner.png");
+    /* background-image: url("../../public/assets/images/Testimonial-banner.png"); */
     margin-top: 0;
     background-size: cover;
     background-position: center;
@@ -947,7 +948,7 @@ html, body {
    top: -1.5rem;
    left: 2rem;
    z-index: 2;
-   background-image: url("../assets/Images/profileCardVector.png");
+   /* background-image: url("../assets/Images/profileCardVector.png"); */
    background-repeat: no-repeat;
    background-position: center;
    background-size: cover;
@@ -1216,7 +1217,7 @@ html, body {
     .profilecardsection {
         padding-top: 0px;
         height: auto;
-        background-image: url("../Images/profilecard-mobile-banner.png");
+        /* background-image: url("../Images/profilecard-mobile-banner.png"); */
     }
 
     /* Inner container layout */
@@ -1391,7 +1392,7 @@ html, body {
         display: block;
         width: 100%;
         height: 300px;
-        background-image: url("../Images/profilecard-mobile-banner.png");
+        /* background-image: url("../Images/profilecard-mobile-banner.png"); */
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -1403,7 +1404,7 @@ html, body {
         z-index: 2;
         margin-bottom: 40px;
         text-align: center;
-        background-image: url("../Images/hero-mobile banner.png");
+        /* background-image: url("../Images/hero-mobile banner.png"); */
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -1667,7 +1668,7 @@ html, body {
    left: -100px;
    width: 300px;
    height: 300px;
-   background-image: url('../images/left-image.png');
+   /* background-image: url('../images/left-image.png'); */
    background-size: contain;
    background-position: center;
    background-repeat: no-repeat;
@@ -1970,8 +1971,8 @@ html, body {
  .smart-banner-image {
    width: 100%;
    height: auto;
-   background-image: url('assets/images/smart-image-banner.png');
-   background-image: url('../images/smart-image-banner.png');
+   /* background-image: url('assets/images/smart-image-banner.png');
+   background-image: url('../images/smart-image-banner.png'); */
    background-size: cover;
    background-position: center;
    background-repeat: no-repeat;
@@ -2968,7 +2969,7 @@ html, body {
         transform: translateX(-50%);
         width: 42px;
         height: 42px;
-        background-image: url("assets/Images/account_circle.png");
+        /* background-image: url("assets/Images/account_circle.png"); */
         background-size: contain;
         background-repeat: no-repeat;
     }
@@ -2981,7 +2982,7 @@ html, body {
         transform: translateX(-50%);
         width: 42px;
         height: 42px;
-        background-image: url("assets/Images/account_balance.png");
+        /* background-image: url("assets/Images/account_balance.png"); */
         background-size: contain;
         background-repeat: no-repeat;
     }
@@ -2994,7 +2995,7 @@ html, body {
         transform: translateX(-50%);
         width: 42px;
         height: 42px;
-        background-image: url("assets/Images/flag.png");
+        /* background-image: url("assets/Images/flag.png"); */
         background-size: contain;
         background-repeat: no-repeat;
     }
@@ -3007,7 +3008,7 @@ html, body {
         transform: translateX(-50%);
         width: 42px;
         height: 42px;
-        background-image: url("assets/Images/sentiment_very_satisfied.png");
+        /* background-image: url("assets/Images/sentiment_very_satisfied.png"); */
         background-size: contain;
         background-repeat: no-repeat;
     }
@@ -3091,7 +3092,7 @@ html, body {
    width: 100%;
    justify-content: center;
    padding: 150px 0px;
-   background-image: url("../images/faq-banner.png");
+   /* background-image: url("../images/faq-banner.png"); */
    background-size: cover;
    background-position: center;
    background-repeat: no-repeat;
