@@ -2,9 +2,6 @@ version: '3.8'
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
     image: vasi12345/remitout-app:latest
     container_name: laravel-app
     restart: unless-stopped
