@@ -8,9 +8,9 @@
 
  <body>
      @php
-         $headingText = $landingpageContents[6]->content ?? null;
-         $headingText = $headingText ?: 'Hear What They Say';
-         $parts = explode(' ', $headingText, 3);
+       $headingText = $cms['testimonial']['Testimonial Heading'] ?? null;
+    $headingText = $headingText ?: 'Hear What They Say';
+    $parts = explode(' ', $headingText, 3);
      @endphp
 
     <div class="profilecardsection" id="testimonials">
