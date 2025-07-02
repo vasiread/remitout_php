@@ -1099,11 +1099,11 @@ class StudentDashboardController extends Controller
 
 
 
-    public function getStudentProfile($studentId)
-    {
-        $student = Student::find($studentId);
-        return view('pages.studentdashboard', compact('student'));
-    }
+    // public function getStudentProfile($studentId)
+    // {
+    //     $student = Student::find($studentId);
+    //     return view('pages.studentdashboard', compact('student'));
+    // }
 
 
 

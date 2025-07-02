@@ -357,7 +357,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.success) {
-                        showToast("Details have been saved successfully");
+                        showToast("Coborrower details saved successfully");
                     } else {
                         console.error("Failed to update co-borrower info:", data.message);
                     }
@@ -403,80 +403,50 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateUserPersonalInfo(event) {
         event.preventDefault();
 
-        const personalInfoId = document.getElementById(
-            "personal-info-userid",
-        ).value;
-        const personalInfoName =
-            document.getElementById("personal-info-name").value;
-        const personalInfoPhone = document.getElementById(
-            "personal-info-phone",
-        ).value;
-        const personalInfoEmail = document.getElementById(
-            "personal-info-email",
-        ).value;
-        const personalInfoCity =
-            document.getElementById("personal-info-city").value;
-        const personalInfoReferral = document.getElementById(
-            "personal-info-referral",
-        ).value;
-        const personalInfoState = document.getElementById(
-            "personal-info-state",
-        ).value;
-        const personalInfoDob =
-            document.getElementById("personal-info-dob").value;
-        const genderOptions = document.getElementById(
-            "gender-personal-info",
-        ).value;
-        const personalInfoFindOut = selectedValue;
+        const personalInfoId = document.getElementById("personal-info-userid").value;
+        const personalInfoName = document.getElementById("personal-info-name").value;
+        const personalInfoPhone = document.getElementById("personal-info-phone").value;
+        const personalInfoEmail = document.getElementById("personal-info-email").value;
+        const personalInfoCity = document.getElementById("personal-info-city").value;
+        const personalInfoReferral = document.getElementById("personal-info-referral").value;
+        const personalInfoState = document.getElementById("personal-info-state").value;
+        const personalInfoDob = document.getElementById("personal-info-dob").value;
+        const genderOptions = document.getElementById("gender-personal-info").value;
 
-        // ✅ Collect dynamic fields
+        // ✅ Fix: Extract selected dropdown value properly
+        const personalInfoFindOut = document.querySelector(".dropdown-option-about-us.selected")?.getAttribute("data-value") || "";
+
+        // ✅ Dynamic fields
         const dynamicFields = {};
+        document.querySelectorAll('input[name^="dynamic_fields["], select[name^="dynamic_fields["]').forEach((input) => {
+            const name = input.getAttribute("name");
+            const multipleMatch = name.match(/^dynamic_fields\[(\d+)\]\[\]$/);
+            const singleMatch = name.match(/^dynamic_fields\[(\d+)\]$/);
 
-        document
-            .querySelectorAll(
-                'input[name^="dynamic_fields["], select[name^="dynamic_fields["]',
-            )
-            .forEach((input) => {
-                const name = input.getAttribute("name");
-                const multipleMatch = name.match(
-                    /^dynamic_fields\[(\d+)\]\[\]$/,
-                );
-                const singleMatch = name.match(/^dynamic_fields\[(\d+)\]$/);
-
-                if (multipleMatch) {
-                    const fieldId = multipleMatch[1];
-                    if (!dynamicFields[fieldId]) {
-                        dynamicFields[fieldId] = [];
-                    }
-                    // For checkboxes, only add if checked
-                    if (
-                        (input.type === "checkbox" || input.type === "radio") &&
-                        input.checked
-                    ) {
-                        dynamicFields[fieldId].push(input.value);
-                    }
-                } else if (singleMatch) {
-                    const fieldId = singleMatch[1];
-                    if (input.type === "checkbox" || input.type === "radio") {
-                        if (input.checked) {
-                            dynamicFields[fieldId] = input.value;
-                        }
-                    } else if (input.tagName.toLowerCase() === "select") {
-                        dynamicFields[fieldId] = input.value;
-                    } else {
-                        dynamicFields[fieldId] = input.value;
-                    }
+            if (multipleMatch) {
+                const fieldId = multipleMatch[1];
+                if (!dynamicFields[fieldId]) dynamicFields[fieldId] = [];
+                if ((input.type === "checkbox" || input.type === "radio") && input.checked) {
+                    dynamicFields[fieldId].push(input.value);
                 }
-            });
+            } else if (singleMatch) {
+                const fieldId = singleMatch[1];
+                if (input.type === "checkbox" || input.type === "radio") {
+                    if (input.checked) dynamicFields[fieldId] = input.value;
+                } else {
+                    dynamicFields[fieldId] = input.value;
+                }
+            }
+        });
 
-        console.log(dynamicFields);
+        console.log("Dynamic Fields:", dynamicFields);
 
-        // ✅ Validate required fields (as you already do)
+        // ✅ Validation
         if (
-            personalInfoName !== "" &&
-            personalInfoPhone !== "" &&
-            personalInfoEmail !== "" &&
-            personalInfoCity !== "" &&
+            personalInfoName &&
+            personalInfoPhone &&
+            personalInfoEmail &&
+            personalInfoCity &&
             personalInfoFindOut
         ) {
             const personalUpdateData = {
@@ -493,6 +463,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 dynamic_fields: dynamicFields,
             };
 
+            console.log("Sending data:", JSON.stringify(personalUpdateData, null, 2));
+
             fetch("/update-personalinfo", {
                 method: "POST",
                 headers: {
@@ -506,19 +478,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.success) {
-                        showToast("Details have been saved successfully");
+                        showToast("Personal Info Details saved successfully");
                     } else {
-                        console.error(
-                            "Failed to update personal info:",
-                            data.message,
-                        );
+                        console.error("Failed to update personal info:", data.message);
                     }
                 })
                 .catch((error) => {
                     console.error("Error updating personal info:", error);
                 });
+        } else {
+            console.warn("Missing required fields");
         }
     }
+
 
     function getSelectedExpenseType() {
         const selectedExpense = document.querySelector(
@@ -607,7 +579,7 @@ document.addEventListener("DOMContentLoaded", () => {
             course_details: expenseType,
             dynamic_fields: dynamicFields,
         };
-        // alert(expenseType)
+         console.log(courseInfoData)
 
         // ✅ Send data to backend
         fetch("/update-courseinfo", {
@@ -623,9 +595,8 @@ document.addEventListener("DOMContentLoaded", () => {
             .then((response) => response.json())
             .then((data) => {
                 if (data.success) {
-                    showToast("Details have been saved successfully");
+                    showToast("Course Info Details saved successfully");
                     console.log(courseInfoData)
-                    navigate("next");
                 } else {
                     console.error(
                         "Failed to update course info:",
@@ -807,8 +778,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then((response) => response.json())
             .then((data) => {
                 if (data.success) {
-                    showToast("Details have been saved successfully");
-                    navigate("next");
+                    showToast("Academic Details saved successfully");
                 } else {
                     console.error(
                         "Failed to update academic info:",
@@ -845,8 +815,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     updateNavigationButtons();
                     updateDots();
                     updateMobileHeading(currentBreadcrumbIndex);
-                    showToast("Details have been saved successfully");
-                }
+                 }
             }
         });
     }
@@ -873,8 +842,7 @@ document.addEventListener("DOMContentLoaded", () => {
             updateNavigationButtons();
             updateDots();
             updateMobileHeading(currentBreadcrumbIndex);
-            showToast("Moved to Academic Details");
-        });
+         });
     }
 
 
@@ -896,8 +864,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateNavigationButtons();
                 updateDots();
                 updateMobileHeading(currentBreadcrumbIndex);
-                showToast("Details have been saved successfully");
-            }
+             }
         });
     }
 
@@ -919,8 +886,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateNavigationButtons();
                 updateDots();
                 updateMobileHeading(currentBreadcrumbIndex);
-                showToast("Details have been saved successfully");
-            }
+             }
         });
     }
 

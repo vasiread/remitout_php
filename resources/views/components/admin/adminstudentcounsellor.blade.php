@@ -449,56 +449,80 @@
             onChange: (selectedDates, dateStr) => {}
         });
     };
-    const addStudentCounsellor = () => {
-        const scUserName = document.getElementById("studentcounsellor-requiredfields-admin-scname").value;
-        const scDob = document.getElementById("studentcounsellor-requiredfields-admin-startdate").value;
-        const scEmail = document.getElementById("studentcounsellor-requiredfields-admin-email").value;
-        const scContact = document.getElementById("studentcounsellor-requiredfields-admin-contact").value;
-        const scAddress = document.getElementById("student-counsellor-admin-address").value;
-        const profilePhoto = document.getElementById("sc-profile-photo-upload");
+   const addStudentCounsellor = () => {
+    const scUserName = document.getElementById("studentcounsellor-requiredfields-admin-scname").value;
+    const scDob = document.getElementById("studentcounsellor-requiredfields-admin-startdate").value;
+    const scEmail = document.getElementById("studentcounsellor-requiredfields-admin-email").value;
+    const scContact = document.getElementById("studentcounsellor-requiredfields-admin-contact").value;
+    const scAddress = document.getElementById("student-counsellor-admin-address").value;
+    const profilePhoto = document.getElementById("sc-profile-photo-upload");
 
-        if (!scUserName) return alert('Please enter the Student Counsellor name.');
-        if (!scDob) return alert('Please enter the date of birth.');
-        if (!scEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(scEmail)) return alert(
-            'Please enter a valid email address.');
-        if (!scContact || !/^[0-9]{10}$/.test(scContact)) return alert(
-            'Please enter a valid 10-digit contact number.');
-        if (!scAddress) return alert('Please enter the address.');
+    if (!scUserName) return alert('Please enter the Student Counsellor name.');
+    if (!scDob) return alert('Please enter the date of birth.');
+    if (!scEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(scEmail)) return alert('Please enter a valid email address.');
+    if (!scContact || !/^[0-9]{10}$/.test(scContact)) return alert('Please enter a valid 10-digit contact number.');
+    if (!scAddress) return alert('Please enter the address.');
 
-        const formData = new FormData();
-        formData.append('scUserName', scUserName);
-        formData.append('scDob', scDob);
-        formData.append('scEmail', scEmail);
-        formData.append('scContact', scContact);
-        formData.append('scAddress', scAddress);
+    const formData = new FormData();
+    formData.append('scUserName', scUserName);
+    formData.append('scDob', scDob);
+    formData.append('scEmail', scEmail);
+    formData.append('scContact', scContact);
+    formData.append('scAddress', scAddress);
 
-        // Only append the profile photo if a file is selected
-        if (profilePhoto.files && profilePhoto.files.length > 0) {
-            formData.append('profilePhoto', profilePhoto.files[0]);
+    if (profilePhoto.files && profilePhoto.files.length > 0) {
+        formData.append('profilePhoto', profilePhoto.files[0]);
+    }
+
+    // Show the loader
+    Loader.show();
+
+    fetch('/register-studentcounsellor', {
+    method: "POST",
+    headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    },
+    body: formData
+})
+.then(async (response) => {
+    Loader.hide();
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        // Handle validation errors (422)
+        if (response.status === 422 && data.errors) {
+            const firstError = Object.values(data.errors)[0][0];
+            alert(firstError);
+            return;
         }
 
-        fetch('/register-studentcounsellor', {
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: formData
-            })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.message) {
-                    alert(data.message);
-                    clearfields();
-                } else if (data.error) {
-                    console.error(data.error);
-                    alert(`Error: ${data.error}`);
-                }
-            })
-            .catch((err) => {
-                console.error('An error occurred:', err);
-                alert("An Error Occurred, Try Again");
-            });
-    };
+        // Handle email exists (409)
+        if (response.status === 409 && data.message) {
+            alert(data.message);
+            return;
+        }
+
+        // Other server-side errors
+        alert(data.message || "An unexpected error occurred.");
+        return;
+    }
+
+    // Success
+    if (data.message) {
+        alert(data.message);
+        
+        console.log(data.message)
+        clearfields();
+    }
+})
+.catch((err) => {
+    Loader.hide();
+    console.error('An error occurred:', err);
+    alert("An error occurred. Please try again.");
+});
+};
+
 
     function dynamicTriggerModel(viewButton, editButton, suspendButton, counsellor, modelScProfile,
         studentCounsellorList) {
@@ -613,7 +637,7 @@
         viewButton.addEventListener("click", async () => {
             try {
                 editmode = false;
-                Loader.show();
+                    Loader.show();
                 await renderProfile(); // Must be async function if you're using await
             } catch (err) {
                 console.error("Error rendering profile in view mode:", err);

@@ -304,8 +304,7 @@ Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('
 
 
 Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);
-Route::post('/update-courseinfo', [StudentDetailsController::class, 'updateCourseInfo']);
-Route::post('/update-academicsinfo', [StudentDetailsController::class, 'updateAcademicsInfo']);
+ Route::post('/update-academicsinfo', [StudentDetailsController::class, 'updateAcademicsInfo']);
 Route::post('/updatedetailsinfo', [StudentDetailsController::class, 'updateUserIds']);
 Route::post("/coborrowerData", [StudentDetailsController::class, 'updateCoborrowerInfo']);
 Route::post('/getUserFromNbfc', [StudentDashboardController::class, 'getUserFromNbfc'])->name('getUserFromNbfc');

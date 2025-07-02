@@ -45,7 +45,7 @@ class User extends Model
 
     public function courseInfo()
     {
-        return $this->hasMany(CourseInfo::class, 'user_id', 'id');
+        return $this->hasMany(CourseInfo::class, 'user_id', 'unique_id');
     }
 
     public function additionalFieldValues()

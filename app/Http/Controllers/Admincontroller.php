@@ -1211,14 +1211,15 @@ class Admincontroller extends Controller
         $uniqueId = $user->unique_id;
 
         // Fetch data from social_options table
-        $socialOptions = SocialOption::all();
+         $socialOptions = SocialOption::all();
         $countries = PlanToCountry::all();
         $degrees = Degree::all();
         $courseDuration = CourseDuration::all();
         $additionalFields = AdditionalField::all();
         $documentTypes = DocumentType::all();
         $courseExpenseOptions = CourseDetailOption::all();
-        $personalInfos = Personalinfo::where('user_id', $uniqueId)->first();  
+        $personalInfos = Personalinfo::where('user_id', $uniqueId)->first();
+        $userDet = User::where('unique_id', $uniqueId)->first();  
         $courseInfoValues = Courseinfo::where('user_id',$uniqueId)->first();
         $academicInfoValues=Academics::where('user_id',$uniqueId)->first();
         $coInfoValues= CoBorrowerInfo::where('user_id',$uniqueId)->first();
@@ -1245,7 +1246,7 @@ class Admincontroller extends Controller
 
 
 
-        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees', 'courseDuration', 'additionalFields', 'documentTypes', 'courseExpenseOptions','personalInfos', 'courseInfoValues', 'academicInfoValues','userFieldValues', 'coInfoValues'));
+        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees', 'courseDuration', 'additionalFields', 'documentTypes', 'courseExpenseOptions','personalInfos', 'courseInfoValues', 'academicInfoValues','userFieldValues', 'coInfoValues', 'userDet'));
     }
 
 
@@ -2610,15 +2611,23 @@ class Admincontroller extends Controller
         $combinedTestimonials = array_merge($initialProfiles, $dbTestimonials);
 
         // 3. FAQs: CMS + DB
-        $faqContent = CmsContent::where("title", "Landing Page")->first();
+        $faqContent = CmsContent::where('page', 'Landing Page')
+        ->where('section', 'faq-section')
+        ->where('title', 'FAQs')
+        ->first();
+
         $initialFaqs = [];
-        if ($faqContent && !empty($faqContent->field_78)) {
-            $decodedFaqs = json_decode($faqContent->field_78, true);
-            if (is_array($decodedFaqs)) {
-                $initialFaqs = $decodedFaqs;
+
+        if ($faqContent && !empty($faqContent->content)) {
+            $decoded = json_decode($faqContent->content, true);
+            if (is_array($decoded)) {
+                $initialFaqs = $decoded;
+            } else {
+                \Log::warning('Invalid FAQ JSON in CMS', ['raw' => $faqContent->content]);
             }
         }
 
+        // DB FAQs (optional)
         $dbFaqs = Faq::all()->map(function ($faq) {
             return [
                 'question' => $faq->question,
@@ -2668,7 +2677,7 @@ class Admincontroller extends Controller
 
         // return response()->json([
       
-        //     'combinedLogos' => $combinedLogos
+        //     'combinedFaqs' => $combinedFaqs
         // ]);
     }
 

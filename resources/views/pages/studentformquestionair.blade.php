@@ -119,6 +119,7 @@
 
     @php
         $selectedGender = $personalInfos->gender ?? '';
+        $referral = $userDet->referral_code;
         $selectedDegree = $courseInfoValues->{'degree-type'} ?? null;
         $selectedCourseDetail = $courseInfoValues->{'course-details'} ?? '';
         $gapAnswer = $academicInfoValues->gap_in_academics ?? '';
@@ -136,7 +137,7 @@
 
         $otherExamName = $othersExam['otherExamName'] ?? '';
         $otherExamScore = $othersExam['otherExamScore'] ?? '';
-            $liability = $coInfoValues['liability_select'] ?? '';
+        $liability = $coInfoValues['liability_select'] ?? '';
 
         if (
             !empty($academicInfoValues->ILETS) ||
@@ -156,9 +157,9 @@
         }
         $selectedOption = strtolower($personalInfos->linked_through ?? '');
         $defaultOptions = ['Instagram', 'Facebook', 'Friend', 'Twitter', 'Others'];
-         $relation = $coInfoValues['co_borrower_relation'] ?? '';
-    $bloodRelatives = ['Paternal Auntie', 'Paternal Uncle', 'Maternal Auntie', 'Maternal Uncle'];
-    $isBloodRelative = in_array($relation, $bloodRelatives);
+        $relation = $coInfoValues['co_borrower_relation'] ?? '';
+        $bloodRelatives = ['Paternal Auntie', 'Paternal Uncle', 'Maternal Auntie', 'Maternal Uncle'];
+        $isBloodRelative = in_array($relation, $bloodRelatives);
 
         $options = $socialOptions->isNotEmpty()
             ? $socialOptions
@@ -173,13 +174,13 @@
         <div class="student-form-nav-container">
             <img src="assets/images/orange-logo.png" alt="Remitout Logo" class="student-form-logo">
             <div class="student-form-nav-links" id="student-form-nav-links">
-                <a href="#home">Home</a>
-                <a href="#resources">Resources</a>
-                <a href="#deals">Special Deals</a>
-                <a href="#services">Our Service</a>
-                <a href="#schedule">Schedule Call</a>
-                <a href="#support" class="student-form-nav-mobile">Support</a>
-                <a href="#help" class="student-form-nav-mobile">Help</a>
+                <a style="display:none" href="#home">Home</a>
+                <a style="display:none" href="#resources">Resources</a>
+                <a style="display:none" href="#deals">Special Deals</a>
+                <a style="display:none" href="#services">Our Service</a>
+                <a style="display:none" href="#schedule">Schedule Call</a>
+                <a style="display:none" href="#support" class="student-form-nav-mobile">Support</a>
+                <a style="display:none" href="#help" class="student-form-nav-mobile">Help</a>
 
                 <div class="student-form-nav-buttons">
                     <button class="student-form-login-btn" onclick="window.location.href='/login'">Log
@@ -251,7 +252,8 @@
                 </div>
 
                 <!-- Hidden User ID -->
-                <input type="hidden" name="user_id" id="personal-info-userid" value="{{ session('user')->unique_id }}">
+                <input type="hidden" name="user_id" id="personal-info-userid"
+                    value="{{ session('user')->unique_id }}">
 
                 <!-- Input Row 1 -->
                 <div class="input-row">
@@ -271,16 +273,18 @@
                         <div class="input-content">
                             <img src="./assets/images/call-icon.png" alt="Phone Icon" class="icon" />
                             <input type="tel" placeholder="Phone Number" name="phone_number"
-                                id="personal-info-phone" value="{{ session('user')->phone }}" required disabled />
+                                id="personal-info-phone" value="{{ session('user')->phone }}"
+                                @if (session('user') && session('user')->phone) disabled @endif required />
                             <div class="validation-message" id="personal-info-phone-error"></div>
                         </div>
+
                     </div>
 
                     <div class="input-group">
                         <div class="input-content">
                             <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
                             <input type="text" placeholder="Referral Code" name="referral_code"
-                                value="{{ session('user')->referral_code }}" id="personal-info-referral" required />
+                                value="{{$referral}}" id="personal-info-referral" required />
                             <div class="validation-message" id="referralCode-error"></div>
                         </div>
                     </div>
@@ -554,20 +558,24 @@
                         @php
                             $defaultDegrees = ['Bachelor', 'Masters'];
                         @endphp
-                        @foreach ($defaultDegrees as $name)
-                            @php
-                                $id = strtolower(str_replace(' ', '-', $name));
-                                $isChecked = $selectedDegree === $name;
-                                if ($isChecked) {
-                                    $matched = true;
-                                }
-                            @endphp
-                            <div class="degree">
-                                <input type="radio" id="{{ $id }}" name="degree_type"
-                                    value="{{ $name }}" {{ $isChecked ? 'checked' : '' }}>
-                                <label for="{{ $id }}">{{ $name }}</label>
-                            </div>
-                        @endforeach
+                       @foreach ($defaultDegrees as $name)
+    @php
+        $id = strtolower(str_replace(' ', '-', $name));
+        $isChecked = $selectedDegree === $name;
+        if ($isChecked) {
+            $matched = true;
+        }
+
+        // Add display text only for Bachelors
+        $displayName = $name === 'Bachelors' ? 'Bachelors (only secured loans)' : $name;
+    @endphp
+    <div class="degree">
+        <input type="radio" id="{{ $id }}" name="degree_type"
+            value="{{ $name }}" {{ $isChecked ? 'checked' : '' }}>
+        <label for="{{ $id }}">{{ $displayName }}</label>
+    </div>
+@endforeach
+
                     @endforelse
 
                     {{-- "Others" option --}}
@@ -740,8 +748,7 @@
 
                 <!-- Academic Reason -->
                 <!-- Academic Reason -->
-                <div class="academic-reason" id="reason-container"
-                    style="display: {{ $gapAnswer === 'yes' ? 'flex' : 'none' }};">
+                <div class="academic-reason" id="reason-container" style="none">
                     <label for="reason-textarea">Enter reason</label>
                     <textarea id="reason-textarea" placeholder="Enter the reason for the academic gap">{{ $reason }}</textarea>
                 </div>
@@ -759,14 +766,24 @@
 
                 <div class="education-label">Education</div>
 
-                <div class="input-grid">
-                   <div class="input-field">
-                        <input type="text" id="universityschoolid" placeholder="University/School">
-                        <div id="suggestions-university" class="suggestion-container-college"></div>
-                    </div>
-                    <div class="input-field">
-                        <input type="text" id="educationcourseid" placeholder="Course Name">
-                    </div>
+               <div class="input-grid">
+    <div class="input-field">
+        <input type="text"
+               id="universityschoolid"
+               name="university_school_name"
+               value="{{ old('university_school_name', $academicInfoValues->university_school_name ?? '') }}"
+               placeholder="University/School">
+        <div id="suggestions-university" class="suggestion-container-college"></div>
+    </div>
+
+    <div class="input-field">
+        <input type="text"
+               id="educationcourseid"
+               name="course_name"
+               value="{{ old('course_name', $academicInfoValues->course_name ?? '') }}"
+               placeholder="Course Name">
+    </div>
+
 
                     {{-- Dynamically add fields for "social" section --}}
                     @foreach ($additionalFields as $field)
@@ -919,50 +936,50 @@
                 <div class="step-number">01</div>
                 <h2>How is the co-borrower related to you?</h2>
             </div>
-          <div class="borrow-options">
-    <div class="borrow-option">
-        <input type="radio" name="borrow-relation" id="borrow-parent" value="parent"
-            @checked($relation === 'parent')>
-        <label class="borrow-label" for="borrow-parent">Parent</label>
-    </div>
-
-    <div class="borrow-option">
-        <input type="radio" name="borrow-relation" id="borrow-spouse" value="spouse"
-            @checked($relation === 'spouse')>
-        <label class="borrow-label" for="borrow-spouse">Spouse</label>
-    </div>
-
-    <div class="borrow-option borrow-blood-relative">
-        <input type="radio" name="borrow-relation" id="borrow-blood-relative" value="blood-relative"
-            @checked($isBloodRelative)>
-
-        <div class="borrow-option borrow-blood">
-            <label class="borrow-label" id="borrow-blood-label" for="borrow-blood-relative">
-                {{ $isBloodRelative ? $relation : 'Blood relative' }}
-            </label>
-            <span class="borrow-option-icon"></span>
-
-            <div class="borrow-dropdown" id="borrow-dropdown" style="display: block;">
-                <div class="borrow-dropdown-item {{ $relation === 'Paternal Auntie' ? 'selected' : '' }}"
-                    data-value="paternal-aunt">
-                    Paternal Auntie
+            <div class="borrow-options">
+                <div class="borrow-option">
+                    <input type="radio" name="borrow-relation" id="borrow-parent" value="parent"
+                        @checked($relation === 'parent')>
+                    <label class="borrow-label" for="borrow-parent">Parent</label>
                 </div>
-                <div class="borrow-dropdown-item {{ $relation === 'Paternal Uncle' ? 'selected' : '' }}"
-                    data-value="paternal-uncle">
-                    Paternal Uncle
+
+                <div class="borrow-option">
+                    <input type="radio" name="borrow-relation" id="borrow-spouse" value="spouse"
+                        @checked($relation === 'spouse')>
+                    <label class="borrow-label" for="borrow-spouse">Spouse</label>
                 </div>
-                <div class="borrow-dropdown-item {{ $relation === 'Maternal Auntie' ? 'selected' : '' }}"
-                    data-value="maternal-aunt">
-                    Maternal Auntie
-                </div>
-                <div class="borrow-dropdown-item {{ $relation === 'Maternal Uncle' ? 'selected' : '' }}"
-                    data-value="maternal-uncle">
-                    Maternal Uncle
+
+                <div class="borrow-option borrow-blood-relative">
+                    <input type="radio" name="borrow-relation" id="borrow-blood-relative" value="blood-relative"
+                        @checked($isBloodRelative)>
+
+                    <div class="borrow-option borrow-blood">
+                        <label class="borrow-label" id="borrow-blood-label" for="borrow-blood-relative">
+                            {{ $isBloodRelative ? $relation : 'Blood relative' }}
+                        </label>
+                        <span class="borrow-option-icon"></span>
+
+                        <div class="borrow-dropdown" id="borrow-dropdown" style="display: block;">
+                            <div class="borrow-dropdown-item {{ $relation === 'Paternal Auntie' ? 'selected' : '' }}"
+                                data-value="paternal-aunt">
+                                Paternal Auntie
+                            </div>
+                            <div class="borrow-dropdown-item {{ $relation === 'Paternal Uncle' ? 'selected' : '' }}"
+                                data-value="paternal-uncle">
+                                Paternal Uncle
+                            </div>
+                            <div class="borrow-dropdown-item {{ $relation === 'Maternal Auntie' ? 'selected' : '' }}"
+                                data-value="maternal-aunt">
+                                Maternal Auntie
+                            </div>
+                            <div class="borrow-dropdown-item {{ $relation === 'Maternal Uncle' ? 'selected' : '' }}"
+                                data-value="maternal-uncle">
+                                Maternal Uncle
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
         </div>
     </div>
@@ -973,7 +990,8 @@
             <div class="step-number">02</div>
             <h2>What is the gross monthly income of co-borrower?</h2>
         </div>
-        <input type="text" id="income-co-borrower" placeholder=" ₹ Rupees in thousands" value="{{ $coInfoValues->co_borrower_income ?? '' }}
+        <input type="text" id="income-co-borrower" placeholder=" ₹ Rupees in thousands"
+            value="{{ $coInfoValues->co_borrower_income ?? '' }}
 " />
         <p class="minimum-amount">*minimum amount of 30k after liabilities for eligibility</p>
         <span id="income-error-message" class="error-message" style="display:none; color:red;">Please enter a valid
@@ -993,22 +1011,23 @@
                 </div>
 
                 <div class="monthly-liability-option">
-                   <div class="monthly-liability-radio-buttons">
-    <label>
-        <input type="radio" name="co-borrower-liability" id="yes-liability" value="Yes"
-            @checked($liability === 'Yes') />
-        Yes
-    </label>
-    <label>
-        <input type="radio" name="co-borrower-liability" id="no-liability" value="No"
-            @checked($liability === 'No') />
-        No
-    </label>
-</div>
+                    <div class="monthly-liability-radio-buttons">
+                        <label>
+                            <input type="radio" name="co-borrower-liability" id="yes-liability" value="Yes"
+                                @checked($liability === 'Yes') />
+                            Yes
+                        </label>
+                        <label>
+                            <input type="radio" name="co-borrower-liability" id="no-liability" value="No"
+                                @checked($liability === 'No') />
+                            No
+                        </label>
+                    </div>
                     <div class="emi-content">
                         <p class="amount-thousand-mobile">Enter the amount in thousands</p>
                         <input type="text" id="emi-amount" class="emi-content-container"
-                            placeholder="Enter EMI amount"      value="{{ $coInfoValues->co_borrower_monthly_liability ?? '' }}"  disabled />
+                            placeholder="Enter EMI amount"
+                            value="{{ $coInfoValues->co_borrower_monthly_liability ?? '' }}" disabled />
                         <span id="emi-error-message" class="error-message" style="display:none; color:red;">Please
                             enter
                             a valid EMI
@@ -1240,7 +1259,7 @@
                         </div>
                     </div>
                 </div>
-                  @foreach ($documentTypes->where('slug', 'academic') as $doc)
+                @foreach ($documentTypes->where('slug', 'academic') as $doc)
                     @php
                         $fileUrl = $userDocumentUrls[$doc->id] ?? null;
 
@@ -1367,7 +1386,7 @@
                         </div>
                     </div>
                 </div>
-                  @foreach ($documentTypes->where('slug', 'secured') as $doc)
+                @foreach ($documentTypes->where('slug', 'secured') as $doc)
                     @php
                         $fileUrl = $userDocumentUrls[$doc->id] ?? null;
 
@@ -1520,7 +1539,7 @@
                         </div>
                     </div>
                 </div>
-                  @foreach ($documentTypes->where('slug', 'experience') as $doc)
+                @foreach ($documentTypes->where('slug', 'experience') as $doc)
                     @php
                         $fileUrl = $userDocumentUrls[$doc->id] ?? null;
 
@@ -1543,7 +1562,8 @@
 
 
 
-                            <span id="{{ $doc->key }}-remove-icon" class="remove-icon" style="display: none;"
+                            <span id="{{ $doc->key }}-remove-icon" class="remove-icon"
+                                style="display: none;"
                                 onclick="removeFile('{{ $doc->key }}', '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')">✖</span>
                         </div>
                         <div class="info">
@@ -1646,7 +1666,7 @@
                         </div>
                     </div>
                 </div>
-                  @foreach ($documentTypes->where('slug', 'co-borrower') as $doc)
+                @foreach ($documentTypes->where('slug', 'co-borrower') as $doc)
                     @php
                         $fileUrl = $userDocumentUrls[$doc->id] ?? null;
 
@@ -1669,7 +1689,8 @@
 
 
 
-                            <span id="{{ $doc->key }}-remove-icon" class="remove-icon" style="display: none;"
+                            <span id="{{ $doc->key }}-remove-icon" class="remove-icon"
+                                style="display: none;"
                                 onclick="removeFile('{{ $doc->key }}', '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')">✖</span>
                         </div>
                         <div class="info">
@@ -1781,7 +1802,7 @@
                         </div>
                     </div>
                 </div>
-                  @foreach ($documentTypes->where('slug', 'salary-document') as $doc)
+                @foreach ($documentTypes->where('slug', 'salary-document') as $doc)
                     @php
                         $fileUrl = $userDocumentUrls[$doc->id] ?? null;
 
@@ -1804,7 +1825,8 @@
 
 
 
-                            <span id="{{ $doc->key }}-remove-icon" class="remove-icon" style="display: none;"
+                            <span id="{{ $doc->key }}-remove-icon" class="remove-icon"
+                                style="display: none;"
                                 onclick="removeFile('{{ $doc->key }}', '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')">✖</span>
                         </div>
                         <div class="info">
@@ -1819,7 +1841,7 @@
                         </div>
                     </div>
                 @endforeach
-                
+
             </div>
 
             <div class="salary-sub">
@@ -1905,11 +1927,11 @@
                         </div>
                     </div>
                 </div>
-                  @foreach ($documentTypes->where('slug', 'business-document') as $doc)
+                @foreach ($documentTypes->where('slug', 'business-document') as $doc)
                     @php
                         $fileUrl = $userDocumentUrls[$doc->id] ?? null;
 
-                         $actualFileName = $fileUrl ? basename($fileUrl) : 'No file chosen';
+                        $actualFileName = $fileUrl ? basename($fileUrl) : 'No file chosen';
                     @endphp
 
                     <div class="salary-upload-box">
@@ -1927,7 +1949,8 @@
 
 
 
-                            <span id="{{ $doc->key }}-remove-icon" class="remove-icon" style="display: none;"
+                            <span id="{{ $doc->key }}-remove-icon" class="remove-icon"
+                                style="display: none;"
                                 onclick="removeFile('{{ $doc->key }}', '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')">✖</span>
                         </div>
                         <div class="info">

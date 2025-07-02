@@ -573,7 +573,7 @@
                         page: 'Landing Page',
                         sectionType: 'secure-loan',
                         title: 'Main Heading',
-                        content: 'Where your safety meets<br>smart lending',
+                        content: 'Where your safety meets smart lending',
                         status: 'Active',
                         maxLength: 50
                     },

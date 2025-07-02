@@ -14,34 +14,34 @@
             [
                 'nbfc_name' => 'JHUKNMBH Bank',
                 'nbfc_type' => 'NBFC',
-                'date_added' => '2025-02-01'
+                'date_added' => '2025-02-01',
             ],
             [
                 'nbfc_name' => 'Abcdefgh Bank ',
                 'nbfc_type' => 'NBFC',
-                'date_added' => '2025-02-13'
+                'date_added' => '2025-02-13',
             ],
             [
                 'nbfc_name' => 'Rupee Empire Financial Services',
                 'nbfc_type' => 'Financial Company',
-                'date_added' => '2025-09-01'
+                'date_added' => '2025-09-01',
             ],
             [
                 'nbfc_name' => 'Hanuman Enterprises',
                 'nbfc_type' => 'Financial Company',
-                'date_added' => '2025-02-01'
+                'date_added' => '2025-02-01',
             ],
             [
                 'nbfc_name' => 'Hanuman Enterprises',
                 'nbfc_type' => 'Financial Company',
-                'date_added' => '2025-04-01'
+                'date_added' => '2025-04-01',
             ],
             [
                 'nbfc_name' => 'Abcdefgh Bank',
                 'nbfc_type' => 'NBFC',
-                'date_added' => '2025-02-01'
+                'date_added' => '2025-02-01',
             ],
-        ]
+        ];
     @endphp
 
     <div class="nbfclist-adminside">
@@ -77,12 +77,12 @@
                 <div class="individualnbfclists-content">
                     <p id="nbfc-name-id" class="editable"></p>
                     <p class="editable"></p>
-                     <div class="individualnbfcs-buttoncontainer">
-                    <button class="edit-save-button nbfc-list-edit-button edit-nbfc">Edit</button>
-                    <button>Suspend</button>
+                    <div class="individualnbfcs-buttoncontainer">
+                        <button class="edit-save-button nbfc-list-edit-button edit-nbfc">Edit</button>
+                        <button>Suspend</button>
+                    </div>
                 </div>
-                </div>
-               
+
             </div>
         </div>
     </div>
@@ -137,19 +137,20 @@
                 })
             })
 
-            document.querySelector("#nbfclistcontainer-headersection .searchcontainer-rightsidecontent input").addEventListener("input", function () {
-                const searchQueryNBFC = this.value.toLowerCase();
-                const nbfcListOfNames = document.querySelectorAll("#nbfc-list .individualnbfclists-items");
+            document.querySelector("#nbfclistcontainer-headersection .searchcontainer-rightsidecontent input")
+                .addEventListener("input", function() {
+                    const searchQueryNBFC = this.value.toLowerCase();
+                    const nbfcListOfNames = document.querySelectorAll("#nbfc-list .individualnbfclists-items");
 
-                nbfcListOfNames.forEach(item => {
-                    const nbfcName = item.querySelector('#nbfc-name-id').textContent.toLowerCase();
-                    if (nbfcName.includes(searchQueryNBFC)) {
-                        item.style.display = 'flex';
-                    } else {
-                        item.style.display = 'none';
-                    }
+                    nbfcListOfNames.forEach(item => {
+                        const nbfcName = item.querySelector('#nbfc-name-id').textContent.toLowerCase();
+                        if (nbfcName.includes(searchQueryNBFC)) {
+                            item.style.display = 'flex';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
                 });
-            });
 
             document.querySelector(".add-nbfc-firstsection #save-all-nbfc").addEventListener('click', () => {
                 uploadMultipleNbfcUsers();
@@ -160,39 +161,51 @@
             const sortLinks = document.querySelectorAll('#nbfc-listcontainer-filters .nbfc-dropdown-content a');
             const nbfcList = document.getElementById('nbfc-list');
 
-            dropdownButton.addEventListener('click', function (e) {
+            dropdownButton.addEventListener('click', function(e) {
                 e.stopPropagation();
-                dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+                dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' :
+                'block';
             });
 
-            window.addEventListener('click', function (e) {
+            window.addEventListener('click', function(e) {
                 if (!dropdownButton.contains(e.target) && !dropdownContent.contains(e.target)) {
                     dropdownContent.style.display = 'none';
                 }
             });
 
             sortLinks.forEach(item => {
-                item.addEventListener('click', function (e) {
+                item.addEventListener('click', function(e) {
                     e.preventDefault();
                     const sortType = this.getAttribute('data-sort');
-                    const items = Array.from(nbfcList.querySelectorAll('.individualnbfclists-items'));
+                    const items = Array.from(nbfcList.querySelectorAll(
+                        '.individualnbfclists-items'));
 
                     if (sortType === 'newest') {
                         items.sort((a, b) => {
-                            const dateA = new Date(a.querySelector('.individualnbfclists-content').getAttribute('data-added') || '1970-01-01');
-                            const dateB = new Date(b.querySelector('.individualnbfclists-content').getAttribute('data-added') || '1970-01-01');
+                            const dateA = new Date(a.querySelector(
+                                '.individualnbfclists-content').getAttribute(
+                                'data-added') || '1970-01-01');
+                            const dateB = new Date(b.querySelector(
+                                '.individualnbfclists-content').getAttribute(
+                                'data-added') || '1970-01-01');
                             return dateB - dateA;
                         });
                     } else if (sortType === 'oldest') {
                         items.sort((a, b) => {
-                            const dateA = new Date(a.querySelector('.individualnbfclists-content').getAttribute('data-added') || '1970-01-01');
-                            const dateB = new Date(b.querySelector('.individualnbfclists-content').getAttribute('data-added') || '1970-01-01');
+                            const dateA = new Date(a.querySelector(
+                                '.individualnbfclists-content').getAttribute(
+                                'data-added') || '1970-01-01');
+                            const dateB = new Date(b.querySelector(
+                                '.individualnbfclists-content').getAttribute(
+                                'data-added') || '1970-01-01');
                             return dateA - dateB; // Oldest first
                         });
                     } else if (sortType === 'alphabet') {
-                        items.sort((a, b) => a.querySelector('#nbfc-name-id').textContent.trim().localeCompare(b.querySelector('#nbfc-name-id').textContent.trim()));
+                        items.sort((a, b) => a.querySelector('#nbfc-name-id').textContent.trim()
+                            .localeCompare(b.querySelector('#nbfc-name-id').textContent.trim()));
                     } else if (sortType === 'alphabet-reverse') {
-                        items.sort((a, b) => b.querySelector('#nbfc-name-id').textContent.trim().localeCompare(a.querySelector('#nbfc-name-id').textContent.trim()));
+                        items.sort((a, b) => b.querySelector('#nbfc-name-id').textContent.trim()
+                            .localeCompare(a.querySelector('#nbfc-name-id').textContent.trim()));
                     }
 
                     nbfcList.innerHTML = ''; // Clear the list
@@ -201,7 +214,7 @@
                 });
             });
 
-            window.addEventListener('resize', function () {
+            window.addEventListener('resize', function() {
                 dynamicChangesThroughWindow();
             });
 
@@ -273,7 +286,8 @@
             const newDropdownContent = newForm.querySelector('.nbfc-dropdown-content');
             newDropdownTrigger.addEventListener('click', (e) => {
                 e.stopPropagation();
-                newDropdownContent.style.display = newDropdownContent.style.display === 'none' ? 'flex' : 'none';
+                newDropdownContent.style.display = newDropdownContent.style.display === 'none' ? 'flex' :
+                    'none';
             });
 
             newForm.querySelectorAll('.dropdown-item').forEach(item => {
@@ -305,12 +319,12 @@
 
         const nbfcListInitialize = () => {
             fetch("/getnbfcdata", {
-                method: "GET",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-            })
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                })
                 .then((response) => response.json())
                 .then((data) => {
                     if (!data.success) {
@@ -350,7 +364,8 @@
                         button.addEventListener('click', () => {
                             const item = button.closest('.individualnbfclists-items');
                             const nameElement = item.querySelector('#nbfc-name-id');
-                            const typeElement = item.querySelector('.individualnbfclists-content p:nth-child(2)');
+                            const typeElement = item.querySelector(
+                                '.individualnbfclists-content p:nth-child(2)');
                             const isEditing = item.classList.contains('edit-mode');
                             const isSaveButton = button.classList.contains('save-nbfc');
 
@@ -360,7 +375,8 @@
                                 const currentName = nameElement.textContent;
                                 const currentType = typeElement.textContent;
 
-                                nameElement.innerHTML = `<input type="text" value="${currentName}" />`;
+                                nameElement.innerHTML =
+                                    `<input type="text" value="${currentName}" />`;
                                 typeElement.innerHTML = `
                         <select>
                             <option value="NBFC" ${currentType === 'NBFC' ? 'selected' : ''}>NBFC</option>
@@ -377,27 +393,33 @@
                                 const newType = item.querySelector('select').value;
                                 const nbfcId = item.getAttribute('data-id');
 
-                                console.log(`Updating NBFC - ID: ${nbfcId}, Name: ${newName}, Type: ${newType}`);
+                                console.log(
+                                    `Updating NBFC - ID: ${nbfcId}, Name: ${newName}, Type: ${newType}`
+                                    );
 
                                 nameElement.textContent = newName;
                                 typeElement.textContent = newType;
 
                                 fetch('/updatenbfc', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                    },
-                                    body: JSON.stringify({
-                                        id: nbfcId,
-                                        nbfc_name: newName,
-                                        nbfc_type: newType
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRF-TOKEN': document.querySelector(
+                                                'meta[name="csrf-token"]').getAttribute(
+                                                'content')
+                                        },
+                                        body: JSON.stringify({
+                                            id: nbfcId,
+                                            nbfc_name: newName,
+                                            nbfc_type: newType
+                                        })
                                     })
-                                })
                                     .then(response => {
                                         if (!response.ok) {
                                             return response.text().then(text => {
-                                                throw new Error(`Network error: ${response.status} ${response.statusText} - ${text}`);
+                                                throw new Error(
+                                                    `Network error: ${response.status} ${response.statusText} - ${text}`
+                                                    );
                                             });
                                         }
                                         return response.json();
@@ -427,21 +449,24 @@
                             const nbfcId = item.getAttribute('data-id');
 
                             fetch('/suspendnbfc', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                },
-                                body: JSON.stringify({
-                                    nbfc_id: nbfcId
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': document.querySelector(
+                                            'meta[name="csrf-token"]').getAttribute(
+                                            'content')
+                                    },
+                                    body: JSON.stringify({
+                                        nbfc_id: nbfcId
+                                    })
                                 })
-                            })
                                 .then(response => response.json())
                                 .then(data => {
                                     if (data.success) {
                                         alert('NBFC suspended successfully');
                                         nbfcListInitialize();
-                                        item.classList.add('suspended'); // Optionally add a class to highlight the suspended item
+                                        item.classList.add(
+                                        'suspended'); // Optionally add a class to highlight the suspended item
                                     } else {
                                         alert('Error suspending NBFC');
                                     }
@@ -458,66 +483,84 @@
                 });
         };
 
-        const uploadMultipleNbfcUsers = () => {
-            const nbfcBulkUsers = [];
-            const allForms = document.querySelectorAll(".formsection-addnbfcuser");
+     const uploadMultipleNbfcUsers = () => {
+    const nbfcBulkUsers = [];
+    const allForms = document.querySelectorAll(".formsection-addnbfcuser");
 
-            allForms.forEach(form => {
-                const nbfcName = form.querySelector('#nbfc-name-id-required')?.value?.trim();
-                const nbfcType = form.querySelector('.nbfc-dropdown-trigger p')?.textContent?.trim();
-                const nbfcEmail = form.querySelector('#nbfc-email-id')?.value?.trim();
-                const aboutNbfc = form.querySelector('#about-nbfc-id')?.value?.trim();
+    allForms.forEach(form => {
+        const nbfcName = form.querySelector('#nbfc-name-id-required')?.value?.trim();
+        const nbfcType = form.querySelector('.nbfc-dropdown-trigger p')?.textContent?.trim();
+        const nbfcEmail = form.querySelector(   '#nbfc-email-id')?.value?.trim();
+        const aboutNbfc = form.querySelector('#about-nbfc-id')?.value?.trim();
 
-                nbfcBulkUsers.push({
-                    name: nbfcName || '',
-                    type: nbfcType || '',
-                    email: nbfcEmail || '',
-                    description: aboutNbfc || ''
+        nbfcBulkUsers.push({
+            name: nbfcName || '',
+            type: nbfcType || '',
+            email: nbfcEmail || '',
+            description: aboutNbfc || ''
+        });
+    });
+
+    Loader.show(); // 👈 Show loader before request
+
+    fetch('/addbulkusers', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(nbfcBulkUsers)
+    })
+    .then(response => response.json().then(data => ({ status: response.status, body: data })))
+    .then(({ status, body }) => {
+        Loader.hide(); // 👈 Hide loader after response
+
+        if (status === 200 && body.success) {
+            // Clear forms except first one
+            document.querySelectorAll(".formsection-addnbfcuser").forEach((item, index) => {
+                if (index > 0) item.remove();
+                else {
+                    item.querySelectorAll("input, textarea").forEach(input => input.value = '');
+                }
+            });
+            alert(body.message);
+            nbfcListInitialize(); // Refresh list
+        } else if (status === 422 && body.errors) {
+            const duplicateEmails = [];
+
+            Object.values(body.errors).forEach(messages => {
+                messages.forEach(msg => {
+                    if (msg.includes('already exists')) {
+                        duplicateEmails.push(msg);
+                    }
                 });
             });
 
-            fetch('/addbulkusers', {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify(nbfcBulkUsers)
-            })
-                .then(response => response.json().then(data => ({ status: response.status, body: data })))
-                .then(({ status, body }) => {
-                    if (status === 200 && body.success) {
-                        // Clear forms except first one
-                        document.querySelectorAll(".formsection-addnbfcuser").forEach((item, index) => {
-                            if (index > 0) item.remove();
-                            else {
-                                item.querySelectorAll("input, textarea").forEach(input => input.value = '');
-                            }
-                        });
-                        alert(body.message);
-                        nbfcListInitialize(); // Refresh list
-                    } else if (status === 422 && body.errors) {
-                        // Compile error messages into a single string
-                        let errorMessages = '';
-                        Object.entries(body.errors).forEach(([index, messages]) => {
-                            errorMessages += `Form #${parseInt(index) + 1}:\n`;
-                            messages.forEach(msg => {
-                                errorMessages += `- ${msg}\n`;
-                            });
-                            errorMessages += '\n';
-                        });
-                        alert("Some entries failed:\n\n" + errorMessages);
-                    } else {
-                        alert("Something went wrong. Please try again.");
-                        console.error(body);
-                    }
-                })
-                .catch((error) => {
-                    console.error("Fetch error:", error);
-                    alert("An unexpected error occurred. Try again.");
+            if (duplicateEmails.length > 0) {
+                alert("The following emails already exist:\n\n" + [...new Set(duplicateEmails)].join('\n'));
+            } else {
+                // fallback: show full errors
+                let errorMessages = '';
+                Object.entries(body.errors).forEach(([index, messages]) => {
+                    errorMessages += `Form #${parseInt(index) + 1}:\n`;
+                    messages.forEach(msg => {
+                        errorMessages += `- ${msg}\n`;
+                    });
+                    errorMessages += '\n';
                 });
-
-        };
+                alert("Some entries failed:\n\n" + errorMessages);
+            }
+        } else {
+            alert("Something went wrong. Please try again.");
+            console.error(body);
+        }
+    })
+    .catch((error) => {
+        Loader.hide(); // 👈 Hide loader on fetch error
+        console.error("Fetch error:", error);
+        alert("An unexpected error occurred. Try again.");
+    });
+};
 
     </script>
 </body>
