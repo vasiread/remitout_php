@@ -1,3 +1,14 @@
+# --- Stage 1: Node build (for Vite assets) ---
+FROM node:18 AS node-builder
+WORKDIR /app
+    
+COPY package*.json vite.config.js ./
+RUN npm install
+    
+COPY resources resources
+RUN npm run build
+    
+# --- Stage 2: PHP and Laravel setup ---
 FROM php:8.2-fpm
 
 # Install system dependencies
@@ -11,9 +22,15 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set working directory
 WORKDIR /var/www
+# Copy built assets from Node stage
+
 
 # Copy existing application directory contents
 COPY . /var/www
+
+# Copy built assets from Node stage
+COPY --from=node-builder /app/public /var/www/public
+COPY --from=node-builder /app/resources /var/www/resources
 
 # Use production .env by default; override with build arg if needed
 ARG ENV_FILE=.env.production
