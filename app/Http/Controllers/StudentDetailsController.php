@@ -133,7 +133,7 @@ class StudentDetailsController extends Controller
                     }
 
                     if ($field->section === 'course') {
-                        if (empty($value) && $value !== '0') {
+                        if (empty($value) && $value !== '0') {              
                             Log::warning("Empty value for dynamic field in course section", ['field_id' => $fieldId, 'value' => $value]);
                             continue;
                         }

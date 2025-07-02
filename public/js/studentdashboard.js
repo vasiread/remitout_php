@@ -211,8 +211,7 @@ function handleIndividualCards(mode = 'index1') {
                 const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
 
                 if (mode === 'index1') {
-                    // Inbox behavior (Index 1)
-                    if (triggeredMessageButton && groupButtonContainer) {
+                     if (triggeredMessageButton && groupButtonContainer) {
                         triggeredMessageButton.style.display = "flex";
                         groupButtonContainer.style.display = "none";
                     }
