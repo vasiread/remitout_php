@@ -288,7 +288,7 @@
     position: fixed;
     top: 70px;
     left: -100%;
-    width: 80%;
+    width: 100%;
     height: calc(100vh - 70px);
     background-color: white;
     z-index: 9998;
