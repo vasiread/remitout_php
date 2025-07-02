@@ -15,37 +15,18 @@ services:
       - laravel
 
   webserver:
-    image: nginx:alpine
+    build:
+      context: ./nginx-image
+      dockerfile: Dockerfile
     container_name: nginx
-    restart: unless-stopped
     ports:
-      - "80:80"
-    volumes:
-      - ./:/var/www
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - "8000:80"
     depends_on:
       - app
-    networks:
-      - laravel
-
-  mysql:
-    image: mysql:5.7
-    container_name: mysql
-    restart: unless-stopped
-    environment:
-      MYSQL_DATABASE: laravel
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_PASSWORD: root
-      MYSQL_USER: root
-    ports:
-      - "3306:3306"
     volumes:
-      - dbdata:/var/lib/mysql
+      - ./:/var/www
     networks:
       - laravel
-
-volumes:
-  dbdata:
 
 networks:
   laravel:
