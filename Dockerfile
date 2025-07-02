@@ -11,9 +11,14 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set working directory
 WORKDIR /var/www
+# Copy built assets from Node stage
+
 
 # Copy existing application directory contents
 COPY . /var/www
+
+COPY --from=node-builder /app/public /var/www/public
+COPY --from=node-builder /app/resources /var/www/resources
 
 # Use production .env by default; override with build arg if needed
 ARG ENV_FILE=.env.production
