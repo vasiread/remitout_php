@@ -15,6 +15,9 @@ WORKDIR /var/www
 # Copy existing application directory contents
 COPY . /var/www
 
+# Copy Nginx configuration
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+
 # Copy .env example if not present
 RUN cp .env.example .env || true
 
