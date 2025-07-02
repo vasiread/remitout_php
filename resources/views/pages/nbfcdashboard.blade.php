@@ -1678,9 +1678,7 @@
                         sendProposalTrigger.parentNode.replaceChild(newTrigger, sendProposalTrigger);
 
                         newTrigger.addEventListener("click", () => {
-                            console.log("Clicked");
-                            console.log(studentId);
-                            openModal(studentId);
+                             openModal(studentId);
                         });
                     }
                     if (sendProposalTriggerMob) {

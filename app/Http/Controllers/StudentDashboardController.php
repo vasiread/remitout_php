@@ -998,33 +998,43 @@ class StudentDashboardController extends Controller
             'userId' => 'required|string'
         ]);
 
-        $userId = $request->input('userId');
-        $folderPath = "$userId/static";
+        $userId = trim($request->input('userId'));
 
-        // Static
-        $files = Storage::disk("s3")->allFiles($folderPath);
-        $documentCount = count($files);
+        // ✅ Static
+        $staticPath = "$userId/static";
+        $staticFiles = Storage::disk('s3')->allFiles($staticPath);
+        $staticCount = count($staticFiles);
 
-        // Dynamic
-        $dynamicFolderPath = "$userId/dynamic";
-        $dynamicFiles = Storage::disk("s3")->allFiles($dynamicFolderPath);
-        $dynamicDocumentCount = count($dynamicFiles);
+        // ✅ Dynamic
+        $dynamicPath = "$userId/dynamic";
+        $dynamicFiles = Storage::disk('s3')->exists($dynamicPath)
+            ? Storage::disk('s3')->allFiles($dynamicPath)
+            : [];
 
-        // Direct UserDocument count (if no relationship)
-        $userDocumentCount = DocumentType::count(); // add ->where('user_id', $userId) if needed
+        $documentTypeNames = DocumentType::pluck('name')->map(fn ($n) => strtolower(trim($n)))->toArray();
+        $validDynamicCount = 0;
 
-        // Total
-        $totalDocuments = $documentCount + $dynamicDocumentCount + $userDocumentCount + 22;
+        foreach ($dynamicFiles as $file) {
+            $filename = strtolower(trim(pathinfo($file, PATHINFO_FILENAME)));
+            if (in_array($filename, $documentTypeNames)) {
+                $validDynamicCount++;
+            }
+        }
+
+        // ✅ Total uploaded documents (only actual files uploaded)
+        $totalUploaded = $staticCount + $validDynamicCount;
 
         return response()->json([
-            'message' => 'Documents counts retrieved successfully',
-            'documentscount' => $documentCount,
-            'staticDocuments' => $documentCount,
-            'dynamicDocuments' => $dynamicDocumentCount,
-            'userDocumentCount' => $userDocumentCount,
-            'totalDocuments' => $totalDocuments,
-        ], 200);
+            'message' => 'Document counts retrieved successfully',
+            'staticDocumentsUploaded' => $staticCount,
+            'dynamicDocumentsUploaded' => $validDynamicCount,
+            'staticDocumentsExpected' => 22,
+            'dynamicDocumentsExpected' => count($documentTypeNames),
+            'totalDocumentsUploaded' => $totalUploaded,
+            'totalDocumentsExpected' => 22 + count($documentTypeNames),
+        ]);
     }
+        
 
 
 
@@ -1246,61 +1256,69 @@ class StudentDashboardController extends Controller
             return response()->json(['error' => 'user_id is required'], 400);
         }
 
-        // Tables and profile fields to check
+        // Profile section logic
         $tablesAndColumns = [
             'users' => ['email', 'phone'],
             'personal_infos' => ['full_name', 'referral_code', 'state', 'linked_through', 'gender'],
             'academic_details' => ['gap_in_academics', 'work_experience', 'university_school_name', 'course_name'],
-            'coborrower_details' => [
-                'co_borrower_relation',
-                'co_borrower_income',
-                'co_borrower_monthly_liability',
-                'liability_select'
-            ],
-            'course_details_formdata' => [
-                'plan-to-study',
-                'degree-type',
-                'course-duration',
-                'course-details',
-                'loan_amount_in_lakhs'
-            ],
+            'coborrower_details' => ['co_borrower_relation', 'co_borrower_income', 'co_borrower_monthly_liability', 'liability_select'],
+            'course_details_formdata' => ['plan-to-study', 'degree-type', 'course-duration', 'course-details', 'loan_amount_in_lakhs'],
         ];
 
         $totalColumns = 0;
         $filledColumns = 0;
 
         foreach ($tablesAndColumns as $table => $columns) {
-            if (!Schema::hasTable($table))
-                continue;
+            if (!Schema::hasTable($table)) continue;
 
             $data = ($table === 'users')
-                ? DB::table($table)->where('unique_id', $userId)->first()
+            ? DB::table($table)->where('unique_id', $userId)->first()
                 : DB::table($table)->where('user_id', $userId)->first();
 
             foreach ($columns as $column) {
                 $totalColumns++;
                 if (Schema::hasColumn($table, $column)) {
                     $value = $data->$column ?? null;
-                    if (!is_null($value) && trim((string) $value) !== '') {
+                    if (!is_null($value) && trim((string)$value) !== '') {
                         $filledColumns++;
                     }
                 }
             }
         }
 
-        // ✅ Document logic
-        $dynamicDocumentCount = DocumentType::count(); // Document types count
-        $documents_expected = 22 + $dynamicDocumentCount;
+        // Document section logic
+        $expectedStatic = 22;
+        $expectedDynamic = DocumentType::count();
+        $documentTypeNames = DocumentType::pluck('name')->map(fn ($n) => strtolower(trim($n)))->toArray();
 
-        $folderPath = "$userId";
-        $files = Storage::disk("s3")->allFiles($folderPath);
-        $rawDocumentCount = count($files);
-        $adjustedDocumentCount = max(0, $rawDocumentCount - 1); // Avoid negative
+        // ✅ Static documents — just count files in 'userId/static'
+        $staticFiles = Storage::disk('s3')->allFiles("$userId/static");
+        $validStaticCount = count($staticFiles);
 
-        // ✅ Use updated expected count
-        $documentPercentage = ($documents_expected > 0)
-            ? ($adjustedDocumentCount / $documents_expected) * 100
-            : 0;
+        // ✅ Dynamic documents — only if filename matches DocumentType name
+        $dynamicFiles = Storage::disk('s3')->exists("$userId/dynamic")
+        ? Storage::disk('s3')->allFiles("$userId/dynamic")
+        : [];
+
+        $validDynamicCount = 0;
+        foreach ($dynamicFiles as $file) {
+            $name = strtolower(trim(pathinfo($file, PATHINFO_FILENAME)));
+            if (in_array($name, $documentTypeNames)) {
+                $validDynamicCount++;
+            }
+        }
+
+        // ✅ Percentages
+        $staticPercentage = ($expectedStatic > 0)
+        ? ($validStaticCount / $expectedStatic) * 100
+        : 0;
+
+        $dynamicPercentage = ($expectedDynamic > 0)
+        ? ($validDynamicCount / $expectedDynamic) * 100
+        : 0;
+
+        $documentPercentage = ($staticPercentage + $dynamicPercentage) / 2;
+
 
         $profilePercentage = ($totalColumns > 0)
             ? ($filledColumns / $totalColumns) * 100
@@ -1310,18 +1328,25 @@ class StudentDashboardController extends Controller
 
         return response()->json([
             'user_id' => $userId,
+
             'profile_fields_total' => $totalColumns,
             'profile_fields_filled' => $filledColumns,
             'profile_completion_percentage' => round($profilePercentage, 2),
 
-            'documents_expected' => $documents_expected,
-            'documents_uploaded_raw' => $rawDocumentCount,
-            'documents_counted' => $adjustedDocumentCount,
-            'document_completion_percentage' => round($documentPercentage, 2),
+            'static_documents_expected' => $expectedStatic,
+            'static_documents_uploaded' => $validStaticCount,
+            'static_documents_percentage' => round($staticPercentage, 2),
 
-            'overall_completion_percentage' => (int) round($overallPercentage)
+            'dynamic_documents_expected' => $expectedDynamic,
+            'dynamic_documents_uploaded' => $validDynamicCount,
+            'dynamic_documents_percentage' => round($dynamicPercentage, 2),
+
+            'document_completion_percentage' => round($documentPercentage, 2),
+            'overall_completion_percentage' => (int) round($overallPercentage),
         ]);
     }
+
+
 
 
     public function loanStatusCount(Request $request)

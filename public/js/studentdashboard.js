@@ -3112,11 +3112,13 @@ const initializeProgressRing = () => {
 };
 
 const initialisedocumentsCount = () => {
-
     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
     const userId = userIdElement ? userIdElement.textContent.trim() : '';
+
     const documentCountText = document.querySelector(".profilestatus-graph-secondsection .profilestatus-noofdocuments-section p");
     const overAll = document.querySelector(".profilestatus-graph-secondsection .profilestatus-noofdocuments-section span");
+
+    const statusElement = document.querySelector(".upload-status-hourglass");
 
     if (!userId || !documentCountText) {
         console.error("User ID or count element not found.");
@@ -3135,9 +3137,9 @@ const initialisedocumentsCount = () => {
     })
         .then(response => response.json())
         .then(data => {
-            if (data && typeof data.documentscount === 'number') {
-                const count = data.documentscount;
-                const totalDoc = data.totalDocuments;
+            if (data && typeof data.totalDocumentsUploaded === 'number') {
+                const count = data.totalDocumentsUploaded;
+                const totalDoc = data.totalDocumentsExpected;
 
                 // 🔹 Set formatted document count
                 if (count >= 0 && count < 10) {
@@ -3152,7 +3154,13 @@ const initialisedocumentsCount = () => {
                 if (typeof totalDoc === 'number') {
                     overAll.textContent = "/" + totalDoc;
                 } else {
-                    overAll.textContent = "00"; // fallback
+                    overAll.textContent = "00";
+                }
+
+                // ✅ Set Status: Complete if fully uploaded
+                if (count === totalDoc && statusElement) {
+                     
+                    statusElement.textContent = "Status : Complete";
                 }
             }
         })
@@ -3160,6 +3168,7 @@ const initialisedocumentsCount = () => {
             console.error("Fetch Error:", error);
         });
 };
+
 
 
 
