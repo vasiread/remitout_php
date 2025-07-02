@@ -15,8 +15,9 @@ WORKDIR /var/www
 # Copy existing application directory contents
 COPY . /var/www
 
-# Copy .env example if not present
-RUN cp .env.example .env || true
+# Use production .env by default; override with build arg if needed
+ARG ENV_FILE=.env.production
+COPY ${ENV_FILE} /var/www/.env
 
 # Install Laravel dependencies
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
