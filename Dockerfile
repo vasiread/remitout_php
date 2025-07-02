@@ -1,3 +1,14 @@
+# --- Stage 1: Node build (for Vite assets) ---
+FROM node:18 AS node-builder
+WORKDIR /app
+    
+COPY package*.json vite.config.js ./
+RUN npm install
+    
+COPY resources resources
+RUN npm run build
+    
+# --- Stage 2: PHP and Laravel setup ---
 FROM php:8.2-fpm
 
 # Install system dependencies
