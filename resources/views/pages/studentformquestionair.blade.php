@@ -671,7 +671,7 @@
                         <div class="loan-amount-container">
                             <label for="loan-amount" class="loan-label">Enter desired loan amount</label>
                             <input type="number" id="loan-amount" class="loan-input" name="loan_amount_in_lakhs"
-                                value="{{ old('loan_amount_in_lakhs', $courseInfoValues->loan_amount_in_lakhs ?? '') }}"
+                                value="{{ old('loan_amount_in_lakhs', $courseInfoValues->{'loan-amount-in-lakhs'} ?? '') }}"
                                 placeholder="₹ Rupees in Lakhs" />
                             <span id="loan-error-message" class="error-message" style="display:none; color:red;">
                                 Please enter a valid loan amount (numeric values only).
