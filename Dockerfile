@@ -17,9 +17,6 @@ WORKDIR /var/www
 # Copy existing application directory contents
 COPY . /var/www
 
-COPY --from=node-builder /app/public /var/www/public
-COPY --from=node-builder /app/resources /var/www/resources
-
 # Use production .env by default; override with build arg if needed
 ARG ENV_FILE=.env.production
 COPY ${ENV_FILE} /var/www/.env
