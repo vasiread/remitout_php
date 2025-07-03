@@ -73,7 +73,11 @@
                                 </a>
                             </p>
                         </div>
-                        <button type="submit">Sign up</button>
+                        <button type="submit" id="signupSubmitBtn">
+                            <span class="btn-text">Sign up</span>
+                            <span class="btn-loader" style="display: none;"></span>
+                        </button>
+
                     </div>
                 </form>
                 <div class="logincontainer-anotherresources">
@@ -114,7 +118,11 @@
                             <input type="text" class="otp-input" maxlength="1" oninput="restrictToNumbers(this)"
                                 id="otp6">
                         </div>
-                        <button onclick="checkOTP()">Verify</button>
+                        <button id="otpVerifyBtn" onclick="checkOTP()">
+                            <span class="btn-text">Verify</span>
+                            <span class="btn-loader" style="display: none;"></span>
+                        </button>
+
                     </div>
                 </div>
             </div>
@@ -359,7 +367,7 @@
                     .then(data => {
                         console.log('Response data:', data);
                         if (data.message === 'OTP verified successfully') {
-                            alert('OTP Verified Successfully');
+
                             submitVerifiedData();
                         } else {
                             alert('Invalid OTP');
@@ -373,11 +381,16 @@
 
             function submitForm(event) {
                 event.preventDefault();
+
                 const name = document.getElementById('name').value;
                 const phoneInput = document.getElementById('phone').value;
                 const email = document.getElementById('email').value;
                 const password = document.getElementById('passwordinputID').value;
                 const confirmPolicy = document.getElementById('confirmpolicy').checked;
+
+                const signupBtn = document.getElementById('signupSubmitBtn');
+                const btnText = signupBtn.querySelector('.btn-text');
+                const btnLoader = signupBtn.querySelector('.btn-loader');
 
                 if (!validateName(name)) {
                     showError('name', 'name-error', true);
@@ -404,6 +417,11 @@
                     return;
                 }
 
+                // 👇 Show button loading
+                signupBtn.disabled = true;
+                btnLoader.style.display = "inline-block";
+                btnText.style.opacity = 0.5;
+
                 fetch("/api/emailuniquecheck", {
                         method: "POST",
                         headers: {
@@ -427,8 +445,15 @@
                     .catch(error => {
                         console.error('Error:', error);
                         alert('An error occurred while checking email');
+                    })
+                    .finally(() => {
+                        // 👇 Always remove button loading
+                        signupBtn.disabled = false;
+                        btnLoader.style.display = "none";
+                        btnText.style.opacity = 1;
                     });
             }
+
 
             function submitVerifiedData() {
                 const urlParams = new URLSearchParams(window.location.search);
