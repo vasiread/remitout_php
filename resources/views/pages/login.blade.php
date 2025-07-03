@@ -20,8 +20,8 @@
 
     @section('logincontent')
         <div class="logincontainer">
-            <img class="loginvector" src="{{asset('assets/images/loginvector.png')}}" alt="Login vector illustration">
-            <img class="loginvectorsecond" src="{{asset('assets/images/loginvectorsecond.png')}}"
+            <img class="loginvector" src="{{ asset('assets/images/loginvector.png') }}" alt="Login vector illustration">
+            <img class="loginvectorsecond" src="{{ asset('assets/images/loginvectorsecond.png') }}"
                 alt="Secondary login vector">
             <div class="logincontainer-inside">
                 <div class="logincontainer-leftinside">
@@ -58,11 +58,14 @@
                                     </a>
                                 </p>
                             </div>
-                            <button type="submit">Sign In</button>
+                            <button type="submit" id="loginSubmitBtn">
+                                <span class="btn-text">Sign In</span>
+                                <span class="btn-loader" style="display: none;"></span>
+                            </button>
                         </div>
 
-                        <?php $googleIcon = "assets/images/googleicon.png" ?>
-                        <?php $appleIcon = "assets/images/appleicon.png" ?>
+                        <?php $googleIcon = 'assets/images/googleicon.png'; ?>
+                        <?php $appleIcon = 'assets/images/appleicon.png'; ?>
                     </form>
 
                     <!-- Sign In with Google/Apple -->
@@ -70,13 +73,14 @@
                         <p class="or-divider">or</p>
                         <div class="googlesigninbuttoncontainer">
                             <button class="googlesigninbutton" onclick="window.location.href='/auth/google'">
-                                <img src="{{ asset('assets/images/googleicon.png') }}" alt="Google logo"> Sign in with Google
+                                <img src="{{ asset('assets/images/googleicon.png') }}" alt="Google logo"> Sign in with
+                                Google
 
                             </button>
 
                             <!-- <button class="iossigninbutton">
-                                    <img src="http://localhost:8000/assets/images/appleicon.png" alt="Apple logo"> Sign in with Apple
-                                </button> -->
+                                            <img src="http://localhost:8000/assets/images/appleicon.png" alt="Apple logo"> Sign in with Apple
+                                        </button> -->
                         </div>
 
                         <!-- New User Sign Up Option -->
@@ -111,19 +115,19 @@
         </div>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                @if(session('session_expired'))
+            document.addEventListener('DOMContentLoaded', function() {
+                @if (session('session_expired'))
                     alert("{{ session('session_expired') }}");
                     logoutSession();
                 @endif
-                                });
+            });
 
             const passwordInput = document.getElementById('loginpasswordID');
             const passwordIcon = document.querySelector('.passwordClose');
             const forgotPasswordLink = document.querySelector('.forgot-password-login');
             let passwordView = false;
 
-            passwordIcon?.addEventListener('click', function () {
+            passwordIcon?.addEventListener('click', function() {
                 passwordView = !passwordView;
 
                 if (passwordView) {
@@ -149,7 +153,7 @@
             }
 
             // Add input event listeners for real-time label visibility
-            document.getElementById('loginname').addEventListener('input', function () {
+            document.getElementById('loginname').addEventListener('input', function() {
                 toggleLabelVisibility(this);
             });
 
@@ -161,12 +165,12 @@
 
                 if (csrfToken) {
                     fetch('/api/session-logout', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken.getAttribute('content')
-                        }
-                    })
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken.getAttribute('content')
+                            }
+                        })
                         .then(response => {
                             if (response.ok) {
                                 window.location.href = '/login';
@@ -184,51 +188,69 @@
             }
 
             // Login form submit handler
-            function loginSubmitForm(event) {
-                event.preventDefault();
+           function loginSubmitForm(event) {
+    event.preventDefault();
 
-                const loginName = document.getElementById("loginname").value;
-                const loginPassword = document.getElementById("loginpasswordID").value;
-                const confirmPolicy = document.getElementById("confirmpolicy");
+    const loginName = document.getElementById("loginname").value;
+    const loginPassword = document.getElementById("loginpasswordID").value;
+    const confirmPolicy = document.getElementById("confirmpolicy");
+    const submitBtn = document.getElementById("loginSubmitBtn");
+    const btnText = submitBtn.querySelector(".btn-text");
+    const btnLoader = submitBtn.querySelector(".btn-loader");
 
-                if (!confirmPolicy.checked) {
-                    alert("You must agree to the terms & policy");
-                    return;
-                }
+    if (!confirmPolicy.checked) {
+        alert("You must agree to the terms & policy");
+        return;
+    }
 
-                const loginFormData = {
-                    loginName: loginName,
-                    loginPassword: loginPassword,
-                };
+    const loginFormData = {
+        loginName: loginName,
+        loginPassword: loginPassword,
+    };
 
-                const csrfToken = document.querySelector('meta[name="csrf-token"]');
+    const csrfToken = document.querySelector('meta[name="csrf-token"]');
 
-                if (csrfToken) {
-                    fetch('/api/loginformdata', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken.getAttribute('content')
-                        },
-                        body: JSON.stringify(loginFormData)
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                alert(data.message);
-                                window.location.href = data.redirect;
-                            } else {
-                                alert(data.message);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert("An error occurred during login.");
-                        });
-                } else {
-                    console.error('CSRF token not found');
-                }
+    if (csrfToken) {
+        // 👇 Apply inline loading style
+        submitBtn.disabled = true;
+        btnLoader.style.display = "inline-block";
+        btnText.style.opacity = 0.5;
+
+        fetch('/loginformdata', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken.getAttribute('content')
+            },
+            body: JSON.stringify(loginFormData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                window.location.href = data.redirect;
+            } else {
+                alert(data.message);
             }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("An error occurred during login.");
+        })
+        .finally(() => {
+            // 👇 Revert button state
+            submitBtn.disabled = false;
+            btnLoader.style.display = "none";
+            btnText.style.opacity = 1;
+        });
+
+    } else {
+        console.error('CSRF token not found');
+    }
+}
+
+
+
 
             // Show the forgot password popup
             function showForgotPasswordPopup() {
@@ -263,13 +285,15 @@
                     emailError.style.display = "none";
 
                     fetch('/api/send-reset-link', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({ loginName })
-                    })
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify({
+                                loginName
+                            })
+                        })
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
@@ -293,7 +317,7 @@
 
             // Example of logout button event (to trigger manually)
             const logoutButton = document.getElementById('logoutButton'); // Add your actual logout button ID here
-            logoutButton?.addEventListener('click', function () {
+            logoutButton?.addEventListener('click', function() {
                 logoutSession();
             });
         </script>

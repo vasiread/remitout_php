@@ -1,7 +1,11 @@
 <?php
+
 namespace App\Imports;
 
 use App\Models\User;
+use App\Models\Scuser;
+use App\Models\Nbfc;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 
@@ -23,25 +27,35 @@ class StudentsImport implements ToModel
             return null;
         }
 
-        $email = $row[1];
+        $name = trim($row[0] ?? '');
+        $email = trim($row[1] ?? '');
+        $phone = trim($row[2] ?? '');
+        $password = trim($row[3] ?? '');
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->skippedRows++;
-            return null;
-        }
-
-        if (User::where('email', $email)->exists()) {
+        if (
+            !$name || !$email || !$password ||
+            !filter_var($email, FILTER_VALIDATE_EMAIL) ||
+            $this->emailExistsAnywhere($email)
+        ) {
             $this->skippedRows++;
             return null;
         }
 
         return new User([
-            'name' => $row[0],
+            'name' => $name,
             'email' => $email,
-            'phone' => $row[2],
-            'password' => Hash::make($row[3]),
-            'referral_code' => $this->referralId, // <- Add this
+            'phone' => $phone,
+            'password' => Hash::make($password),
+            'referral_code' => $this->referralId,
         ]);
+    }
+
+    private function emailExistsAnywhere($email)
+    {
+        return User::where('email', $email)->exists() ||
+            Scuser::where('email', $email)->exists() ||
+            Nbfc::where('nbfc_email', $email)->exists() ||
+            Admin::where('email', $email)->exists();
     }
 
     public function getSkippedRows()
@@ -49,4 +63,3 @@ class StudentsImport implements ToModel
         return $this->skippedRows;
     }
 }
-
