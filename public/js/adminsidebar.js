@@ -54,7 +54,7 @@ function initializeAdminSidebar() {
         if (notificationButton && adminSidebarItems[1]) {
             notificationButton.addEventListener('click', function () {
                 // Make AJAX call to clear student messages
-                fetch('/admin/messages/clear-student', {
+                fetch('/api/admin/messages/clear-student', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

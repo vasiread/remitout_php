@@ -318,7 +318,7 @@
         }
 
         const nbfcListInitialize = () => {
-            fetch("/getnbfcdata", {
+            fetch("/api/getnbfcdata", {
                     method: "GET",
                     headers: {
                         'Content-Type': 'application/json',
@@ -400,7 +400,7 @@
                                 nameElement.textContent = newName;
                                 typeElement.textContent = newType;
 
-                                fetch('/updatenbfc', {
+                                fetch('/api/updatenbfc', {
                                         method: 'POST',
                                         headers: {
                                             'Content-Type': 'application/json',
@@ -448,7 +448,7 @@
                             const item = button.closest('.individualnbfclists-items');
                             const nbfcId = item.getAttribute('data-id');
 
-                            fetch('/suspendnbfc', {
+                            fetch('/api/suspendnbfc', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',
@@ -503,7 +503,7 @@
 
     Loader.show(); // 👈 Show loader before request
 
-    fetch('/addbulkusers', {
+    fetch('/api/addbulkusers', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',

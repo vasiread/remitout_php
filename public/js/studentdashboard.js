@@ -378,7 +378,7 @@ function sendDocumenttoEmail(event) {
         name: name,
     };
 
-    fetch("/send-documents", {
+    fetch("/api/send-documents", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -413,7 +413,7 @@ function addUserToRequest(userId) {
     // console.log(userId);
 
     // Fetch request to send userId to the server
-    fetch("/push-user-id-request", {
+    fetch("/ap/push-user-id-request", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -594,7 +594,7 @@ const initialiseProfileUpload = () => {
 
             const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
             if (!allowedTypes.includes(fileType)) {
-                console.error(
+                alert(
                     "Invalid file type. Only jpg, png, and gif are allowed."
                 );
                 return;
@@ -1143,7 +1143,7 @@ function initializeSimpleChat() {
 
 
                                     const fileName = file.name;
-                                    const fileSize = (file.size / 1024 / 1024).toFixed(2);
+                                     const fileSize = (file.size / 1024 / 1024).toFixed(2);
                                     const fileId = `file-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
                                     if (!adminFileStorage[chatId]) adminFileStorage[chatId] = {};
                                     adminFileStorage[chatId][fileId] = file;

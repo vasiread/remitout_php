@@ -881,7 +881,7 @@
 
 
 
-                        fetch('/messages/mark-all-read', {
+                        fetch('/api/messages/mark-all-read', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -1335,7 +1335,7 @@
                         const nbfcId = user.nbfc_id;
 
 
-                        fetch('/trace-process', {
+                        fetch('/api/trace-process', {
                                 method: "POST",
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -1728,7 +1728,7 @@
                                         };
 
                                         try {
-                                            const response = await fetch('/del-user-id-request', {
+                                            const response = await fetch('/api/del-user-id-request', {
                                                 method: "POST",
                                                 headers: {
                                                     'Content-Type': 'application/json',
@@ -2297,7 +2297,7 @@
                 }
 
                 // Sending the request
-                fetch('/send-proposals-with-file', {
+                fetch('/api/send-proposals-with-file', {
                         method: "POST",
                         headers: {
                             'X-CSRF-TOKEN': csrfToken,
@@ -2469,7 +2469,7 @@
                 if (user && user.nbfc_id) {
                     const nbfcId = user.nbfc_id;
 
-                    return fetch('/trace-process', {
+                    return fetch('/api/trace-process', {
                             method: "POST",
                             headers: {
                                 'Content-Type': 'application/json',
@@ -2871,7 +2871,7 @@
                         };
 
                         try {
-                            const response = await fetch('/send-message', {
+                            const response = await fetch('/api/send-message', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -3027,7 +3027,7 @@
                                     formData.append('chatId', chatId);
 
                                     try {
-                                        const response = await fetch('/upload-documents-chat', {
+                                        const response = await fetch('/api/upload-documents-chat', {
                                             method: 'POST',
                                             headers: {
                                                 'X-CSRF-TOKEN': document.querySelector(
@@ -3228,7 +3228,7 @@
                         formData.append('chatId', `${nbfc_id}_${admin_id}`);
 
                         try {
-                            const response = await fetch('/upload-documents-chat', {
+                            const response = await fetch('/api/upload-documents-chat', {
                                 method: 'POST',
                                 headers: {
                                     'X-CSRF-TOKEN': document.querySelector(
@@ -3322,7 +3322,7 @@
                     if (!msg) return;
 
                     try {
-                        const res = await fetch('/send-message-from-adminnbfc', {
+                        const res = await fetch('/api/send-message-from-adminnbfc', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -3585,7 +3585,7 @@
                     };
 
 
-                    fetch("/passwordchange", {
+                    fetch("/api/passwordchange", {
                             method: "POST",
                             headers: {
                                 'Content-Type': "application/json",
@@ -5348,7 +5348,7 @@
 
                 // If not cached, fetch the data
                 try {
-                    const response = await fetch('/getUserFromNbfc', {
+                    const response = await fetch('/api/getUserFromNbfc', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -5625,7 +5625,7 @@
 
                 const fileTypes = endpoints.map(ep => ep.fileType);
 
-                return fetch("/retrieve-file", {
+                return fetch("/api/retrieve-file", {
                         method: "POST",
                         headers: {
                             "X-CSRF-TOKEN": csrfToken,
@@ -5717,7 +5717,7 @@
                     return;
                 }
 
-                fetch('/retrieve-profile-picture', {
+                fetch('/api/retrieve-profile-picture', {
                         method: "POST",
                         headers: {
                             'X-CSRF-TOKEN': csrfToken,
@@ -5888,7 +5888,7 @@
 
 
 
-                        fetch("/forgot-passwordmailsentnbfc", {
+                        fetch("/api/forgot-passwordmailsentnbfc", {
                                 method: "POST",
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -5941,7 +5941,7 @@
 
         Loader.show();
 
-        fetch('/downloadzip', {
+        fetch('/api/downloadzip', {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': csrfToken,
@@ -5995,7 +5995,7 @@
                 if (user && user.nbfc_id) {
                     const nbfcId = user.nbfc_id;
 
-                    fetch('/update-review-status', {
+                    fetch('/api/update-review-status', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -6084,7 +6084,7 @@
 
                 if (!receiverId) return;
 
-                fetch('/unread-message-count', {
+                fetch('/api/unread-message-count', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

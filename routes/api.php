@@ -36,8 +36,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return response()->json($request->user());
 });
 Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
-Route::post('/retrieve-pan-card', [StudentDashboardController::class, 'panCardView']);
-Route::post('/retrieve-aadhar-card', [StudentDashboardController::class, 'aadharCardView']);
+// Route::post('/retrieve-pan-card', [StudentDashboardController::class, 'panCardView']);
+// Route::post('/retrieve-aadhar-card', [StudentDashboardController::class, 'aadharCardView']);
 Route::post('/loginformdata', [LoginController::class, 'loginFormData']);
 Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
 Route::post('/remaining-documents', [StudentDashboardController::class, 'getRemainingNonUploadedFiles']);
@@ -85,9 +85,9 @@ Route::post('/getstatusofusers', [scDashboardController::class, 'getStatusOfUser
 Route::post('/unread-message-count', [StudentDashboardController::class, 'unreadMessageCount']);
 
 Route::post('/get-queries', [scDashboardController::class, 'getScuserQueryRaised']);
-Route::get('/get-tickets', [scDashboardController::class, 'getScUserTickets']);
-Route::post('/get-queries', [scDashboardController::class, 'getScuserQueryRaised']);
-Route::get('/get-tickets', [scDashboardController::class, 'getScUserTickets']);
+// Route::get('/get-tickets', [scDashboardController::class, 'getScUserTickets']);
+// Route::post('/get-queries', [scDashboardController::class, 'getScuserQueryRaised']);
+// Route::get('/get-tickets', [scDashboardController::class, 'getScUserTickets']);
 
 
 Route::post('/getnbfcdata-proposals', [StudentDashboardController::class, 'nbfcProposals']);
@@ -138,9 +138,9 @@ Route::post('/admin/passwordchange', [Admincontroller::class, 'forgotAdminCreden
 //education route for student-dashboard
 Route::get('/education', [StudentDetailsController::class, 'getEducationDetails']);
 Route::get('/getrecipients',  [Admincontroller::class, 'fetchRecipients']);
-Route::get('/admins', [Admincontroller::class, 'getAdmins']);
-Route::post('/admins', [Admincontroller::class, 'createAdmin']);
-Route::put('/admins/{id}', [AdminController::class, 'updateAdmin']);
+// Route::get('/admins', [Admincontroller::class, 'getAdmins']);
+// Route::post('/admins', [Admincontroller::class, 'createAdmin']);
+// Route::put('/admins/{id}', [AdminController::class, 'updateAdmin']);
 Route::get('/student-forms', [AdminController::class, 'showStudentForm']);
 Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser']);
 Route::get('/getInfoForAdminSocial', [Admincontroller::class, 'showStudentFormAdmin']);
@@ -300,7 +300,7 @@ Route::post('/admin/messages/clear-nbfc', [AdminController::class, 'clearNbfcMes
 
 Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
 Route::post('/emailuniquecheck', [RegisterController::class, 'emailUniqueCheck'])->name('emailUniqueCheck');
-Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
+// Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
 
 
 Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);
@@ -312,16 +312,9 @@ Route::post('/getUserFromNbfc', [StudentDashboardController::class, 'getUserFrom
 
 Route::post('/remove-each-documents', [StudentDashboardController::class, 'removeFromServer']);
 Route::post('/upload-each-documents', [StudentDashboardController::class, 'uploadMultipleDocuments']);
-Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
-Route::post('/remaining-documents', [StudentDashboardController::class, 'getRemainingNonUploadedFiles']);
-Route::get("/overallcounts", [TrackController::class, 'counts']);
+ Route::get("/overallcounts", [TrackController::class, 'counts']);
 
-Route::post('/check-columns', [StudentDashboardController::class, 'validateTablesAndColumns']);
-Route::post('/send-documents', [MailController::class, 'sendUserDocuments']);
-Route::post('/push-user-id-request', [StudentDashboardController::class, 'pushUserIdToRequest']);
-Route::post('/del-user-id-request', [StudentDashboardController::class, 'removeUserIdFromNBFCAndReject']);
-Route::post('/update-user-id-request', [StudentDashboardController::class, 'updateUserIdFromNBFC']);
-Route::get("/getallscuser", [scDashboardController::class, 'getScAllUsers']);
+ Route::get("/getallscuser", [scDashboardController::class, 'getScAllUsers']);
 Route::post('/getuserbyref', [scDashboardController::class, 'getUsersByCounsellorApi']);
 
 
@@ -330,9 +323,8 @@ Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
 
 
 
-Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
 Route::post('/upload-profile-picture', [StudentDashboardController::class, 'uploadProfilePicture']);
-Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
+// Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
 Route::post('/passwordchange', [GoogleAuthController::class, 'passwordChange']);
 Route::post('/students/import', [scDashboardController::class, 'import_excel_post'])->name('students.import');
 Route::get('/get-messages/{nbfc_id}/{student_id}', [ChatController::class, 'getMessages']);
@@ -381,7 +373,7 @@ Route::post('/proposalcompletion', [StudentDashboardController::class, 'proposal
 Route::post('/check_userid', [StudentDashboardController::class, 'checkUserId']);
 Route::post('/count-user-status', [StudentDashboardController::class, 'getStatusCount']);
 Route::post('/multipleregisterbyscuser', [StudentDashboardController::class, 'multipleuserbyscuser']);
-Route::post('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashboardDetails']);
+// Route::post('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashboardDetails']);
 
 Route::get('/getstatusofusersadmin', [Admincontroller::class, 'pointOfEntries']);
 Route::get('/nbfc-lead-gens', [Admincontroller::class, 'nbfcLeadGens']);
@@ -515,7 +507,7 @@ Route::get('/count-deactive-queries', [Admincontroller::class, 'countDeactiveQue
 
 Route::get('/reports/user-profile', [Admincontroller::class, 'downloadUserProfileReportPDF'])->name('download.user.profile');
 Route::post('/getprofilecompletionbygender', [Admincontroller::class, 'getProfileCompletionByGenderAndDegree']);
-Route::get('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashboardDetails']);
+// Route::get('/retrievedashboarddetails', [Admincontroller::class, 'retrieveDashboardDetails']);
 
 Route::post('/logout', function () {
     Auth::logout(); // logs out the user

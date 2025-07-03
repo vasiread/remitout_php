@@ -827,7 +827,7 @@
                 year: String(year)
             } : {};
 
-            fetch('/reports-on-generation', {
+            fetch('/api/reports-on-generation', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -927,7 +927,7 @@
             const postgradOthers = $('.totalpostgrads-info p:nth-child(4) span');
 
             // Fetch data from API (POST request)
-            fetch('/getprofilecompletionbygender', {
+            fetch('/api/getprofilecompletionbygender', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1157,7 +1157,7 @@
             let filterState = '';
 
             // Fetch data from API
-            fetch('/city-stats', {
+            fetch('/api/city-stats', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1405,7 +1405,7 @@
             };
 
             // Fetch data from the API
-            fetch('/dest-countries', {
+            fetch('/api/dest-countries', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1590,7 +1590,7 @@
             if (!ctx) return console.error('donutChart canvas not found');
 
             // Fetch data from API
-            fetch('/getstatusofusersadmin', {
+            fetch('/api/getstatusofusersadmin', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2047,7 +2047,7 @@
             const totalItems = $('#sc-approved-total-items');
 
             // Fetch data from API
-            fetch('/referralacceptedcounts', {
+            fetch('/api/referralacceptedcounts', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -3185,7 +3185,7 @@
         }
 
         function fetchReferralAcceptedCounts() {
-            fetch('/referralacceptedcounts')
+            fetch('/api/referralacceptedcounts')
                 .then(response => response.json())
                 // .then(data => {
                 //     console.log("Referral Accepted Counts:", data);

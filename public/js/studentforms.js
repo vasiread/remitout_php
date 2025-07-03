@@ -283,7 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const personalInfoId = inputElement.value;
 
-        fetch("/updatedetailsinfo", {
+        fetch("/api/updatedetailsinfo", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -344,7 +344,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Submitting coborrowerData:", coborrowerData);
             // alert(JSON.stringify(coborrowerData)); // for debugging
 
-            fetch("/coborrowerData", {
+            fetch("/api/coborrowerData", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -465,7 +465,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             console.log("Sending data:", JSON.stringify(personalUpdateData, null, 2));
 
-            fetch("/update-personalinfo", {
+            fetch("/api/update-personalinfo", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -582,7 +582,7 @@ document.addEventListener("DOMContentLoaded", () => {
          console.log(courseInfoData)
 
         // ✅ Send data to backend
-        fetch("/update-courseinfo", {
+        fetch("/api/update-courseinfo", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -765,7 +765,7 @@ document.addEventListener("DOMContentLoaded", () => {
             dynamic_fields: dynamicFields,
         };
 
-        fetch("/update-academicsinfo", {
+        fetch("/api/update-academicsinfo", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -1202,7 +1202,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("CSRF token not found");
             return;
         }
-        fetch("/upload-each-documents", {
+        fetch("/api/upload-each-documents", {
             method: "POST",
             headers: {
                 "X-CSRF-TOKEN": csrfToken,
@@ -1291,7 +1291,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // alert(fileNameId);
         // alert(sourceType);
 
-        fetch("/remove-each-documents", {
+        fetch("/api/remove-each-documents", {
             method: "POST",
             headers: {
                 "X-CSRF-TOKEN": csrfToken,
@@ -1342,7 +1342,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ];
 
         try {
-            const response = await fetch("/retrieve-file", {
+            const response = await fetch("/api/retrieve-file", {
                 method: "POST",
                 headers: {
                     "X-CSRF-TOKEN": csrfToken,
@@ -2600,7 +2600,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const fileTypes = [...staticFileTypesPaths, ...dynamicFileTypesPaths];
 
-        fetch("/retrieve-file", {
+        fetch("/api/retrieve-file", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -2634,7 +2634,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        fetch("/dynamic-file", {
+        fetch("/api/dynamic-file", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

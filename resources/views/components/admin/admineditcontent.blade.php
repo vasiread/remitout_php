@@ -1296,7 +1296,7 @@
                 };
 
                 try {
-                    const res = await fetch('/testimonial/store', {
+                    const res = await fetch('/api/testimonial/store', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -1382,7 +1382,7 @@
                 };
 
                 try {
-                    const res = await fetch('/faq/store', {
+                    const res = await fetch('/api/faq/store', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -1652,7 +1652,7 @@ const newTitle = `Partner Logo ${nextNumber}`;
             }
             async injectDynamicHeroContent() {
                 try {
-                    const res = await fetch('/landingpage');
+                    const res = await fetch('/api/landingpage');
                     if (!res.ok) throw new Error(`CMS fetch failed: ${res.status}`);
                     const cmsData = await res.json();
 
@@ -1678,7 +1678,7 @@ const newTitle = `Partner Logo ${nextNumber}`;
                                         description: 160
                                     };
 
-                                    const testimonialRes = await fetch('/gettestimonials');
+                                    const testimonialRes = await fetch('/api/gettestimonials');
                                     if (!testimonialRes.ok) throw new Error(
                                         `Testimonial fetch failed: ${testimonialRes.status}`);
                                     const testimonialData = await testimonialRes.json();
@@ -1718,7 +1718,7 @@ const newTitle = `Partner Logo ${nextNumber}`;
                                         answer: 400
                                     };
 
-                                    const faqRes = await fetch('/getfaqs');
+                                    const faqRes = await fetch('/api/getfaqs');
                                     if (!faqRes.ok) throw new Error(`FAQ fetch failed: ${faqRes.status}`);
                                     const faqData = await faqRes.json();
                                     // alert(item)
@@ -1756,7 +1756,7 @@ const newTitle = `Partner Logo ${nextNumber}`;
                                 };
                                 item.isProtected = true;
 
-                                const logoRes = await fetch('/getlogospartner');
+                                const logoRes = await fetch('/api/getlogospartner');
                                 if (!logoRes.ok) throw new Error(`Partner logo fetch failed: ${logoRes.status}`);
                                 const logoData = await logoRes.json();
                                 console.log("logodata", logoData);
@@ -1871,7 +1871,7 @@ const newTitle = `Partner Logo ${nextNumber}`;
                 try {
                     console.log('Sending payload:', payload);
 
-                    const res = await fetch('/landingpageupdate', {
+                    const res = await fetch('/api/landingpageupdate', {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
@@ -3004,7 +3004,7 @@ async function updateCmsContent(title, file) {
 
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    const response = await fetch('/update-cms-imageupload', {
+    const response = await fetch('/api/update-cms-imageupload', {
         method: 'POST',
         headers: {
             'X-CSRF-TOKEN': csrfToken

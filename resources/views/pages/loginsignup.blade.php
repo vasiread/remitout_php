@@ -296,7 +296,7 @@
                     name: nameInput.value,
                     otp: generatedOTP
                 };
-                fetch('/send-mobotp', {
+                fetch('/api/send-mobotp', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -347,7 +347,7 @@
                     otp: finalOTP
                 };
                 console.log(JSON.stringify(mailOtpdata));
-                fetch('/verify-mobotp', {
+                fetch('/api/verify-mobotp', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -448,7 +448,7 @@
 
                 console.log(registerFormData); // For debugging
 
-                fetch('/registerformdata', {
+                fetch('/api/registerformdata', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
