@@ -444,8 +444,8 @@
                 <a href="#testimonials" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Testimonial</a>
                 <a href="#study-loan" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Study Loan</a>
                 <a href="#faq" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">FAQ</a>
-                <a href="#" id="scheduleCallLink" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Schedule
-                    Call</a>
+                <a href="{{ url('/#contactFormPopup') }}" id="scheduleCallLink" class="{{ Request::is('/') ? '' : 'fullopacitylinks' }}">Schedule Call</a>
+
                 <a href="#support"
                     class="header-mobile-link {{ Request::is('/') ? '' : 'fullopacitylinks' }}">Support</a>
                 <a href="#help" class="header-mobile-link {{ Request::is('/') ? '' : 'fullopacitylinks' }}">Help</a>

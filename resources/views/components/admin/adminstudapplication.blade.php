@@ -1249,27 +1249,11 @@
                                                     </div>
                                                 </div>
                                                 <!-- Salaried and Business fields container -->
-                                                <div class="document-row" id="salaried-business-fields-container">
-                                                    <div class="add-document" id="add-salaried-business-btn-id">
-                                                        <span class="add-text">Add</span>
-                                                        <span class="add-icon">+</span>
-                                                    </div>
-                                                    <div class="info">
-                                                        <span class="help-trigger" data-target="bank-statement-help">ⓘ
-                                                            Help</span>
-                                                        <span>*jpg, png, pdf formats</span>
-                                                    </div>
-                                                    <div class="help-container bank-statement-help"
-                                                        style="display: none;">
-                                                        <h3 class="help-title">Help</h3>
-                                                        <div class="help-content">
-                                                            <p>Please upload your 6 months bank statement in jpg, png,
-                                                                or pdf format.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                               
 
                                                 <!-- Address Proof -->
+                                                
+                                            <div class="document-row salary-upload-row">
                                                 <div class="document-box salary-upload-box">
                                                     <div class="document-name" id="address-proof-salary-id"
                                                         style="display: none;">Address Proof
@@ -1306,6 +1290,15 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <!-- Salaried and Business fields container -->
+                                            <div class="document-row" id="salaried-business-fields-container">
+                                                <div class="add-document" id="add-salaried-business-btn-id">
+                                                    <span class="add-text">Add</span>
+                                                    <span class="add-icon">+</span>
+                                                </div>
+                                            </div>
+                                            </div>
                                             </div>
 
                                             <!-- Business Documents Section -->
@@ -1816,11 +1809,6 @@
                                     }
 
                                     fetchAndAppendSocialNames();
-
-
-
-
-
 
                                 })
                                 .catch(error => {
@@ -3741,25 +3729,22 @@ this.setupHelpTriggerListener();
                 style.id = "education-inline-style"; // prevent duplicates
                 style.innerHTML = `
       #education-rows-container {
-        padding: 20px;
-        border-top: 1px solid #e0e0e0;
+        gap:20px;
         margin-top: 20px;
-        background-color: #fafafa;
         border-radius: 8px;
       }
       #education-rows-container .education-field {
         margin-bottom: 20px;
         padding: 10px 15px;
         background: #fff;
-        border: 1px solid #ddd;
         border-radius: 6px;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    
         position: relative;
       }
       #education-rows-container label {
         font-weight: 600;
-        font-size: 14px;
-        color: #333;
+        font-size: 12px;
+        color: rgba(131, 131, 131, 0.5);
         margin-bottom: 8px;
         display: block;
       }
