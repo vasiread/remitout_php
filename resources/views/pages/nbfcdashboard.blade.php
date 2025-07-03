@@ -1678,7 +1678,9 @@
                         sendProposalTrigger.parentNode.replaceChild(newTrigger, sendProposalTrigger);
 
                         newTrigger.addEventListener("click", () => {
-                             openModal(studentId);
+                            console.log("Clicked");
+                            console.log(studentId);
+                            openModal(studentId);
                         });
                     }
                     if (sendProposalTriggerMob) {
@@ -2317,6 +2319,8 @@
                     .then(data => {
                         if (data) {
                             alert(data.message);
+                             initializeTraceViewNBFC(requestsData,
+                                                    proposalsData);
 
                         } else {
                             console.error("Error: No file URL returned from the server", data);
@@ -5910,79 +5914,77 @@
                 }
             }
 
-            function downloadDocuments(userId) {
-                console.log("Downloading documents for user:", userId);
+           function downloadDocuments(userId) {
+    console.log("Downloading documents for user:", userId);
 
-                if (!userId) {
-                    console.error("User ID is required to download documents.");
-                    return;
-                }
+    if (!userId) {
+        console.error("User ID is required to download documents.");
+        return;
+    }
 
-                const downloadTrigger = document.querySelector(".myapplication-seventhcolumn-headernbfc #downloaddocuments");
+    const downloadTrigger = document.querySelector(".myapplication-seventhcolumn-headernbfc #downloaddocuments");
 
-                if (!downloadTrigger) {
-                    console.error("Download button not found.");
-                    return;
-                }
+    if (!downloadTrigger) {
+        console.error("Download button not found.");
+        return;
+    }
 
-                // Avoid multiple event bindings
-                downloadTrigger.addEventListener('click', function handleDownloadClick(e) {
-                    e.preventDefault();
+    // ✅ Replace any previous click handler
+    downloadTrigger.onclick = function(e) {
+        e.preventDefault();
 
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-                    if (!csrfToken) {
-                        console.error("CSRF token not found.");
-                        return;
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        if (!csrfToken) {
+            console.error("CSRF token not found.");
+            return;
+        }
+
+        Loader.show();
+
+        fetch('/downloadzip', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: userId
+                }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error("NO_FILES");
+                    } else {
+                        throw new Error(`HTTP error! status: ${response.status}`);
                     }
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `user_files_${userId}.zip`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => {
+                console.error("Error downloading documents:", error);
 
-                    // ✅ Show loader before starting request
-                    Loader.show();
-
-                    fetch('/downloadzip', {
-                            method: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN': csrfToken,
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                userId: userId
-                            }),
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                if (response.status === 404) {
-                                    throw new Error("NO_FILES");
-                                } else {
-                                    throw new Error(`HTTP error! status: ${response.status}`);
-                                }
-                            }
-                            return response.blob();
-                        })
-                        .then(blob => {
-                            const url = window.URL.createObjectURL(blob);
-                            const a = document.createElement('a');
-                            a.href = url;
-                            a.download = `user_files_${userId}.zip`;
-                            document.body.appendChild(a);
-                            a.click();
-                            a.remove();
-                            window.URL.revokeObjectURL(url);
-                        })
-                        .catch(error => {
-                            console.error("Error downloading documents:", error);
-
-                            if (error.message === "NO_FILES") {
-                                alert("No documents uploaded for this user yet.");
-                            } else {
-                                alert("Download failed. Please try again.");
-                            }
-                        })
-                        .finally(() => {
-                            Loader.hide();
-                        });
-
-                });
-            }
+                if (error.message === "NO_FILES") {
+                    alert("No documents uploaded for this user yet.");
+                } else {
+                    alert("Download failed. Please try again.");
+                }
+            })
+            .finally(() => {
+                Loader.hide();
+            });
+    };
+}
 
 
 

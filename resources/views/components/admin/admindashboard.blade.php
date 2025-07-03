@@ -448,7 +448,7 @@
 
                         <p id="incomplete-count"> </p>
                         <p id="dummy-1"> </p>
-                        <p id="dummy-2">1 </p>
+                        <p id="dummy-2"> </p>
                         <p id="offer-issued"> </p>
                         <p id="offer-rejected"> </p>
                         <p id="offer-accepted"> </p>
@@ -3154,6 +3154,7 @@
                         document.getElementById('offer-issued').innerText = counts.offerIssuedStudentsCount;
                         document.getElementById('offer-rejected').innerText = counts.offerRejectedByStudentCount;
                         document.getElementById('offer-accepted').innerText = counts.offerAcceptedAndClosedCount;
+                        document.getElementById('dummy-2').innerText = counts.activeQueriesCount;
 
                         document.getElementById('incomplete-count').innerText = counts.incompleteProfileCount;
                         document.getElementById('dummy-1').innerText = counts.completedProfileCount;

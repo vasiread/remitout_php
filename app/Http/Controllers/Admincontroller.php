@@ -8,6 +8,7 @@ use App\Models\Academics;
 use App\Models\AdditionalField;
 use App\Models\Admin;
 use App\Models\CmsContent;
+ 
 use App\Models\CoBorrowerInfo;
 use App\Models\CourseDetailOption;
 use App\Models\Messageadminstudent;
@@ -118,6 +119,8 @@ class Admincontroller extends Controller
 
             // Incomplete profiles = filteredUserIds not in completedProfiles
             $incompleteProfiles = array_diff($courseInfoUsers, $completedProfiles);
+            $activeQueriesCount = Queries::where('status', 'active')->count();
+
 
             // Step 6: Return JSON response
             return response()->json([
@@ -130,6 +133,8 @@ class Admincontroller extends Controller
                     'completedProfileCount' => count($completedProfiles),
                     'incompleteProfileCount' => count($incompleteProfiles),
                     'filteredDegreeType' => $inputDegree ?: 'all',
+                    'activeQueriesCount' => $activeQueriesCount,
+
                 ],
             ]);
         } catch (\Exception $e) {
