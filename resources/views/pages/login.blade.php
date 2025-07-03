@@ -185,50 +185,58 @@
 
             // Login form submit handler
             function loginSubmitForm(event) {
-                event.preventDefault();
+    event.preventDefault();
 
-                const loginName = document.getElementById("loginname").value;
-                const loginPassword = document.getElementById("loginpasswordID").value;
-                const confirmPolicy = document.getElementById("confirmpolicy");
+    const loginName = document.getElementById("loginname").value;
+    const loginPassword = document.getElementById("loginpasswordID").value;
+    const confirmPolicy = document.getElementById("confirmpolicy");
 
-                if (!confirmPolicy.checked) {
-                    alert("You must agree to the terms & policy");
-                    return;
-                }
+    if (!confirmPolicy.checked) {
+        alert("You must agree to the terms & policy");
+        return;
+    }
 
-                const loginFormData = {
-                    loginName: loginName,
-                    loginPassword: loginPassword,
-                };
+    const loginFormData = {
+        loginName: loginName,
+        loginPassword: loginPassword,
+    };
 
-                const csrfToken = document.querySelector('meta[name="csrf-token"]');
+    const csrfToken = document.querySelector('meta[name="csrf-token"]');
 
-                if (csrfToken) {
-                    fetch('/loginformdata', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken.getAttribute('content')
-                        },
-                        body: JSON.stringify(loginFormData)
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                alert(data.message);
-                                window.location.href = data.redirect;
-                            } else {
-                                alert(data.message);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert("An error occurred during login.");
-                        });
+    if (csrfToken) {
+        // 👇 Show loader before sending request
+        Loader.show();
+
+        fetch('/loginformdata', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken.getAttribute('content')
+            },
+            body: JSON.stringify(loginFormData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                // 👇 Hide loader after receiving response
+                Loader.hide();
+
+                if (data.success) {
+                    alert(data.message);
+                    window.location.href = data.redirect;
                 } else {
-                    console.error('CSRF token not found');
+                    alert(data.message);
                 }
-            }
+            })
+            .catch(error => {
+                Loader.hide(); // 👈 Make sure to hide loader on error too
+                console.error('Error:', error);
+                alert("An error occurred during login.");
+            });
+    } else {
+        console.error('CSRF token not found');
+    }
+}
+
 
             // Show the forgot password popup
             function showForgotPasswordPopup() {

@@ -47,7 +47,7 @@
       </div>
 
       <div class="student-form-menu-left">
-        <a href="#" class="student-form-nav-mobile">Login</a>
+        <a href="#" class="student-form-nav-mobile">Login</a>   
         <div class="student-form-menu-icon-container" id="student-form-menu-icon-container">
 
           <div class="student-form-menu-icon" id="student-form-menu-icon">
