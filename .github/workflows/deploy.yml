@@ -51,6 +51,6 @@ jobs:
           script: |
             cd ~/remitout
             docker pull ${{ secrets.DOCKER_USERNAME }}/remitout-app:latest
-            docker-compose down
+            docker-compose down --volumes
             docker-compose up -d --remove-orphans
             docker logout
