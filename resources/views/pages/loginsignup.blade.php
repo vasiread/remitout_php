@@ -404,7 +404,7 @@
                     return;
                 }
 
-                fetch("/emailuniquecheck", {
+                fetch("/api/emailuniquecheck", {
                         method: "POST",
                         headers: {
                             'Content-Type': 'application/json',

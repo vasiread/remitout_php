@@ -405,7 +405,7 @@
             profileTextContent.textContent = "Profile";
         }
 
-        fetch('/getallscuser', {
+        fetch('/api/getallscuser', {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -477,7 +477,7 @@
     // Show the loader
     Loader.show();
 
-    fetch('/register-studentcounsellor', {
+    fetch('/api/register-studentcounsellor', {
     method: "POST",
     headers: {
         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
