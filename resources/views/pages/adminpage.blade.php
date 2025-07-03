@@ -1047,7 +1047,7 @@
 
                 Loader.show();
 
-                fetch("/admin/passwordchange", {
+                fetch("/api/admin/passwordchange", {
                         method: "POST",
                         headers: {
                             'Content-Type': 'application/json',
@@ -1126,7 +1126,7 @@
 
 
 
-                    fetch("/forgot-passwordmailsentsc", {
+                    fetch("/api/forgot-passwordmailsentsc", {
                             method: "POST",
                             headers: {
                                 'Content-Type': 'application/json',
@@ -1153,7 +1153,7 @@
         }
 
         function getNotificationCount() {
-            fetch('/admin/messages/count')
+            fetch('/api/admin/messages/count')
                 .then(response => response.json())
                 .then(data => {
                     const totalMessages = data.total_messages;

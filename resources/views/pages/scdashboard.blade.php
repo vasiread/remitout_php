@@ -849,7 +849,7 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
                     date_added: new Date().toISOString().split('T')[0]
                 };
 
-                fetch('/submit-query', {
+                fetch('/api/submit-query', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -951,7 +951,7 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
 
                     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
                     if (!allowedTypes.includes(fileType)) {
-                        console.error('Invalid file type. Only jpg, png, and gif are allowed.');
+                        alert('Invalid file type. Only jpg, png, and gif are allowed.');
                         return;
                     }
 
@@ -966,7 +966,7 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
                         return;
                     }
 
-                    fetch('/upload-scuserprofile-photo', {
+                    fetch('/api/upload-scuserprofile-photo', {
                             method: "POST",
                             headers: {
                                 'X-CSRF-TOKEN': csrfToken,
@@ -1017,7 +1017,7 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
                 console.error('CSRF token not found');
                 return;
             }
-            fetch('/view-scuserprofile-photo', {
+            fetch('/api/view-scuserprofile-photo', {
                     method: "POST",
                     headers: {
                         'X-CSRF-TOKEN': csrfToken,
@@ -1411,7 +1411,7 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
                 return;
             }
 
-            fetch("/getuserbyref", {
+            fetch("/api/getuserbyref", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
@@ -2047,7 +2047,7 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
                     return;
                 }
 
-                fetch('/raise-query', {
+                fetch('/api/raise-query', {
                         method: "POST",
                         headers: {
                             'Content-Type': 'application/json',
@@ -2132,7 +2132,7 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
                 return;
             }
 
-            fetch("/updatescuserdetails", {
+            fetch("/api/updatescuserdetails", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
@@ -2209,7 +2209,7 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
                 return;
             }
 
-            fetch('/scuserone', {
+            fetch('/api/scuserone', {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
@@ -2448,7 +2448,7 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
             }
 
             try {
-                const response = await fetch('/multipleregisterbyscuser', {
+                const response = await fetch('/api/multipleregisterbyscuser', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2510,7 +2510,7 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
                 return;
             }
 
-            fetch("/getstatusofusers", {
+            fetch("/api/getstatusofusers", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -2669,7 +2669,7 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
 
 
 
-                    fetch("/forgot-passwordmailsentsc", {
+                    fetch("/api/forgot-passwordmailsentsc", {
                             method: "POST",
                             headers: {
                                 'Content-Type': 'application/json',

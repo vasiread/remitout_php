@@ -1681,7 +1681,7 @@
                     }
                 }
 
-                fetch('/addadditionalpersonalinfodata', {
+                fetch('/api/addadditionalpersonalinfodata', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1790,7 +1790,7 @@
                     addSocialButton.addEventListener('click', () => {
                         const userInput = prompt("Enter dropdown option", "")?.trim();
                         if (userInput) {
-                            fetch('/storesocialoption', {
+                            fetch('/api/storesocialoption', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -2018,7 +2018,7 @@
                 const userInput = prompt("Enter course duration option (in months)", "")?.trim();
 
                 if (userInput && !isNaN(userInput)) {
-                    fetch('/storecourseduration', {
+                    fetch('/api/storecourseduration', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -2107,7 +2107,7 @@
                 const userInput = prompt("Enter new course option", "")?.trim();
                 if (userInput) {
                     // Send the input to Laravel backend
-                    fetch('/course-options', {
+                    fetch('/api/course-options', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -2245,7 +2245,7 @@
                     }
                 }
 
-                fetch('/addadditionalpersonalinfodata', {
+                fetch('/api/addadditionalpersonalinfodata', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2838,7 +2838,7 @@ this.setupHelpTriggerListener();
             },
 
             addNewDocumentField(fieldType, type, containerId, rowId, apiEndpoint, namePrefix, subSection = '', slug) {
-                fetch('/kycdynamicpost', {
+                fetch('/api/kycdynamicpost', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -3170,7 +3170,7 @@ this.setupHelpTriggerListener();
                 };
 
                 // Send POST request to /student-application-form
-                fetch('/student-application-form', {
+                fetch('/api/student-application-form', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -3204,7 +3204,7 @@ this.setupHelpTriggerListener();
 
 
         function fetchAndAppendSocialNames() {
-            fetch('/getInfoForAdminSocial')
+            fetch('/api/getInfoForAdminSocial')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.querySelector('.second-question-options');
@@ -3260,7 +3260,7 @@ this.setupHelpTriggerListener();
 
 
         function fetchAndRenderStudyLocations() {
-            fetch('/getplantocountries')
+            fetch('/api/getplantocountries')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('selected-study-location-admin');
@@ -3328,7 +3328,7 @@ this.setupHelpTriggerListener();
                         addContainer.addEventListener('click', () => {
                             const userInput = prompt("Enter dropdown option", "")?.trim();
                             if (userInput) {
-                                fetch('/storeplantostudycountry', {
+                                fetch('/api/storeplantostudycountry', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',
@@ -3364,7 +3364,7 @@ this.setupHelpTriggerListener();
 
 
         function fetchAndRenderDegrees() {
-            fetch('/showstudentcourse')
+            fetch('/api/showstudentcourse')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('optionsContainer');
@@ -3445,7 +3445,7 @@ this.setupHelpTriggerListener();
                         document.getElementById('addSection')?.addEventListener('click', () => {
                             const userInput = prompt("Enter new degree option", "")?.trim();
                             if (userInput) {
-                                fetch('/storedegree', {
+                                fetch('/api/storedegree', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',
@@ -3481,7 +3481,7 @@ this.setupHelpTriggerListener();
         }
 
         function fetchAndRenderCourseDurations() {
-            fetch('/showstudentcourseduration')
+            fetch('/api/showstudentcourseduration')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.querySelector('.course-options');
@@ -3543,7 +3543,7 @@ this.setupHelpTriggerListener();
             const userInput = prompt("Enter new course duration in months (e.g., 12)", "").trim();
 
             if (userInput && !isNaN(userInput) && Number(userInput) > 0) {
-                fetch('/storecourseduration', {
+                fetch('/api/storecourseduration', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -3637,7 +3637,7 @@ this.setupHelpTriggerListener();
                 document.head.appendChild(style);
             }
 
-            fetch('/additionalpersonalinfodata')
+            fetch('/api/additionalpersonalinfodata')
                 .then(response => response.json())
                 .then(data => {
                     if (data && data.additionalFields) {
@@ -3790,7 +3790,7 @@ this.setupHelpTriggerListener();
                 document.head.appendChild(style);
             }
 
-            fetch("/academics-adminshow")
+            fetch("/api/academics-adminshow")
                 .then((res) => res.json())
                 .then((data) => {
                     const academicFields = data.data;
@@ -3896,7 +3896,7 @@ this.setupHelpTriggerListener();
 
         async function fetchCourseDetailOptions() {
             try {
-                const response = await fetch('/course-detail-options');
+                const response = await fetch('/api/course-detail-options');
                 const result = await response.json();
 
                 if (result.success && Array.isArray(result.data)) {

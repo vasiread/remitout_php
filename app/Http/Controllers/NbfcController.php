@@ -27,20 +27,25 @@ class NbfcController extends Controller
         $errors = [];
         $successCount = 0;
 
+        $superAdminEmail = env('SUPERADMIN_EMAIL');
+
         foreach ($nbfcUsers as $index => $user) {
-            // Check if email exists in User, Nbfc, Scuser, or Admin tables
             $email = $user['email'];
 
-            $emailExists = User::where('email', $email)->exists() ||
+            // Check if email exists in SUPERADMIN or any DB model
+            $emailExists =
+                $email === $superAdminEmail ||
+                User::where('email', $email)->exists() ||
                 Nbfc::where('nbfc_email', $email)->exists() ||
                 Scuser::where('email', $email)->exists() ||
                 Admin::where('email', $email)->exists();
 
             if ($emailExists) {
-                $errors[$index][] = "Email $email already exists in the system.";
+                $errors[$index][] = "$email already exists.";
                 continue;
             }
 
+            // Validate fields
             $validator = Validator::make($user, [
                 'name' => 'required|string|max:255',
                 'type' => 'required|string|max:255',
@@ -93,6 +98,7 @@ class NbfcController extends Controller
             'message' => "$successCount user(s) registered successfully!"
         ]);
     }
+
 
 
     public function sendProposalsWithFiles(Request $request)

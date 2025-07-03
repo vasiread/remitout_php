@@ -304,7 +304,7 @@
                         }
                     }
                 ];
-                fetch('/getrecipients', {
+                fetch('/api/getrecipients', {
                     method: 'GET',
                     headers: {
                         'X-CSRF-TOKEN': getCsrfToken(),
@@ -1066,7 +1066,7 @@
             function sendImageToBackend(file) {
                 const formData = new FormData();
                 formData.append('image', file);
-                fetch('/promotional-image-attach', {
+                fetch('/api/promotional-image-attach', {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': getCsrfToken()

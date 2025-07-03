@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-   
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 
@@ -703,7 +703,7 @@
                         </div>
 
                         <div class="myapplication-nbfcapprovalcolumn">
-                            <button id="sendproposal-trigger">Send Proposal</button>
+                            <button id="sendproposal-trigger" class="send-proposal-wrapper">Send Proposal</button>
                             <div class="nbfcapprovalcolumnrightaligned">
                                 <button id="index-student-message-btn-footer">Message</button>
                                 <button class='dashboard-inside-reject-button'>Reject</button>
@@ -785,35 +785,36 @@
                 </section>
 
 
-              <div class="overlay-password-change-nbfc"></div>
-<div class="password-change-container-nbfc">
-    <div class="password-change-triggered-view-headersection-nbfc">
-        <h3>Password Change Request</h3>
-        <img src="{{ asset('assets/images/Icons/close_small.png') }}" style="cursor:pointer" alt="">
-    </div>
-    <div class="password-input-wrapper">
-        <input type="password" placeholder="Current Password" id="current-password-nbfc">
-        <i class="fas fa-eye-slash toggle-password" data-target="current-password-nbfc"></i>
-    </div>
-    <span id="current-password-error-nbfc" class="error-message"></span>
+                <div class="overlay-password-change-nbfc"></div>
+                <div class="password-change-container-nbfc">
+                    <div class="password-change-triggered-view-headersection-nbfc">
+                        <h3>Password Change Request</h3>
+                        <img src="{{ asset('assets/images/Icons/close_small.png') }}" style="cursor:pointer"
+                            alt="">
+                    </div>
+                    <div class="password-input-wrapper">
+                        <input type="password" placeholder="Current Password" id="current-password-nbfc">
+                        <i class="fas fa-eye-slash toggle-password" data-target="current-password-nbfc"></i>
+                    </div>
+                    <span id="current-password-error-nbfc" class="error-message"></span>
 
-    <div class="password-input-wrapper">
-        <input type="password" placeholder="New Password" id="new-password-nbfc">
-        <i class="fas fa-eye-slash toggle-password" data-target="new-password-nbfc"></i>
-    </div>
-    <span id="new-password-error-nbfc" class="error-message"></span>
+                    <div class="password-input-wrapper">
+                        <input type="password" placeholder="New Password" id="new-password-nbfc">
+                        <i class="fas fa-eye-slash toggle-password" data-target="new-password-nbfc"></i>
+                    </div>
+                    <span id="new-password-error-nbfc" class="error-message"></span>
 
-    <div class="password-input-wrapper">
-        <input type="password" placeholder="Confirm New Password" id="confirm-new-password-nbfc">
-        <i class="fas fa-eye-slash toggle-password" data-target="confirm-new-password-nbfc"></i>
-    </div>
-    <span id="confirm-password-error-nbfc" class="error-message"></span>
+                    <div class="password-input-wrapper">
+                        <input type="password" placeholder="Confirm New Password" id="confirm-new-password-nbfc">
+                        <i class="fas fa-eye-slash toggle-password" data-target="confirm-new-password-nbfc"></i>
+                    </div>
+                    <span id="confirm-password-error-nbfc" class="error-message"></span>
 
-    <div class="footer-passwordchange-nbfc">
-        <p>Forgot Password</p>
-        <button id="password-change-save-nbfc">Save</button>
-    </div>
-</div>
+                    <div class="footer-passwordchange-nbfc">
+                        <p>Forgot Password</p>
+                        <button id="password-change-save-nbfc">Save</button>
+                    </div>
+                </div>
             </section>
         </body>
 
@@ -880,7 +881,7 @@
 
 
 
-                        fetch('/messages/mark-all-read', {
+                        fetch('/api/messages/mark-all-read', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -903,7 +904,7 @@
                 }
 
 
-                 setupPasswordToggle();
+                setupPasswordToggle();
                 passwordModelTriggerNbfc();
                 passwordForgotNbfc();
                 userPopopuOpenNbfc();
@@ -1334,7 +1335,7 @@
                         const nbfcId = user.nbfc_id;
 
 
-                        fetch('/trace-process', {
+                        fetch('/api/trace-process', {
                                 method: "POST",
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -1489,7 +1490,7 @@
                     });
                 }
 
-                 setTimeout(() => {
+                setTimeout(() => {
                     handleToggleViewMobileOnly('#dashboard-proposal-list', '#viewmore-proposals');
                     handleToggleViewMobileOnly('.index-student-details-container', '#viewmore-inbox');
                 }, 100);
@@ -1533,12 +1534,11 @@
 
                         isProfileLoading = true;
                         isProfileVisible = true;
+                        const sendProposalBlock = document.querySelector(".send-proposal-wrapper");
                         if (student.origin === 'proposal') {
-                            document.querySelector(".myapplication-nbfcapprovalcolumn").style.display =
-                                "none";
+                            sendProposalBlock.style.display = "none";
                         } else {
-                            document.querySelector(".myapplication-nbfcapprovalcolumn").style.display =
-                                "flex";
+                            sendProposalBlock.style.display = "flex";
                         }
 
                         const wholeContainer = document.querySelector(".wholeapplicationprofile");
@@ -1728,7 +1728,7 @@
                                         };
 
                                         try {
-                                            const response = await fetch('/del-user-id-request', {
+                                            const response = await fetch('/api/del-user-id-request', {
                                                 method: "POST",
                                                 headers: {
                                                     'Content-Type': 'application/json',
@@ -2297,7 +2297,7 @@
                 }
 
                 // Sending the request
-                fetch('/send-proposals-with-file', {
+                fetch('/api/send-proposals-with-file', {
                         method: "POST",
                         headers: {
                             'X-CSRF-TOKEN': csrfToken,
@@ -2319,6 +2319,8 @@
                     .then(data => {
                         if (data) {
                             alert(data.message);
+                             initializeTraceViewNBFC(requestsData,
+                                                    proposalsData);
 
                         } else {
                             console.error("Error: No file URL returned from the server", data);
@@ -2467,7 +2469,7 @@
                 if (user && user.nbfc_id) {
                     const nbfcId = user.nbfc_id;
 
-                    return fetch('/trace-process', {
+                    return fetch('/api/trace-process', {
                             method: "POST",
                             headers: {
                                 'Content-Type': 'application/json',
@@ -2869,7 +2871,7 @@
                         };
 
                         try {
-                            const response = await fetch('/send-message', {
+                            const response = await fetch('/api/send-message', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -3025,7 +3027,7 @@
                                     formData.append('chatId', chatId);
 
                                     try {
-                                        const response = await fetch('/upload-documents-chat', {
+                                        const response = await fetch('/api/upload-documents-chat', {
                                             method: 'POST',
                                             headers: {
                                                 'X-CSRF-TOKEN': document.querySelector(
@@ -3226,7 +3228,7 @@
                         formData.append('chatId', `${nbfc_id}_${admin_id}`);
 
                         try {
-                            const response = await fetch('/upload-documents-chat', {
+                            const response = await fetch('/api/upload-documents-chat', {
                                 method: 'POST',
                                 headers: {
                                     'X-CSRF-TOKEN': document.querySelector(
@@ -3320,7 +3322,7 @@
                     if (!msg) return;
 
                     try {
-                        const res = await fetch('/send-message-from-adminnbfc', {
+                        const res = await fetch('/api/send-message-from-adminnbfc', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -3519,25 +3521,25 @@
                 }
             }
 
-         function setupPasswordToggle() {
-            const togglePasswordButtons = document.querySelectorAll('.toggle-password');
-            togglePasswordButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const targetId = button.getAttribute('data-target');
-                    const passwordInput = document.getElementById(targetId);
-                    
-                    if (passwordInput.type === 'password') {
-                        passwordInput.type = 'text';
-                        button.classList.remove('fa-eye-slash');
-                        button.classList.add('fa-eye');
-                    } else {
-                        passwordInput.type = 'password';
-                        button.classList.remove('fa-eye');
-                        button.classList.add('fa-eye-slash');
-                    }
+            function setupPasswordToggle() {
+                const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+                togglePasswordButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const targetId = button.getAttribute('data-target');
+                        const passwordInput = document.getElementById(targetId);
+
+                        if (passwordInput.type === 'password') {
+                            passwordInput.type = 'text';
+                            button.classList.remove('fa-eye-slash');
+                            button.classList.add('fa-eye');
+                        } else {
+                            passwordInput.type = 'password';
+                            button.classList.remove('fa-eye');
+                            button.classList.add('fa-eye-slash');
+                        }
+                    });
                 });
-            });
-        }
+            }
 
             const passwordChangeCheckNbfc = () => {
                 document.getElementById('password-change-save-nbfc').addEventListener('click', function() {
@@ -3583,7 +3585,7 @@
                     };
 
 
-                    fetch("/passwordchange", {
+                    fetch("/api/passwordchange", {
                             method: "POST",
                             headers: {
                                 'Content-Type': "application/json",
@@ -5346,7 +5348,7 @@
 
                 // If not cached, fetch the data
                 try {
-                    const response = await fetch('/getUserFromNbfc', {
+                    const response = await fetch('/api/getUserFromNbfc', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -5623,7 +5625,7 @@
 
                 const fileTypes = endpoints.map(ep => ep.fileType);
 
-                return fetch("/retrieve-file", {
+                return fetch("/api/retrieve-file", {
                         method: "POST",
                         headers: {
                             "X-CSRF-TOKEN": csrfToken,
@@ -5715,7 +5717,7 @@
                     return;
                 }
 
-                fetch('/retrieve-profile-picture', {
+                fetch('/api/retrieve-profile-picture', {
                         method: "POST",
                         headers: {
                             'X-CSRF-TOKEN': csrfToken,
@@ -5886,7 +5888,7 @@
 
 
 
-                        fetch("/forgot-passwordmailsentnbfc", {
+                        fetch("/api/forgot-passwordmailsentnbfc", {
                                 method: "POST",
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -5912,79 +5914,77 @@
                 }
             }
 
-            function downloadDocuments(userId) {
-                console.log("Downloading documents for user:", userId);
+           function downloadDocuments(userId) {
+    console.log("Downloading documents for user:", userId);
 
-                if (!userId) {
-                    console.error("User ID is required to download documents.");
-                    return;
-                }
+    if (!userId) {
+        console.error("User ID is required to download documents.");
+        return;
+    }
 
-                const downloadTrigger = document.querySelector(".myapplication-seventhcolumn-headernbfc #downloaddocuments");
+    const downloadTrigger = document.querySelector(".myapplication-seventhcolumn-headernbfc #downloaddocuments");
 
-                if (!downloadTrigger) {
-                    console.error("Download button not found.");
-                    return;
-                }
+    if (!downloadTrigger) {
+        console.error("Download button not found.");
+        return;
+    }
 
-                // Avoid multiple event bindings
-                downloadTrigger.addEventListener('click', function handleDownloadClick(e) {
-                    e.preventDefault();
+    // ✅ Replace any previous click handler
+    downloadTrigger.onclick = function(e) {
+        e.preventDefault();
 
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-                    if (!csrfToken) {
-                        console.error("CSRF token not found.");
-                        return;
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        if (!csrfToken) {
+            console.error("CSRF token not found.");
+            return;
+        }
+
+        Loader.show();
+
+        fetch('/api/downloadzip', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: userId
+                }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error("NO_FILES");
+                    } else {
+                        throw new Error(`HTTP error! status: ${response.status}`);
                     }
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `user_files_${userId}.zip`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => {
+                console.error("Error downloading documents:", error);
 
-                    // ✅ Show loader before starting request
-                    Loader.show();
-
-                    fetch('/downloadzip', {
-                            method: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN': csrfToken,
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                userId: userId
-                            }),
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                if (response.status === 404) {
-                                    throw new Error("NO_FILES");
-                                } else {
-                                    throw new Error(`HTTP error! status: ${response.status}`);
-                                }
-                            }
-                            return response.blob();
-                        })
-                        .then(blob => {
-                            const url = window.URL.createObjectURL(blob);
-                            const a = document.createElement('a');
-                            a.href = url;
-                            a.download = `user_files_${userId}.zip`;
-                            document.body.appendChild(a);
-                            a.click();
-                            a.remove();
-                            window.URL.revokeObjectURL(url);
-                        })
-                        .catch(error => {
-                            console.error("Error downloading documents:", error);
-
-                            if (error.message === "NO_FILES") {
-                                alert("No documents uploaded for this user yet.");
-                            } else {
-                                alert("Download failed. Please try again.");
-                            }
-                        })
-                        .finally(() => {
-                            Loader.hide();
-                        });
-
-                });
-            }
+                if (error.message === "NO_FILES") {
+                    alert("No documents uploaded for this user yet.");
+                } else {
+                    alert("Download failed. Please try again.");
+                }
+            })
+            .finally(() => {
+                Loader.hide();
+            });
+    };
+}
 
 
 
@@ -5995,7 +5995,7 @@
                 if (user && user.nbfc_id) {
                     const nbfcId = user.nbfc_id;
 
-                    fetch('/update-review-status', {
+                    fetch('/api/update-review-status', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -6084,7 +6084,7 @@
 
                 if (!receiverId) return;
 
-                fetch('/unread-message-count', {
+                fetch('/api/unread-message-count', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

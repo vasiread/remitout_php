@@ -211,8 +211,7 @@ function handleIndividualCards(mode = 'index1') {
                 const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
 
                 if (mode === 'index1') {
-                    // Inbox behavior (Index 1)
-                    if (triggeredMessageButton && groupButtonContainer) {
+                     if (triggeredMessageButton && groupButtonContainer) {
                         triggeredMessageButton.style.display = "flex";
                         groupButtonContainer.style.display = "none";
                     }
@@ -379,7 +378,7 @@ function sendDocumenttoEmail(event) {
         name: name,
     };
 
-    fetch("/send-documents", {
+    fetch("/api/send-documents", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -414,7 +413,7 @@ function addUserToRequest(userId) {
     // console.log(userId);
 
     // Fetch request to send userId to the server
-    fetch("/push-user-id-request", {
+    fetch("/ap/push-user-id-request", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -595,7 +594,7 @@ const initialiseProfileUpload = () => {
 
             const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
             if (!allowedTypes.includes(fileType)) {
-                console.error(
+                alert(
                     "Invalid file type. Only jpg, png, and gif are allowed."
                 );
                 return;
@@ -1144,7 +1143,7 @@ function initializeSimpleChat() {
 
 
                                     const fileName = file.name;
-                                    const fileSize = (file.size / 1024 / 1024).toFixed(2);
+                                     const fileSize = (file.size / 1024 / 1024).toFixed(2);
                                     const fileId = `file-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
                                     if (!adminFileStorage[chatId]) adminFileStorage[chatId] = {};
                                     adminFileStorage[chatId][fileId] = file;
@@ -3113,11 +3112,13 @@ const initializeProgressRing = () => {
 };
 
 const initialisedocumentsCount = () => {
-
     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
     const userId = userIdElement ? userIdElement.textContent.trim() : '';
+
     const documentCountText = document.querySelector(".profilestatus-graph-secondsection .profilestatus-noofdocuments-section p");
     const overAll = document.querySelector(".profilestatus-graph-secondsection .profilestatus-noofdocuments-section span");
+
+    const statusElement = document.querySelector(".upload-status-hourglass");
 
     if (!userId || !documentCountText) {
         console.error("User ID or count element not found.");
@@ -3136,9 +3137,9 @@ const initialisedocumentsCount = () => {
     })
         .then(response => response.json())
         .then(data => {
-            if (data && typeof data.documentscount === 'number') {
-                const count = data.documentscount;
-                const totalDoc = data.totalDocuments;
+            if (data && typeof data.totalDocumentsUploaded === 'number') {
+                const count = data.totalDocumentsUploaded;
+                const totalDoc = data.totalDocumentsExpected;
 
                 // 🔹 Set formatted document count
                 if (count >= 0 && count < 10) {
@@ -3153,7 +3154,13 @@ const initialisedocumentsCount = () => {
                 if (typeof totalDoc === 'number') {
                     overAll.textContent = "/" + totalDoc;
                 } else {
-                    overAll.textContent = "00"; // fallback
+                    overAll.textContent = "00";
+                }
+
+                // ✅ Set Status: Complete if fully uploaded
+                if (count === totalDoc && statusElement) {
+                     
+                    statusElement.textContent = "Status : Complete";
                 }
             }
         })
@@ -3161,6 +3168,7 @@ const initialisedocumentsCount = () => {
             console.error("Fetch Error:", error);
         });
 };
+
 
 
 
