@@ -1,26 +1,29 @@
 <?php
-     
-     // database/seeders/SuperAdminSeeder.php
 
+namespace Database\Seeders;
+
+use App\Models\Admin;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 
 class SuperAdminSeeder extends Seeder
 {
-    public function run()
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run(): void
     {
-        $email = env('SUPERADMIN_EMAIL');
-        $password = env('SUPERADMIN_PASSWORD');
-        $id = env('SUPERADMIN_ID');
-
-        if (!User::where('email', $email)->exists()) {
-            User::create([
-                'name' => 'Super Admin',
-                'email' => $email,
-                'password' => Hash::make($password),
-                'role' => 'superadmin',
-            ]);
-        }
+        Admin::updateOrCreate(
+            ['email' => 'arutchezhian2@gmail.com'],
+            [
+                'admin_id'       => 'SUPADMIN001',
+                'name'           => 'Arut',
+                'email'          => 'arutchezhian2@gmail.com',
+                'password'       => '$2y$10$JJ8KoaMPnb2yixI/QgBdjey4qfXszIczkbwOfrfsGY7jvzPdPaWvi', // already hashed
+                'is_super_admin' => true,
+            ]
+        );
     }
 }

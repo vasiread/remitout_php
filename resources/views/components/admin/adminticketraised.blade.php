@@ -144,7 +144,7 @@
 
     async function getTickets() {
     try {
-        const response = await fetch('/get-tickets');
+        const response = await fetch('/api/get-tickets');
         if (!response.ok) throw new Error('Network response was not ok');
 
         const data = await response.json();
@@ -192,7 +192,7 @@
                     e.stopPropagation(); // Prevent the click from bubbling up to the ticketItem
                     const ticketId = ticketItem.dataset.id;
 
-                    const updateResponse = await fetch('/update-ticket-status', {
+                    const updateResponse = await fetch('/api/update-ticket-status', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

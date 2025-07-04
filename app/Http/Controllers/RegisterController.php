@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Admin;
 use App\Models\CourseInfo;
 use App\Models\Nbfc;
 use App\Models\Scuser;
@@ -22,9 +24,10 @@ class RegisterController extends Controller
         $emailExistsInUser = User::where('email', $email)->exists();
         $emailExistsInScuser = Scuser::where('email', $email)->exists();
         $emailExistsInNbfc = Nbfc::where('nbfc_email', $email)->exists();
+        $emailExistsInAdmin = Admin::where('email',$email)->exists();
 
         // If the email exists in any of the models, return a response indicating it's taken
-        if ($emailExistsInUser || $emailExistsInScuser || $emailExistsInNbfc) {
+        if ($emailExistsInUser || $emailExistsInScuser || $emailExistsInNbfc || $emailExistsInAdmin) {
             return response()->json([
                 'success' => false,
                 'message' => 'Email is already taken. Please choose a different one.',
@@ -56,7 +59,7 @@ class RegisterController extends Controller
             'email' => $request->email,
             'phone' => $request->phoneInput,
             'password' => Hash::make($request->password),
-            'referral_code' => $request->referralCode, // Store it if present
+            'referral_code' => $request->referralCode,  
         ]);
 
         if ($user) {

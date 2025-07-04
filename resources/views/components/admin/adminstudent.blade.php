@@ -1447,7 +1447,7 @@
             };
 
             try {
-                const response = await fetch("/remaining-documents", {
+                const response = await fetch("/api/remaining-documents", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
@@ -1898,7 +1898,7 @@
                 };
                 console.log("fullData", fullData)
 
-                const response = await fetch('/update-personal-info-adminside', {
+                const response = await fetch('/api/update-personal-info-adminside', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2021,7 +2021,7 @@
             // Extract fileTypes from endpoints, but backend may return more keys
             const fileTypes = endpoints.map(ep => ep.fileType);
 
-            return fetch("/retrieve-file", {
+            return fetch("/api/retrieve-file", {
                     method: "POST",
                     headers: {
                         "X-CSRF-TOKEN": csrfToken,
@@ -3797,7 +3797,7 @@
             }
 
             try {
-                const response = await fetch('/multipleregisterbyscuser', {
+                const response = await fetch('/api/multipleregisterbyscuser', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -4095,7 +4095,7 @@
                 console.error("CSRF token not found");
                 return;
             }
-            fetch("/upload-each-documents", {
+            fetch("/api/upload-each-documents", {
                     method: "POST",
                     headers: {
                         "X-CSRF-TOKEN": csrfToken,
@@ -4181,7 +4181,7 @@
                 userId: userId,
                 fileNameId: fileNameId,
             };
-            fetch("/remove-each-documents", {
+            fetch("/api/remove-each-documents", {
                     method: "POST",
                     headers: {
                         "X-CSRF-TOKEN": csrfToken,
@@ -4221,7 +4221,7 @@
             userStatusElements.forEach(statusElement => {
                 const userId = statusElement.getAttribute('data-user-id');
 
-                fetch('/remaining-documents', {
+                fetch('/api/remaining-documents', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

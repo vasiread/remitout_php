@@ -86,6 +86,8 @@ class MailController extends Controller
 
     // Dispatch background job
     ProcessUserDocuments::dispatch($userId, $borrower);
+        // $artisanPath = base_path('artisan');
+        // exec("php $artisanPath queue:work > /dev/null 2>&1 &");
 
     return response()->json([
         'message' => 'Document processing started. NBFCs will receive files shortly.'

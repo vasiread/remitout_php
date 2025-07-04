@@ -186,7 +186,7 @@
             // Fetch student data
             function fetchStudentData() {
 
-                fetch('/student-chat-members', {
+                fetch('/api/student-chat-members', {
                         method: 'GET',
                         headers: {
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
@@ -218,7 +218,7 @@
 
             // Fetch NBFC data
             function fetchNbfcData() {
-                fetch('/nbfc-chat-members', {
+                fetch('/api/nbfc-chat-members', {
                         method: 'GET',
                         headers: {
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
@@ -737,7 +737,7 @@
                         formData.append('file', file);
                         formData.append('chatId', chatId);
 
-                        fetch('/upload-documents-chat', {
+                        fetch('/api/upload-documents-chat', {
                                 method: 'POST',
                                 headers: {
                                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
@@ -1053,7 +1053,7 @@
            function updateNbfcUnreadCount() {
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    fetch('/admin/messages/clear-nbfc', {
+    fetch('/api/admin/messages/clear-nbfc', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

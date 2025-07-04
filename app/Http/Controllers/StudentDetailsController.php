@@ -22,57 +22,54 @@ class StudentDetailsController extends Controller
         try {
             Log::info('updatePersonalInfo called:', $request->all());
 
-            // Find personal info and user by unique ID
-            $personalInfoDetail = PersonalInfo::find($request->personalInfoId);
+            // First find the user via unique_id
             $user = User::where('unique_id', $request->personalInfoId)->first();
 
-            if (!$personalInfoDetail || !$user) {
-                Log::warning('User or PersonalInfo not found.', ['personalInfoId' => $request->personalInfoId]);
+            if (!$user) {
+                Log::warning('User not found.', ['unique_id' => $request->personalInfoId]);
                 return response()->json([
                     'success' => false,
                     'message' => 'User not found.'
                 ]);
             }
 
-            // Process dynamic fields if present
+            // Now get the corresponding personal info
+            $personalInfoDetail = PersonalInfo::where('user_id', $user->unique_id)->first();
+
+            if (!$personalInfoDetail) {
+                Log::warning('PersonalInfo not found for user.', ['user_id' => $user->id]);
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Personal info not found.'
+                ]);
+            }
+
+            // Update fields
+            $personalInfoDetail->full_name = $request->input('personalInfoName');
+            $personalInfoDetail->gender = $request->input('genderOptions');
+            $personalInfoDetail->dob = $request->input('personalInfoDob');
+            $personalInfoDetail->referral_code = $request->input('personalInfoReferral');
+            $personalInfoDetail->email = $request->input('personalInfoEmail');
+            $personalInfoDetail->city = $request->input('personalInfoCity');
+            $personalInfoDetail->state = $request->input('personalInfoState');
+            $personalInfoDetail->linked_through = $request->input('personalInfoFindOut');
+
+            $user->email = $request->input('personalInfoEmail');
+            $user->referral_code = $request->input('personalInfoReferral');
+
+            // Handle dynamic fields
             if ($request->has('dynamic_fields')) {
-                Log::info('Processing dynamic_fields in updatePersonalInfo...');
                 foreach ($request->input('dynamic_fields') as $fieldId => $value) {
-                    $field = AdditionalField::find($fieldId);
+                    if (empty($value) && $value !== '0') continue;
 
-                    if (!$field) {
-                        Log::warning("AdditionalField not found for field_id: $fieldId");
-                        continue;
-                    }
-
-                    // Accept '0' as valid but skip empty values otherwise
-                    if (empty($value) && $value !== '0') {
-                        Log::warning("Empty value for dynamic field", ['field_id' => $fieldId, 'value' => $value]);
-                        continue;
-                    }
-
-                    // If value is array (like multiple select), JSON encode it
                     $valueToSave = is_array($value) ? json_encode($value) : $value;
 
                     UserAdditionalFieldValue::updateOrCreate(
                         ['user_id' => $user->id, 'field_id' => $fieldId],
                         ['value' => $valueToSave]
                     );
-
-                    Log::info("Dynamic field updated", [
-                        'user_id' => $user->id,
-                        'field_id' => $fieldId,
-                        'value' => $valueToSave
-                    ]);
                 }
-            } else {
-                Log::info('No dynamic_fields present in updatePersonalInfo request.');
             }
-
-            // If you have fields on $personalInfoDetail or $user to update from request, do it here
-            // For example:
-            // $personalInfoDetail->name = $request->input('name', $personalInfoDetail->name);
-            // $user->email = $request->input('email', $user->email);
 
             $personalInfoDetail->save();
             $user->save();
@@ -83,13 +80,13 @@ class StudentDetailsController extends Controller
             ]);
         } catch (\Exception $e) {
             Log::error('Error updating personal info: ' . $e->getMessage());
-
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred while updating your details.'
             ]);
         }
     }
+
 
 
     public function updateCourseInfo(Request $request)
@@ -100,12 +97,12 @@ class StudentDetailsController extends Controller
             $courseInfoDetail = CourseInfo::find($request->personalInfoId);
             // Update static course fields from the request if present
             $courseInfoDetail->fill([
-    'plan-to-study'        => $request->input('plan_to_study'),
-    'degree-type'          => $request->input('degree_type'),
-    'course-duration'      => $request->input('course_duration'),
-    'course-details'       => $request->input('course_details'),
-    'loan_amount_in_lakhs' => $request->input('loan_amount_in_lakhs'),
-]);
+                'plan-to-study'        => $request->input('plan_to_study'),
+                'degree-type'          => $request->input('degree_type'),
+                'course-duration'      => $request->input('course_duration'),
+                'course-details'       => $request->input('course_details'),
+                'loan-amount-in-lakhs' => $request->input('loan_amount_in_lakhs'),
+            ]);
 
 
 
@@ -136,7 +133,7 @@ class StudentDetailsController extends Controller
                     }
 
                     if ($field->section === 'course') {
-                        if (empty($value) && $value !== '0') {
+                        if (empty($value) && $value !== '0') {              
                             Log::warning("Empty value for dynamic field in course section", ['field_id' => $fieldId, 'value' => $value]);
                             continue;
                         }

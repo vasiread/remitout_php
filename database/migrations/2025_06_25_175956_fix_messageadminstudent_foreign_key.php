@@ -14,11 +14,13 @@ return new class extends Migration
      */
     public function up()
     {
-        // Safe index drop (PostgreSQL-specific)
-        DB::statement('DROP INDEX IF EXISTS messageadminstudent_conversation_id_foreign');
-
+        // Drop the existing foreign key (MySQL syntax)
         Schema::table('messageadminstudent', function (Blueprint $table) {
-            // Add the foreign key
+            $table->dropForeign(['conversation_id']); // Only works if it exists
+        });
+
+        // Re-add the foreign key properly
+        Schema::table('messageadminstudent', function (Blueprint $table) {
             $table->foreign('conversation_id')
             ->references('id')
                 ->on('admin_student_conversation')
@@ -26,14 +28,12 @@ return new class extends Migration
         });
     }
 
+
     public function down()
     {
         Schema::table('messageadminstudent', function (Blueprint $table) {
             $table->dropForeign(['conversation_id']);
         });
-
-        // Recreate index if needed
-        DB::statement('CREATE INDEX IF NOT EXISTS messageadminstudent_conversation_id_foreign ON messageadminstudent(conversation_id)');
     }
 
 };

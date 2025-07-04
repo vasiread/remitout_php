@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\StudentsImport;
+use App\Models\Admin;
 use App\Models\DocumentType;
+use App\Models\Nbfc;
 use App\Models\PersonalInfo;
 use App\Models\Scuser;
 use Illuminate\Http\Request;
@@ -199,6 +201,22 @@ class scDashboardController extends Controller
             'profilePhoto' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
+        $email = $request->input('scEmail');
+
+        // Check all model tables + env superadmin email
+        $existsInSystem =
+        Admin::where('email', $email)->exists() ||
+        Scuser::where('email', $email)->exists() ||
+        User::where('email', $email)->exists() ||
+        Nbfc::where('nbfc_email', $email)->exists() ||
+        (env('SUPERADMIN_EMAIL') === $email);
+
+        if ($existsInSystem) {
+            return response()->json([
+                'message' => 'Email already exists in the system.'
+            ], 409);
+        }
+
         try {
             $password = Str::random(12);
             $hashedPassword = Hash::make($password);
@@ -224,45 +242,39 @@ class scDashboardController extends Controller
 
             $fileUrl = null;
 
-            if ($scUser) {
-                if ($request->hasFile('profilePhoto')) {
-                    $file = $request->file('profilePhoto');
-                    $fileName = $file->getClientOriginalName();
-                    $fileDirectory = "Student_Counsellor/$referralCode/Profile_photoes";
+            if ($scUser && $request->hasFile('profilePhoto')) {
+                $file = $request->file('profilePhoto');
+                $fileName = $file->getClientOriginalName();
+                $fileDirectory = "Student_Counsellor/$referralCode/Profile_photoes";
 
-
-                    $existingFiles = Storage::disk('s3')->files($fileDirectory);
-                    if (!empty($existingFiles)) {
-                        Storage::disk('s3')->delete($existingFiles);
-                    }
-
-                    $filePath = $file->storeAs(
-                        $fileDirectory,
-                        $fileName,
-                        [
-                            'disk' => 's3',
-                            'visibility' => 'public',
-                        ]
-                    );
-
-                    $fileUrl = Storage::disk('s3')->url($filePath); // Get the file URL
+                $existingFiles = Storage::disk('s3')->files($fileDirectory);
+                if (!empty($existingFiles)) {
+                    Storage::disk('s3')->delete($existingFiles);
                 }
 
-                Mail::to($request->input('scEmail'))->send(new SendScDetailsMail($referralCode, $password));
+                $filePath = $file->storeAs(
+                    $fileDirectory,
+                    $fileName,
+                    ['disk' => 's3', 'visibility' => 'public']
+                );
+
+                $fileUrl = Storage::disk('s3')->url($filePath);
             }
+
+            Mail::to($request->input('scEmail'))->send(new SendScDetailsMail($referralCode, $password));
 
             return response()->json([
                 'message' => 'User information successfully uploaded and password sent!',
                 'scUser' => $scUser,
                 'profilePhoto' => $fileUrl
             ], 201);
-
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'An error occurred: ' . $e->getMessage()
+                'message' => 'Server error. Please try again later.'
             ], 500);
         }
     }
+
 
     public function getScAllUsers()
     {

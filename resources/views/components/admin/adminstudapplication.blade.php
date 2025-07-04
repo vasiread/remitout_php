@@ -1249,27 +1249,11 @@
                                                     </div>
                                                 </div>
                                                 <!-- Salaried and Business fields container -->
-                                                <div class="document-row" id="salaried-business-fields-container">
-                                                    <div class="add-document" id="add-salaried-business-btn-id">
-                                                        <span class="add-text">Add</span>
-                                                        <span class="add-icon">+</span>
-                                                    </div>
-                                                    <div class="info">
-                                                        <span class="help-trigger" data-target="bank-statement-help">ⓘ
-                                                            Help</span>
-                                                        <span>*jpg, png, pdf formats</span>
-                                                    </div>
-                                                    <div class="help-container bank-statement-help"
-                                                        style="display: none;">
-                                                        <h3 class="help-title">Help</h3>
-                                                        <div class="help-content">
-                                                            <p>Please upload your 6 months bank statement in jpg, png,
-                                                                or pdf format.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                               
 
                                                 <!-- Address Proof -->
+                                                
+                                            <div class="document-row salary-upload-row">
                                                 <div class="document-box salary-upload-box">
                                                     <div class="document-name" id="address-proof-salary-id"
                                                         style="display: none;">Address Proof
@@ -1306,6 +1290,15 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <!-- Salaried and Business fields container -->
+                                            <div class="document-row" id="salaried-business-fields-container">
+                                                <div class="add-document" id="add-salaried-business-btn-id">
+                                                    <span class="add-text">Add</span>
+                                                    <span class="add-icon">+</span>
+                                                </div>
+                                            </div>
+                                            </div>
                                             </div>
 
                                             <!-- Business Documents Section -->
@@ -1688,7 +1681,7 @@
                     }
                 }
 
-                fetch('/addadditionalpersonalinfodata', {
+                fetch('/api/addadditionalpersonalinfodata', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1797,7 +1790,7 @@
                     addSocialButton.addEventListener('click', () => {
                         const userInput = prompt("Enter dropdown option", "")?.trim();
                         if (userInput) {
-                            fetch('/storesocialoption', {
+                            fetch('/api/storesocialoption', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -1816,11 +1809,6 @@
                                     }
 
                                     fetchAndAppendSocialNames();
-
-
-
-
-
 
                                 })
                                 .catch(error => {
@@ -2030,7 +2018,7 @@
                 const userInput = prompt("Enter course duration option (in months)", "")?.trim();
 
                 if (userInput && !isNaN(userInput)) {
-                    fetch('/storecourseduration', {
+                    fetch('/api/storecourseduration', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -2119,7 +2107,7 @@
                 const userInput = prompt("Enter new course option", "")?.trim();
                 if (userInput) {
                     // Send the input to Laravel backend
-                    fetch('/course-options', {
+                    fetch('/api/course-options', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -2257,7 +2245,7 @@
                     }
                 }
 
-                fetch('/addadditionalpersonalinfodata', {
+                fetch('/api/addadditionalpersonalinfodata', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2850,7 +2838,7 @@ this.setupHelpTriggerListener();
             },
 
             addNewDocumentField(fieldType, type, containerId, rowId, apiEndpoint, namePrefix, subSection = '', slug) {
-                fetch('/kycdynamicpost', {
+                fetch('/api/kycdynamicpost', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -3182,7 +3170,7 @@ this.setupHelpTriggerListener();
                 };
 
                 // Send POST request to /student-application-form
-                fetch('/student-application-form', {
+                fetch('/api/student-application-form', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -3216,7 +3204,7 @@ this.setupHelpTriggerListener();
 
 
         function fetchAndAppendSocialNames() {
-            fetch('/getInfoForAdminSocial')
+            fetch('/api/getInfoForAdminSocial')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.querySelector('.second-question-options');
@@ -3272,7 +3260,7 @@ this.setupHelpTriggerListener();
 
 
         function fetchAndRenderStudyLocations() {
-            fetch('/getplantocountries')
+            fetch('/api/getplantocountries')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('selected-study-location-admin');
@@ -3340,7 +3328,7 @@ this.setupHelpTriggerListener();
                         addContainer.addEventListener('click', () => {
                             const userInput = prompt("Enter dropdown option", "")?.trim();
                             if (userInput) {
-                                fetch('/storeplantostudycountry', {
+                                fetch('/api/storeplantostudycountry', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',
@@ -3376,7 +3364,7 @@ this.setupHelpTriggerListener();
 
 
         function fetchAndRenderDegrees() {
-            fetch('/showstudentcourse')
+            fetch('/api/showstudentcourse')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.getElementById('optionsContainer');
@@ -3457,7 +3445,7 @@ this.setupHelpTriggerListener();
                         document.getElementById('addSection')?.addEventListener('click', () => {
                             const userInput = prompt("Enter new degree option", "")?.trim();
                             if (userInput) {
-                                fetch('/storedegree', {
+                                fetch('/api/storedegree', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',
@@ -3493,7 +3481,7 @@ this.setupHelpTriggerListener();
         }
 
         function fetchAndRenderCourseDurations() {
-            fetch('/showstudentcourseduration')
+            fetch('/api/showstudentcourseduration')
                 .then(res => res.json())
                 .then(data => {
                     const container = document.querySelector('.course-options');
@@ -3555,7 +3543,7 @@ this.setupHelpTriggerListener();
             const userInput = prompt("Enter new course duration in months (e.g., 12)", "").trim();
 
             if (userInput && !isNaN(userInput) && Number(userInput) > 0) {
-                fetch('/storecourseduration', {
+                fetch('/api/storecourseduration', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -3649,7 +3637,7 @@ this.setupHelpTriggerListener();
                 document.head.appendChild(style);
             }
 
-            fetch('/additionalpersonalinfodata')
+            fetch('/api/additionalpersonalinfodata')
                 .then(response => response.json())
                 .then(data => {
                     if (data && data.additionalFields) {
@@ -3741,25 +3729,22 @@ this.setupHelpTriggerListener();
                 style.id = "education-inline-style"; // prevent duplicates
                 style.innerHTML = `
       #education-rows-container {
-        padding: 20px;
-        border-top: 1px solid #e0e0e0;
+        gap:20px;
         margin-top: 20px;
-        background-color: #fafafa;
         border-radius: 8px;
       }
       #education-rows-container .education-field {
         margin-bottom: 20px;
         padding: 10px 15px;
         background: #fff;
-        border: 1px solid #ddd;
         border-radius: 6px;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    
         position: relative;
       }
       #education-rows-container label {
         font-weight: 600;
-        font-size: 14px;
-        color: #333;
+        font-size: 12px;
+        color: rgba(131, 131, 131, 0.5);
         margin-bottom: 8px;
         display: block;
       }
@@ -3805,7 +3790,7 @@ this.setupHelpTriggerListener();
                 document.head.appendChild(style);
             }
 
-            fetch("/academics-adminshow")
+            fetch("/api/academics-adminshow")
                 .then((res) => res.json())
                 .then((data) => {
                     const academicFields = data.data;
@@ -3911,7 +3896,7 @@ this.setupHelpTriggerListener();
 
         async function fetchCourseDetailOptions() {
             try {
-                const response = await fetch('/course-detail-options');
+                const response = await fetch('/api/course-detail-options');
                 const result = await response.json();
 
                 if (result.success && Array.isArray(result.data)) {
