@@ -413,7 +413,7 @@ function addUserToRequest(userId) {
     // console.log(userId);
 
     // Fetch request to send userId to the server
-    fetch("/ap/push-user-id-request", {
+    fetch("/api/push-user-id-request", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -472,7 +472,7 @@ const initialiseAllViews = () => {
 
     const fileTypes = endpoints.map(ep => ep.fileType);
 
-    return fetch("/retrieve-file", {
+    return fetch("/api/retrieve-file", {
         method: "POST",
         headers: {
             "X-CSRF-TOKEN": csrfToken,
@@ -613,7 +613,7 @@ const initialiseProfileUpload = () => {
                 return;
             }
 
-            fetch("/upload-profile-picture", {
+            fetch("/api/upload-profile-picture", {
                 method: "POST",
                 headers: {
                     "X-CSRF-TOKEN": csrfToken,
@@ -969,7 +969,7 @@ function initializeSimpleChat() {
 
                 };
 
-                const response = await fetch('/send-message', {
+                const response = await fetch('/api/send-message', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1125,7 +1125,7 @@ function initializeSimpleChat() {
                         formData.append('file', file);
                         formData.append('chatId', chatId);
 
-                        fetch('/upload-documents-chat', {
+                        fetch('/api/upload-documents-chat', {
                             method: 'POST',
                             headers: {
                                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
@@ -1323,7 +1323,7 @@ const initialiseProfileView = () => {
         return;
     }
 
-    fetch("/retrieve-profile-picture", {
+    fetch("/api/retrieve-profile-picture", {
         method: "POST",
         headers: {
             "X-CSRF-TOKEN": csrfToken,
@@ -1350,7 +1350,7 @@ const checkUserStatusCount = () => {
     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
     const userId = userIdElement ? userIdElement.textContent.trim() : '';
 
-    return fetch('/count-user-status', {
+    return fetch('/api/count-user-status', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -2910,7 +2910,7 @@ const bankListedThroughNBFC = async () => {
         const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
         const userId = userIdElement ? userIdElement.textContent : '';
 
-        fetch("/getnbfcdata-proposals", {
+        fetch("/api/getnbfcdata-proposals", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -3075,7 +3075,7 @@ const initializeProgressRing = () => {
     const userId = userIdElement ? userIdElement.textContent.trim() : '';
     let percentage = 0;
 
-    fetch("/getprofilecompletionpercentage", {
+    fetch("/api/getprofilecompletionpercentage", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -3125,7 +3125,7 @@ const initialisedocumentsCount = () => {
         return;
     }
 
-    fetch("/count-documents", {
+    fetch("/api/count-documents", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -3341,7 +3341,7 @@ const saveChangesFunctionality = () => {
 
 
 
-                fetch('/from-profileupdate', {
+                fetch('/api/from-profileupdate', {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
@@ -3582,7 +3582,7 @@ function fetchUnreadCount() {
 
     if (!receiverId) return;
 
-    fetch('/unread-message-count', {
+    fetch('/api/unread-message-count', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -3641,7 +3641,7 @@ function sessionLogoutInitial() {
 function seenMessage() {
     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
     const userId = userIdElement ? userIdElement.textContent.trim() : '';
-    fetch('/messages/mark-all-read', {
+    fetch('/api/messages/mark-all-read', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -3776,7 +3776,7 @@ async function bindAcceptRejectButtons(finalData) {
                 };
 
                 try {
-                    const response = await fetch('/proposalcompletion', {
+                    const response = await fetch('/api/proposalcompletion', {
                         method: "POST",
                         headers: {
                             'Content-Type': "application/json",
@@ -3813,7 +3813,7 @@ async function bindAcceptRejectButtons(finalData) {
                 };
 
                 try {
-                    const response = await fetch('/proposalcompletion', {
+                    const response = await fetch('/api/proposalcompletion', {
                         method: "POST",
                         headers: {
                             'Content-Type': "application/json",
@@ -3851,7 +3851,7 @@ async function bindAcceptRejectButtons(finalData) {
 
 
 const findOutAcceptedOrNot = async () => {
-    fetch('/proposalcompletion', {
+    fetch('/api/proposalcompletion', {
         method: "POST",
         headers: {
             'Content-Type': "application/json",
@@ -3890,7 +3890,7 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
     let statusCount = 0;
 
     try {
-        const response = await fetch("/check_userid", {
+        const response = await fetch("/api/check_userid", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -3918,7 +3918,7 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
 
         firstButton.addEventListener("click", async () => {
             try {
-                const response = await fetch('/getproposalfileurl', {
+                const response = await fetch('/api/getproposalfileurl', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -4469,7 +4469,7 @@ const loanStatusCount = () => {
         return;
     }
 
-    fetch('/loanstatuscount', {
+    fetch('/api/loanstatuscount', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -4517,7 +4517,7 @@ const passwordForgot = () => {
 
 
 
-            fetch("/forgot-passwordmailsent", {
+            fetch("/api/forgot-passwordmailsent", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -4730,7 +4730,7 @@ async function createAdminChatStudent() {
 
 
             try {
-                const res = await fetch('/upload-documents-chat', {
+                const res = await fetch('/api/upload-documents-chat', {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
@@ -4753,7 +4753,7 @@ async function createAdminChatStudent() {
                         is_read: false
                     };
 
-                    const messageRes = await fetch('/send-message-from-adminstudent', {
+                    const messageRes = await fetch('/api/send-message-from-adminstudent', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -4881,7 +4881,7 @@ async function createAdminChatStudent() {
         };
 
         try {
-            const res = await fetch('/send-message-from-adminstudent', {
+            const res = await fetch('/api/send-message-from-adminstudent', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

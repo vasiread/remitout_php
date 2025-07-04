@@ -313,7 +313,7 @@
                                 <p>month</p>
                             </div>
                             <div class="trackprogress-noofstudent">
-                                <h1>07</h1>
+                                <h1></h1>
                                 <p>no. of students</p>
                             </div>
                             <div class="trackprogress-amount">
@@ -444,7 +444,7 @@
                         </li>
                         <li>
                             <p>Total Leads</p>
-                            <span>20</span>
+                            <span>00</span>
 
                         </li>
                         <li>
@@ -649,30 +649,33 @@
             updateStartNewText();
             triggerDownloadTrigger();
             initializeQueryModal();
-           
-              setInterval(alertDeactiveCountFromReferral, 3000);
+
+            setInterval(alertDeactiveCountFromReferral, 3000);
+            retreiveStud();
 
 
 
-                      
 
 
-document.querySelector(".unread-notify-container")?.addEventListener("click", () => {
-    const sidebarItems = document.querySelectorAll(".commonsidebar-sidebarlists-top li");
-    if (sidebarItems[1]) {
-        sidebarItems[1].click();  
-    }
 
-    // Optional: Scroll to queries section
-    const querySection = document.querySelector(".scdashboard-queryraisedcontainer");
-    if (querySection) {
-        setTimeout(() => {
-            querySection.scrollIntoView({ behavior: "smooth" });
-        }, 280); 
-    }
-});
+            document.querySelector(".unread-notify-container")?.addEventListener("click", () => {
+                const sidebarItems = document.querySelectorAll(".commonsidebar-sidebarlists-top li");
+                if (sidebarItems[1]) {
+                    sidebarItems[1].click();
+                }
 
-      
+                // Optional: Scroll to queries section
+                const querySection = document.querySelector(".scdashboard-queryraisedcontainer");
+                if (querySection) {
+                    setTimeout(() => {
+                        querySection.scrollIntoView({
+                            behavior: "smooth"
+                        });
+                    }, 280);
+                }
+            });
+
+
 
 
         })
@@ -765,10 +768,9 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
             const form = document.querySelector('#query-form');
             const backgroundContainer = document.querySelector('.scdashboard-parentcontainer');
             const viewMoreBtn = document.querySelector('#viewmore-queries');
-            const querysContainer = document.querySelector('.groupofraisedquestion-scdashboard');
+            // const querysContainer = document.querySelector('.groupofraisedquestion-scdashboard');
 
-            if (!raiseQueryBtn || !modal || !backdrop || !closeBtn || !cancelBtn || !form || !viewMoreBtn || !
-                querysContainer) {
+            if (!raiseQueryBtn || !modal || !backdrop || !closeBtn || !cancelBtn || !form || !viewMoreBtn) {
                 console.error('Query modal elements missing');
                 return;
             }
@@ -794,6 +796,8 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
             const updateQueryVisibility = () => {
                 const isMobile = window.innerWidth <= 768;
                 const queryEntries = querysContainer.querySelectorAll('.query-entry');
+                console.log("Found entries:", queryEntries.length); // ✅ Debug
+
 
                 if (isMobile) {
                     queryEntries.forEach((entry, index) => {
@@ -807,6 +811,7 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
                     querysContainer.classList.remove('expanded');
                 }
             };
+
 
             viewMoreBtn.addEventListener('click', () => {
                 querysContainer.classList.toggle('expanded');
@@ -1752,7 +1757,7 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
                         } else {
                             alert(
                                 "Sharing is not supported on this device. Please copy the link manually."
-                                );
+                            );
                         }
                     };
                     removeExistingListeners(shareButton, "click", shareLink);
@@ -1886,8 +1891,10 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
                                 .created_at));
 
                             sortedQueries.forEach((item) => {
-                                console.log(item)
-                                const div = document.createElement('div');
+                                console.log(item);
+                                const div = document.createElement('div'); // ✅ Declare it first
+
+                                div.classList.add('individual-raisedquestions', 'query-entry');
                                 div.classList.add('individual-raisedquestions');
                                 div.setAttribute('data-added', item.created_at);
 
@@ -2161,36 +2168,36 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
                 });
         };
         async function alertDeactiveCountFromReferral() {
-    const referralCodeElem = document.querySelector("#screferral-id-fromprofile span");
-    const scuserid = referralCodeElem ? referralCodeElem.textContent.trim() : null;
+            const referralCodeElem = document.querySelector("#screferral-id-fromprofile span");
+            const scuserid = referralCodeElem ? referralCodeElem.textContent.trim() : null;
 
-    if (!scuserid) {
-        alert("Referral code (scuserid) not found.");
-        return;
-    }
+            if (!scuserid) {
+                alert("Referral code (scuserid) not found.");
+                return;
+            }
 
-    // alert(scuserid);
+            // alert(scuserid);
 
-    try {
-        const response = await fetch(`/queries/deactive-counts/${scuserid}`);
-        if (!response.ok) throw new Error("Failed to fetch data");
+            try {
+                const response = await fetch(`/queries/deactive-counts/${scuserid}`);
+                if (!response.ok) throw new Error("Failed to fetch data");
 
-        const data = await response.json();
+                const data = await response.json();
 
-        const countNotify = document.querySelector(".unread-notify-container p");
-        if (data.deactive_count > 0 && countNotify) {
-            countNotify.style.display = "flex";
-            countNotify.textContent = data.deactive_count;
-        } else if (countNotify) {
-            countNotify.style.display = "none";
+                const countNotify = document.querySelector(".unread-notify-container p");
+                if (data.deactive_count > 0 && countNotify) {
+                    countNotify.style.display = "flex";
+                    countNotify.textContent = data.deactive_count;
+                } else if (countNotify) {
+                    countNotify.style.display = "none";
+                }
+
+                // alert(`User ${data.scuserid} has ${data.deactive_count} deactive queries.`);
+            } catch (error) {
+                console.error(error);
+                alert("Error fetching deactive count.");
+            }
         }
-
-        // alert(`User ${data.scuserid} has ${data.deactive_count} deactive queries.`);
-    } catch (error) {
-        console.error(error);
-        alert("Error fetching deactive count.");
-    }
-}
 
 
 
@@ -2543,7 +2550,7 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
                         <div class="reportsindashboard-firstrow">
                             <div class="reportsindashboard-leftcontentinfirstrow">
                                 <p>${student.userName}</p>
-                                <span>Unique ID: ${student.user_id}</span>
+                                <span style="color:#5D5C5C">Unique ID: ${student.user_id}</span>
                             </div>
                             <div class="reportsindashboard-rightcontentinfirstrow">
                                 <div class="application-buttoncontainer reportsindashboard-buttoncontainer">
@@ -2564,7 +2571,7 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
                             <p>Documents: ${getFinalStatus(student.nbfcs)}</p>
                             <p>Application Date: ${student.application_date }</p>
                             <p>Proposals received: ${student.nbfcs.length}</p>
-                            <p>Total Duration: -</p>
+                            <p>Total Duration: ${student.total_duration_in_days} days</p>
                         </div>
                     `;
 
@@ -2752,6 +2759,58 @@ document.querySelector(".unread-notify-container")?.addEventListener("click", ()
                     form.submit();
                 });
             });
+        }
+
+
+        function retreiveStud() {
+            const countElement = document.querySelector('.trackprogress-noofstudent h1');
+            const countElementSecond = document.querySelector('.scdashboard-individual-performance li:nth-child(2) span');
+            const avgLeads = document.querySelector('.scdashboard-individual-performance li:nth-child(1) span');
+            const scuser = @json(session('scuser'));
+            const scUserId = scuser.referral_code;
+
+            if (!countElement) return;
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+            fetch('/api/count-stud', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify({
+                        scUserId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    let count = data.user_count || 0;
+
+                    if (count < 10) {
+                        count = '0' + count;
+                        countElementSecond = '0'+count;
+                     }
+
+                    countElement.textContent = count;
+                    countElementSecond.textContent =  count;
+                    let avgCount = data.average_leads_per_month ||0;
+
+                    if(avgCount<10){
+                        avgLeads.textContent='0'+avgCount;
+
+                    }
+                    avgCount.textContent=avgCount;
+
+
+
+                    avgLeads.average_leads_per_month
+
+                })
+                .catch(error => {
+                    console.error('Error fetching student count:', error);
+                });
+
         }
     </script>
 </body>

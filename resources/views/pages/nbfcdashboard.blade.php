@@ -2164,6 +2164,7 @@
 
             const modalContainer = document.getElementById('modelContainer-send-proposal');
             const closeButtons = document.querySelectorAll('.nbfc-send-proposal-close-button');
+            const sendFileInput = document.querySelector('.nbfc-send-proposal-attachment-input');
             const fileInput = document.getElementById('fileInput');
             const attachmentBtn = document.querySelector('.nbfc-send-proposal-attachment-button');
             const attachmentPreview = document.getElementById('attachmentPreview');
@@ -2182,7 +2183,7 @@
 
             // Attach file input click trigger once
             attachmentBtn.addEventListener('click', () => {
-                fileInput.click();
+                sendFileInput.click();
             });
 
             // When file is selected
@@ -2194,8 +2195,8 @@
                     attachmentPreview.style.display = 'flex';
 
                     // Hide the attachment button and file input
-                    attachmentBtn.style.display = 'none';
-                    fileInput.style.display = 'none';
+                    // attachmentBtn.style.display = 'none';
+                    // fileInput.style.display = 'none';
                 }
             });
             // Attach send button click once
@@ -3282,6 +3283,7 @@
                         border-radius: 8px;
                         background-color: ${isNbfcSender ? '#DCF8C6' : '#F1F0F0'};
                         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+                        color:#666666;
                         word-wrap: break-word;
                     `;
 
@@ -3355,6 +3357,7 @@
         border-radius: 8px;
         background-color: #DCF8C6;
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        color:#666666;
         word-wrap: break-word;
     `;
 
