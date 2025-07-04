@@ -2339,13 +2339,14 @@
             removeAttachment.addEventListener('click', () => {
                 // Reset file input
                 fileInput.value = '';
+                sendFileInput.value='';
 
                 // Reset preview
                 fileName.textContent = 'No file selected';
                 fileSize.textContent = '';
 
                 // Hide preview
-                attachmentPreview.style.display = 'none';
+                // attachmentPreview.style.display = 'none';
 
                 // Show the button and file input again
                 attachmentBtn.style.display = 'flex';
