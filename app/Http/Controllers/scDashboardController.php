@@ -314,8 +314,42 @@ class scDashboardController extends Controller
 
 
     }
+    public function countStudents(Request $request)
+    {
+        $request->validate([
+            'scUserId' => 'required|string'
+        ]);
 
-   
+        $referralCode = $request->input("scUserId");
+
+        $users = User::where('referral_code', $referralCode)->get();
+
+        $userCount = $users->count();
+        $averageLeadsPerMonth = null;
+
+        if ($userCount > 0) {
+            $earliest = $users->min('created_at');
+            $latest = $users->max('created_at');
+
+            $start = \Carbon\Carbon::parse($earliest);
+            $end = \Carbon\Carbon::parse($latest);
+
+            // At least 1 month to avoid division by zero
+            $months = max(1, $start->diffInMonths($end) + 1);
+
+            // Get integer leads per month (rounded down)
+            $averageLeadsPerMonth = intdiv($userCount, $months);
+        }
+
+        return response()->json([
+                'user_count' => $userCount,
+                'average_leads_per_month' => $averageLeadsPerMonth
+            ]);
+    }
+
+
+
+
 
 
     public function getStatusOfUsers(Request $request)
@@ -337,12 +371,12 @@ class scDashboardController extends Controller
 
             $allStatuses = [];
             $userIds = [];
+            $userDurations = []; // Store user-wise duration
 
             foreach ($users as $user) {
                 $userId = $user->unique_id;
                 $userName = $user->name;
                 $applicationDate = \Carbon\Carbon::parse($user->created_at)->format('d-m-Y');
-
 
                 $userIds[] = $userId;
 
@@ -384,8 +418,20 @@ class scDashboardController extends Controller
                     )
                     ->get();
 
-                // Merge all three status types
+                // Merge all statuses
                 $merged = collect($Accepted)->merge($Pending)->merge($Rejected);
+
+                // Calculate user duration from min/max timestamps
+                $durationInDays = null;
+                $timestamps = $merged->pluck('created_at')->filter();
+                if ($timestamps->isNotEmpty()) {
+                    $earliest = \Carbon\Carbon::parse($timestamps->min());
+                    $latest = \Carbon\Carbon::parse($timestamps->max());
+                    $durationInDays = $latest->diffInDays($earliest);
+                }
+
+                // ✅ Store duration per user
+                $userDurations[$userId] = $durationInDays;
 
                 foreach ($merged as $status) {
                     $allStatuses[] = [
@@ -403,12 +449,13 @@ class scDashboardController extends Controller
                 return response()->json(['message' => 'No statuses found for users'], 404);
             }
 
-            // Group by user_id, then group statuses by NBFC
+            // Group data by user, then by NBFC
             $grouped = collect($allStatuses)
                 ->groupBy('user_id')
-                ->map(function ($userStatuses, $userId) {
+                ->map(function ($userStatuses, $userId) use ($userDurations) {
                     $userName = $userStatuses->first()['userName'] ?? null;
                     $applicationDate = $userStatuses->first()['application_date'] ?? null;
+                    $totalDuration = $userDurations[$userId] ?? null;
 
                     $nbfcGrouped = collect($userStatuses)
                         ->groupBy('nbfc_name')
@@ -436,6 +483,7 @@ class scDashboardController extends Controller
                         'user_id' => $userId,
                         'userName' => $userName,
                         'application_date' => $applicationDate,
+                        'total_duration_in_days' => $totalDuration,
                         'nbfcs' => $nbfcGrouped,
                     ];
                 })
@@ -444,6 +492,7 @@ class scDashboardController extends Controller
             // Count total proposals
             $ProposalCount = DB::table('traceprogress')
             ->whereIn('traceprogress.user_id', $userIds)
+                ->where('type', 'proposal')
                 ->count();
 
             return response()->json([
@@ -459,6 +508,11 @@ class scDashboardController extends Controller
             ], 500);
         }
     }
+
+
+
+
+    
 
 
 

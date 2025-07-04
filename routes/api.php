@@ -71,6 +71,7 @@ Route::post('/getuserbyref', [scDashboardController::class, 'getUsersByCounsello
 Route::post("/register-studentcounsellor", [scDashboardController::class, 'uploadScUserInfo']);
 Route::post("/updatescuserdetails", [scDashboardController::class, 'uploadScUserDetails']);
 Route::post("/scuserone", [scDashboardController::class, 'retrieveOneScUser']);
+Route::post("/count-stud", [scDashboardController::class, 'countStudents']);
 Route::post("/trace-process", [TrackController::class, 'traceuserprogress']);
 Route::get("/getnbfcdata", [TrackController::class, 'getnbfcdata']);
 Route::get("/overallcounts", [TrackController::class, 'counts']);
