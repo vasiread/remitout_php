@@ -24,8 +24,7 @@ use App\Models\student_admin_application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
-
+ 
 
 /*
 |-------------------------------------------------------------------------- 
@@ -52,17 +51,12 @@ Route::get('/login', function () {
     return view('pages.login');
 })->name('login');
 Route::get('/nbfc-dashboard', function () {
-    if (!Session::has('nbfcuser')) {
-        return redirect('/login'); // or wherever your login page is
-    }
-
+  
     return view('pages.nbfcdashboard');
 })->name('nbfcdashboard');
 
 Route::get('/admin-page', function () {
-     if (!Session::has('admin')) {
-        return redirect('/login');  
-    }
+    
 
      $sidebarItems = (new SidebarHandlingController)->admindashboardItems();
     $userDetails = (new StudentDashboardController)->getAllUsersFromAdmin();
@@ -79,9 +73,7 @@ Route::get('/admin-page', function () {
 Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
 
 Route::get('/sc-dashboard', function () {
-    if (!Session::has('scuser')) {
-        return redirect('/login');  
-    }
+   
 
     $sidebarItems = (new SidebarHandlingController)->scdashboardItems();
     $userByRef = (new scDashboardController)->getUsersByCounsellor();
