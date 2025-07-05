@@ -80,8 +80,8 @@
                             </button>
 
                             <!-- <button class="iossigninbutton">
-                                                        <img src="http://localhost:8000/assets/images/appleicon.png" alt="Apple logo"> Sign in with Apple
-                                                    </button> -->
+                                                            <img src="http://localhost:8000/assets/images/appleicon.png" alt="Apple logo"> Sign in with Apple
+                                                        </button> -->
                         </div>
 
                         <!-- New User Sign Up Option -->
@@ -208,8 +208,7 @@
                     loginPassword: loginPassword,
                 };
 
-                const csrfToken = document.querySelector('meta[name="csrf-token"]');
-
+                const csrfToken = document.querySelector('meta[name="csrf-token"]'); // ✅ Now declared
                 if (csrfToken) {
                     submitBtn.disabled = true;
                     btnLoader.style.display = "inline-block";
@@ -217,6 +216,7 @@
 
                     fetch('/api/loginformdata', {
                             method: 'POST',
+                            credentials: 'same-origin', // ✅ Ensures cookies are sent
                             headers: {
                                 'Content-Type': 'application/json',
                                 'X-CSRF-TOKEN': csrfToken.getAttribute('content')
@@ -225,6 +225,7 @@
                         })
                         .then(response => response.json())
                         .then(data => {
+                            console.log(data);
                             if (data.success) {
                                 alert(data.message);
                                 switch (data.role) {
@@ -248,13 +249,11 @@
                                 alert(data.message);
                             }
                         })
-
                         .catch(error => {
                             console.error('Error:', error);
                             alert("An error occurred during login.");
                         })
                         .finally(() => {
-                            // 👇 Revert button state
                             submitBtn.disabled = false;
                             btnLoader.style.display = "none";
                             btnText.style.opacity = 1;
@@ -264,6 +263,7 @@
                     console.error('CSRF token not found');
                 }
             }
+
 
             // Show the forgot password popup
             function showForgotPasswordPopup() {
