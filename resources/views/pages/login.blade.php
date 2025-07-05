@@ -80,8 +80,8 @@
                             </button>
 
                             <!-- <button class="iossigninbutton">
-                                                    <img src="http://localhost:8000/assets/images/appleicon.png" alt="Apple logo"> Sign in with Apple
-                                                </button> -->
+                                                        <img src="http://localhost:8000/assets/images/appleicon.png" alt="Apple logo"> Sign in with Apple
+                                                    </button> -->
                         </div>
 
                         <!-- New User Sign Up Option -->
@@ -211,7 +211,6 @@
                 const csrfToken = document.querySelector('meta[name="csrf-token"]');
 
                 if (csrfToken) {
-                    // 👇 Apply inline loading style
                     submitBtn.disabled = true;
                     btnLoader.style.display = "inline-block";
                     btnText.style.opacity = 0.5;
@@ -228,11 +227,28 @@
                         .then(data => {
                             if (data.success) {
                                 alert(data.message);
-                                window.location.href = data.redirect;
+                                switch (data.role) {
+                                    case 'superadmin':
+                                    case 'admin':
+                                        window.location.href = '/admin-page';
+                                        break;
+                                    case 'scuser':
+                                        window.location.href = '/sc-dashboard';
+                                        break;
+                                    case 'user':
+                                        window.location.href = '/student-dashboard';
+                                        break;
+                                    case 'nbfc':
+                                        window.location.href = '/nbfc-dashboard';
+                                        break;
+                                    default:
+                                        alert("Unknown role. Please contact support.");
+                                }
                             } else {
                                 alert(data.message);
                             }
                         })
+
                         .catch(error => {
                             console.error('Error:', error);
                             alert("An error occurred during login.");
