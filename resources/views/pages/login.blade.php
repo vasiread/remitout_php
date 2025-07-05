@@ -165,21 +165,12 @@
 
                 if (csrfToken) {
                     fetch('/api/session-logout', {
-<<<<<<< HEAD
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
                                 'X-CSRF-TOKEN': csrfToken.getAttribute('content')
                             }
                         })
-=======
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken.getAttribute('content')
-                        }
-                    })
->>>>>>> cbda073 (dev host updated)
                         .then(response => {
                             if (response.ok) {
                                 window.location.href = '/login';
@@ -207,7 +198,6 @@
                 const btnText = submitBtn.querySelector(".btn-text");
                 const btnLoader = submitBtn.querySelector(".btn-loader");
 
-<<<<<<< HEAD
                 if (!confirmPolicy.checked) {
                     alert("You must agree to the terms & policy");
                     return;
@@ -274,46 +264,6 @@
                 }
             }
 
-=======
-    if (!confirmPolicy.checked) {
-        alert("You must agree to the terms & policy");
-        return;
-    }
-
-    const loginFormData = {
-        loginName: loginName,
-        loginPassword: loginPassword,
-    };
-
-    const csrfToken = document.querySelector('meta[name="csrf-token"]');
-
-                if (csrfToken) {
-                    fetch('/api/loginformdata', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken.getAttribute('content')
-                        },
-                        body: JSON.stringify(loginFormData)
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                alert(data.message);
-                                window.location.href = data.redirect;
-                            } else {
-                                alert(data.message);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert("An error occurred during login.");
-                        });
-                } else {
-                    console.error('CSRF token not found');
-                }
-            }
->>>>>>> cbda073 (dev host updated)
 
             // Show the forgot password popup
             function showForgotPasswordPopup() {
@@ -348,7 +298,6 @@
                     emailError.style.display = "none";
 
                     fetch('/api/send-reset-link', {
-<<<<<<< HEAD
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -358,15 +307,6 @@
                                 loginName
                             })
                         })
-=======
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({ loginName })
-                    })
->>>>>>> cbda073 (dev host updated)
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
