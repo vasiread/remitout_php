@@ -30,6 +30,7 @@
                 <div class="logincontainer-rightinside">
                     <h1>Welcome back!</h1>
                     <form class="logincontainer-loginresources" id="loginForm" onsubmit="loginSubmitForm(event)">
+                        @csrf
                         <img src="assets/images/loginsinguprightsideimg.png" class="loginrightsidevector-img"
                             alt="Right side decorative vector">
 
@@ -79,8 +80,8 @@
                             </button>
 
                             <!-- <button class="iossigninbutton">
-                                                <img src="http://localhost:8000/assets/images/appleicon.png" alt="Apple logo"> Sign in with Apple
-                                            </button> -->
+                                                    <img src="http://localhost:8000/assets/images/appleicon.png" alt="Apple logo"> Sign in with Apple
+                                                </button> -->
                         </div>
 
                         <!-- New User Sign Up Option -->
@@ -107,8 +108,7 @@
                         <div id="forgot-password-status" class="forgot-password-popup-status" style="display: none;"></div>
                     </form>
                     <div class="forgot-password-popup-footer">
-                        Remember your password? <a href="/login"
-                            onclick="hideForgotPasswordPopup()">Login</a>
+                        Remember your password? <a href="/login" onclick="hideForgotPasswordPopup()">Login</a>
                     </div>
                 </div>
             </div>
@@ -188,66 +188,66 @@
             }
 
             // Login form submit handler
-         function loginSubmitForm(event) {
-    event.preventDefault();
+            function loginSubmitForm(event) {
+                event.preventDefault();
 
-    const loginName = document.getElementById("loginname").value;
-    const loginPassword = document.getElementById("loginpasswordID").value;
-    const confirmPolicy = document.getElementById("confirmpolicy");
-    const submitBtn = document.getElementById("loginSubmitBtn");
-    const btnText = submitBtn.querySelector(".btn-text");
-    const btnLoader = submitBtn.querySelector(".btn-loader");
+                const loginName = document.getElementById("loginname").value;
+                const loginPassword = document.getElementById("loginpasswordID").value;
+                const confirmPolicy = document.getElementById("confirmpolicy");
+                const submitBtn = document.getElementById("loginSubmitBtn");
+                const btnText = submitBtn.querySelector(".btn-text");
+                const btnLoader = submitBtn.querySelector(".btn-loader");
 
-    if (!confirmPolicy.checked) {
-        alert("You must agree to the terms & policy");
-        return;
-    }
+                if (!confirmPolicy.checked) {
+                    alert("You must agree to the terms & policy");
+                    return;
+                }
 
-    const loginFormData = {
-        loginName: loginName,
-        loginPassword: loginPassword,
-    };
+                const loginFormData = {
+                    loginName: loginName,
+                    loginPassword: loginPassword,
+                };
 
-    const csrfToken = document.querySelector('meta[name="csrf-token"]');
+                const csrfToken = document.querySelector('meta[name="csrf-token"]');
 
-    if (csrfToken) {
-        // 👇 Apply inline loading style
-        submitBtn.disabled = true;
-        btnLoader.style.display = "inline-block";
-        btnText.style.opacity = 0.5;
+                if (csrfToken) {
+                    // 👇 Apply inline loading style
+                    submitBtn.disabled = true;
+                    btnLoader.style.display = "inline-block";
+                    btnText.style.opacity = 0.5;
 
-        fetch('/api/loginformdata', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': csrfToken.getAttribute('content')
-            },
-            body: JSON.stringify(loginFormData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert(data.message);
-                window.location.href = data.redirect;
-            } else {
-                alert(data.message);
+                    fetch('/api/loginformdata', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken.getAttribute('content')
+                            },
+                            body: JSON.stringify(loginFormData)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert(data.message);
+                                window.location.href = data.redirect;
+                            } else {
+                                alert(data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert("An error occurred during login.");
+                        })
+                        .finally(() => {
+                            // 👇 Revert button state
+                            submitBtn.disabled = false;
+                            btnLoader.style.display = "none";
+                            btnText.style.opacity = 1;
+                        });
+
+                } else {
+                    console.error('CSRF token not found');
+                }
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert("An error occurred during login.");
-        })
-        .finally(() => {
-            // 👇 Revert button state
-            submitBtn.disabled = false;
-            btnLoader.style.display = "none";
-            btnText.style.opacity = 1;
-        });
-
-    } else {
-        console.error('CSRF token not found');
-    }
-}
 
             // Show the forgot password popup
             function showForgotPasswordPopup() {
