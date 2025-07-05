@@ -99,7 +99,9 @@ Route::post('/admin/messages/clear-nbfc', [AdminController::class, 'clearNbfcMes
 
 Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
 Route::post('/emailuniquecheck', [RegisterController::class, 'emailUniqueCheck'])->name('emailUniqueCheck');
-Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
+Route::prefix('api')->group(function () {
+    Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
+});
 
 
 Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);

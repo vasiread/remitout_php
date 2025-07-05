@@ -38,8 +38,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
 // Route::post('/retrieve-pan-card', [StudentDashboardController::class, 'panCardView']);
 // Route::post('/retrieve-aadhar-card', [StudentDashboardController::class, 'aadharCardView']);
-Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
-Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
+ Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
 Route::post('/remaining-documents', [StudentDashboardController::class, 'getRemainingNonUploadedFiles']);
 Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
 Route::post('/check-columns', [StudentDashboardController::class, 'validateTablesAndColumns']);
@@ -301,8 +300,7 @@ Route::post('/admin/messages/clear-nbfc', [AdminController::class, 'clearNbfcMes
 
 Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
 Route::post('/emailuniquecheck', [RegisterController::class, 'emailUniqueCheck'])->name('emailUniqueCheck');
-// Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
-
+ 
 
 Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);
  Route::post('/update-academicsinfo', [StudentDetailsController::class, 'updateAcademicsInfo']);
