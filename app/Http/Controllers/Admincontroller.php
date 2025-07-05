@@ -2538,15 +2538,7 @@ class Admincontroller extends Controller
         $newPassword = $request->newPassword;
 
 
-        $superAdminEmail = config('admin.superadmin_email', '');
-
-
-        if (!empty($superAdminEmail) && $email === $superAdminEmail) {
-            return response()->json([
-                'message' => 'Super admin password cannot be changed via this route.'
-            ], 403);
-        }
-
+ 
         // Look for normal admin in DB
         $user = Admin::where('email', $email)->first();
 

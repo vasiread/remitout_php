@@ -400,7 +400,7 @@ $studyLocationsString = implode(', ', $studyLocations);
                 </div>
                 <div class="myapplication-fourthcolumn">
                     <p>4. What is the Loan amount required?</p>
-                    <input type="text" placeholder={{ $courseDetails[0]->loan_amount_in_lakhs }}
+                    <input type="text" placeholder=""
                         value={{ $courseDetails[0]->loan_amount_in_lakhs }} disabled>
 
                 </div>

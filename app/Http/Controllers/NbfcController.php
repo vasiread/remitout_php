@@ -27,14 +27,13 @@ class NbfcController extends Controller
         $errors = [];
         $successCount = 0;
 
-        $superAdminEmail = env('SUPERADMIN_EMAIL');
-
+ 
         foreach ($nbfcUsers as $index => $user) {
             $email = $user['email'];
 
             // Check if email exists in SUPERADMIN or any DB model
             $emailExists =
-                $email === $superAdminEmail ||
+                $email ===  
                 User::where('email', $email)->exists() ||
                 Nbfc::where('nbfc_email', $email)->exists() ||
                 Scuser::where('email', $email)->exists() ||

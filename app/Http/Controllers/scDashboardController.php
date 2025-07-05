@@ -208,9 +208,7 @@ class scDashboardController extends Controller
         Admin::where('email', $email)->exists() ||
         Scuser::where('email', $email)->exists() ||
         User::where('email', $email)->exists() ||
-        Nbfc::where('nbfc_email', $email)->exists() ||
-        (env('SUPERADMIN_EMAIL') === $email);
-
+        Nbfc::where('nbfc_email', $email)->exists();
         if ($existsInSystem) {
             return response()->json([
                 'message' => 'Email already exists in the system.'

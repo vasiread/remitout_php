@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="assets/css/adminpage.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <meta name="superadmin-email" content="{{ env('SUPERADMIN_EMAIL') }}">
-
+ 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -182,12 +181,10 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
                 <div class="admin-nav-dropdown-menu">
-                    @if (!empty($admin) && $admin['email'] !== env('SUPERADMIN_EMAIL'))
-                        <div class="admin-nav-dropdown-item" id="password-change-admin-side">
+                         <div class="admin-nav-dropdown-item" id="password-change-admin-side">
                             Password Change
                         </div>
-                    @endif
-
+ 
                     <div class="admin-nav-dropdown-item" id="logout-admin-side">Logout</div>
                 </div>
             </div>

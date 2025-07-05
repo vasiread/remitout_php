@@ -38,7 +38,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
 // Route::post('/retrieve-pan-card', [StudentDashboardController::class, 'panCardView']);
 // Route::post('/retrieve-aadhar-card', [StudentDashboardController::class, 'aadharCardView']);
-Route::post('/loginformdata', [LoginController::class, 'loginFormData']);
+Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
 Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
 Route::post('/remaining-documents', [StudentDashboardController::class, 'getRemainingNonUploadedFiles']);
 Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
