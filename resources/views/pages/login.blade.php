@@ -107,7 +107,7 @@
                         <div id="forgot-password-status" class="forgot-password-popup-status" style="display: none;"></div>
                     </form>
                     <div class="forgot-password-popup-footer">
-                        Remember your password? <a href="http://127.0.0.1:8000/login"
+                        Remember your password? <a href="/login"
                             onclick="hideForgotPasswordPopup()">Login</a>
                     </div>
                 </div>
