@@ -79,8 +79,8 @@
                             </button>
 
                             <!-- <button class="iossigninbutton">
-                                            <img src="http://localhost:8000/assets/images/appleicon.png" alt="Apple logo"> Sign in with Apple
-                                        </button> -->
+                                                <img src="http://localhost:8000/assets/images/appleicon.png" alt="Apple logo"> Sign in with Apple
+                                            </button> -->
                         </div>
 
                         <!-- New User Sign Up Option -->
@@ -188,12 +188,15 @@
             }
 
             // Login form submit handler
-           function loginSubmitForm(event) {
+         function loginSubmitForm(event) {
     event.preventDefault();
 
-                const loginName = document.getElementById("loginname").value;
-                const loginPassword = document.getElementById("loginpasswordID").value;
-                const confirmPolicy = document.getElementById("confirmpolicy");
+    const loginName = document.getElementById("loginname").value;
+    const loginPassword = document.getElementById("loginpasswordID").value;
+    const confirmPolicy = document.getElementById("confirmpolicy");
+    const submitBtn = document.getElementById("loginSubmitBtn");
+    const btnText = submitBtn.querySelector(".btn-text");
+    const btnLoader = submitBtn.querySelector(".btn-loader");
 
     if (!confirmPolicy.checked) {
         alert("You must agree to the terms & policy");
@@ -207,32 +210,44 @@
 
     const csrfToken = document.querySelector('meta[name="csrf-token"]');
 
-                if (csrfToken) {
-                    fetch('/api/loginformdata', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken.getAttribute('content')
-                        },
-                        body: JSON.stringify(loginFormData)
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                alert(data.message);
-                                window.location.href = data.redirect;
-                            } else {
-                                alert(data.message);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert("An error occurred during login.");
-                        });
-                } else {
-                    console.error('CSRF token not found');
-                }
+    if (csrfToken) {
+        // 👇 Apply inline loading style
+        submitBtn.disabled = true;
+        btnLoader.style.display = "inline-block";
+        btnText.style.opacity = 0.5;
+
+        fetch('/api/loginformdata', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken.getAttribute('content')
+            },
+            body: JSON.stringify(loginFormData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                window.location.href = data.redirect;
+            } else {
+                alert(data.message);
             }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("An error occurred during login.");
+        })
+        .finally(() => {
+            // 👇 Revert button state
+            submitBtn.disabled = false;
+            btnLoader.style.display = "none";
+            btnText.style.opacity = 1;
+        });
+
+    } else {
+        console.error('CSRF token not found');
+    }
+}
 
             // Show the forgot password popup
             function showForgotPasswordPopup() {

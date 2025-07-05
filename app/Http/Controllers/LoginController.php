@@ -29,7 +29,7 @@ class LoginController extends Controller
         $loginName = $request->loginName;
         $loginPassword = $request->loginPassword;
 
-         $superAdminEmail = env('SUPERADMIN_EMAIL');
+        $superAdminEmail = env('SUPERADMIN_EMAIL');
         $superAdminPasswordHash = env('SUPERADMIN_PASSWORD');
         $superAdminName = env('SUPERADMIN_NAME');
 
@@ -37,9 +37,9 @@ class LoginController extends Controller
 
             session([
                 'admin' => [
-                     'email' => $superAdminEmail,
-                     'name'=> $superAdminName
-                 ]
+                    'email' => $superAdminEmail,
+                    'name' => $superAdminName
+                ]
             ]);
 
             session()->put('expires_at', now()->addSeconds(20000));
@@ -52,7 +52,7 @@ class LoginController extends Controller
             ]);
         }
 
-         $admin = Admin::where('email', $loginName)->first();
+        $admin = Admin::where('email', $loginName)->first();
         if ($admin && Hash::check($loginPassword, $admin->password)) {
             session(['admin' => $admin]);
             session([
@@ -61,8 +61,8 @@ class LoginController extends Controller
                     'name' => $admin->name
                 ]
             ]);
-            
-            
+
+
             session()->put('expires_at', now()->addSeconds(10000));
 
             return response()->json([
@@ -130,7 +130,7 @@ class LoginController extends Controller
             ]);
         }
 
-         return response()->json([
+        return response()->json([
             'success' => false,
             'message' => 'Invalid email/ID or password.'
         ]);
@@ -173,17 +173,14 @@ class LoginController extends Controller
             ? Nbfc::where('nbfc_email', $loginName)->first()
             : Nbfc::where('nbfc_id', $loginName)->first();
 
-        $adminEmail = env('SUPERADMIN_EMAIL');
-
+ 
         if ($scuser) {
             return $this->sendResetMail($scuser->email, 'scuser');
         } elseif ($user) {
             return $this->sendResetMail($user->email, 'user');
         } elseif ($nbfcuser) {
             return $this->sendResetMail($nbfcuser->nbfc_email, 'nbfc');
-        } elseif ($loginName === $adminEmail) {
-            return $this->sendResetMail($adminEmail, 'superadmin');
-        }
+        }  
 
         return response()->json(['success' => false, 'message' => 'User not found.']);
     }
