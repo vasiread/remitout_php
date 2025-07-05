@@ -260,7 +260,7 @@
 
                         <div class="nbfc-send-proposal-attachment-section">
                             <label class="nbfc-send-proposal-attachment-label">Attachment</label>
-                            <input type="file" id="fileInput" class="nbfc-send-proposal-attachment-input">
+                            <input type="file" id="sendProposalFileInput" class="nbfc-send-proposal-attachment-input">
                             <button class="nbfc-send-proposal-attachment-button" id="attachmentBtn">+ Add
                                 Attachment</button>
 
@@ -727,7 +727,7 @@
                                 <label class="reject-attachment-label">Attachment</label>
                                 <div class="reject-attachment-input">
                                     <div class="reject-attachment-wrapper">
-                                        <button class="reject-attachment-add-btn" id="addAttachmentBtn">
+                                        <button class="reject-attachment-add-btn">
                                             <span class="reject-attachment-icon"><i class="fas fa-file-pdf"></i></span>
                                             <span class="reject-attachment-name" id="fileName">+ Add Attachment</span>
                                         </button>
@@ -736,7 +736,7 @@
                                             <i class="fas fa-times"></i>
                                         </button>
                                     </div>
-                                    <input type="file" id="fileInput" style="display: none;" />
+                                    <input type="file" id="rejectFileInput" style="display: none;" />
                                 </div>
                             </div>
                             <div class="actions">
@@ -1728,7 +1728,8 @@
                                         };
 
                                         try {
-                                            const response = await fetch('/api/del-user-id-request', {
+                                            const response = await fetch(
+                                            '/api/del-user-id-request', {
                                                 method: "POST",
                                                 headers: {
                                                     'Content-Type': 'application/json',
@@ -2165,8 +2166,9 @@
             const modalContainer = document.getElementById('modelContainer-send-proposal');
             const closeButtons = document.querySelectorAll('.nbfc-send-proposal-close-button');
             const sendFileInput = document.querySelector('.nbfc-send-proposal-attachment-input');
-            const fileInput = document.getElementById('fileInput');
-            const attachmentBtn = document.querySelector('.nbfc-send-proposal-attachment-button');
+            const fileInput = document.getElementById('sendProposalFileInput');
+            const addAttachementBtnProposal = document.querySelector('.nbfc-send-proposal-attachment-button');
+
             const attachmentPreview = document.getElementById('attachmentPreview');
             const removeAttachment = document.getElementById('removeAttachment');
             const fileName = document.querySelector('.nbfc-send-proposal-file-name');
@@ -2181,13 +2183,15 @@
             let selectedFile = null;
             let selectedStudentId = null;
 
-            // Attach file input click trigger once
-            attachmentBtn.addEventListener('click', () => {
+            if(addAttachementBtnProposal && sendFileInput){
+                addAttachementBtnProposal.addEventListener('click', () => {
                 sendFileInput.click();
-            });
+            }); 
+            }
+           
 
             // When file is selected
-            fileInput.addEventListener('change', (e) => {
+            sendFileInput.addEventListener('change', (e) => {
                 const file = e.target.files[0];
                 if (file) {
                     fileName.textContent = file.name;
@@ -2196,7 +2200,7 @@
 
                     // Hide the attachment button and file input
                     // attachmentBtn.style.display = 'none';
-                    // fileInput.style.display = 'none';
+                    fileInput.style.display = 'none';
                 }
             });
             // Attach send button click once
@@ -2320,8 +2324,8 @@
                     .then(data => {
                         if (data) {
                             alert(data.message);
-                             initializeTraceViewNBFC(requestsData,
-                                                    proposalsData);
+                            initializeTraceViewNBFC(requestsData,
+                                proposalsData);
 
                         } else {
                             console.error("Error: No file URL returned from the server", data);
@@ -2338,18 +2342,22 @@
 
             removeAttachment.addEventListener('click', () => {
                 // Reset file input
-                fileInput.value = '';
-                sendFileInput.value='';
+
+
+                if(fileInput){
+                   fileInput.value = '';
+                sendFileInput.value = '';
 
                 // Reset preview
                 fileName.textContent = 'No file selected';
                 fileSize.textContent = '';
 
                 // Hide preview
-                // attachmentPreview.style.display = 'none';
-
+ 
                 // Show the button and file input again
-                attachmentBtn.style.display = 'flex';
+                attachmentBtn.style.display = 'flex'; 
+                }
+                
             });
             closeButtons.forEach(button => button.addEventListener('click', closeModal));
             cancelButton.addEventListener('click', closeModal);
@@ -2361,9 +2369,11 @@
                 const closeButton = document.getElementById("close-button-id");
                 const cancelButton = document.getElementById("cancel-button-id");
                 const sendProposalRejectButton = document.getElementById("reject-button-id");
-                const addAttachmentBtn = document.getElementById("addAttachmentBtn");
-                const fileInput = document.getElementById("fileInput");
-                const fileNameSpan = document.getElementById("fileName");
+                const addAttachmentBtn = document.querySelector(".reject-attachment-add-btn");
+
+                // const addAttachementBtnProposal = 
+                 const fileNameSpan = document.getElementById("fileName");
+                 const fileInput = document.getElementById("rejectFileInput");
                 const removeAttachmentBtn = document.getElementById("removeAttachmentBtn");
                 let selectedFile = null;
 
@@ -5918,77 +5928,77 @@
                 }
             }
 
-           function downloadDocuments(userId) {
-    console.log("Downloading documents for user:", userId);
+            function downloadDocuments(userId) {
+                console.log("Downloading documents for user:", userId);
 
-    if (!userId) {
-        console.error("User ID is required to download documents.");
-        return;
-    }
+                if (!userId) {
+                    console.error("User ID is required to download documents.");
+                    return;
+                }
 
-    const downloadTrigger = document.querySelector(".myapplication-seventhcolumn-headernbfc #downloaddocuments");
+                const downloadTrigger = document.querySelector(".myapplication-seventhcolumn-headernbfc #downloaddocuments");
 
-    if (!downloadTrigger) {
-        console.error("Download button not found.");
-        return;
-    }
+                if (!downloadTrigger) {
+                    console.error("Download button not found.");
+                    return;
+                }
 
-    // ✅ Replace any previous click handler
-    downloadTrigger.onclick = function(e) {
-        e.preventDefault();
+                // ✅ Replace any previous click handler
+                downloadTrigger.onclick = function(e) {
+                    e.preventDefault();
 
-        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-        if (!csrfToken) {
-            console.error("CSRF token not found.");
-            return;
-        }
-
-        Loader.show();
-
-        fetch('/api/downloadzip', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    userId: userId
-                }),
-            })
-            .then(response => {
-                if (!response.ok) {
-                    if (response.status === 404) {
-                        throw new Error("NO_FILES");
-                    } else {
-                        throw new Error(`HTTP error! status: ${response.status}`);
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+                    if (!csrfToken) {
+                        console.error("CSRF token not found.");
+                        return;
                     }
-                }
-                return response.blob();
-            })
-            .then(blob => {
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `user_files_${userId}.zip`;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                window.URL.revokeObjectURL(url);
-            })
-            .catch(error => {
-                console.error("Error downloading documents:", error);
 
-                if (error.message === "NO_FILES") {
-                    alert("No documents uploaded for this user yet.");
-                } else {
-                    alert("Download failed. Please try again.");
-                }
-            })
-            .finally(() => {
-                Loader.hide();
-            });
-    };
-}
+                    Loader.show();
+
+                    fetch('/api/downloadzip', {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': csrfToken,
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                userId: userId
+                            }),
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                if (response.status === 404) {
+                                    throw new Error("NO_FILES");
+                                } else {
+                                    throw new Error(`HTTP error! status: ${response.status}`);
+                                }
+                            }
+                            return response.blob();
+                        })
+                        .then(blob => {
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = `user_files_${userId}.zip`;
+                            document.body.appendChild(a);
+                            a.click();
+                            a.remove();
+                            window.URL.revokeObjectURL(url);
+                        })
+                        .catch(error => {
+                            console.error("Error downloading documents:", error);
+
+                            if (error.message === "NO_FILES") {
+                                alert("No documents uploaded for this user yet.");
+                            } else {
+                                alert("Download failed. Please try again.");
+                            }
+                        })
+                        .finally(() => {
+                            Loader.hide();
+                        });
+                };
+            }
 
 
 

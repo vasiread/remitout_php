@@ -154,7 +154,7 @@
                     <div class="promotional-heading-container">
                     <h1 class="promotional-heading">Header 01</h1>
                     <p class="promotional-sub">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p class="know-more"><a href="http://localhost:8000/">Click here to know more!</a></p>
+                    <p class="know-more"><a href="/">Click here to know more!</a></p>
                     <div class="promotional-link-container" style="display: none;">
                         <span>Link:</span>
                         <input type="text" class="promotional-link-input" value="">
