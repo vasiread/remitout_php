@@ -208,7 +208,7 @@
     const csrfToken = document.querySelector('meta[name="csrf-token"]');
 
                 if (csrfToken) {
-                    fetch('/loginformdata', {
+                    fetch('/api/loginformdata', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
