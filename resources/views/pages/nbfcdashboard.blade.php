@@ -77,7 +77,7 @@
 
 
         @php
-            $profileImgPath = 'images/admin-student-profile.png';
+            $profileImgPath = 'assets/images/bank';
             $uploadPanName = '';
             $profileIconPath = 'assets/images/account_circle.png';
             $phoneIconPath = 'assets/images/call.png';
@@ -283,7 +283,7 @@
                 <div class="wholeapplicationprofile">
                     <div class="nbfcdashboard-studentlistscontainer">
                         <div class="studentdashboardprofile-profilesection" id="nbfc-list-of-student-profilesections">
-                            <img src="{{ asset($profileImgPath) }}" class="profileImg" id="profile-photo-id"
+                            <img src="" class="profileImg" id="profile-photo-id"
                                 alt="">
 
                             <i class="fa-regular fa-pen-to-square"></i>
@@ -1728,12 +1728,8 @@
                                         };
 
                                         try {
-<<<<<<< HEAD
                                             const response = await fetch(
                                             '/api/del-user-id-request', {
-=======
-                                            const response = await fetch('/api/del-user-id-request', {
->>>>>>> cbda073 (dev host updated)
                                                 method: "POST",
                                                 headers: {
                                                     'Content-Type': 'application/json',
@@ -2187,12 +2183,12 @@
             let selectedFile = null;
             let selectedStudentId = null;
 
-            if(addAttachementBtnProposal && sendFileInput){
+            if (addAttachementBtnProposal && sendFileInput) {
                 addAttachementBtnProposal.addEventListener('click', () => {
-                sendFileInput.click();
-            }); 
+                    sendFileInput.click();
+                });
             }
-           
+
 
             // When file is selected
             sendFileInput.addEventListener('change', (e) => {
@@ -2348,20 +2344,20 @@
                 // Reset file input
 
 
-                if(fileInput){
-                   fileInput.value = '';
-                sendFileInput.value = '';
+                if (fileInput) {
+                    fileInput.value = '';
+                    sendFileInput.value = '';
 
-                // Reset preview
-                fileName.textContent = 'No file selected';
-                fileSize.textContent = '';
+                    // Reset preview
+                    fileName.textContent = 'No file selected';
+                    fileSize.textContent = '';
 
-                // Hide preview
- 
-                // Show the button and file input again
-                attachmentBtn.style.display = 'flex'; 
+                    // Hide preview
+
+                    // Show the button and file input again
+                    attachmentBtn.style.display = 'flex';
                 }
-                
+
             });
             closeButtons.forEach(button => button.addEventListener('click', closeModal));
             cancelButton.addEventListener('click', closeModal);
@@ -2376,8 +2372,8 @@
                 const addAttachmentBtn = document.querySelector(".reject-attachment-add-btn");
 
                 // const addAttachementBtnProposal = 
-                 const fileNameSpan = document.getElementById("fileName");
-                 const fileInput = document.getElementById("rejectFileInput");
+                const fileNameSpan = document.getElementById("fileName");
+                const fileInput = document.getElementById("rejectFileInput");
                 const removeAttachmentBtn = document.getElementById("removeAttachmentBtn");
                 let selectedFile = null;
 
@@ -5725,41 +5721,50 @@
             }
 
 
-            const initialiseProfileView = (userId) => {
+          const initialiseProfileView = (userId) => {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 
+    if (!csrfToken) {
+        console.error('CSRF token not found');
+        return;
+    }
 
-                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    fetch('/api/retrieve-profile-picture', {
+        method: "POST",
+        headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            userId: userId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        const imgElement = document.getElementById("profile-photo-id");
+        if (!imgElement) {
+            console.error("Profile photo element not found.");
+            return;
+        }
 
-                if (!csrfToken) {
-                    console.error('CSRF token not found');
-                    return;
-                }
+        if (data.fileUrl) {
+            console.log("Profile Picture URL:", data.fileUrl);
+            imgElement.src = data.fileUrl;
+        } else {
+            console.warn("No profile picture returned. Using default.");
+            imgElement.src = 'assets/images/defaultprofilephoto.jpg';
+        }
+    })
+    .catch(error => {
+        console.error("Error retrieving profile picture", error);
+        const imgElement = document.getElementById("profile-photo-id");
+        if (imgElement) {
+            imgElement.src = 'assets/images/defaultprofilephoto.jpg';
+        }
+    });
+};
 
-                fetch('/api/retrieve-profile-picture', {
-                        method: "POST",
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken,
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            userId: userId
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.fileUrl) {
-                            console.log("Profile Picture URL:", data.fileUrl);
-                            const imgElement = document.getElementById("profile-photo-id");
-                            imgElement.src = data.fileUrl;
-                        } else {
-                            console.error("Error: No URL returned from the server", data);
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error retrieving profile picture", error);
-                    });
-            }
 
             const sessionLogoutInitial = () => {
                 fetch("{{ route('logout') }}", {
@@ -5932,31 +5937,25 @@
                 }
             }
 
-            function downloadDocuments(userId) {
-                console.log("Downloading documents for user:", userId);
+          function downloadDocuments(userId) {
+    console.log("Downloading documents for user:", userId);
 
-                if (!userId) {
-                    console.error("User ID is required to download documents.");
-                    return;
-                }
+    if (!userId) {
+        console.error("User ID is required to download documents.");
+        return;
+    }
 
-                const downloadTrigger = document.querySelector(".myapplication-seventhcolumn-headernbfc #downloaddocuments");
+    const downloadTrigger = document.querySelector(".myapplication-seventhcolumn-headernbfc #downloaddocuments");
 
-                if (!downloadTrigger) {
-                    console.error("Download button not found.");
-                    return;
-                }
+    if (!downloadTrigger) {
+        console.error("Download button not found.");
+        return;
+    }
 
-                // ✅ Replace any previous click handler
-                downloadTrigger.onclick = function(e) {
-                    e.preventDefault();
+    // ✅ Replace any previous click handler
+    downloadTrigger.onclick = function (e) {
+        e.preventDefault();
 
-<<<<<<< HEAD
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-                    if (!csrfToken) {
-                        console.error("CSRF token not found.");
-                        return;
-=======
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
         if (!csrfToken) {
             console.error("CSRF token not found.");
@@ -5966,194 +5965,178 @@
         Loader.show();
 
         fetch('/api/downloadzip', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    userId: userId
-                }),
-            })
-            .then(response => {
-                if (!response.ok) {
-                    if (response.status === 404) {
-                        throw new Error("NO_FILES");
-                    } else {
-                        throw new Error(`HTTP error! status: ${response.status}`);
->>>>>>> cbda073 (dev host updated)
-                    }
-
-                    Loader.show();
-
-                    fetch('/api/downloadzip', {
-                            method: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN': csrfToken,
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                userId: userId
-                            }),
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                if (response.status === 404) {
-                                    throw new Error("NO_FILES");
-                                } else {
-                                    throw new Error(`HTTP error! status: ${response.status}`);
-                                }
-                            }
-                            return response.blob();
-                        })
-                        .then(blob => {
-                            const url = window.URL.createObjectURL(blob);
-                            const a = document.createElement('a');
-                            a.href = url;
-                            a.download = `user_files_${userId}.zip`;
-                            document.body.appendChild(a);
-                            a.click();
-                            a.remove();
-                            window.URL.revokeObjectURL(url);
-                        })
-                        .catch(error => {
-                            console.error("Error downloading documents:", error);
-
-                            if (error.message === "NO_FILES") {
-                                alert("No documents uploaded for this user yet.");
-                            } else {
-                                alert("Download failed. Please try again.");
-                            }
-                        })
-                        .finally(() => {
-                            Loader.hide();
-                        });
-                };
-            }
-
-
-
-
-            const reviwedUsers = (userId) => {
-                const user = @json(session('nbfcuser'));
-
-                if (user && user.nbfc_id) {
-                    const nbfcId = user.nbfc_id;
-
-                    fetch('/api/update-review-status', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                    'content')
-                            },
-                            body: JSON.stringify({
-                                user_id: userId,
-                                nbfc_id: nbfcId
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                console.log('Marked as reviewed!');
-                            } else {
-                                console.log('Error: ' + data.message);
-                            }
-                        })
-                        .catch(error => {
-                            alert('Network or server error. Check console.');
-                            console.error('Fetch Error:', error);
-                        });
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userId: userId
+            }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                if (response.status === 404) {
+                    throw new Error("NO_FILES");
                 } else {
-                    alert('NBFC user not found in session.');
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
-            };
-
-
-            setTimeout(() => {
-                const viewMoreBtn = document.querySelector('.viewmore-messagenbfc');
-                if (viewMoreBtn) {
-                    viewMoreBtn.addEventListener('click', () => {
-                        document.querySelectorAll('.profile-list-item').forEach(item => {
-                            item.style.display = "block";
-                        });
-                        viewMoreBtn.style.display = 'none';
-                    });
-                }
-            }, 0);
-
-            function resetAllUserState() {
-                // Reset global document data
-                documentUrls = {};
-
-                // Remove all eye icon click listeners and hide them
-                const allEyeIcons = document.querySelectorAll(".fa-eye");
-                allEyeIcons.forEach(icon => {
-                    const clone = icon.cloneNode(true);
-                    icon.parentNode.replaceChild(clone, icon);
-                });
-
-                // Clear all document file names
-                const docNameFields = document.querySelectorAll(
-                    "[class^='uploaded-'], [class$='-marksheet'], [class$='-grade']");
-                docNameFields.forEach(el => el.textContent = "");
-
-                // Close any open previews
-                document.querySelectorAll(
-                    ".pdf-preview-wrapper, .image-preview-wrapper, .pdf-preview-overlay, .image-preview-overlay").forEach(
-                    el => el.remove());
-
-                // Collapse all document sections
-                document.querySelectorAll(
-                    ".kycdocumentscolumn, .marksheetdocumentscolumn, .secured-admissioncolumn, .work-experiencecolumn, .coborrower-kyccolumn"
-                ).forEach(section => {
-                    section.style.display = "none";
-                });
-
-                // Optionally remove "layout-ready" class to restart animations/layouts
-                const profileContainer = document.querySelector(".wholeapplicationprofile");
-                if (profileContainer) profileContainer.classList.remove("layout-ready");
             }
+            return response.blob();
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `user_files_${userId}.zip`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(error => {
+            console.error("Error downloading documents:", error);
 
-            function fetchUnreadCount() {
-
-                var user = @json(session('nbfcuser'));
-                let nbfcId = null;
-
-                if (user && user.nbfc_id) {
-                    nbfcId = user.nbfc_id;
-                }
-
-                const receiverId = nbfcId;
-
-
-                if (!receiverId) return;
-
-                fetch('/api/unread-message-count', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({
-                            receiverId
-                        })
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        const countNotify = document.querySelector(".nbfc-dark-mode .notification-badge");
-
-                        if (data.success && countNotify && data.count > 0) {
-                            countNotify.style.display = "flex";
-                            countNotify.textContent = data.count;
-                        } else if (countNotify) {
-                            countNotify.style.display = "none";
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error fetching unread count:', error);
-                    });
+            if (error.message === "NO_FILES") {
+                alert("No documents uploaded for this user yet.");
+            } else {
+                alert("Download failed. Please try again.");
             }
+        })
+        .finally(() => {
+            Loader.hide();
+        });
+    };
+}
+
+
+
+
+
+                                const reviwedUsers = (userId) => {
+                                    const user = @json(session('nbfcuser'));
+
+                                    if (user && user.nbfc_id) {
+                                        const nbfcId = user.nbfc_id;
+
+                                        fetch('/api/update-review-status', {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')
+                                                        .getAttribute(
+                                                            'content')
+                                                },
+                                                body: JSON.stringify({
+                                                    user_id: userId,
+                                                    nbfc_id: nbfcId
+                                                })
+                                            })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                if (data.success) {
+                                                    console.log('Marked as reviewed!');
+                                                } else {
+                                                    console.log('Error: ' + data.message);
+                                                }
+                                            })
+                                            .catch(error => {
+                                                alert('Network or server error. Check console.');
+                                                console.error('Fetch Error:', error);
+                                            });
+                                    } else {
+                                        alert('NBFC user not found in session.');
+                                    }
+                                };
+
+
+                                setTimeout(() => {
+                                    const viewMoreBtn = document.querySelector('.viewmore-messagenbfc');
+                                    if (viewMoreBtn) {
+                                        viewMoreBtn.addEventListener('click', () => {
+                                            document.querySelectorAll('.profile-list-item').forEach(item => {
+                                                item.style.display = "block";
+                                            });
+                                            viewMoreBtn.style.display = 'none';
+                                        });
+                                    }
+                                }, 0);
+
+                                function resetAllUserState() {
+                                    // Reset global document data
+                                    documentUrls = {};
+
+                                    // Remove all eye icon click listeners and hide them
+                                    const allEyeIcons = document.querySelectorAll(".fa-eye");
+                                    allEyeIcons.forEach(icon => {
+                                        const clone = icon.cloneNode(true);
+                                        icon.parentNode.replaceChild(clone, icon);
+                                    });
+
+                                    // Clear all document file names
+                                    const docNameFields = document.querySelectorAll(
+                                        "[class^='uploaded-'], [class$='-marksheet'], [class$='-grade']");
+                                    docNameFields.forEach(el => el.textContent = "");
+
+                                    // Close any open previews
+                                    document.querySelectorAll(
+                                        ".pdf-preview-wrapper, .image-preview-wrapper, .pdf-preview-overlay, .image-preview-overlay"
+                                        ).forEach(
+                                        el => el.remove());
+
+                                    // Collapse all document sections
+                                    document.querySelectorAll(
+                                        ".kycdocumentscolumn, .marksheetdocumentscolumn, .secured-admissioncolumn, .work-experiencecolumn, .coborrower-kyccolumn"
+                                    ).forEach(section => {
+                                        section.style.display = "none";
+                                    });
+
+                                    // Optionally remove "layout-ready" class to restart animations/layouts
+                                    const profileContainer = document.querySelector(".wholeapplicationprofile");
+                                    if (profileContainer) profileContainer.classList.remove("layout-ready");
+                                }
+
+                                function fetchUnreadCount() {
+
+                                    var user = @json(session('nbfcuser'));
+                                    let nbfcId = null;
+
+                                    if (user && user.nbfc_id) {
+                                        nbfcId = user.nbfc_id;
+                                    }
+
+                                    const receiverId = nbfcId;
+
+
+                                    if (!receiverId) return;
+
+                                    fetch('/api/unread-message-count', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                                    .getAttribute('content')
+                                            },
+                                            body: JSON.stringify({
+                                                receiverId
+                                            })
+                                        })
+                                        .then(res => res.json())
+                                        .then(data => {
+                                            const countNotify = document.querySelector(
+                                                ".nbfc-dark-mode .notification-badge");
+
+                                            if (data.success && countNotify && data.count > 0) {
+                                                countNotify.style.display = "flex";
+                                                countNotify.textContent = data.count;
+                                            } else if (countNotify) {
+                                                countNotify.style.display = "none";
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error('Error fetching unread count:', error);
+                                        });
+                                }
         </script>
 
 
