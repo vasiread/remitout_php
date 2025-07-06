@@ -21,7 +21,7 @@
                         <p></p>
                     </div>
                     <div class="nav-profilecontainer" id="notification-userprofile-section">
-                        <img src="{{ asset('assets/images/Icons/account_circle.png') }}" id="nav-profile-photo-id" class="nav-profileimg" alt="Profile Image">
+                        <img src="{{ asset('assets/images/defaultprofilephoto.png') }}" id="nav-profile-photo-id" class="nav-profileimg" alt="Profile Image">
                         <h3>{{ session()->has('user') ? session('user')->name : session('scuser')->full_name }}</h3>
                         <i class="fa-solid fa-chevron-down"></i>
                         <div class="popup-notify-list" style="display:none">
@@ -417,11 +417,11 @@
                     if (data.fileUrl && profileImgUpdate) {
                         profileImgUpdate.src = data.fileUrl;
                     } else {
-                        const fallbackImage = '{{ asset('assets/images/Icons/account_circle.png') }}';
+                        const fallbackImage = '{{ asset('assets/images/defaultprofilephoto.jpg') }}';
                         if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
                     }
                 } catch (error) {
-                    const fallbackImage = '{{ asset('assets/images/Icons/account_circle.png') }}';
+                    const fallbackImage = '{{ asset('assets/images/defaultprofilephoto.jpg') }}';
                     if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
                 }
             } else if (window.App.hasUserSession) {
@@ -443,11 +443,11 @@
                     if (data.fileUrl && profileImgUpdate) {
                         profileImgUpdate.src = data.fileUrl;
                     } else {
-                        const fallbackImage = '{{ asset('assets/images/Icons/account_circle.png') }}';
+                        const fallbackImage = '{{ asset('assets/images/defaultprofilephoto.jpg') }}';
                         if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
                     }
                 } catch (error) {
-                    const fallbackImage = '{{ asset('assets/images/Icons/account_circle.png') }}';
+                    const fallbackImage = '{{ asset('assets/images/defaultprofilephoto.jpg') }}';
                     if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
                 }
             }

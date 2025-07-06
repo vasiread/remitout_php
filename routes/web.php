@@ -24,7 +24,7 @@ use App\Models\student_admin_application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
- 
+
 
 /*
 |-------------------------------------------------------------------------- 
@@ -50,15 +50,16 @@ Route::get('/terms', [TermsController::class, 'index'])->name('terms');
 Route::get('/login', function () {
     return view('pages.login');
 })->name('login');
+ 
 Route::get('/nbfc-dashboard', function () {
-  
+
     return view('pages.nbfcdashboard');
 })->name('nbfcdashboard');
 
 Route::get('/admin-page', function () {
-    
 
-     $sidebarItems = (new SidebarHandlingController)->admindashboardItems();
+
+    $sidebarItems = (new SidebarHandlingController)->admindashboardItems();
     $userDetails = (new StudentDashboardController)->getAllUsersFromAdmin();
 
     return view('pages.adminpage', [
@@ -73,7 +74,7 @@ Route::get('/admin-page', function () {
 Route::post('/send-message', action: [ChatController::class, 'sendMessage']);
 
 Route::get('/sc-dashboard', function () {
-   
+
 
     $sidebarItems = (new SidebarHandlingController)->scdashboardItems();
     $userByRef = (new scDashboardController)->getUsersByCounsellor();
@@ -94,14 +95,13 @@ Route::post('/admin/messages/clear-student', [AdminController::class, 'clearStud
 Route::post('/admin/messages/clear-nbfc', [AdminController::class, 'clearNbfcMessagesAndGetNbfcCount']);
 
 
-// Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);
 
 
 Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
 Route::post('/emailuniquecheck', [RegisterController::class, 'emailUniqueCheck'])->name('emailUniqueCheck');
-Route::prefix('api')->group(function () {
-    Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
-});
+// Route::prefix('api')->group(function () {
+Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
+// });
 
 
 Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);
@@ -302,7 +302,7 @@ Route::post('/update-ticket-status', [AdminController::class, 'updateTicketStatu
 Route::post('/send-reset-link', [LoginController::class, 'sendResetLink']);
 
 Route::get('/reset-password', function (Request $request) {
-     $token = $request->query('token');
+    $token = $request->query('token');
     $type = $request->query('type');
     return view('email.resetpassword', compact('token', 'type'));
 });

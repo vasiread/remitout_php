@@ -3175,6 +3175,27 @@ p {
     align-items: center;
     margin-bottom: 20px;
 }
+.upload-loader {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #260254;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    animation: spin 0.6s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
 .income-co-borrower input {
     width: 420px;

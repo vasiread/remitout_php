@@ -31,9 +31,8 @@
             $nbfcdata = [];
 
             $studyLocationsRaw = $courseDetails[0]->{'plan-to-study'} ?? [];
-$studyLocations = is_array($studyLocationsRaw) ? $studyLocationsRaw : [$studyLocationsRaw];
-$studyLocationsString = implode(', ', $studyLocations);
-
+            $studyLocations = is_array($studyLocationsRaw) ? $studyLocationsRaw : [$studyLocationsRaw];
+            $studyLocationsString = implode(', ', $studyLocations);
 
         @endphp
         <div class="studentdashboardprofile-togglesidebar">
@@ -48,16 +47,18 @@ $studyLocationsString = implode(', ', $studyLocations);
                     <i class="fa-regular fa-clipboard"></i> My Applications
                 </li>
             </ul>
-           <ul class="studentdashboardprofile-sidebarlists-bottom">
-    <li class="logoutBtn">
-        <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
-    </li>
-    <li>
-        <a href="tel:+917578475788" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
-            <img src="assets/images/Icons/support_agent.png" alt="The support icon" style="margin-right: 8px;"> Support
-        </a>
-    </li>
-</ul>
+            <ul class="studentdashboardprofile-sidebarlists-bottom">
+                <li class="logoutBtn">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                </li>
+                <li>
+                    <a href="tel:+917578475788"
+                        style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+                        <img src="assets/images/Icons/support_agent.png" alt="The support icon" style="margin-right: 8px;">
+                        Support
+                    </a>
+                </li>
+            </ul>
 
 
         </div>
@@ -107,9 +108,8 @@ $studyLocationsString = implode(', ', $studyLocations);
                                         Status : Pending
                                     </p>
                                 </div>
-                                <button onclick="window.location.href='{{ asset('student-forms') }}'">
-                                    Upload
-                                </button>
+                                <button id="upload-redirection" data-url="{{ asset('student-forms') }}">Upload</button>
+
                             </div>
                         </div>
                     </div>
@@ -140,7 +140,8 @@ $studyLocationsString = implode(', ', $studyLocations);
             </div>
 
             <div class="studentdashboardprofile-profilesection" id="intergratestudentdashboardprofile">
-                <img src="{{ asset($profileImgPath) }}" class="profileImg" id="profile-photo-id" alt="User profile photo">
+                <img src="{{ asset($profileImgPath) }}" class="profileImg" id="profile-photo-id" alt="User profile photo"
+                    onerror="this.onerror=null; this.src='{{ asset('assets/images/defaultprofilephoto.jpg') }}';" />
                 <i class="fa-regular fa-pen-to-square"></i>
                 <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
                 <div class="studentdashboardprofile-personalinfo">
@@ -150,7 +151,8 @@ $studyLocationsString = implode(', ', $studyLocations);
                     <ul class="personalinfo-secondrow">
                         <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span class="personal_info_id"
                                 style="margin-left: 6px;"> {{ $user->unique_id }}</span> </li>
-                        <li class="personal_info_name" id="referenceNameId"><img src={{ $profileIconPath }} alt="User profile icon">
+                        <li class="personal_info_name" id="referenceNameId"><img src={{ $profileIconPath }}
+                                alt="User profile icon">
                             <p> {{ $userDetails[0]->name ?? 'Name not available' }}</p>
                         </li>
                         <li class="personal_info_phone"><img src={{ $phoneIconPath }} alt="Contact number icon">
@@ -330,26 +332,28 @@ $studyLocationsString = implode(', ', $studyLocations);
 
 
                     <div class="checkbox-group-edit" id="selected-study-location-edit">
-    @php
-        $rawStudyLocations = $courseDetails[0]->{'plan-to-study'} ?? [];
-        $studyLocations = is_array($rawStudyLocations) ? $rawStudyLocations : explode(',', $rawStudyLocations);
-        $studyLocations = array_map('trim', $studyLocations); // remove extra spaces
-    @endphp
+                        @php
+                            $rawStudyLocations = $courseDetails[0]->{'plan-to-study'} ?? [];
+                            $studyLocations = is_array($rawStudyLocations)
+                                ? $rawStudyLocations
+                                : explode(',', $rawStudyLocations);
+                            $studyLocations = array_map('trim', $studyLocations); // remove extra spaces
+                        @endphp
 
-    @foreach (['USA', 'UK', 'Ireland', 'New Zealand', 'Germany', 'France', 'Sweden', 'Italy', 'Canada', 'Australia'] as $country)
-        <label>
-            <input type="checkbox" name="study-location-edit" value="{{ $country }}"
-                @if (in_array($country, $studyLocations)) checked @endif disabled> {{ $country }}
-        </label>
-    @endforeach
+                        @foreach (['USA', 'UK', 'Ireland', 'New Zealand', 'Germany', 'France', 'Sweden', 'Italy', 'Canada', 'Australia'] as $country)
+                            <label>
+                                <input type="checkbox" name="study-location-edit" value="{{ $country }}"
+                                    @if (in_array($country, $studyLocations)) checked @endif disabled> {{ $country }}
+                            </label>
+                        @endforeach
 
-    <label>
-        <div class="add-country-box-edit">
-            <input type="text" id="country-edit" class="custom-country-edit"
-                placeholder="Add Country" disabled>
-        </div>
-    </label>
-</div>
+                        <label>
+                            <div class="add-country-box-edit">
+                                <input type="text" id="country-edit" class="custom-country-edit"
+                                    placeholder="Add Country" disabled>
+                            </div>
+                        </label>
+                    </div>
 
                 </div>
 
@@ -400,8 +404,7 @@ $studyLocationsString = implode(', ', $studyLocations);
                 </div>
                 <div class="myapplication-fourthcolumn">
                     <p>4. What is the Loan amount required?</p>
-                    <input type="text" placeholder=""
-                        value={{ $courseDetails[0]->loan_amount_in_lakhs }} disabled>
+                    <input type="text" placeholder="" value="{{ $courseDetails[0]->loan_amount_in_lakhs }}" disabled>
 
                 </div>
                 <div class="myapplication-fifthcolumn">
@@ -428,7 +431,8 @@ $studyLocationsString = implode(', ', $studyLocations);
                                 <div class="inputfilecontainer">
                                     <i class="fa-solid fa-image"></i>
                                     <p class="uploaded-pan-name truncate-filename"> pan_card.jpg</p>
-                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-pan-card" alt="View PAN card icon" />
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-pan-card"
+                                        alt="View PAN card icon" />
                                 </div>
                                 <input type="file" id="inputfilecontainer-real" />
                                 <span class="document-status">0 MB uploaded</span>
@@ -439,7 +443,8 @@ $studyLocationsString = implode(', ', $studyLocations);
                                 <div class="inputfilecontainer">
                                     <i class="fa-solid fa-image"></i>
                                     <p class="uploaded-aadhar-name truncate-filename"> aadhar_card.jpg</p>
-                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-aadhar-card" alt="View Aadhar card icon" />
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-aadhar-card"
+                                        alt="View Aadhar card icon" />
                                 </div>
                                 <input type="file" id="inputfilecontainer-real" />
                                 <span class="document-status">0 MB uploaded</span>
@@ -450,7 +455,8 @@ $studyLocationsString = implode(', ', $studyLocations);
                                 <div class="inputfilecontainer">
                                     <i class="fa-solid fa-image"></i>
                                     <p class="passport-name-selector truncate-filename"> Passport.pdf</p>
-                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-passport-card" alt="View passport icon"/>
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-passport-card"
+                                        alt="View passport icon" />
                                 </div>
                                 <input type="file" id="inputfilecontainer-real" />
                                 <span class="document-status">0 MB uploaded</span>
@@ -472,7 +478,8 @@ $studyLocationsString = implode(', ', $studyLocations);
                                 <div class="inputfilecontainer-marksheet">
                                     <i class="fa-solid fa-image"></i>
                                     <p class="sslc-marksheet truncate-filename"> 10th grade marksheet</p>
-                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-sslc-card" lt="View SSLC certificate icon" />
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-sslc-card"
+                                        lt="View SSLC certificate icon" />
                                 </div>
                                 <input type="file" id="inputfilecontainer-real-marksheet" />
                                 <span class="document-status">0 MB uploaded</span>
@@ -483,7 +490,8 @@ $studyLocationsString = implode(', ', $studyLocations);
                                 <div class="inputfilecontainer-marksheet">
                                     <i class="fa-solid fa-image"></i>
                                     <p class="hsc-marksheet truncate-filename"> 12th grade marksheet</p>
-                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-hsc-card" alt="View HSC certificate icon"/>
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-hsc-card"
+                                        alt="View HSC certificate icon" />
                                 </div>
                                 <input type="file" id="inputfilecontainer-real-marksheet" />
                                 <span class="document-status">0 MB uploaded</span>
@@ -494,7 +502,8 @@ $studyLocationsString = implode(', ', $studyLocations);
                                 <div class="inputfilecontainer-marksheet">
                                     <i class="fa-solid fa-image"></i>
                                     <p class="graduation-marksheet truncate-filename"> Graduation Marksheet</p>
-                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-graduation-card" alt="View graduation certificate icon" />
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-graduation-card"
+                                        alt="View graduation certificate icon" />
                                 </div>
                                 <input type="file" id="inputfilecontainer-real-marksheet" />
                                 <span class="document-status">0 MB uploaded</span>
@@ -518,7 +527,8 @@ $studyLocationsString = implode(', ', $studyLocations);
                                     <i class="fa-solid fa-image"></i>
                                     <p class="sslc-grade truncate-filename">SSLC Grade</p>
 
-                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-sslc-grade" alt="View SSLC grade icon" />
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-sslc-grade"
+                                        alt="View SSLC grade icon" />
 
                                 </div>
                                 <input type="file" id="inputfilecontainer-real-marksheet">
@@ -546,7 +556,8 @@ $studyLocationsString = implode(', ', $studyLocations);
                                     <i class="fa-solid fa-image"></i>
                                     <p class="graduation-grade truncate-filename">Graduation</p>
 
-                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-graduation-grade" alt="View graduation grade icon" />
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-graduation-grade"
+                                        alt="View graduation grade icon" />
 
                                 </div>
                                 <input type="file" id="inputfilecontainer-real-marksheet">
@@ -572,7 +583,8 @@ $studyLocationsString = implode(', ', $studyLocations);
                                     <i class="fa-solid fa-image"></i>
                                     <p class="experience-letter truncate-filename">Experience Letter</p>
 
-                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-experience-letter" alt="View experience letter icon" />
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-experience-letter"
+                                        alt="View experience letter icon" />
 
                                 </div>
                                 <input type="file" id="inputfilecontainer-work-experience">
@@ -586,7 +598,8 @@ $studyLocationsString = implode(', ', $studyLocations);
                                     <i class="fa-solid fa-image"></i>
                                     <p class="salary-slip truncate-filename">3 month salary slip</p>
 
-                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-salary-slip" alt="View salary slip icon" />
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-salary-slip"
+                                        alt="View salary slip icon" />
 
                                 </div>
                                 <input type="file" id="inputfilecontainer-real-marksheet">
@@ -600,7 +613,8 @@ $studyLocationsString = implode(', ', $studyLocations);
                                     <i class="fa-solid fa-image"></i>
                                     <p class="office-id truncate-filename">Office ID</p>
 
-                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-office-id" alt="View office ID icon" />
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-office-id"
+                                        alt="View office ID icon" />
 
 
                                 </div>
@@ -615,7 +629,8 @@ $studyLocationsString = implode(', ', $studyLocations);
                                     <i class="fa-solid fa-image"></i>
                                     <p class="joining-letter truncate-filename">Joining Letter</p>
 
-                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-joining-letter" alt="View joining letter icon" />
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-joining-letter"
+                                        alt="View joining letter icon" />
 
                                 </div>
                                 <input type="file" id="inputfilecontainer-real-marksheet">
@@ -640,7 +655,8 @@ $studyLocationsString = implode(', ', $studyLocations);
                                 <div class="inputfilecontainer-coborrower-kyccolumn">
                                     <i class="fa-solid fa-image"></i>
                                     <p class="coborrower-pancard truncate-filename">Pan Card </p>
-                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-coborrower-pan" alt="View co-borrower PAN card icon" />
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-coborrower-pan"
+                                        alt="View co-borrower PAN card icon" />
                                 </div>
                                 <input type="file" id="inputfilecontainer-kyccoborrwer">
                                 <span class="document-status">0 MB uploaded</span>
@@ -651,7 +667,8 @@ $studyLocationsString = implode(', ', $studyLocations);
                                 <div class="inputfilecontainer-coborrower-kyccolumn">
                                     <i class="fa-solid fa-image"></i>
                                     <p class="coborrower-aadharcard truncate-filename">Aadhar Card </p>
-                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-coborrower-aadhar" alt="View co-borrower Aadhar card icon" />
+                                    <img class="fa-eye" src="{{ asset($viewIconPath) }}" id="view-coborrower-aadhar"
+                                        alt="View co-borrower Aadhar card icon" />
                                 </div>
                                 <input type="file" id="inputfilecontainer-kyccoborrwer">
                                 <span class="document-status">0 MB uploaded</span>

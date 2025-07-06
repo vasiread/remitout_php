@@ -180,7 +180,7 @@
                         })
                         .catch(error => {
                             console.error('Logout failed:', error);
-                            alert('An error occurred during logout.');
+                            // alert('An error occurred during logout.');
                         });
                 } else {
                     console.error('CSRF token not found');
@@ -199,7 +199,7 @@
                 const btnLoader = submitBtn.querySelector(".btn-loader");
 
                 if (!confirmPolicy.checked) {
-                    alert("You must agree to the terms & policy");
+                    // alert("You must agree to the terms & policy");
                     return;
                 }
 
@@ -214,7 +214,7 @@
                     btnLoader.style.display = "inline-block";
                     btnText.style.opacity = 0.5;
 
-                    fetch('/api/loginformdata', {
+                    fetch('/loginformdata', {
                             method: 'POST',
                             credentials: 'same-origin', // ✅ Ensures cookies are sent
                             headers: {
@@ -227,7 +227,9 @@
                         .then(data => {
                             console.log(data);
                             if (data.success) {
-                                alert(data.message);
+                                window.showToast(data.message);
+                                // typeof window.showToast
+                                console.log(typeof window.showToast)
                                 switch (data.role) {
                                     case 'superadmin':
                                     case 'admin':
@@ -243,15 +245,15 @@
                                         window.location.href = '/nbfc-dashboard';
                                         break;
                                     default:
-                                        alert("Unknown role. Please contact support.");
+                                        // alert("Unknown role. Please contact support.");
                                 }
                             } else {
-                                alert(data.message);
+                                window.showToast(data.message);
                             }
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                            alert("An error occurred during login.");
+                            // alert("An error occurred during login.");
                         })
                         .finally(() => {
                             submitBtn.disabled = false;
@@ -310,7 +312,8 @@
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                alert("Email is working and reset link sent!");
+                                // alert("Email is working and reset link sent!");
+                                console.log("Email is working and reset link set!")
                                 statusMessage.textContent = "Reset link sent successfully!";
                                 statusMessage.style.color = "green";
                             } else {

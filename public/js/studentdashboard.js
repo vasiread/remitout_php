@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     loanStatusCount();
     passwordForgot();
     displayEducationDetails();
+    uploadRedirection();
 
 
 
@@ -198,12 +199,11 @@ async function displayEducationDetails() {
 
 
 function handleIndividualCards(mode = 'index1') {
-    const checkInterval = setInterval(() => {
+    const observer = new MutationObserver((mutations, obs) => {
         const individualCards = document.querySelectorAll('.indivudalloanstatus-cards');
 
         if (individualCards.length > 0) {
-
-            clearInterval(checkInterval);
+            obs.disconnect(); // Stop observing once loaded
 
             individualCards.forEach((card) => {
                 const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
@@ -211,27 +211,25 @@ function handleIndividualCards(mode = 'index1') {
                 const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
 
                 if (mode === 'index1') {
-                     if (triggeredMessageButton && groupButtonContainer) {
+                    if (triggeredMessageButton && groupButtonContainer) {
                         triggeredMessageButton.style.display = "flex";
                         groupButtonContainer.style.display = "none";
                     }
                 } else if (mode === 'index0') {
                     card.style.height = "fit-content";
-
-                    if (individualBankMessageInput) {
-                        individualBankMessageInput.style.display = "none";
-                    }
+                    if (individualBankMessageInput) individualBankMessageInput.style.display = "none";
                     if (triggeredMessageButton && groupButtonContainer) {
                         triggeredMessageButton.style.display = "none";
                         groupButtonContainer.style.display = "flex";
                     }
                 }
             });
-        } else {
-            console.log(`Waiting for individual cards for ${mode}...`);
         }
-    }, 50);
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
 }
+
 
 
 
@@ -558,7 +556,6 @@ const triggerEditButton = () => {
 };
 
 
-
 const initialiseProfileUpload = () => {
     const editIcon = document.querySelector(
         ".studentdashboardprofile-profilesection .fa-pen-to-square"
@@ -572,31 +569,25 @@ const initialiseProfileUpload = () => {
             profileImageInput.click();
         });
 
-
-
-
-        profileImageInput.addEventListener('change', function (event) {
+        profileImageInput.addEventListener("change", function (event) {
             const file = event.target.files[0];
 
             if (!file) {
                 console.error("No file selected");
                 return;
             }
+
             const userIdElement = document.querySelector(
                 ".personalinfo-secondrow .personal_info_id"
             );
-
             const userId = userIdElement ? userIdElement.textContent : "";
 
             const fileName = file.name;
             const fileType = file.type;
-            // console.log(fileType + "." + fileName);
 
             const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
             if (!allowedTypes.includes(fileType)) {
-                alert(
-                    "Invalid file type. Only jpg, png, and gif are allowed."
-                );
+                alert("Invalid file type. Only jpg, png, and gif are allowed.");
                 return;
             }
 
@@ -632,21 +623,18 @@ const initialiseProfileUpload = () => {
                     return response.json();
                 })
                 .then((data) => {
-                    if (data) {
-                        // console.log("File uploaded successfully", data);
-                        const imgElement =
-                            document.querySelector("#profile-photo-id");
+                    const defaultImagePath = 'assets/images/defaultprofilephoto.jpg';
+
+                    const imgElement = document.querySelector("#profile-photo-id");
+                    const navImageElement = document.querySelector("#nav-profile-photo-id");
+
+                    if (data && data.file_path) {
                         imgElement.src = data.file_path;
-                        const navImageElement = document.querySelector(
-                            "#nav-profile-photo-id"
-                        );
                         navImageElement.src = data.file_path;
-                        // console.log(data);
                     } else {
-                        console.error(
-                            "Error: No URL returned from the server",
-                            data
-                        );
+                        console.error("Error: No file path returned from the server", data);
+                        imgElement.src = defaultImagePath;
+                        navImageElement.src = defaultImagePath;
                     }
                 })
                 .catch((error) => {
@@ -655,6 +643,7 @@ const initialiseProfileUpload = () => {
         });
     }
 };
+
 
 
 const initialiseEightcolumn = () => {
@@ -3445,7 +3434,10 @@ const saveChangesFunctionality = () => {
                     })
                     .catch(error => {
                         console.error("Error", error);
+                        Loader.hide(); // ✅ Always hide loader
+                        alert("Something went wrong. Please try again.");
                     });
+
             }
         });
     }
@@ -4930,4 +4922,29 @@ async function createAdminChatStudent() {
             sendMessageAdmin();
         }
     });
+}
+
+
+function uploadRedirection() {
+    
+    const uploadBtn = document.getElementById("upload-redirection");
+
+    if (uploadBtn) {
+        // ✅ Reset the button if coming back via browser back/forward
+        uploadBtn.disabled = false;
+        uploadBtn.innerHTML = "Upload";
+        uploadBtn.style.cursor = "pointer";
+
+        const targetUrl = uploadBtn.getAttribute("data-url");
+
+        uploadBtn.addEventListener("click", function () {
+            uploadBtn.disabled = true;
+            uploadBtn.innerHTML = `<span class="upload-loader"></span>`;
+            uploadBtn.style.cursor = "not-allowed";
+
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 300);
+        });
+    }
 }

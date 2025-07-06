@@ -38,6 +38,7 @@ use ZipArchive;
 
 class StudentDashboardController extends Controller
 {
+    
     protected $tablesAndColumns = [
         'personal_infos' => ['full_name', 'phone', 'email', 'state', 'linked_through'],
         'academic_details' => ['gap_in_academics', 'work_experience'],
@@ -46,6 +47,8 @@ class StudentDashboardController extends Controller
     ];
     public function getUser()
     {
+        \Log::info('STUDENT DASHBOARD HIT');
+
         $user = session('user');
 
         if (!$user) {
@@ -55,6 +58,7 @@ class StudentDashboardController extends Controller
 
         $uniqueId = $user->unique_id;
 
+        \Log::info('Rendering dashboard', ['user' => $user]);
 
 
         $userDetails = User::where('unique_id', $uniqueId)->get();
@@ -62,6 +66,7 @@ class StudentDashboardController extends Controller
         $academicDetails = Academics::where('user_id', $uniqueId)->get();
         $personalDetails = PersonalInfo::where('user_id', $uniqueId)->get();
 
+        \Log::info('Rendering dashboard', ['user' => $user]);
 
         return view('pages.studentdashboard', compact('user', 'userDetails', 'personalDetails', 'courseDetails', 'academicDetails'));
     }

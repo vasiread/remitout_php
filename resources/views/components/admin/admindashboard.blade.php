@@ -1506,9 +1506,9 @@
                     ];
                     filteredData = [...fullData];
                     updateTable(fullData.length);
-                    alert(
-                        'Failed to fetch destination countries data. Using hardcoded data for testing. Please check the API.'
-                    );
+                    // alert(
+                    //     'Failed to fetch destination countries data. Using hardcoded data for testing. Please check the API.'
+                    // );
                 });
 
             // Pagination event listeners

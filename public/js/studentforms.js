@@ -1,9 +1,19 @@
 function showToast(message, duration = 3000) {
-    const toastContainer = document.getElementById("toast-container");
+    let toastContainer = document.getElementById("toast-container");
+
+    // If toast container is not found, create and append it
+    if (!toastContainer) {
+        toastContainer = document.createElement("div");
+        toastContainer.id = "toast-container";
+        toastContainer.className = "toast-container";
+        document.body.appendChild(toastContainer);
+    }
+
     const toast = document.createElement("div");
     toast.className = "toast";
     toast.textContent = message;
     toastContainer.appendChild(toast);
+
     setTimeout(() => {
         toast.classList.add("show");
     }, 100);
@@ -15,6 +25,7 @@ function showToast(message, duration = 3000) {
     }, duration);
 }
 
+
 const style = document.createElement("style");
 style.textContent = `
     .toast-container { position: fixed; top: 20px; right: 20px; z-index: 1000; }
@@ -22,6 +33,8 @@ style.textContent = `
     .toast.show { opacity: 1; }
 `;
 document.head.appendChild(style);
+
+
 
 
 
@@ -40,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         initialiseDynamicUploadedFiles();
 
         connectedThrough();
+      
     }
 
     if (studentFormMenuIcon && studentFormNavLinks) {
@@ -236,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
                     (container) => (container.style.display = "none"),
                 );
-                showToast("Details have been saved successfully");
+                // showToast("Details have been saved successfully");
             }
         } else if (direction === "prev") {
             if (currentContainerIndex > 0) {
@@ -361,7 +375,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.success) {
-                        showToast("Coborrower details saved successfully");
+                        // showToast("Coborrower details saved successfully");
                     } else {
                         console.error("Failed to update co-borrower info:", data.message);
                     }
@@ -400,7 +414,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document
         .getElementById("saveandsubmit")
         .addEventListener("click", (event) => {
-            showToast("Details have been saved successfully");
+            // showToast("Details have been saved successfully");
             window.location.href = "/student-dashboard";
         });
 
@@ -482,7 +496,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.success) {
-                        showToast("Personal Info Details saved successfully");
+                        // showToast("Personal Info Details saved successfully");
                     } else {
                         console.error("Failed to update personal info:", data.message);
                     }
@@ -599,7 +613,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then((response) => response.json())
             .then((data) => {
                 if (data.success) {
-                    showToast("Course Info Details saved successfully");
+                    // showToast("Course Info Details saved successfully");
                     console.log(courseInfoData)
                 } else {
                     console.error(
@@ -782,7 +796,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then((response) => response.json())
             .then((data) => {
                 if (data.success) {
-                    showToast("Academic Details saved successfully");
+                    // showToast("Academic Details saved successfully");
                 } else {
                     console.error(
                         "Failed to update academic info:",
@@ -2860,3 +2874,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 });
+
+
+
