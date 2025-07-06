@@ -48,8 +48,7 @@ Route::post('/push-user-id-request', [StudentDashboardController::class, 'pushUs
 Route::post('/del-user-id-request', [StudentDashboardController::class, 'removeUserIdFromNBFCAndReject']);
 Route::post('/update-user-id-request', [StudentDashboardController::class, 'updateUserIdFromNBFC']);
 
-Route::post('/registerformdata', [RegisterController::class, 'store']);
-
+ 
 Route::post('/send-mobotp', [OTPMobController::class, 'sendOTP']);
 Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
 Route::post('/emailuniquecheck',  [RegisterController::class, 'emailUniqueCheck']);
@@ -294,18 +293,16 @@ Route::post('/admin/messages/clear-nbfc', [AdminController::class, 'clearNbfcMes
 
 Route::get('/download-user-report', [Admincontroller::class, 'downloadUserProfileReportPDF']);
 
-Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser'])->name('student-dashboard');
-
+ 
 Route::get('/admin/messages/count', [AdminController::class, 'countMessagesForAdmin']);
 
 Route::post('/admin/messages/clear-student', [AdminController::class, 'clearStudentMessagesAndGetNbfcCount']);
 Route::post('/admin/messages/clear-nbfc', [AdminController::class, 'clearNbfcMessagesAndGetNbfcCount']);
 
 
-// Route::get('pages/student-dashboard', [TrackController::class, 'loanTracker']);
+ 
 
-
-Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
+Route::post('/registerformdata', [RegisterController::class, 'store']);
 Route::post('/emailuniquecheck', [RegisterController::class, 'emailUniqueCheck'])->name('emailUniqueCheck');
 // Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
 
@@ -432,7 +429,7 @@ Route::post('/forgot-passwordmailsentsc', [scDashboardController::class, 'forgot
 Route::get('/admins', [Admincontroller::class, 'getAdmins']);
 Route::post('/admins', [Admincontroller::class, 'createAdmin']);
 Route::put('/admins/{id}', [AdminController::class, 'updateAdmin']);
-Route::get('/student-forms', [AdminController::class, 'showStudentForm'])->name('student-forms');
+Route::get('/student-forms', [AdminController::class, 'showStudentForm'])->name('student-forms')->middleware('auth');;
 Route::get('/getInfoForAdminSocial', [Admincontroller::class, 'showStudentFormAdmin']);
 Route::delete('/deleteInfoForAdminSocial/{id}', [AdminController::class, 'deleteInfoForAdminSocial']);
 Route::delete('/deleteplantostudycountry/{id}', [AdminController::class, 'deleteInfoForAdminPlanToStudy']);
@@ -527,7 +524,7 @@ Route::post('/logout', function () {
     request()->session()->regenerateToken(); // prevent CSRF reuse
     return response()->json(['message' => 'Logged out successfully']);
 });
-
+ 
 Route::post('/cms/landing/update', [Admincontroller::class, 'updateLanding']);
 Route::post('/admin/passwordchange', [Admincontroller::class, 'forgotAdminCredential']);
 

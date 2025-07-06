@@ -479,6 +479,8 @@
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                         },
+                        credentials: 'same-origin',
+
                         body: JSON.stringify(registerFormData)
                     })
                     .then(response => response.json())

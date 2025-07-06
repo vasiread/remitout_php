@@ -33,7 +33,7 @@ class LoginController extends Controller
         $superAdminPasswordHash = env('SUPERADMIN_PASSWORD');
         $superAdminName = env('SUPERADMIN_NAME');
 
-        // ✅ 1. Super Admin
+       
         if ($loginName === $superAdminEmail && Hash::check($loginPassword, $superAdminPasswordHash)) {
             session([
                 'admin' => [

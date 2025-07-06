@@ -214,7 +214,7 @@
                     btnLoader.style.display = "inline-block";
                     btnText.style.opacity = 0.5;
 
-                    fetch('/api/loginformdata', {
+                    fetch('/loginformdata', {
                             method: 'POST',
                             credentials: 'same-origin', // ✅ Ensures cookies are sent
                             headers: {
