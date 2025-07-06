@@ -3093,7 +3093,7 @@
                             });
 
                             // Optional: Show text notice on chart area
-                            document.getElementById('ageratio-header').textContent = "No age ratio<br> data available";
+                            document.getElementById('ageratio-header').textContent = "No age ratio data available";
                         } else {
                             const ageColors = [
                                 'rgba(111, 37, 206, 1)',

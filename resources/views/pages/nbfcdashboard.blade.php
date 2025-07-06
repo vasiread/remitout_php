@@ -1728,8 +1728,12 @@
                                         };
 
                                         try {
+<<<<<<< HEAD
                                             const response = await fetch(
                                             '/api/del-user-id-request', {
+=======
+                                            const response = await fetch('/api/del-user-id-request', {
+>>>>>>> cbda073 (dev host updated)
                                                 method: "POST",
                                                 headers: {
                                                     'Content-Type': 'application/json',
@@ -5947,10 +5951,37 @@
                 downloadTrigger.onclick = function(e) {
                     e.preventDefault();
 
+<<<<<<< HEAD
                     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
                     if (!csrfToken) {
                         console.error("CSRF token not found.");
                         return;
+=======
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        if (!csrfToken) {
+            console.error("CSRF token not found.");
+            return;
+        }
+
+        Loader.show();
+
+        fetch('/api/downloadzip', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: userId
+                }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error("NO_FILES");
+                    } else {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+>>>>>>> cbda073 (dev host updated)
                     }
 
                     Loader.show();
