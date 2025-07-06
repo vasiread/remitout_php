@@ -127,10 +127,14 @@
                 </div>
             </div>
         </div>
+        <div id="toast-container" class="toast-container"></div>
+
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 // Get the email from the URL query parameter
+                window.showToast("Hello world!"); // now it will work
+
                 const urlParams = new URLSearchParams(window.location.search);
                 const email = urlParams.get('email');
 
@@ -251,6 +255,10 @@
                 document.getElementById('otp1').focus();
             }
 
+
+           
+
+
             function triggerOtpSection() {
                 const nameInput = document.querySelector('.rightpanel-namecontainer input');
                 const phoneInput = document.querySelector('.rightpanel-phonecontainer input');
@@ -323,16 +331,14 @@
                     .then(data => {
                         if (data.message) {
                             console.log('OTP sent successfully: ' + data.message);
-                            alert('OTP sent successfully to ' + phoneInput.value);
+                            window.showToast('OTP sent successfullly')
                         } else {
-                            console.error('OTP not received:', data);
-                            alert('Error: OTP not sent.');
-                        }
+                            console.warn('OTP not received:', data);
+                         }
                     })
                     .catch(error => {
                         console.error('Error sending OTP:', error);
-                        alert('Error: ' + error.message);
-                    });
+                     });
             };
 
             function checkOTP() {
@@ -343,7 +349,7 @@
                 const otp5 = document.getElementById('otp5').value;
                 const otp6 = document.getElementById('otp6').value;
                 if (!otp1 || !otp2 || !otp3 || !otp4 || !otp5 || !otp6) {
-                    alert('Please fill all OTP fields');
+                    console.warn('Please fill all OTP fields');
                     return;
                 }
                 const finalOTP = otp1 + otp2 + otp3 + otp4 + otp5 + otp6;
@@ -370,12 +376,13 @@
 
                             submitVerifiedData();
                         } else {
-                            alert('Invalid OTP');
+                            // alert('Invalid OTP');
+                            console.warn('Invalid OTP')
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        alert('An error occurred while verifying OTP');
+                        // alert('An error occurred while verifying OTP');
                     });
             }
 
@@ -437,14 +444,14 @@
                         console.log('Response data:', data);
                         if (data.success === false) {
                             showError('email', 'email-error', true);
-                            alert(data.message);
+                            // alert(data.message);
                         } else if (data.success === true) {
                             triggerOtpSection();
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        alert('An error occurred while checking email');
+                        // alert('An error occurred while checking email');
                     })
                     .finally(() => {
                         // 👇 Always remove button loading
@@ -454,48 +461,57 @@
                     });
             }
 
+function submitVerifiedData() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const referralId = urlParams.get('ref');
 
-            function submitVerifiedData() {
-                const urlParams = new URLSearchParams(window.location.search);
-                const referralId = urlParams.get('ref'); // may be null if not present
+    const registerFormData = {
+        name: document.getElementById('name').value,
+        phoneInput: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('passwordinputID').value,
+    };
 
-                const registerFormData = {
-                    name: document.getElementById('name').value,
-                    phoneInput: document.getElementById('phone').value,
-                    email: document.getElementById('email').value,
-                    password: document.getElementById('passwordinputID').value,
-                };
+    if (referralId) {
+        registerFormData.referralCode = referralId;
+    }
 
-                // Only add referralId if it exists
-                if (referralId) {
-                    registerFormData.referralCode = referralId;
-                }
+    const verifyBtn = document.getElementById('otpVerifyBtn');
+    const btnText = verifyBtn.querySelector('.btn-text');
+    const btnLoader = verifyBtn.querySelector('.btn-loader');
 
-                console.log(registerFormData); // For debugging
+    // Show loader and hide text
+    btnText.style.display = 'none';
+    btnLoader.style.display = 'inline-block'; // or 'block', depending on your style
 
-                fetch('/api/registerformdata', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        credentials: 'same-origin',
+    fetch('/registerformdata', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify(registerFormData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Redirect if success
+            window.location.href = '/student-forms';
+        } else {
+            // Show error, revert button
+            // alert(data.error || 'Something went wrong. Please try again.');
+            btnText.style.display = 'inline-block';
+            btnLoader.style.display = 'none';
+        }
+    })
+    .catch(() => {
+        // alert('An error occurred. Please try again.');
+        btnText.style.display = 'inline-block';
+        btnLoader.style.display = 'none';
+    });
+}
 
-                        body: JSON.stringify(registerFormData)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert("Registration is Successful");
-                            window.location.href = '/student-forms';
-                        } else {
-                            alert(data.error || 'Something went wrong. Please try again.');
-                        }
-                    })
-                    .catch(() => {
-                        alert('An error occurred. Please try again.');
-                    });
-            }
         </script>
     @endsection
 </body>

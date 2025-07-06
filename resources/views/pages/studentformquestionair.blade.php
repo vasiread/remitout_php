@@ -1978,7 +1978,6 @@
 
     </form>
 
-    <div id="toast-container" class="toast-container"></div>
 
     <div class="navigation">
         <button class="nav-button prev">

@@ -124,8 +124,7 @@ Route::get('/nbfc-chat-members', [Admincontroller::class, 'initializeChatNbfc'])
 Route::get('/get-messages-adminnbfc/{nbfc_id}/{admin_id}', [ChatController::class, 'getMessagesForAdminNbfc']);
 Route::get('/get-messages-adminstudent/{student_id}/{admin_id}', [ChatController::class, 'getMessagesForAdminStudent']);
 Route::post('/send-message-from-adminnbfc',  [ChatController::class, 'sendMessageFromAdminNbfc']);
-Route::post('/send-message-from-adminstudent',  [ChatController::class, 'sendMessageFromAdminStudent']);
-Route::post('/age-ratio', [Admincontroller::class, 'ageratioCalculation']);
+ Route::post('/age-ratio', [Admincontroller::class, 'ageratioCalculation']);
 Route::post('/sourceregister', [Admincontroller::class, 'sourceRegistration']);
 
 Route::post('/student-application-form', [Admincontroller::class, 'store']);

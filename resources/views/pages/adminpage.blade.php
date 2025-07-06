@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="assets/css/adminpage.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
- 
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -181,10 +181,10 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
                 <div class="admin-nav-dropdown-menu">
-                         <div class="admin-nav-dropdown-item" id="password-change-admin-side">
-                            Password Change
-                        </div>
- 
+                    <div class="admin-nav-dropdown-item" id="password-change-admin-side">
+                        Password Change
+                    </div>
+
                     <div class="admin-nav-dropdown-item" id="logout-admin-side">Logout</div>
                 </div>
             </div>
@@ -430,8 +430,8 @@
                 }
 
                 hideAllContainers();
-                getNotificationCount();
-                  setInterval(getNotificationCount, 3000);
+                // getNotificationCount();
+                setInterval(getNotificationCount, 3000);
 
 
                 if (index === 0) {
@@ -1149,24 +1149,31 @@
             }
         }
 
-        function getNotificationCount() {
-            fetch('/api/admin/messages/count')
-                .then(response => response.json())
-                .then(data => {
-                    const totalMessages = data.total_messages;
-                    const badge = document.querySelector('.notification-badge');
+       function getNotificationCount() {
+    fetch('/api/admin/messages/count')
+        .then(response => {
+            if (!response.ok) return null; // Server error? Just skip
+            return response.json();
+        })
+        .then(data => {
+            if (!data || !data.total_messages) return; // No data? Skip
 
-                    if (totalMessages > 0) {
-                        badge.style.display = 'block';
-                        badge.textContent = totalMessages; // optional: show the number
-                    } else {
-                        badge.style.display = 'none';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching message count:', error);
-                });
-        }
+            const badge = document.querySelector('.notification-badge');
+            if (!badge) return; // Element not in DOM? Don't error
+
+            if (data.total_messages > 0) {
+                badge.style.display = 'block';
+                badge.textContent = data.total_messages;
+            } else {
+                badge.style.display = 'none';
+            }
+        })
+        .catch(error => {
+            // Only log for actual dev debugging. Otherwise: SILENT.
+            // console.warn('Message count fetch skipped:', error.message);
+        });
+}
+
     </script>
 </body>
 
