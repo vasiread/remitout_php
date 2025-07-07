@@ -61,7 +61,7 @@
                             </div>
                             <button type="submit" id="loginSubmitBtn">
                                 <span class="btn-text">Sign In</span>
-                                <span class="btn-loader" style="display: none;"></span>
+                                <span class="btn-login-loader" style="display: none;"></span>
                             </button>
                         </div>
 
@@ -196,7 +196,8 @@
                 const confirmPolicy = document.getElementById("confirmpolicy");
                 const submitBtn = document.getElementById("loginSubmitBtn");
                 const btnText = submitBtn.querySelector(".btn-text");
-                const btnLoader = submitBtn.querySelector(".btn-loader");
+                const btnLoader = submitBtn.querySelector(".btn-login-loader");
+                alert(btnLoader)
 
                 if (!confirmPolicy.checked) {
                     // alert("You must agree to the terms & policy");
