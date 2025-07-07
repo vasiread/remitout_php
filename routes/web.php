@@ -84,22 +84,23 @@ Route::get('/sc-dashboard', function () {
         'userByRef' => $userByRef,
     ]);
 })->name('sc-dashboard');
+ 
 
 Route::get('/download-user-report', [Admincontroller::class, 'downloadUserProfileReportPDF']);
 
-Route::get('/student-dashboard', function () {
-    Log::info('STUDENT DASHBOARD HIT');
 
+Route::get('/student-dashboard', function () {
     $user = session('user');
 
     if (!$user) {
         return redirect()->route('login')->withErrors('Please log in to access your dashboard.');
     }
 
-     $dashboardData = (new StudentDashboardController)->getDashboardData($user);
+    $dashboardData = (new StudentDashboardController)->getDashboardData($user);
 
     return view('pages.studentdashboard', $dashboardData);
 })->name('student-dashboard');
+
 Route::get('/admin/messages/count', [AdminController::class, 'countMessagesForAdmin']);
 
 Route::post('/admin/messages/clear-student', [AdminController::class, 'clearStudentMessagesAndGetNbfcCount']);
@@ -110,10 +111,8 @@ Route::post('/admin/messages/clear-nbfc', [AdminController::class, 'clearNbfcMes
 
 Route::post('/registerformdata', [RegisterController::class, 'store'])->name('registerformdata');
 Route::post('/emailuniquecheck', [RegisterController::class, 'emailUniqueCheck'])->name('emailUniqueCheck');
-// Route::prefix('api')->group(function () {
-Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
-// });
-
+ Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
+ 
 
 Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);
 Route::post('/update-courseinfo', [StudentDetailsController::class, 'updateCourseInfo']);

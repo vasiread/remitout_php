@@ -80,8 +80,8 @@
                             </button>
 
                             <!-- <button class="iossigninbutton">
-                                                            <img src="http://localhost:8000/assets/images/appleicon.png" alt="Apple logo"> Sign in with Apple
-                                                        </button> -->
+                                                                <img src="http://localhost:8000/assets/images/appleicon.png" alt="Apple logo"> Sign in with Apple
+                                                            </button> -->
                         </div>
 
                         <!-- New User Sign Up Option -->
@@ -235,23 +235,12 @@
                                 window.showToast(data.message);
                                 // typeof window.showToast
                                 console.log(typeof window.showToast)
-                                switch (data.role) {
-                                    case 'superadmin':
-                                    case 'admin':
-                                        window.location.href = '/admin-page';
-                                        break;
-                                    case 'scuser':
-                                        window.location.href = '/sc-dashboard';
-                                        break;
-                                    case 'user':
-                                        window.location.href = '/student-dashboard';
-                                        break;
-                                    case 'nbfc':
-                                        window.location.href = '/nbfc-dashboard';
-                                        break;
-                                    default:
-                                        // alert("Unknown role. Please contact support.");
+                                if (data.redirect) {
+                                    window.location.href = data.redirect;
+                                } else {
+                                    window.showToast("No redirect URL provided. Please contact support.");
                                 }
+
                             } else {
                                 window.showToast(data.message);
                             }

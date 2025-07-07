@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Schema;
 use App\Models\Academics;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Storage; // Correct import for Storage facade
+use Illuminate\Support\Facades\Storage;  
 use Illuminate\Support\Facades\DB;
 use App\Models\PersonalInfo;
 use App\Models\CourseInfo;

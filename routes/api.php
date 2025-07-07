@@ -38,8 +38,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/retrieve-profile-picture', [StudentDashboardController::class, 'retrieveProfilePicture']);
 // Route::post('/retrieve-pan-card', [StudentDashboardController::class, 'panCardView']);
 // Route::post('/retrieve-aadhar-card', [StudentDashboardController::class, 'aadharCardView']);
-Route::post('/loginformdata', [LoginController::class, 'loginFormData']);
-Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
+ Route::post('/count-documents', [StudentDashboardController::class, 'countFilesInBucket']);
 Route::post('/remaining-documents', [StudentDashboardController::class, 'getRemainingNonUploadedFiles']);
 Route::post('/from-profileupdate', [StudentDashboardController::class, 'updateFromProfile']);
 Route::post('/check-columns', [StudentDashboardController::class, 'validateTablesAndColumns']);
@@ -48,7 +47,7 @@ Route::post('/push-user-id-request', [StudentDashboardController::class, 'pushUs
 Route::post('/del-user-id-request', [StudentDashboardController::class, 'removeUserIdFromNBFCAndReject']);
 Route::post('/update-user-id-request', [StudentDashboardController::class, 'updateUserIdFromNBFC']);
 
- 
+
 Route::post('/send-mobotp', [OTPMobController::class, 'sendOTP']);
 Route::post('/verify-mobotp', [OTPMobController::class, 'verifyOTP']);
 Route::post('/emailuniquecheck',  [RegisterController::class, 'emailUniqueCheck']);
@@ -124,7 +123,7 @@ Route::get('/nbfc-chat-members', [Admincontroller::class, 'initializeChatNbfc'])
 Route::get('/get-messages-adminnbfc/{nbfc_id}/{admin_id}', [ChatController::class, 'getMessagesForAdminNbfc']);
 Route::get('/get-messages-adminstudent/{student_id}/{admin_id}', [ChatController::class, 'getMessagesForAdminStudent']);
 Route::post('/send-message-from-adminnbfc',  [ChatController::class, 'sendMessageFromAdminNbfc']);
- Route::post('/age-ratio', [Admincontroller::class, 'ageratioCalculation']);
+Route::post('/age-ratio', [Admincontroller::class, 'ageratioCalculation']);
 Route::post('/sourceregister', [Admincontroller::class, 'sourceRegistration']);
 
 Route::post('/student-application-form', [Admincontroller::class, 'store']);
@@ -147,8 +146,7 @@ Route::get('/getrecipients',  [Admincontroller::class, 'fetchRecipients']);
 // Route::post('/admins', [Admincontroller::class, 'createAdmin']);
 // Route::put('/admins/{id}', [AdminController::class, 'updateAdmin']);
 Route::get('/student-forms', [AdminController::class, 'showStudentForm']);
-Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser']);
-Route::get('/getInfoForAdminSocial', [Admincontroller::class, 'showStudentFormAdmin']);
+ Route::get('/getInfoForAdminSocial', [Admincontroller::class, 'showStudentFormAdmin']);
 Route::get('/getdocumenttypesadminform/{slug}', [AdminController::class, 'showStudentPersonalInfoAdditionalField']);
 Route::delete('/deleteInfoForAdminSocial/{id}', [AdminController::class, 'deleteInfoForAdminSocial']);
 Route::delete('/deletedegree/{id}', [AdminController::class, 'deleteDegreesAdminside']);
@@ -231,14 +229,14 @@ Route::get('/reset-password', [LoginController::class, 'showResetForm']);
 
 // POST request to reset password
 Route::post('/reset-password', [LoginController::class, 'resetPassword']);
- Route::get('/reports/user-profile', [Admincontroller::class, 'downloadUserProfileReportPDF']);
+Route::get('/reports/user-profile', [Admincontroller::class, 'downloadUserProfileReportPDF']);
 
 
 
 
- Route::get('/cms/landing', [Admincontroller::class, 'getLanding']);
- Route::get('/test', [Admincontroller::class, 'TestimonialIndex']);
- 
+Route::get('/cms/landing', [Admincontroller::class, 'getLanding']);
+Route::get('/test', [Admincontroller::class, 'TestimonialIndex']);
+
 Route::post('/cms/landing/update', [Admincontroller::class, 'updateLanding']);
 
 
@@ -248,12 +246,12 @@ Route::post('/testimonials-store', [Admincontroller::class, 'TestimonialStore'])
 
 
 
-Route::post('/update-cms-imageupload',[Admincontroller::class,'updateCmsImageContent']);
-Route::get('/gettestimonials',[Admincontroller::class, 'TestimonialCMS']);
+Route::post('/update-cms-imageupload', [Admincontroller::class, 'updateCmsImageContent']);
+Route::get('/gettestimonials', [Admincontroller::class, 'TestimonialCMS']);
 
 Route::post('/testimonial/upload-image/{id}', [Admincontroller::class, 'updateTestimonialImage']);
 
- 
+
 
 
 Route::get('/getfaqs', [Admincontroller::class, 'TestimonialFaqs']);
@@ -271,7 +269,7 @@ Route::delete('/logo/delete/{logoId}', [AdminController::class, 'deleteLogo']);
 
 
 
-Route::post('/messages/mark-all-read',[StudentDashboardController::class, 'markAllAsRead']);
+Route::post('/messages/mark-all-read', [StudentDashboardController::class, 'markAllAsRead']);
 
 
 Route::get('/queries/deactive-counts/{scuserid}', [scDashboardController::class, 'countDeactiveQueriesByUser']);
@@ -292,14 +290,14 @@ Route::post('/admin/messages/clear-nbfc', [AdminController::class, 'clearNbfcMes
 
 Route::get('/download-user-report', [Admincontroller::class, 'downloadUserProfileReportPDF']);
 
- 
+
 Route::get('/admin/messages/count', [AdminController::class, 'countMessagesForAdmin']);
 
 Route::post('/admin/messages/clear-student', [AdminController::class, 'clearStudentMessagesAndGetNbfcCount']);
 Route::post('/admin/messages/clear-nbfc', [AdminController::class, 'clearNbfcMessagesAndGetNbfcCount']);
 
 
- 
+
 
 Route::post('/registerformdata', [RegisterController::class, 'store']);
 Route::post('/emailuniquecheck', [RegisterController::class, 'emailUniqueCheck'])->name('emailUniqueCheck');
@@ -307,7 +305,7 @@ Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('
 
 
 Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);
- Route::post('/update-academicsinfo', [StudentDetailsController::class, 'updateAcademicsInfo']);
+Route::post('/update-academicsinfo', [StudentDetailsController::class, 'updateAcademicsInfo']);
 Route::post('/updatedetailsinfo', [StudentDetailsController::class, 'updateUserIds']);
 Route::post("/coborrowerData", [StudentDetailsController::class, 'updateCoborrowerInfo']);
 Route::post('/getUserFromNbfc', [StudentDashboardController::class, 'getUserFromNbfc'])->name('getUserFromNbfc');
@@ -315,12 +313,10 @@ Route::post('/getUserFromNbfc', [StudentDashboardController::class, 'getUserFrom
 
 Route::post('/remove-each-documents', [StudentDashboardController::class, 'removeFromServer']);
 Route::post('/upload-each-documents', [StudentDashboardController::class, 'uploadMultipleDocuments']);
- Route::get("/overallcounts", [TrackController::class, 'counts']);
- Route::get("/overallcounts", [TrackController::class, 'counts']);
-
- Route::get("/getallscuser", [scDashboardController::class, 'getScAllUsers']);
- Route::get("/getallscuser", [scDashboardController::class, 'getScAllUsers']);
-Route::post('/getuserbyref', [scDashboardController::class, 'getUsersByCounsellorApi']);
+Route::get("/overallcounts", [TrackController::class, 'counts']);
+ 
+Route::get("/getallscuser", [scDashboardController::class, 'getScAllUsers']);
+ Route::post('/getuserbyref', [scDashboardController::class, 'getUsersByCounsellorApi']);
 
 
 Route::post('/send-mobotp', [OTPMobController::class, 'sendOTP']);
@@ -523,7 +519,7 @@ Route::post('/logout', function () {
     request()->session()->regenerateToken(); // prevent CSRF reuse
     return response()->json(['message' => 'Logged out successfully']);
 });
- 
+
 Route::post('/cms/landing/update', [Admincontroller::class, 'updateLanding']);
 Route::post('/admin/passwordchange', [Admincontroller::class, 'forgotAdminCredential']);
 
