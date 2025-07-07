@@ -28,8 +28,8 @@ function showToast(message, duration = 3000) {
 
 const style = document.createElement("style");
 style.textContent = `
-    .toast-container { position: fixed; top: 20px; right: 20px; z-index: 1000; }
-    .toast {   background-color: #f47b20;  font-family: 'Poppins', sans-serif; color: white; padding: 12px 20px; margin-bottom: 10px; border-radius: 4px; opacity: 0; transition: opacity 0.3s ease; }
+    .toast-message-container { position: fixed; top: 20px; right: 20px; z-index: 9999; }
+    .toast { background-color: #f47b20; font-family: 'Poppins', Arial, sans-serif; color: white; padding: 12px 20px; margin-bottom: 10px; border-radius: 4px; opacity: 0; transition: opacity 0.3s ease; }
     .toast.show { opacity: 1; }
 `;
 document.head.appendChild(style);
