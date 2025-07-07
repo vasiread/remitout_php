@@ -49,11 +49,11 @@ class StudentDashboardController extends Controller
     {
         \Log::info('STUDENT DASHBOARD HIT');
 
-        // ✅ Get user from session — DO NOT overwrite it here
         $user = session('user');
 
         if (!$user) {
-            return redirect()->route('login')->withErrors('Please log in to access your dashboard.');
+            // You can throw a custom exception or return null
+            abort(403, 'Unauthorized access. Please log in.');
         }
 
         $uniqueId = $user->unique_id;
@@ -65,13 +65,13 @@ class StudentDashboardController extends Controller
         $academicDetails = Academics::where('user_id', $uniqueId)->get();
         $personalDetails = PersonalInfo::where('user_id', $uniqueId)->get();
 
-        return view('pages.studentdashboard', compact(
-                'user',
-                'userDetails',
-                'personalDetails',
-                'courseDetails',
-                'academicDetails'
-            ));
+        return [
+                'user'           => $user,
+                'userDetails'    => $userDetails,
+                'personalDetails' => $personalDetails,
+                'courseDetails'  => $courseDetails,
+                'academicDetails' => $academicDetails,
+            ];
     }
 
     public function getUserFromNbfc(Request $request)
