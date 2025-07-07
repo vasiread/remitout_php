@@ -1207,35 +1207,41 @@ class Admincontroller extends Controller
 
     public function showStudentForm()
     {
-        $user = session('user');
+        $userId = session('user_id');
 
-        if (!$user) {
+        if (!$userId) {
             return redirect()->route('login')->withErrors('Please log in to access the form.');
+        }
+
+        $user = User::find($userId); // Now get the actual user model from DB
+
+        if (!$user || !isset($user->unique_id)) {
+            return redirect()->route('login')->withErrors('User not found or invalid.');
         }
 
         $uniqueId = $user->unique_id;
 
-        // Fetch data from social_options table
-         $socialOptions = SocialOption::all();
-        $countries = PlanToCountry::all();
-        $degrees = Degree::all();
-        $courseDuration = CourseDuration::all();
-        $additionalFields = AdditionalField::all();
-        $documentTypes = DocumentType::all();
+        // All your same logic after this...
+        $socialOptions        = SocialOption::all();
+        $countries            = PlanToCountry::all();
+        $degrees              = Degree::all();
+        $courseDuration       = CourseDuration::all();
+        $additionalFields     = AdditionalField::all();
+        $documentTypes        = DocumentType::all();
         $courseExpenseOptions = CourseDetailOption::all();
-        $personalInfos = Personalinfo::where('user_id', $uniqueId)->first();
-        $userDet = User::where('unique_id', $uniqueId)->first();  
-        $courseInfoValues = Courseinfo::where('user_id',$uniqueId)->first();
-        $academicInfoValues=Academics::where('user_id',$uniqueId)->first();
-        $coInfoValues= CoBorrowerInfo::where('user_id',$uniqueId)->first();
 
-        $userFieldValues = UserAdditionalFieldValue::where('user_id', $user->id)
+        $personalInfos        = Personalinfo::where('user_id', $uniqueId)->first();
+        $userDet              = User::where('unique_id', $uniqueId)->first();
+        $courseInfoValues     = Courseinfo::where('user_id', $uniqueId)->first();
+        $academicInfoValues   = Academics::where('user_id', $uniqueId)->first();
+        $coInfoValues         = CoBorrowerInfo::where('user_id', $uniqueId)->first();
+
+        $userFieldValues = UserAdditionalFieldValue::where('user_id', $userId)
         ->get()
         ->mapWithKeys(function ($item) {
             $value = $item->value;
             $fieldType = $item->field->type ?? null;
 
-            // Decode checkboxes
             if ($fieldType === 'checkbox' && is_string($value)) {
                 $value = json_decode($value, true);
             }
@@ -1243,16 +1249,24 @@ class Admincontroller extends Controller
             return [$item->field_id => $value];
         });
 
-
-
-
-
-
-
-
-
-        return view('pages.studentformquestionair', compact('user', 'socialOptions', 'countries', 'degrees', 'courseDuration', 'additionalFields', 'documentTypes', 'courseExpenseOptions','personalInfos', 'courseInfoValues', 'academicInfoValues','userFieldValues', 'coInfoValues', 'userDet'));
+        return view('pages.studentformquestionair', compact(
+            'user',
+            'socialOptions',
+            'countries',
+            'degrees',
+            'courseDuration',
+            'additionalFields',
+            'documentTypes',
+            'courseExpenseOptions',
+            'personalInfos',
+            'courseInfoValues',
+            'academicInfoValues',
+            'userFieldValues',
+            'coInfoValues',
+            'userDet'
+        ));
     }
+
 
 
     public function showStudentFormAdmin()

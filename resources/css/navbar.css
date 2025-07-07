@@ -361,7 +361,7 @@
 
  .sidebar-menu {
      flex-grow: 1;
-     padding: 20px 0;
+     padding: 0px 0;
  }
 
  .menu-item {
@@ -668,17 +668,7 @@
      .nav-searchnotificationbars i {
         display:none;
      }
-     
-        .mobile-sidebar {
-            position: fixed;
-            top: 70px;
-            left: -100%;
-            width: 100% !important;
-            height: calc(100vh - 70px);
-            background-color: #fff;
-    
  }
-}
 
  @media screen and (min-width: 767px) {
      

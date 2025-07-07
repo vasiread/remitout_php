@@ -15,11 +15,11 @@
     height: 100vh;
     position: relative;
 }
-#signupSubmitBtn {
+#signupSubmitBtn ,#otpVerifyBtn {
     position: relative;
 }
 
-#signupSubmitBtn:disabled {
+#signupSubmitBtn:disabled ,#otpVerifyBtn:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }

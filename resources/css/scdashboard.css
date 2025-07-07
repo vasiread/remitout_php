@@ -81,7 +81,6 @@
 
 .trackprogress-firstsection {
     display: flex;
-    width: 100%;
 
     justify-content: space-between;
     max-width: 100%;
@@ -94,7 +93,6 @@
     font-size: clamp(22px, 5vw, 28px);
     line-height: clamp(26px, 6vw, 33px);
     font-weight: 700;
-    margin-bottom:0;
 }
 
 .trackprogress-firstsection button,
@@ -955,11 +953,11 @@
 
 .reportsindashboard-leftcontentinfirstrow {
     display: flex;
-    /* gap: 5.6rem; */
+    gap: 5.6rem;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    /* margin-right: 15rem; */
+    margin-right: 15rem;
 }
 
 .reportsindashboard-leftcontentinfirstrow p {
@@ -977,7 +975,7 @@
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
-    color: #5d5c5c;
+    color: #000000;
 }
 
 .reportsproposal-individualdatalists span {
