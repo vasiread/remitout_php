@@ -9,6 +9,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!-- Added jQuery -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+     
+    
 </head>
 
 <body>
@@ -2603,88 +2605,88 @@
                 return console.error('Referral modal elements missing');
             }
 
-            const openModal = () => {
+             const openModal = () => {
                 modal.classList.remove('hidden');
                 backdrop.classList.add('active');
                 inputField.value = '';
                 modalFooter.innerHTML = `
-            <button id="cancelBtn">
-                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Cancel Icon" class="cancel-icon">
-                Cancel
-            </button>
-            <button id="generateBtn">Generate</button>
-        `;
-                addModalListeners();
-            };
+                <button id="cancelBtn">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Cancel Icon" class="cancel-icon">
+                    Cancel
+                </button>
+                <button id="generateBtn">Generate</button>
+            `;
+                    addModalListeners();
+                };
 
-            const closeModal = () => {
-                modal.classList.add('hidden');
-                backdrop.classList.remove('active');
-                inputField.value = '';
-            };
+                const closeModal = () => {
+                    modal.classList.add('hidden');
+                    backdrop.classList.remove('active');
+                    inputField.value = '';
+                };
 
-            const toggleModal = () => {
-                const isOpen = !modal.classList.contains('hidden');
-                if (isOpen) {
-                    closeModal();
-                } else {
-                    if (mobPopupForOptions) mobPopupForOptions.style.display = "none"; // optional
-                    openModal();
-                }
-            };
+                const toggleModal = () => {
+                    const isOpen = !modal.classList.contains('hidden');
+                    if (isOpen) {
+                        closeModal();
+                    } else {
+                        if (mobPopupForOptions) mobPopupForOptions.style.display = "none"; // optional
+                        openModal();
+                    }
+                };
 
-            const updateFooterButtons = (link) => {
-                modalFooter.innerHTML = `
-            <button id="cancelBtn">
-                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Cancel Icon" class="cancel-icon">
-                Cancel
-            </button>
-            <div class="button-group">
-                <div class="copy-button-container">
-                    <button id="copyBtn" style="background-color:transparent;border: 1px solid rgba(111, 37, 206, 1);color:rgba(52, 52, 52, 1);border-radius:4px">
-                        <img src="assets/images/content_copy-icon.png" alt="Copy Icon" class="copy-icon">
-                        Copy Link
+                const updateFooterButtons = (link) => {
+                    modalFooter.innerHTML = `
+                    <button id="cancelBtn">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="Cancel Icon" class="cancel-icon">
+                        Cancel
                     </button>
-                </div>
-                <div class="share-button-container">
-                    <button id="shareBtn">
-                        <img src="assets/images/share-icon.png" alt="Share Icon" class="share-icon">
-                        Share
-                    </button>
-                </div>
-            </div>
-        `;
+                    <div class="button-group">
+                        <div class="copy-button-container">
+                            <button id="copyBtn" style="background-color:transparent;border: 1px solid rgba(111, 37, 206, 1);color:rgba(52, 52, 52, 1);border-radius:4px">
+                                <img src="assets/images/content_copy-icon.png" alt="Copy Icon" class="copy-icon">
+                                Copy Link
+                            </button>
+                        </div>
+                        <div class="share-button-container">
+                            <button id="shareBtn">
+                                <img src="assets/images/share-icon.png" alt="Share Icon" class="share-icon">
+                                Share
+                            </button>
+                        </div>
+                    </div>
+                `;
 
                 document.getElementById('cancelBtn').addEventListener('click', closeModal);
-                document.getElementById('copyBtn').addEventListener('click', () => {
-                    navigator.clipboard.writeText(link).then(() => {
-                        alert('Link copied to clipboard!');
+                    document.getElementById('copyBtn').addEventListener('click', () => {
+                        navigator.clipboard.writeText(link).then(() => {
+                            ToastUtils.showToast('Link copied to clipboard!', 3000);
+                        });
                     });
-                });
-                document.getElementById('shareBtn').addEventListener('click', () => {
-                    alert('Share this link: ' + link);
-                });
-            };
+                    document.getElementById('shareBtn').addEventListener('click', () => {
+                        alert('Share this link: ' + link);
+                    });
+                };
 
             const addModalListeners = () => {
-    const newCancelBtn = document.getElementById('cancelBtn');
-    const newGenerateBtn = document.getElementById('generateBtn');
+                const newCancelBtn = document.getElementById('cancelBtn');
+                const newGenerateBtn = document.getElementById('generateBtn');
 
-    if (newCancelBtn) newCancelBtn.addEventListener('click', closeModal);
+                if (newCancelBtn) newCancelBtn.addEventListener('click', closeModal);
 
-        if (newGenerateBtn) {
-            newGenerateBtn.addEventListener('click', () => {
-                const referralId = Math.random().toString(36).substr(2, 8); 
-                const baseUrl = "/signup";  
-                const url = new URL(baseUrl, window.location.origin);
-                url.searchParams.set("adminref", referralId);
+                    if (newGenerateBtn) {
+                        newGenerateBtn.addEventListener('click', () => {
+                            const referralId = Math.random().toString(36).substr(2, 8); 
+                            const baseUrl = "/signup";  
+                            const url = new URL(baseUrl, window.location.origin);
+                            url.searchParams.set("adminref", referralId);
 
-                const newLink = url.toString();  
-                inputField.value = newLink;
-                updateFooterButtons(newLink);
-            });
-        }
-};
+                            const newLink = url.toString();  
+                            inputField.value = newLink;
+                            updateFooterButtons(newLink);
+                        });
+                    }
+            };
 
 
             referralLinkBtn?.addEventListener('click', openModal);
@@ -3440,6 +3442,7 @@
 
         });
     </script>
+    <script src="{{ asset('js/toast.js') }}"></script>
 </body>
 
 </html>

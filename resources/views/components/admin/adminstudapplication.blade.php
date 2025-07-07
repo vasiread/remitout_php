@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course Details</title>
     <link rel="stylesheet" href="{{ asset('assets/css/adminstudapplication.css') }}">
-      <script src="{{ asset('js/toast.js') }}"></script> 
+
 </head>
 
 <body>
