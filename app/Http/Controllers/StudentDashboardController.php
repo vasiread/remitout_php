@@ -38,7 +38,7 @@ use ZipArchive;
 
 class StudentDashboardController extends Controller
 {
-    
+
     protected $tablesAndColumns = [
         'personal_infos' => ['full_name', 'phone', 'email', 'state', 'linked_through'],
         'academic_details' => ['gap_in_academics', 'work_experience'],
@@ -47,78 +47,24 @@ class StudentDashboardController extends Controller
     ];
     public function getDashboardData($user)
     {
-<<<<<<< a64dc8442e96049dc97571aaf18673760d75bf85
-        \Log::info('STUDENT DASHBOARD HIT');
-
-        $user = session('user');
-
-        if (!$user) {
-            // You can throw a custom exception or return null
-            abort(403, 'Unauthorized access. Please log in.');
-        }
-
-        $uniqueId = $user->unique_id;
-
-        \Log::info('Rendering dashboard', ['user' => $user]);
-
-=======
         \Log::info('Preparing dashboard data', ['user' => $user]);
 
         $uniqueId = $user->unique_id;
 
->>>>>>> route inside web.php
         $userDetails     = User::where('unique_id', $uniqueId)->get();
         $courseDetails   = CourseInfo::where('user_id', $uniqueId)->get();
         $academicDetails = Academics::where('user_id', $uniqueId)->get();
         $personalDetails = PersonalInfo::where('user_id', $uniqueId)->get();
 
         return [
-<<<<<<< a64dc8442e96049dc97571aaf18673760d75bf85
-                'user'           => $user,
-                'userDetails'    => $userDetails,
-                'personalDetails' => $personalDetails,
-                'courseDetails'  => $courseDetails,
-                'academicDetails' => $academicDetails,
-            ];
+            'user'            => $user,
+            'userDetails'     => $userDetails,
+            'courseDetails'   => $courseDetails,
+            'academicDetails' => $academicDetails,
+            'personalDetails' => $personalDetails,
+        ];
     }
 
-=======
-                'user'            => $user,
-                'userDetails'     => $userDetails,
-                'courseDetails'   => $courseDetails,
-                'academicDetails' => $academicDetails,
-                'personalDetails' => $personalDetails,
-            ];
-    }
-
-
->>>>>>> route inside web.php
-    public function getUserFromNbfc(Request $request)
-    {
-        $request->validate([
-            "userId" => "string|required",
-        ]);
-
-        $userId = $request->input('userId');
-
-        if ($userId) {
-            $userDetails = User::where('unique_id', $userId)->get();
-            $courseDetails = CourseInfo::where('user_id', $userId)->get();
-            $academicDetails = Academics::where('user_id', $userId)->get();
-            $personalDetails = PersonalInfo::where('user_id', $userId)->get();
-
-            // Return as JSON
-            return response()->json([
-                'userDetails' => $userDetails,
-                'courseDetails' => $courseDetails,
-                'academicDetails' => $academicDetails,
-                'personalDetails' => $personalDetails,
-            ]);
-        }
-
-        // If no user found, return an error
-        return response()->json(['error' => 'User not found'], 404);
-    }
     public function checkUserId(Request $request)
     {
         try {
@@ -1062,7 +1008,7 @@ class StudentDashboardController extends Controller
             'totalDocumentsExpected' => 22 + count($documentTypeNames),
         ]);
     }
-        
+
 
 
 
@@ -1102,7 +1048,7 @@ class StudentDashboardController extends Controller
             'salary-upload-fourth-document-name',
             'salary-upload-itr-name'
 
-           
+
         ];
 
         $missingDocuments = [];
@@ -1300,7 +1246,7 @@ class StudentDashboardController extends Controller
             if (!Schema::hasTable($table)) continue;
 
             $data = ($table === 'users')
-            ? DB::table($table)->where('unique_id', $userId)->first()
+                ? DB::table($table)->where('unique_id', $userId)->first()
                 : DB::table($table)->where('user_id', $userId)->first();
 
             foreach ($columns as $column) {
@@ -1325,8 +1271,8 @@ class StudentDashboardController extends Controller
 
         // ✅ Dynamic documents — only if filename matches DocumentType name
         $dynamicFiles = Storage::disk('s3')->exists("$userId/dynamic")
-        ? Storage::disk('s3')->allFiles("$userId/dynamic")
-        : [];
+            ? Storage::disk('s3')->allFiles("$userId/dynamic")
+            : [];
 
         $validDynamicCount = 0;
         foreach ($dynamicFiles as $file) {
@@ -1338,12 +1284,12 @@ class StudentDashboardController extends Controller
 
         // ✅ Percentages
         $staticPercentage = ($expectedStatic > 0)
-        ? ($validStaticCount / $expectedStatic) * 100
-        : 0;
+            ? ($validStaticCount / $expectedStatic) * 100
+            : 0;
 
         $dynamicPercentage = ($expectedDynamic > 0)
-        ? ($validDynamicCount / $expectedDynamic) * 100
-        : 0;
+            ? ($validDynamicCount / $expectedDynamic) * 100
+            : 0;
 
         $documentPercentage = ($staticPercentage + $dynamicPercentage) / 2;
 
