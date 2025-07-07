@@ -2546,7 +2546,7 @@ textarea::placeholder {
     }
 
     .input-field input {
-        width: 240px;
+        width: 100%;
         padding: 10px;
     }
 }
@@ -3174,6 +3174,27 @@ p {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+}
+.upload-loader {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #260254;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    animation: spin 0.6s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .income-co-borrower input {
@@ -4098,9 +4119,9 @@ input[type="file"] {
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    margin-top: 150px;
+    margin-top: 50px;
     position: absolute;
-    right: -1px;
+    right: 100px;
     z-index: 10;
     font-family: "Poppins", sans-serif;
 }
@@ -4116,49 +4137,15 @@ input[type="file"] {
         border-radius: 5px;
         font-size: 16px;
         cursor: pointer;
-        margin-top: 150px;
+        margin-top: 50px;
         position: absolute;
-        right: -1px;
+        right: 150px;
         z-index: 10;
         font-family: "Poppins", sans-serif;
     }
 
-    .next-btn-kyc {
-        padding: 10px 20px;
-        width: 190px;
-        height: 50px;
-        background-color: #6f42c1;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        margin-top: 150px;
-        position: absolute;
-        right: -1px;
-        z-index: 10;
-        font-family: "Poppins", sans-serif;
-    }
-
-    .next-btn-kyc {
-        padding: 10px 20px;
-        width: 190px;
-        height: 50px;
-        background-color: #6f42c1;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        margin-top: 12%;
-        position: absolute;
-        right: -1px;
-        z-index: 10;
-        font-family: "Poppins", sans-serif;
-    }
 }
-
-@media (max-width: 760px) {
+@media (max-width: 767px) {
     .next-btn-kyc {
         padding: 10px 20px;
         width: 180px;
@@ -4169,14 +4156,12 @@ input[type="file"] {
         border-radius: 5px;
         font-size: 16px;
         cursor: pointer;
-        margin-top: 150px;
-        margin-bottom: 100px;
-        margin-right: 90px;
-        position: absolute;
-        right: 0;
+        margin: 100px auto;
+        display: block; /* ensures margin auto centers it */
         z-index: 10;
     }
 }
+
 
 .upload-field input[type="text"] {
     display: flex;
@@ -4423,4 +4408,10 @@ div.salary-sub p {
 
 #personal-info-submit{
     margin-top:60px;
+}
+@media (max-width: 760px) {
+    #suggestions-university {
+    width:88%;
+    }
+
 }

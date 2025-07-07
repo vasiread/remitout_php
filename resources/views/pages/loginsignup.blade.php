@@ -256,7 +256,7 @@
             }
 
 
-           
+
 
 
             function triggerOtpSection() {
@@ -334,11 +334,11 @@
                             window.showToast('OTP sent successfullly')
                         } else {
                             console.warn('OTP not received:', data);
-                         }
+                        }
                     })
                     .catch(error => {
                         console.error('Error sending OTP:', error);
-                     });
+                    });
             };
 
             function checkOTP() {
@@ -348,19 +348,32 @@
                 const otp4 = document.getElementById('otp4').value;
                 const otp5 = document.getElementById('otp5').value;
                 const otp6 = document.getElementById('otp6').value;
+
                 if (!otp1 || !otp2 || !otp3 || !otp4 || !otp5 || !otp6) {
                     console.warn('Please fill all OTP fields');
                     return;
                 }
+
                 const finalOTP = otp1 + otp2 + otp3 + otp4 + otp5 + otp6;
                 const phoneInput = document.getElementById('phone');
                 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                console.log('Phone:', phoneInput.value, 'OTP:', finalOTP);
+
+                const verifyBtn = document.getElementById('otpVerifyBtn');
+                const btnText = verifyBtn.querySelector('.btn-text');
+                const btnLoader = verifyBtn.querySelector('.btn-loader');
+
+                // Show loader and hide text
+                // btnText.style.display = 'none';
+                // btnLoader.style.display = 'inline-block';
+                verifyBtn.disabled = true;
+                btnLoader.style.display = "inline-block";
+                btnText.style.opacity = 0.5;
+
                 const mailOtpdata = {
                     phone: phoneInput.value,
                     otp: finalOTP
                 };
-                console.log(JSON.stringify(mailOtpdata));
+
                 fetch('/api/verify-mobotp', {
                         method: 'POST',
                         headers: {
@@ -373,18 +386,23 @@
                     .then(data => {
                         console.log('Response data:', data);
                         if (data.message === 'OTP verified successfully') {
-
                             submitVerifiedData();
                         } else {
-                            // alert('Invalid OTP');
-                            console.warn('Invalid OTP')
+                            console.warn('Invalid OTP');
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        // alert('An error occurred while verifying OTP');
+                    })
+                    .finally(() => {
+                        // Always hide loader and show button text again
+                        btnText.style.display = 'inline-block';
+                        btnLoader.style.display = 'none';
+
+                        
                     });
             }
+
 
             function submitForm(event) {
                 event.preventDefault();
@@ -461,57 +479,56 @@
                     });
             }
 
-function submitVerifiedData() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const referralId = urlParams.get('ref');
+            function submitVerifiedData() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const referralId = urlParams.get('ref');
 
-    const registerFormData = {
-        name: document.getElementById('name').value,
-        phoneInput: document.getElementById('phone').value,
-        email: document.getElementById('email').value,
-        password: document.getElementById('passwordinputID').value,
-    };
+                const registerFormData = {
+                    name: document.getElementById('name').value,
+                    phoneInput: document.getElementById('phone').value,
+                    email: document.getElementById('email').value,
+                    password: document.getElementById('passwordinputID').value,
+                };
 
-    if (referralId) {
-        registerFormData.referralCode = referralId;
-    }
+                if (referralId) {
+                    registerFormData.referralCode = referralId;
+                }
 
-    const verifyBtn = document.getElementById('otpVerifyBtn');
-    const btnText = verifyBtn.querySelector('.btn-text');
-    const btnLoader = verifyBtn.querySelector('.btn-loader');
+                const verifyBtn = document.getElementById('otpVerifyBtn');
+                const btnText = verifyBtn.querySelector('.btn-text');
+                const btnLoader = verifyBtn.querySelector('.btn-loader');
 
-    // Show loader and hide text
-    btnText.style.display = 'none';
-    btnLoader.style.display = 'inline-block'; // or 'block', depending on your style
+                // Show loader and hide text
+                btnText.style.display = 'none';
+                btnLoader.style.display = 'inline-block'; // or 'block', depending on your style
 
-    fetch('/registerformdata', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        credentials: 'same-origin',
-        body: JSON.stringify(registerFormData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Redirect if success
-            window.location.href = '/student-forms';
-        } else {
-            // Show error, revert button
-            // alert(data.error || 'Something went wrong. Please try again.');
-            btnText.style.display = 'inline-block';
-            btnLoader.style.display = 'none';
-        }
-    })
-    .catch(() => {
-        // alert('An error occurred. Please try again.');
-        btnText.style.display = 'inline-block';
-        btnLoader.style.display = 'none';
-    });
-}
-
+                fetch('/registerformdata', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        credentials: 'same-origin',
+                        body: JSON.stringify(registerFormData)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Redirect if success
+                            window.location.href = '/student-forms';
+                        } else {
+                            // Show error, revert button
+                            // alert(data.error || 'Something went wrong. Please try again.');
+                            btnText.style.display = 'inline-block';
+                            btnLoader.style.display = 'none';
+                        }
+                    })
+                    .catch(() => {
+                        // alert('An error occurred. Please try again.');
+                        btnText.style.display = 'inline-block';
+                        btnLoader.style.display = 'none';
+                    });
+            }
         </script>
     @endsection
 </body>

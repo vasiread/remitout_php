@@ -49,27 +49,31 @@ class StudentDashboardController extends Controller
     {
         \Log::info('STUDENT DASHBOARD HIT');
 
+        // ✅ Get user from session — DO NOT overwrite it here
         $user = session('user');
 
         if (!$user) {
             return redirect()->route('login')->withErrors('Please log in to access your dashboard.');
         }
 
-
         $uniqueId = $user->unique_id;
 
         \Log::info('Rendering dashboard', ['user' => $user]);
 
-
-        $userDetails = User::where('unique_id', $uniqueId)->get();
-        $courseDetails = CourseInfo::where('user_id', $uniqueId)->get();
+        $userDetails     = User::where('unique_id', $uniqueId)->get();
+        $courseDetails   = CourseInfo::where('user_id', $uniqueId)->get();
         $academicDetails = Academics::where('user_id', $uniqueId)->get();
         $personalDetails = PersonalInfo::where('user_id', $uniqueId)->get();
 
-        \Log::info('Rendering dashboard', ['user' => $user]);
-
-        return view('pages.studentdashboard', compact('user', 'userDetails', 'personalDetails', 'courseDetails', 'academicDetails'));
+        return view('pages.studentdashboard', compact(
+                'user',
+                'userDetails',
+                'personalDetails',
+                'courseDetails',
+                'academicDetails'
+            ));
     }
+
     public function getUserFromNbfc(Request $request)
     {
         $request->validate([

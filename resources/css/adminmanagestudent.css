@@ -230,6 +230,7 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 14px;
+    display:none;
 }
 
 .mobile-search-icon-student-report {

@@ -949,7 +949,7 @@
                 }
             }
 
-
+  
 
             const initialiseTenthcolumn = () => {
                 const section = document.querySelector(".tenthcolumn-firstsection");

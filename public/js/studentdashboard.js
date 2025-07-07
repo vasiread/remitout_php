@@ -1301,11 +1301,16 @@ const initialiseProfileView = () => {
     const userIdElement = document.querySelector(
         ".personalinfo-secondrow .personal_info_id"
     );
-    const userId = userIdElement ? userIdElement.textContent : "";
+    const userId = userIdElement ? userIdElement.textContent.trim() : "";
+
+    if (!userId) {
+        console.warn("No user ID found. Skipping profile picture fetch.");
+        return;
+    }
 
     const csrfToken = document
         .querySelector('meta[name="csrf-token"]')
-        .getAttribute("content");
+        ?.getAttribute("content");
 
     if (!csrfToken) {
         console.error("CSRF token not found");
@@ -1319,22 +1324,27 @@ const initialiseProfileView = () => {
             Accept: "application/json",
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userId: userId }),
+        body: JSON.stringify({ userId }),
     })
         .then((response) => response.json())
         .then((data) => {
-            if (data.fileUrl) {
-                // console.log("Profile Picture URL:", data.fileUrl);
-                const imgElement = document.querySelector("#profile-photo-id");
+            const imgElement = document.querySelector("#profile-photo-id");
+
+            if (data?.fileUrl && imgElement) {
                 imgElement.src = data.fileUrl;
             } else {
-                console.error("Error: No URL returned from the server", data);
+                // No error — just silently fallback to default image or do nothing
+                if (imgElement) {
+                    imgElement.src = "/assets/images/default-profile.png"; // Optional fallback
+                }
             }
         })
         .catch((error) => {
+            // Log only if you want to debug, otherwise stay silent in production
             console.error("Error retrieving profile picture", error);
         });
-}
+};
+
 const checkUserStatusCount = () => {
     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
     const userId = userIdElement ? userIdElement.textContent.trim() : '';

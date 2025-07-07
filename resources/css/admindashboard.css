@@ -2678,4 +2678,12 @@ text[fill="#222222"] {
       max-width: 320px;
     }
   }
+  @media screen and (max-width: 768px) {
+    #nbfc-lead-chart_div > div > div[dir="ltr"] {
+      transform: scale(0.8);
+      transform-origin: top left;
+      width: auto !important;
+      height: auto !important;
+    }
+  }
   
