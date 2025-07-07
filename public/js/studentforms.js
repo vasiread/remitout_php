@@ -1,43 +1,3 @@
-function showToast(message, duration = 3000) {
-    let toastContainer = document.getElementById("toast-container");
-
-    // If toast container is not found, create and append it
-    if (!toastContainer) {
-        toastContainer = document.createElement("div");
-        toastContainer.id = "toast-container";
-        toastContainer.className = "toast-container";
-        document.body.appendChild(toastContainer);
-    }
-
-    const toast = document.createElement("div");
-    toast.className = "toast";
-    toast.textContent = message;
-    toastContainer.appendChild(toast);
-
-    setTimeout(() => {
-        toast.classList.add("show");
-    }, 100);
-    setTimeout(() => {
-        toast.classList.remove("show");
-        setTimeout(() => {
-            toast.remove();
-        }, 300);
-    }, duration);
-}
-
-
-const style = document.createElement("style");
-style.textContent = `
-    .toast-message-container { position: fixed; top: 20px; right: 20px; z-index: 9999; }
-    .toast { background-color: #f47b20; font-family: 'Poppins', Arial, sans-serif; color: white; padding: 12px 20px; margin-bottom: 10px; border-radius: 4px; opacity: 0; transition: opacity 0.3s ease; }
-    .toast.show { opacity: 1; }
-`;
-document.head.appendChild(style);
-
-
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
     const studentFormMenuIcon = document.getElementById(
         "student-form-menu-icon-id",
@@ -122,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.onload = function () {
         if (window.location.hash === "#kyc-section-id") {
             document.getElementById("kyc-section-id").style.display = "block";
-            showToast("KYC section loaded");
+            ToastUtils.showToast("KYC section loaded");
         }
     };
 
@@ -250,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
                     (container) => (container.style.display = "none"),
                 );
-                // showToast("Details have been saved successfully");
+                ToastUtils.showToast("Details have been saved successfully");
             }
         } else if (direction === "prev") {
             if (currentContainerIndex > 0) {
@@ -375,9 +335,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.success) {
-                        // showToast("Coborrower details saved successfully");
+                        console.log("Coborrower details saved successfully"); // Replaced toast
                     } else {
                         console.error("Failed to update co-borrower info:", data.message);
+                        ToastUtils.showToast("Failed to save co-borrower info. Please try again.");
                     }
                 })
                 .catch((error) => {
@@ -388,35 +349,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     document
-        .getElementById("personal-info-submit")
-        .addEventListener("click", (event) => {
-            updateUserPersonalInfo(event);
-        });
+    .getElementById("personal-info-submit")
+    .addEventListener("click", (event) => {
+        event.preventDefault(); 
+       
+        ToastUtils.showToast("Personal Info Details saved successfully");
+        updateUserPersonalInfo(event);
+    });
 
     document
-        .getElementById("course-info-submit")
-        .addEventListener("click", (event) => {
-            updateUserCourseInfo(event);
-        });
+    .getElementById("course-info-submit")
+    .addEventListener("click", (event) => {
+        event.preventDefault(); 
+        ToastUtils.showToast("Course Info Details saved successfully"); 
+        updateUserCourseInfo(event); 
+    });
 
+   // Academics Info Submit
     document
-        .getElementById("academics-info-submit")
-        .addEventListener("click", (event) => {
-            updateAcademicsCourseInfo(event);
-        });
+    .getElementById("academics-info-submit")
+    .addEventListener("click", (event) => {
+        event.preventDefault(); 
+        ToastUtils.showToast("Academic Details saved successfully");
+        updateAcademicsCourseInfo(event); 
+    });
 
+  // Coborrower Info Submit
     document
-        .getElementById("coborrower-info-submit")
-        .addEventListener("click", (event) => {
-            updateCoborrowerInfo(event);
-        });
+    .getElementById("coborrower-info-submit")
+    .addEventListener("click", (event) => {
+        event.preventDefault(); 
+        ToastUtils.showToast("Coborrower details saved successfully"); 
+        updateCoborrowerInfo(event); 
+    })
 
+    // Save and Submit
     document
-        .getElementById("saveandsubmit")
-        .addEventListener("click", (event) => {
-            // showToast("Details have been saved successfully");
+    .getElementById("saveandsubmit")
+    .addEventListener("click", (event) => {
+        event.preventDefault(); // Prevent default form submission
+        ToastUtils.showToast("Details have been saved successfully"); 
+        setTimeout(() => {
             window.location.href = "/student-dashboard";
-        });
+        }, 3300); 
+    });
 
     function updateUserPersonalInfo(event) {
         event.preventDefault();
@@ -496,9 +472,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.success) {
-                        // showToast("Personal Info Details saved successfully");
+                        console.log("Personal Info Details saved successfully"); // Replaced toast
                     } else {
                         console.error("Failed to update personal info:", data.message);
+                        ToastUtils.showToast("Failed to save personal info. Please try again.");
                     }
                 })
                 .catch((error) => {
@@ -613,13 +590,10 @@ document.addEventListener("DOMContentLoaded", () => {
             .then((response) => response.json())
             .then((data) => {
                 if (data.success) {
-                    // showToast("Course Info Details saved successfully");
-                    console.log(courseInfoData)
+                    console.log("Course Info Details saved successfully"); // Replaced toast
                 } else {
-                    console.error(
-                        "Failed to update course info:",
-                        data.message,
-                    );
+                    console.error("Failed to update course info:", data.message);
+                    ToastUtils.showToast("Failed to save course info. Please try again.");
                 }
             })
             .catch((error) => {
@@ -627,7 +601,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 
-    // Function to validate a single score field and update its error message
+   
     function validateScore(fieldId, scoreValue, minScore, errorMessagePrefix) {
         const errorElement = document.getElementById(`${fieldId}-error`);
         errorElement.textContent = "";
@@ -796,12 +770,10 @@ document.addEventListener("DOMContentLoaded", () => {
             .then((response) => response.json())
             .then((data) => {
                 if (data.success) {
-                    // showToast("Academic Details saved successfully");
+                    console.log("Academic Details saved successfully"); // Replaced toast
                 } else {
-                    console.error(
-                        "Failed to update academic info:",
-                        data.message,
-                    );
+                    console.error("Failed to update academic info:", data.message);
+                    ToastUtils.showToast("Failed to save academic info. Please try again.");
                 }
             })
             .catch((error) => {
@@ -1118,7 +1090,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         if (file.size > 5 * 1024 * 1024) {
-            showToast("File size exceeds 5MB limit.");
+            ToastUtils.showToast("File size exceeds 5MB limit.");
             fileInput.value = "";
             fileNameElement.textContent = "No file chosen";
             uploadIcon.style.display = "inline";
@@ -1132,7 +1104,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .slice(file.name.lastIndexOf("."))
             .toLowerCase();
         if (!allowedExtensions.includes(fileExtension)) {
-            showToast("Only .jpg, .jpeg, .png, and .pdf files are allowed.");
+            ToastUtils.showToast("Only .jpg, .jpeg, .png, and .pdf files are allowed.");
             fileInput.value = "";
             fileNameElement.textContent = "No file chosen";
             uploadIcon.style.display = "inline";
@@ -2819,7 +2791,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const universitySuggestionsContainer = document.getElementById("suggestions-university");
     
     if (!universityInput || !universitySuggestionsContainer) {
-        showToast("Error: University input field not found.");
+        ToastUtils.showToast("Error: University input field not found.");
     } else {
         let debounceTimeout;
         universityInput.addEventListener("input", () => {

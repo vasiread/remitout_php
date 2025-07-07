@@ -9,6 +9,7 @@
     <title>Student Dashboard</title>
 
     <script src="{{ asset('js/studentdashboard.js') }}" defer></script>
+        <script src="{{ asset('js/toast.js') }}"></script>
 </head>
 
 <body>

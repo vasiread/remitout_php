@@ -18,6 +18,7 @@
 
 
     <script src="{{ asset('js/studentforms.js') }}"></script>
+    <script src="{{ asset('js/toast.js') }}"></script>
 
     <style>
         select {
