@@ -96,8 +96,7 @@ Route::get('/student-dashboard', function () {
         return redirect()->route('login')->withErrors('Please log in to access your dashboard.');
     }
 
-    // Get data from controller method
-    $dashboardData = (new StudentDashboardController)->getDashboardData($user);
+     $dashboardData = (new StudentDashboardController)->getDashboardData($user);
 
     return view('pages.studentdashboard', $dashboardData);
 })->name('student-dashboard');
