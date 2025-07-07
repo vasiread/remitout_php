@@ -8,8 +8,7 @@ use App\Http\Controllers\{
     OTPMobController,
     RegisterController,
     SidebarHandlingController,
-    StudentDashboardController,
-    StudentDetailsController,
+     StudentDetailsController,
     TrackController
 };
 
@@ -17,6 +16,7 @@ use App\Http\Controllers\TermsController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\NbfcController;
+use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\scDashboardController;
 // use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\StudentCounsellorController;
@@ -87,7 +87,13 @@ Route::get('/sc-dashboard', function () {
 
 Route::get('/download-user-report', [Admincontroller::class, 'downloadUserProfileReportPDF']);
 
-Route::get('/student-dashboard', [StudentDashboardController::class, 'getUser'])->name('student-dashboard');
+Route::get('/student-dashboard', function () {
+    $controller = new StudentDashboardController();
+    $data = $controller->getUser();
+
+    return view('pages.studentdashboard', $data);
+})->name('student-dashboard');
+
 
 Route::get('/admin/messages/count', [AdminController::class, 'countMessagesForAdmin']);
 
