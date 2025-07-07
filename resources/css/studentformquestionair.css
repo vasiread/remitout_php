@@ -4338,7 +4338,7 @@ div.salary-sub p {
 .dropdown-option-gender:hover {
     background: #f5f5f5;
 }
- 
+/*  
 .toast {
     position: fixed;
     bottom: 20px;
@@ -4370,7 +4370,7 @@ div.salary-sub p {
 .toast.show {
     opacity: 1;
     transform: translateY(0);
-}
+} */
 #suggestions-university {
     width:420px;
     position: absolute;

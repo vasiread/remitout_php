@@ -3189,10 +3189,6 @@ document.querySelectorAll('input[name="education-level"]').forEach(radio => {
 });
 
 
-
-
-
-
 const saveChangesFunctionality = () => {
     let isEditing = false;
     const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
@@ -3347,12 +3343,12 @@ const saveChangesFunctionality = () => {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                     },
                     body: JSON.stringify(updatedInfos)
-                })
+                    })
                     .then(response => response.json())
                     .then(data => {
                         console.log("Response Data:", data);
 
-                        alert("Student Details Updated Successfully");
+                        window.ToastUtils.showToast("Student Details Updated Successfully", 3000);
                         Loader.hide();
                         if (editedName) {
                             document.querySelector("#referenceNameId p").textContent = editedName;
@@ -3427,11 +3423,6 @@ const saveChangesFunctionality = () => {
                                 scoresContainer.innerHTML += `<p>${scoreCounter++}. ${otherExamName} <span>${otherExamScore}</span></p>`;
                             }
 
-
-
-
-
-
                         }
 
 
@@ -3445,7 +3436,7 @@ const saveChangesFunctionality = () => {
                     .catch(error => {
                         console.error("Error", error);
                         Loader.hide(); // ✅ Always hide loader
-                        alert("Something went wrong. Please try again.");
+                        window.ToastUtils.showToast("Something went wrong. Please try again.", 3000);
                     });
 
             }
