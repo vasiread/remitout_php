@@ -45,8 +45,9 @@ class StudentDashboardController extends Controller
         'coborrower_details' => ['plan-to-study', 'degree-type', 'course-duration', 'course-details', 'loan_amount_in_lakhs'],
         'course_details_formdata' => ['co_borrower_relation', 'co_borrower_income', 'liability_select']
     ];
-    public function getUser()
+    public function getDashboardData($user)
     {
+<<<<<<< a64dc8442e96049dc97571aaf18673760d75bf85
         \Log::info('STUDENT DASHBOARD HIT');
 
         $user = session('user');
@@ -60,12 +61,19 @@ class StudentDashboardController extends Controller
 
         \Log::info('Rendering dashboard', ['user' => $user]);
 
+=======
+        \Log::info('Preparing dashboard data', ['user' => $user]);
+
+        $uniqueId = $user->unique_id;
+
+>>>>>>> route inside web.php
         $userDetails     = User::where('unique_id', $uniqueId)->get();
         $courseDetails   = CourseInfo::where('user_id', $uniqueId)->get();
         $academicDetails = Academics::where('user_id', $uniqueId)->get();
         $personalDetails = PersonalInfo::where('user_id', $uniqueId)->get();
 
         return [
+<<<<<<< a64dc8442e96049dc97571aaf18673760d75bf85
                 'user'           => $user,
                 'userDetails'    => $userDetails,
                 'personalDetails' => $personalDetails,
@@ -74,6 +82,17 @@ class StudentDashboardController extends Controller
             ];
     }
 
+=======
+                'user'            => $user,
+                'userDetails'     => $userDetails,
+                'courseDetails'   => $courseDetails,
+                'academicDetails' => $academicDetails,
+                'personalDetails' => $personalDetails,
+            ];
+    }
+
+
+>>>>>>> route inside web.php
     public function getUserFromNbfc(Request $request)
     {
         $request->validate([
