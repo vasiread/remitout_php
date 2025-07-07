@@ -490,8 +490,6 @@
 
 
     <div class="course-section" id="step-course">
-
-
         <!-- Step 1: Study Location -->
         <div class="course-details" id="step-1">
             <div class="step-header">
