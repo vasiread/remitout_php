@@ -210,9 +210,13 @@
 
                 const csrfToken = document.querySelector('meta[name="csrf-token"]'); // ✅ Now declared
                 if (csrfToken) {
+                    console.log("Loader test start");
+
                     submitBtn.disabled = true;
                     btnLoader.style.display = "inline-block";
                     btnText.style.opacity = 0.5;
+                    console.log("Loader should now be visible");
+
 
                     fetch('/loginformdata', {
                             method: 'POST',

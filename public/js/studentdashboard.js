@@ -1335,7 +1335,11 @@ const initialiseProfileView = () => {
             } else {
                 // No error — just silently fallback to default image or do nothing
                 if (imgElement) {
+<<<<<<< a64dc8442e96049dc97571aaf18673760d75bf85
                     imgElement.src = "/assets/images/default-profile.jpg"; // Optional fallback
+=======
+                    imgElement.src = "/assets/images/default-profile.png"; // Optional fallback
+>>>>>>> route inside web.php
                 }
             }
         })

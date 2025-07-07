@@ -303,7 +303,7 @@ Route::post('/admin/messages/clear-nbfc', [AdminController::class, 'clearNbfcMes
 
 Route::post('/registerformdata', [RegisterController::class, 'store']);
 Route::post('/emailuniquecheck', [RegisterController::class, 'emailUniqueCheck'])->name('emailUniqueCheck');
-// Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
+Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
 
 
 Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);

@@ -1,0 +1,743 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.logincontainer {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.logincontainer-inside {
+    max-width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+#loginSubmitBtn {
+    position: relative;
+}
+
+#loginSubmitBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-loader {
+    position: absolute;
+    background: red;
+    top: 33%;
+    right:37%;
+     transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
+.logincontainer-leftinside {
+    width: 59%;
+    height: 100vh;
+    position: relative;
+    z-index: 0;
+}
+
+.logincontainer-leftinside img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 0;
+    
+}
+
+.logincontainer-leftinside::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #6f25ce;
+    opacity: 0.15;
+    z-index: 1;
+}
+
+.loginrightsidevector-img {
+    position: absolute;
+    top: 5%;
+    left: 11%;
+    max-width: 84px;
+    width: 100%;
+    height: 82px;
+    opacity: 0.9;
+}
+
+.logincontainer-rightinside {
+    width: 41%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.logincontainer-rightinside h1 {
+    font-family: Raleway;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 42.26px;
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+    margin-bottom: 50px;
+}
+
+.logincontainer-loginresources {
+    max-width: 370px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    margin-bottom: 10px;
+}
+
+.logincontainer-namecontainer,
+.logincontainer-passwordcontainer {
+    max-width: 100%;
+    width: 100%;
+    position: relative;
+    height: 40px;
+}
+
+.logincontainer-loginresources input:not([type="checkbox"])::placeholder {
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    color: rgba(131, 131, 131, 1);
+}
+.logincontainer-passwordcontainer i {
+    position: absolute;
+    right: 0.75rem;
+    transform: translateY(1.3rem);
+    cursor: pointer;
+    color: rgba(131, 131, 131, 1);
+    font-size: 1rem;
+    z-index: 10;
+}
+.logincontainer-loginresources input:not([type="checkbox"]) {
+    width: 100%;
+    border-radius: 4px;
+    height: 40px;
+    border: 0.5px solid rgba(174, 174, 174, 1);
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    text-align: left;
+    outline: none;
+    padding: 9.5px 0 9.5px 16px;
+}
+
+.logincontainer-namecontainer input:not([type="checkbox"]),
+.logincontainer-passwordcontainer input:not([type="checkbox"]) {
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    text-align: left;
+    outline: none;
+    color: rgba(131, 131, 131, 1);
+    padding: 9.5px 0 9.5px 16px;
+}
+
+.logincontainer-checkboxcontainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.8rem;
+    max-width: 100%;
+}
+
+.logincontainer-checkboxcontainer input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    border-radius: 2px;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 115, 0, 1);
+    position: relative;
+    background-color: white;
+}
+
+.logincontainer-checkboxcontainer input:checked {
+    background-color: rgba(255, 115, 0, 1);
+}
+
+.logincontainer-checkboxcontainer input:checked::after {
+    content: "\2713";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.2rem;
+    z-index: 3;
+}
+
+.logincontainer-signupbuttoncontainer p {
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: left;
+    color: rgba(131, 131, 131, 1);
+}
+
+.logincontainer-signupbuttoncontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.logincontainer-signupbuttoncontainer p span {
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: left;
+    text-decoration-line: underline;
+    color: rgba(131, 131, 131, 1);
+}
+
+.logincontainer-signupbuttoncontainer button {
+    max-width: 370px;
+    width: 100%;
+    height: 40px;
+    padding: 0.5rem 0;
+    border-radius: 4px;
+    background-color: rgba(111, 37, 206, 1);
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    border: none;
+    cursor: pointer;
+}
+
+.logincontainer-anotherresources {
+    max-width: 370px;
+    width: 100%;
+}
+
+.logincontainer-anotherresources p {
+    font-family: Poppins;
+    font-size: 9px;
+    font-weight: 600;
+    line-height: 13.5px;
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+    margin: 0px 0;
+}
+
+.googlesigninbuttoncontainer {
+    max-width: 100%;
+    height: 40px;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.logincontainer .loginvector {
+   position: absolute;
+   z-index: -1;
+   top: -70%;
+   left: 10%;
+   width: 829px;
+   height: 806px;
+   opacity: 1;
+
+}
+
+.logincontainer .loginvectorsecond {
+   position: absolute;
+   z-index: 3;
+   bottom: 0%;
+   left: -10%;
+   width: 591px;
+   height: 255px;
+   opacity: 1;
+
+}
+.googlesigninbuttoncontainer .googlesigninbutton {
+   max-width: 50%;
+   width: 100%;
+   height: 100%;
+   border: 0.5px solid rgba(174, 174, 174, 1);
+   border-radius: 4px;
+   background-color: #fff;
+   cursor: pointer;
+
+}
+
+.googlesigninbuttoncontainer .iossigninbutton {
+    max-width: 50%;
+    width: 100%;
+    height: 100%;
+    border: 0.5px solid rgba(174, 174, 174, 1);
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.googlesigninbuttoncontainer button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: left;
+    color: rgba(131, 131, 131, 1);
+}
+
+.logincontainer-signinoption {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.94rem;
+}
+
+.logincontainer-signinoption p {
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: center;
+    color: rgba(131, 131, 131, 1);
+}
+
+.logincontainer-signinoption span {
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: left;
+    color: rgba(255, 115, 0, 1);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.logincontainer-radiooptions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.radiooptions-users {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.login-name-label,
+.login-password-label {
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    color: rgba(131, 131, 131, 1);
+    padding: 5px 0px;
+}
+
+.logincontainer-namecontainer label {
+    visibility: hidden;
+}
+.logincontainer-namecontainer label.login-name-label {
+    visibility: visible;
+}
+.logincontainer-passwordcontainer label {
+    visibility: hidden;
+}
+.logincontainer-passwordcontainer label.login-password-label {
+    visibility: visible;
+}
+
+.forgot-password-login {
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    color: #838383;
+    text-decoration: none;
+    font-size: 12px;
+}
+.forgot-password-login.show {
+    display: inline;
+}
+/* CSS for positioning eye icon inside input */
+.logincontainer-passwordcontainer {
+    position: relative;
+}
+.logincontainer-passwordcontainer input[type="password"],
+.logincontainer-passwordcontainer input[type="text"] {
+    padding-right: 30px; /* Space for the eye icon */
+    width: 100%;
+    box-sizing: border-box;
+}
+.passwordClose {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #838383;
+}
+
+
+.logincontainer-anotherresources {
+    text-align: center;
+    margin-top: 0px;
+}
+.or-divider {
+    position: relative;
+    display: inline-block;
+    color: #555;
+    font-size: 0.9rem;
+    padding: 0 10px;
+}
+.or-divider::before,
+.or-divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 100px;
+    height: 1px;
+    background: #ccc;
+}
+.or-divider::before {
+    right: 100%;
+}
+.or-divider::after {
+    left: 100%;
+}
+.googlesigninbuttoncontainer {
+    margin: 10px 0;
+}
+.googlesigninbutton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+.googlesigninbutton img {
+    width: 20px;
+}
+.googlesigninbutton:hover {
+    background: #f5f5f5;
+}
+.logincontainer-signinoption {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 10px;
+}
+
+@media (min-width: 1500px) {
+    .loginrightsidevector-img {
+        position: absolute;
+        top: 20%;
+        left: 11%;
+        max-width: 84px;
+        width: 100%;
+        height: 82px;
+        opacity: 0.9;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .logincontainer-inside {
+        flex-direction: column;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logincontainer-leftinside {
+        display: none;
+    }
+
+    .logincontainer-rightinside {
+        width: 100%;
+        max-width: 400px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logincontainer-rightinside h1 {
+        font-size: 28px;
+        margin-bottom: 30px;
+        line-height: 34px;
+    }
+
+    .logincontainer-loginresources {
+        max-width: 100%;
+        gap: 40px;
+    }
+
+    .logincontainer-namecontainer,
+    .logincontainer-passwordcontainer {
+        height: 38px;
+    }
+
+    .logincontainer-loginresources input:not([type="checkbox"]) {
+        font-size: 13px;
+        padding: 8px 0 8px 14px;
+        height: 38px;
+    }
+
+    .logincontainer-passwordcontainer i {
+        right: 0.8rem;
+    }
+
+    .logincontainer-checkboxcontainer {
+        gap: 0.6rem;
+    }
+
+    .logincontainer-checkboxcontainer p {
+        font-size: 11px;
+    }
+
+    .logincontainer-signupbuttoncontainer button {
+        height: 38px;
+        font-size: 15px;
+    }
+
+    .googlesigninbuttoncontainer {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .googlesigninbuttoncontainer .googlesigninbutton,
+    .googlesigninbuttoncontainer .iossigninbutton {
+        max-width: 100%;
+        height: 38px;
+        font-size: 11px;
+    }
+
+    .logincontainer-anotherresources p {
+        font-size: 8px;
+        margin: 15px 0;
+    }
+
+    .logincontainer-signinoption {
+        margin-top: 15px;
+    }
+
+    .logincontainer-signinoption p,
+    .logincontainer-signinoption span {
+        font-size: 11px;
+    }
+
+    .loginrightsidevector-img {
+        top: -50px;
+        max-width: 84px;
+        height: 82px;
+        transform: translateX(-50px);
+    }
+
+    .loginvectorsecond,
+    .loginvector {
+        display: none;
+    }
+
+    .loginsingupcontainer-leftpanel {
+        display: none;
+    }
+    .logincontainer-leftinside {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .logincontainer-inside {
+        flex-direction: column;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logincontainer-leftinside {
+        display: none;
+    }
+
+    .logincontainer-rightinside {
+        width: 100%;
+        max-width: 400px;
+        padding: 20px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logincontainer-rightinside h1 {
+        font-size: 28px;
+        margin-bottom: 30px;
+        line-height: 34px;
+    }
+
+    .logincontainer-loginresources {
+        max-width: 100%;
+        gap: 20px;
+    }
+
+    .logincontainer-namecontainer,
+    .logincontainer-passwordcontainer {
+        height: 38px;
+    }
+
+    .logincontainer-loginresources input:not([type="checkbox"]) {
+        font-size: 13px;
+        padding: 8px 0 8px 14px;
+        height: 38px;
+    }
+
+    .logincontainer-passwordcontainer i {
+        right: 0.8rem;
+    }
+
+    .logincontainer-checkboxcontainer {
+        gap: 0.6rem;
+    }
+
+    .logincontainer-checkboxcontainer p {
+        font-size: 11px;
+    }
+
+    .logincontainer-signupbuttoncontainer button {
+        height: 38px;
+        font-size: 15px;
+    }
+
+    .googlesigninbuttoncontainer {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .googlesigninbuttoncontainer .googlesigninbutton,
+    .googlesigninbuttoncontainer .iossigninbutton {
+        max-width: 100%;
+        height: 38px;
+        font-size: 11px;
+    }
+
+    .logincontainer-anotherresources p {
+        font-size: 10px;
+        margin: 15px 0;
+    }
+
+    .logincontainer-signinoption {
+        margin-top: 15px;
+    }
+
+    .logincontainer-signinoption p,
+    .logincontainer-signinoption span {
+        font-size: 11px;
+    }
+
+    .loginrightsidevector-img {
+        top: -50px;
+        max-width: 84px;
+        height: 82px;
+        transform: translateX(-50px);
+    }
+
+    .loginvectorsecond,
+    .loginvector {
+        display: none;
+    }
+}
+
+/* Small Mobile: Up to 480px */
+@media (max-width: 480px) {
+    .logincontainer-rightinside {
+        padding: 15px;
+        max-width: 400px;
+    }
+
+    .logincontainer-rightinside h1 {
+        font-size: 24px;
+        margin: 20px 0;
+        line-height: 30px;
+    }
+
+    .logincontainer-loginresources {
+        gap: 50px;
+    }
+
+    .logincontainer-namecontainer,
+    .logincontainer-passwordcontainer {
+        height: 36px;
+    }
+
+    .logincontainer-loginresources input:not([type="checkbox"]) {
+        font-size: 12px;
+        padding: 7px 0 7px 12px;
+        height: 36px;
+    }
+
+    .logincontainer-passwordcontainer i {
+        right: 0.7rem;
+    }
+
+    .logincontainer-checkboxcontainer p {
+        font-size: 10px;
+    }
+
+    .logincontainer-signupbuttoncontainer button {
+        height: 36px;
+        font-size: 14px;
+    }
+
+    .googlesigninbuttoncontainer .googlesigninbutton,
+    .googlesigninbuttoncontainer .iossigninbutton {
+        height: 36px;
+        font-size: 10px;
+        width: 330px;
+    }
+
+    .logincontainer-anotherresources p {
+        font-size: 10px;
+        margin: 12px 0;
+    }
+
+    .logincontainer-signinoption p,
+    .logincontainer-signinoption span {
+        font-size: 10px;
+    }
+}

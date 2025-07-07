@@ -88,13 +88,19 @@ Route::get('/sc-dashboard', function () {
 Route::get('/download-user-report', [Admincontroller::class, 'downloadUserProfileReportPDF']);
 
 Route::get('/student-dashboard', function () {
-    $controller = new StudentDashboardController();
-    $data = $controller->getUser();
+    Log::info('STUDENT DASHBOARD HIT');
 
-    return view('pages.studentdashboard', $data);
+    $user = session('user');
+
+    if (!$user) {
+        return redirect()->route('login')->withErrors('Please log in to access your dashboard.');
+    }
+
+    // Get data from controller method
+    $dashboardData = (new StudentDashboardController)->getDashboardData($user);
+
+    return view('pages.studentdashboard', $dashboardData);
 })->name('student-dashboard');
-
-
 Route::get('/admin/messages/count', [AdminController::class, 'countMessagesForAdmin']);
 
 Route::post('/admin/messages/clear-student', [AdminController::class, 'clearStudentMessagesAndGetNbfcCount']);
