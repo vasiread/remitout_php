@@ -147,9 +147,14 @@
     transition: opacity 0.3s ease;
 }
 
-@media (max-width: 1020px) {
+@media (max-width: 1025px) {
     .commonsidebar-togglesidebar {
+        display: none!important;
+    }
+    #commonsidebar-admin {
+        position: fixed;
         display: none !important;
+        scrollbar-width: none;
     }
 }
 

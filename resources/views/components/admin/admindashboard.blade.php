@@ -122,7 +122,7 @@
 
                     <div class="calendar-wrapper">
                         <button id="calender-buttongroups" style="display:none"> Calendar <img
-                                src="assets/images/Icons/calendar_month.png" alt=""></button>
+                                src="assets/images/Icons/calendar_month.png" alt="calendar month Icon"></button>
                         <button id="download-buttongroups">Download Report</button>
 
                         <div class="calendar-container" style="display:none">
@@ -322,7 +322,7 @@
                                     font-size: 12px;
                                     padding: 2px 6px;
                                     border-radius: 4px;border:1px solid rgba(82, 82, 82, 0.24);background:transparent;color:rgba(93, 92, 92, 1);font-weight: 500;display:flex;justify-content: space-between;align-items: center;">
-                                Calendar <img src={{ asset('assets/images/stat_minus_black.png') }} alt="">
+                                Calendar <img src={{ asset('assets/images/stat_minus_black.png') }} alt="Stat Calendar image">
                             </button>
                             <input type="month" id="date-picker-linegraph"
                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -772,7 +772,7 @@
                         // Optional: show selected month/year in the button
                         if (button) {
                             button.innerHTML =
-                                `${getMonthName(month)} ${year} <img src="assets/images/Icons/calendar_month.png" alt="">`;
+                                `${getMonthName(month)} ${year} <img src="assets/images/Icons/calendar_month.png" alt="calendar">`;
                         }
 
                         if (selectedDateText) {
@@ -3210,7 +3210,7 @@
                 const [year, month] = selectedMonthYear.split('-');
 
                 button.innerHTML =
-                    `Calendar ${getMonthName(month)} ${year} <img src="assets/images/Icons/calendar_month.png" alt="">`;
+                    `Calendar ${getMonthName(month)} ${year} <img src="assets/images/Icons/calendar_month.png" alt="calendar Image">`;
             });
 
             function getMonthName(monthNumber) {

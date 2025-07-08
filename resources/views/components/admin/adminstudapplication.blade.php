@@ -3732,6 +3732,7 @@ this.setupHelpTriggerListener();
         gap:20px;
         margin-top: 20px;
         border-radius: 8px;
+        display:flex;
       }
       #education-rows-container .education-field {
         margin-bottom: 20px;

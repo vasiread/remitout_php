@@ -42,7 +42,7 @@
                 </div>
                 <div class="student-list-dropdown-filters" id="student-list-dropdown-filters">
                     <button class="student-list-dropdown-button">
-                        <img src="{{ asset('assets/images/Icons/filter_icon.png') }}" alt="">
+                        <img src="{{ asset('assets/images/Icons/filter_icon.png') }}" alt="Dropdown Icon">
                         Filters
                         <i class="fa-solid fa-chevron-down"></i>
                     </button>
@@ -79,7 +79,7 @@
                                 <button class="edit-student-profile-trigger"
                                     data-user-id="{{ $users->user_id }}">Edit</button>
                                 <button class="expand-arrow">
-                                    <img src="{{ asset('assets/images/stat_minus_1.png') }}" alt="">
+                                    <img src="{{ asset('assets/images/stat_minus_1.png') }}" alt="Expand arrow">
                                 </button>
                             </div>
                             <button class="studenteacheditbutton">Edit</button>
@@ -848,7 +848,7 @@
 
     <div id="studentprofile-section-adminsideview" style="display: none;">
         <div class="studentdashboardprofile-profilesection">
-            <img src="path/to/profile.jpg" class="profileImg" id="profile-photo-id" alt="">
+            <img src="path/to/profile.jpg" class="profileImg" id="profile-photo-id" alt="Profile Image">
             <i class="fa-regular fa-pen-to-square"></i>
             <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data" disabled>
 
@@ -861,19 +861,19 @@
                     <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span
                             class="personal_info_id" style="margin-left: 6px;">ABC123456</span></li>
                     <li class="personal_info_name" id="referenceNameId">
-                        <img src="{{ $profileIconPath }}" alt="">
+                        <img src="{{ $profileIconPath }}" alt="Name Icon">
                         <p>John Doe</p>
                     </li>
                     <li class="personal_info_phone">
-                        <img src="{{ $phoneIconPath }}" alt="">
+                        <img src="{{ $phoneIconPath }}" alt="Phone No Icon">
                         <p>+91 9876543210</p>
                     </li>
                     <li class="personal_info_email" id="referenceEmailId">
-                        <img src="{{ $mailIconPath }}" alt="">
+                        <img src="{{ $mailIconPath }}" alt="Email Icon">
                         <p title="john@example.com">john@example.com</p>
                     </li>
                     <li class="personal_info_state">
-                        <img src="{{ $pindropIconPath }}" alt="">
+                        <img src="{{ $pindropIconPath }}" alt="Location Icon">
                         <p id="personal_state_id">Maharashtra</p>
                     </li>
                 </ul>

@@ -52,7 +52,7 @@
                 <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
             </li>
             <li>
-                <img src="{{ asset('assets/images/Icons/support_agent.png') }}" alt=""> Support
+                <img src="{{ asset('assets/images/Icons/support_agent.png') }}" alt="support icon"> Support
             </li>
         </ul>
     </div>

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Import Poppins font from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-     <script src="{{ asset('js/toast.js') }}"></script> 
+
 </head>
 
 <body>
@@ -230,30 +230,30 @@
                         .then(response => response.json())
                         .then(data => {
                             console.log(data);
-                            if (data.success) {
-                                window.showToast(data.message);
-                                // typeof window.showToast
-                                console.log(typeof window.showToast)
-                                switch (data.role) {
-                                    case 'superadmin':
-                                    case 'admin':
-                                        window.location.href = '/admin-page';
-                                        break;
-                                    case 'scuser':
-                                        window.location.href = '/sc-dashboard';
-                                        break;
-                                    case 'user':
-                                        window.location.href = '/student-dashboard';
-                                        break;
-                                    case 'nbfc':
-                                        window.location.href = '/nbfc-dashboard';
-                                        break;
-                                    default:
-                                        // alert("Unknown role. Please contact support.");
-                                }
-                            } else {
-                                window.showToast(data.message);
-                            }
+                           if (data.success) {
+    alert(data.message);  // temporarily show alert
+
+    switch (data.role) {
+        case 'superadmin':
+        case 'admin':
+            window.location.href = '/admin-page';
+            break;
+        case 'scuser':
+            window.location.href = '/sc-dashboard';
+            break;
+        case 'user':
+            window.location.href = '/student-dashboard';
+            break;
+        case 'nbfc':
+            window.location.href = '/nbfc-dashboard';
+            break;
+        default:
+            alert("Unknown role detected. Please contact support.");
+    }
+} else {
+    alert(data.message);  // fallback
+}
+
                         })
                         .catch(error => {
                             console.error('Error:', error);

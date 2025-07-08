@@ -1559,8 +1559,6 @@
                                 name="dynamic_documents[{{ $doc->key }}]" accept=".jpg, .png, .pdf"
                                 onchange="handleFileUpload(event, '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')" />
 
-
-
                             <span id="{{ $doc->key }}-remove-icon" class="remove-icon"
                                 style="display: none;"
                                 onclick="removeFile('{{ $doc->key }}', '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')">✖</span>
@@ -1578,9 +1576,6 @@
                     </div>
                 @endforeach
             </div>
-
-
-
         </div>
     </section>
 
@@ -1592,7 +1587,6 @@
                 <h2>Co-borrower KYC Documents</h2>
             </div>
             <div class="document-container">
-
                 <!-- PAN Card -->
                 <div class="document-box">
                     <div class="document-name" id="pan-card-ids">PAN Card</div>
@@ -1685,8 +1679,6 @@
                             <input type="file" id="{{ $doc->key }}"
                                 name="dynamic_documents[{{ $doc->key }}]" accept=".jpg, .png, .pdf"
                                 onchange="handleFileUpload(event, '{{ $doc->key }}-name', '{{ $doc->key }}-upload-icon', '{{ $doc->key }}-remove-icon', null, 'dynamic')" />
-
-
 
                             <span id="{{ $doc->key }}-remove-icon" class="remove-icon"
                                 style="display: none;"

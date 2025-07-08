@@ -331,7 +331,7 @@
                                     alt="Referral group icon"> Referral Code:
                                 45628</button>
                             <button style="display:none"> <img src="{{ asset('assets/images/dbicon.png') }}"
-                                    alt="">Track
+                                    alt="Referral DB Icon">Track
                                 Commission</button>
                             <button id="mobgeneratedbutton" class="referral-Link-trigger-button">Generate Referral
                                 Link</button>
@@ -358,7 +358,7 @@
                 <div class="scmember-profilecontainer">
                     <div class="scmember-profilecontainerimg">
                         <img src="{{ asset('assets/images/image-women.jpeg') }}" id="studentcounsellor-profile"
-                            alt="">
+                            alt="Student Counsellor Profile Icon">
                         <i class="fa-regular fa-pen-to-square"></i>
                         <input type="file" id="sc-profile-upload-cloud" display="none">
                     </div>
@@ -382,37 +382,37 @@
                     <ul class="scmember_personalinfo">
 
                         <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{ $profileIconPath }}"
-                                alt="">
+                                alt="Personal Info Name">
                             <p> </p>
                         </li>
-                        <li class="scmember_personal_info_phone"><img src={{ $phoneIconPath }} alt="">
+                        <li class="scmember_personal_info_phone"><img src={{ $phoneIconPath }} alt="Personal Phone">
                             <p></p>
                         </li>
                         <li class="scmember_personal_info_email" style="word-break: break-all;" id="referenceEmailId">
-                            <img src="{{ $mailIconPath }}" alt="">
+                            <img src="{{ $mailIconPath }}" alt="SC Personal Email">
                             <p>{{ session('scuser')->email }}</p>
                         </li>
-                        <li class="scmember_personal_info_state"><img src="{{ $pindropIconPath }}" alt="">
+                        <li class="scmember_personal_info_state"><img src="{{ $pindropIconPath }}" alt="Personal Location">
                             <p style="line-height:19px"></p>
                         </li>
 
                     </ul>
                     <ul class="scmember_personalinfo_editmode">
                         <li class="scmember_personal_info_name" id="referenceNeId"><img src="{{ $profileIconPath }}"
-                                alt="">
+                                alt="SC Profile Image">
                             <input type="text">
                         </li>
-                        <li class="scmember_personal_info_phone"><img src={{ $phoneIconPath }} alt="">
+                        <li class="scmember_personal_info_phone"><img src={{ $phoneIconPath }} alt="Phone Icon">
                             <input type="text">
                         </li>
                         <li class="scmember_personal_info_email" id="referenceEmailId">
-                            <img src="{{ $mailIconPath }}" alt="">
+                            <img src="{{ $mailIconPath }}" alt="Email Icon">
                             <input type="text" disabled>
                         </li>
                         <li class="scmember_personal_info_state-edit">
 
                             <div class="scmember-personal_address_header">
-                                <img src="{{ $pindropIconPath }}" alt="">
+                                <img src="{{ $pindropIconPath }}" alt="Location Icon">
                                 <input type="text" disabled>
                             </div>
 
@@ -483,17 +483,12 @@
                         <div id="viewmore-queries">
                             <p>view more</p> <img src="{{ asset('assets/images/Icons/stat_minus_1.png') }}"
                                 style="margin-top: 9px;
-                                                                                                margin-left: 8px;
-                                                                                                width: 12px;
-                                                                                                height: 7px;"
-                                alt="">
+                                    margin-left: 8px;
+                                    width: 12px;
+                                    height: 7px;"
+                                alt="View more Icon">
                         </div>
-
-
                     </div>
-
-
-
                 </div>
 
             </div>
@@ -511,7 +506,7 @@
                             <a href="" data-sort="alphabet-reverse">Z-A</a>
                         </div>
                         <button id="mobwidthdownloadbutton">
-                            <img src="{{ asset('assets/images/Icons/download-orange.png') }}" alt="">
+                            <img src="{{ asset('assets/images/Icons/download-orange.png') }}" alt="Mobile Orange Icon">
                         </button>
                         <button id="sc-new-application-generate">Start New Application</button>
                     </div>
@@ -524,13 +519,7 @@
                 <div class="pagination-download-groups">
                     <div id="pagination-container-statusgroups"></div>
                     <button id="download-statusgroups-reports">Download report</button>
-
                 </div>
-
-
-
-
-
             </div>
         </div>
 
@@ -653,11 +642,6 @@
             setInterval(alertDeactiveCountFromReferral, 3000);
             retreiveStud();
 
-
-
-
-
-
             document.querySelector(".unread-notify-container")?.addEventListener("click", () => {
                 const sidebarItems = document.querySelectorAll(".commonsidebar-sidebarlists-top li");
                 if (sidebarItems[1]) {
@@ -674,9 +658,6 @@
                     }, 280);
                 }
             });
-
-
-
 
         })
 
@@ -727,10 +708,7 @@
                                 imageRotation[index].style.transform = "rotate(360deg)"
                             }
 
-
-
                         } else {
-
 
                             progress[index].style.display = "flex";
                             if (imageRotation) {

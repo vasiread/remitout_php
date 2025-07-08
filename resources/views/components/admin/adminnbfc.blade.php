@@ -57,7 +57,7 @@
 
                 <div class="nbfc-dropdown-filters" id="nbfc-listcontainer-filters">
                     <button class="nbfc-dropdown-button">
-                        <img src="{{ asset('assets/images/Icons/filter_icon.png') }}" alt="">
+                        <img src="{{ asset('assets/images/Icons/filter_icon.png') }}" alt="NBFC filter Icon">
                         Sort
                         <i class="fa-solid fa-chevron-down"></i>
                     </button>

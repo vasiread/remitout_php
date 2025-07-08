@@ -519,7 +519,7 @@
       }
 
       .admin-nav-left .back-button {
-          display: none;
+          display: none !important;
       }
 
       .admin-nav-right {
