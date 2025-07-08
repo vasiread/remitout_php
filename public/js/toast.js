@@ -2,8 +2,8 @@ const ToastUtils = {
     toastQueue: [],
     MAX_TOASTS: 5,
     TRANSITION_DURATION: 300,
+
     showToast: (message, duration = 3000, type = 'info') => {
-        // Input validation
         if (typeof message !== 'string' || message.trim() === '') {
             console.warn('Invalid toast message');
             return;
@@ -13,13 +13,11 @@ const ToastUtils = {
             duration = 3000;
         }
 
-        // Check max toasts
         if (ToastUtils.toastQueue.length >= ToastUtils.MAX_TOASTS) {
             console.log(`Max toasts reached: ${ToastUtils.MAX_TOASTS}`);
             return;
         }
 
-        // Get or create toast container
         let toastContainer = document.getElementById('toast-container');
         if (!toastContainer) {
             console.warn('Toast container not found. Creating one.');
@@ -34,7 +32,6 @@ const ToastUtils = {
             }
         }
 
-        // Create toast
         const toast = document.createElement('div');
         toast.className = `toast toast-${type}`;
         toast.setAttribute('role', 'alert');
@@ -42,7 +39,6 @@ const ToastUtils = {
         toast.setAttribute('aria-atomic', 'true');
         toast.textContent = message;
 
-        // Add close button
         const closeBtn = document.createElement('span');
         closeBtn.textContent = '×';
         closeBtn.className = 'toast-close';
@@ -71,17 +67,14 @@ const ToastUtils = {
             return;
         }
 
-        // Store timeouts for this toast
         const toastTimeouts = [];
 
-        // Show toast
         const showTimeout = setTimeout(() => {
             toast.classList.add('show');
             console.log(`Toast class 'show' added: ${message}`);
         }, 100);
         toastTimeouts.push(showTimeout);
 
-        // Hide and remove toast
         const hideTimeout = setTimeout(() => {
             toast.classList.remove('show');
             setTimeout(() => {
@@ -97,9 +90,9 @@ const ToastUtils = {
         }, duration);
         toastTimeouts.push(hideTimeout);
 
-        // Store timeouts with toast
         toast._timeouts = toastTimeouts;
     },
+
     initializeStyles: () => {
         if (document.querySelector('style#toast-styles')) return;
         const style = document.createElement('style');
@@ -165,6 +158,7 @@ const ToastUtils = {
             console.error('Failed to append toast styles:', e);
         }
     },
+
     clearAllToasts: () => {
         ToastUtils.toastQueue.forEach(toast => {
             toast._timeouts?.forEach(clearTimeout);
@@ -177,8 +171,14 @@ const ToastUtils = {
     }
 };
 
+// ✅ Assign to global scope
 window.ToastUtils = ToastUtils;
+window.showToast = ToastUtils.showToast;  // <-- This line fixes your issue
+
+// ✅ Initialize styles
 ToastUtils.initializeStyles();
+
+// ✅ Clear toasts on page change
 window.addEventListener('pagehide', () => {
     ToastUtils.clearAllToasts();
 });
