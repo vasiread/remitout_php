@@ -3241,10 +3241,6 @@ document.querySelectorAll('input[name="education-level"]').forEach(radio => {
 });
 
 
-
-
-
-
 const saveChangesFunctionality = () => {
     let isEditing = false;
     const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
@@ -3398,7 +3394,7 @@ const saveChangesFunctionality = () => {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                     },
                     body: JSON.stringify(updatedInfos)
-                })
+                    })
                     .then(response => response.json())
                     .then(data => {
                         //console.log("Response Data:", data);
@@ -3482,11 +3478,6 @@ const saveChangesFunctionality = () => {
                             if (otherExamName && otherExamScore && !isNaN(otherExamScore)) {
                                 scoresContainer.innerHTML += `<p>${scoreCounter++}. ${otherExamName} <span>${otherExamScore}</span></p>`;
                             }
-
-
-
-
-
 
                         }
 
