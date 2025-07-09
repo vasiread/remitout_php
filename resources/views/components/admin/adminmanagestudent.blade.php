@@ -72,9 +72,10 @@
                     <div class="mobile-report-header-middle-student-report">
                         <div class="mobile-header-actions-student-report">
                             <div class="mobile-search-container-student-report">
-                                <input type="text" class="mobile-search-input-student-report" placeholder="Search">
-                                <img src="assets/images/search.png" class="mobile-search-icon-student-report"
-                                    alt="search">
+                              <div class="mobile-search-input-student-report">
+                                    <input type="text"  placeholder="Search">
+                                     <img src="assets/images/search.png" class="mobile-search-icon-student-report" alt="search">
+                             </div>     
                             </div>
                            <button class="mobile-filter-btn-student-report" id="show-mobile-filters">
                                 Filters <img src="assets/images/filter-icon.png" alt="Dropdown Icon" class="dropdown-icon">

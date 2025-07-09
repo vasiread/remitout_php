@@ -224,24 +224,37 @@
     flex: 1;
 }
 
+
+
 .mobile-search-input-student-report {
+    position: relative; 
+    width: 100%; 
+    border-radius: 4px;
+    font-size: 14px;
+    border:none !important;
+    padding:0 !important;
+
+}
+
+.mobile-search-input-student-report input {
     width: 100%;
-    padding: 8px 30px 8px 10px;
+    padding: 8px 40px 8px 45px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 14px;
-    display:none;
+    outline: none;
+    box-sizing: border-box;
 }
 
 .mobile-search-icon-student-report {
     position: absolute;
-    right: 10px;
+    left: 12px; /* Position within the inner div */
     top: 50%;
     transform: translateY(-50%);
     width: 18px;
     height: 18px;
+    pointer-events: none;
 }
-
 .mobile-filter-btn-student-report {
     display: flex;
     align-items: center;
