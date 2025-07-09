@@ -130,11 +130,10 @@
             }, 50);
         }
 
-       function toggleSection(sectionId, index) {
+        function toggleSection(sectionId, index) {
             window.App.activeSection = sectionId;
             window.App.activeIndex = index;
 
-<<<<<<< HEAD
             let trackProgressDiv, myApplicationDiv, dynamicHeader, communityJoinCard, profileStatusCard, profileImgEditIcon,
                 educationEditSection, testScoresEditSection;
             let scDashboardContainer, scInboxContainer, scApplicationStatus;
@@ -153,22 +152,6 @@
                 educationEditSection = document.querySelector('.studentdashboardprofile-educationeditsection');
                 testScoresEditSection = document.querySelector('.studentdashboardprofile-testscoreseditsection');
             }
-=======
-            const trackProgressDiv = document.querySelector('.studentdashboardprofile-trackprogress');
-            const myApplicationDiv = document.querySelector('.studentdashboardprofile-myapplication');
-            const profileSection = document.querySelector('.studentdashboardprofile-profilesection');
-            const dynamicHeader = document.getElementById('loanproposals-header');
-            const communityJoinCard = document.querySelector('.studentdashboardprofile-communityjoinsection');
-            const profileStatusCard = document.querySelector('.personalinfo-profilestatus');
-            const profileImgEditIcon = document.querySelector('.studentdashboardprofile-profilesection .fa-pen-to-square');
-            const educationEditSection = document.querySelector('.studentdashboardprofile-educationeditsection');
-            const testScoresEditSection = document.querySelector('.studentdashboardprofile-testscoreseditsection');
-            const personalDivContainer = document.querySelector('.personalinfo-secondrow');
-            const personalDivContainerEdit = document.querySelector('.personalinfosecondrow-editsection');
-            const academicsMarksDivEdit = document.querySelector('.testscoreseditsection-secondrow-editsection');
-            const academicsMarksDiv = document.querySelector('.testscoreseditsection-secondrow');
-            const saveChangesButton = document.querySelector('.personalinfo-firstrow button');
->>>>>>> 16a3202 (Overall responsiveness)
 
             const menuItems = document.querySelectorAll('.sidebar-menu .menu-item, .sidebarlists-top li');
             menuItems.forEach(item => {
@@ -181,10 +164,6 @@
             });
 
             if (window.App.hasScUserSession) {
-                // Handle SC user session logic (unchanged)
-                const scDashboardContainer = document.querySelector('.scdashboard-container');
-                const scInboxContainer = document.querySelector('.scdashboard-inboxcontent');
-                const scApplicationStatus = document.querySelector('.scdashboard-applicationstatus');
                 if (sectionId === 'scdashboard-container' && index === 0) {
                     if (scDashboardContainer) scDashboardContainer.style.display = 'flex';
                     if (scInboxContainer) scInboxContainer.style.display = 'none';
@@ -199,13 +178,15 @@
                     if (scApplicationStatus) scApplicationStatus.style.display = 'flex';
                 }
             } else {
-                // Handle visibility of profile section based on tab and screen size
-                const isMobile = window.innerWidth <= 1020;
+                const personalDivContainer = document.querySelector(".personalinfo-secondrow");
+                const personalDivContainerEdit = document.querySelector(".personalinfosecondrow-editsection");
+                const academicsMarksDivEdit = document.querySelector(".testscoreseditsection-secondrow-editsection");
+                const academicsMarksDiv = document.querySelector(".testscoreseditsection-secondrow");
+                const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
 
                 if (sectionId === 'studentdashboardprofile-trackprogress' && index === 0) {
                     if (trackProgressDiv) trackProgressDiv.style.display = 'flex';
                     if (myApplicationDiv) myApplicationDiv.style.display = 'none';
-                    if (profileSection) profileSection.style.display = isMobile ? 'none' : 'block'; // Hide on mobile, show on desktop
                     if (communityJoinCard) communityJoinCard.style.display = 'flex';
                     if (profileStatusCard) profileStatusCard.style.display = 'block';
                     if (profileImgEditIcon) profileImgEditIcon.style.display = 'none';
@@ -225,7 +206,6 @@
                 } else if (sectionId === 'studentdashboardprofile-trackprogress' && index === 1) {
                     if (trackProgressDiv) trackProgressDiv.style.display = 'flex';
                     if (myApplicationDiv) myApplicationDiv.style.display = 'none';
-                    if (profileSection) profileSection.style.display = isMobile ? 'none' : 'block'; // Hide on mobile, show on desktop
                     if (communityJoinCard) communityJoinCard.style.display = 'flex';
                     if (profileStatusCard) profileStatusCard.style.display = 'block';
                     if (profileImgEditIcon) profileImgEditIcon.style.display = 'none';
@@ -245,16 +225,11 @@
                 } else if (sectionId === 'studentdashboardprofile-myapplication' && index === 2) {
                     if (trackProgressDiv) trackProgressDiv.style.display = 'none';
                     if (myApplicationDiv) myApplicationDiv.style.display = 'flex';
-                    if (profileSection) profileSection.style.display = 'block'; // Show profile in My Applications
                     if (communityJoinCard) communityJoinCard.style.display = 'none';
                     if (profileStatusCard) profileStatusCard.style.display = 'none';
                     if (profileImgEditIcon) profileImgEditIcon.style.display = 'block';
                     if (educationEditSection) educationEditSection.style.display = 'flex';
                     if (testScoresEditSection) testScoresEditSection.style.display = 'flex';
-                    if (personalDivContainerEdit) personalDivContainerEdit.style.display = 'none';
-                    if (personalDivContainer) personalDivContainer.style.display = 'flex';
-                    if (academicsMarksDivEdit) academicsMarksDivEdit.style.display = 'none';
-                    if (academicsMarksDiv) academicsMarksDiv.style.display = 'flex';
                     if (saveChangesButton) {
                         saveChangesButton.textContent = 'Edit';
                         saveChangesButton.style.backgroundColor = 'transparent';
@@ -274,11 +249,7 @@
             }
         }
 
-<<<<<<< HEAD
         function sessionLogoutInitial(logoutUrl, loginUrl) {
-=======
-            function sessionLogoutInitial(logoutUrl, loginUrl) {
->>>>>>> 16a3202 (Overall responsiveness)
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
             if (!csrfToken) {
                 console.error('CSRF token not found');
@@ -292,7 +263,6 @@
             }
 
             fetch(logoutUrl, {
-<<<<<<< HEAD
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': csrfToken,
@@ -314,29 +284,6 @@
                     console.error('Fetch error during logout:', error);
                     alert('Logout failed: Network error');
                 });
-=======
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({})
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Optional: log response status or handle response.json() if needed
-                    console.log('Logout successful');
-                    window.location.href = loginUrl;
-                } else {
-                    console.error('Logout failed:', response.status, response.statusText);
-                    alert('Logout failed: Server error');
-                }
-            })
-            .catch(error => {
-                console.error('Fetch error during logout:', error);
-                alert('Logout failed: Network error');
-            });
->>>>>>> 16a3202 (Overall responsiveness)
         }
 
 
