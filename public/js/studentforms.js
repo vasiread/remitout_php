@@ -228,14 +228,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function navigate(direction) {
         if (isNavigating) {
-            console.log("Navigation blocked: already navigating");
+            //console.log("Navigation blocked: already navigating");
             return;
         }
         isNavigating = true;
-        console.log("Before navigation:", {
-            currentBreadcrumbIndex,
-            currentContainerIndex,
-        });
+        //console.log("Before navigation:", {currentBreadcrumbIndex,currentContainerIndex,});
 
         const currentContainers = breadcrumbSections[currentBreadcrumbIndex];
         currentContainers[currentContainerIndex].style.display = "none";
@@ -250,7 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 breadcrumbSections[currentBreadcrumbIndex].forEach(
                     (container) => (container.style.display = "none"),
                 );
-                // showToast("Details have been saved successfully");
+                showToastMsg("Details have been saved successfully");
             }
         } else if (direction === "prev") {
             if (currentContainerIndex > 0) {
@@ -263,10 +260,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const updatedContainers = breadcrumbSections[currentBreadcrumbIndex];
-        console.log(
-            "Displaying container:",
-            updatedContainers[currentContainerIndex].className,
-        );
+        //console.log( "Displaying container:",updatedContainers[currentContainerIndex].className);
         updatedContainers[currentContainerIndex].style.display = "block";
 
         updateBreadcrumbNavigation();
@@ -274,10 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
         updateDots();
         updateMobileHeading(currentBreadcrumbIndex);
 
-        console.log("After navigation:", {
-            currentBreadcrumbIndex,
-            currentContainerIndex,
-        });
+        //console.log("After navigation:", {currentBreadcrumbIndex,currentContainerIndex,});
         isNavigating = false;
     }
     if (nextButton) {
@@ -313,7 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data.message);
+                //console.log(data.message);
             })
             .catch((error) => {
                 console.error("Error updating user IDs:", error);
@@ -359,7 +350,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 emiAmount
             };
 
-            console.log("Submitting coborrowerData:", coborrowerData);
+            //console.log("Submitting coborrowerData:", coborrowerData);
             // alert(JSON.stringify(coborrowerData)); // for debugging
 
             fetch("/api/coborrowerData", {
@@ -375,7 +366,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.success) {
-                        // showToast("Coborrower details saved successfully");
+                        showToastMsg("Coborrower details saved");
                     } else {
                         console.error("Failed to update co-borrower info:", data.message);
                     }
@@ -457,7 +448,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        console.log("Dynamic Fields:", dynamicFields);
+        //console.log("Dynamic Fields:", dynamicFields);
 
         // ✅ Validation
         if (
@@ -481,7 +472,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 dynamic_fields: dynamicFields,
             };
 
-            console.log("Sending data:", JSON.stringify(personalUpdateData, null, 2));
+            //console.log("Sending data:", JSON.stringify(personalUpdateData, null, 2));
 
             fetch("/api/update-personalinfo", {
                 method: "POST",
@@ -496,7 +487,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.success) {
-                        // showToast("Personal Info Details saved successfully");
+                        window.showToastMsg("Personal Info saved");
                     } else {
                         console.error("Failed to update personal info:", data.message);
                     }
@@ -597,7 +588,7 @@ document.addEventListener("DOMContentLoaded", () => {
             course_details: expenseType,
             dynamic_fields: dynamicFields,
         };
-         console.log(courseInfoData)
+         //console.log(courseInfoData)
 
         // ✅ Send data to backend
         fetch("/api/update-courseinfo", {
@@ -613,8 +604,8 @@ document.addEventListener("DOMContentLoaded", () => {
             .then((response) => response.json())
             .then((data) => {
                 if (data.success) {
-                    // showToast("Course Info Details saved successfully");
-                    console.log(courseInfoData)
+                    showToastMsg("Course Info saved");
+                    //console.log(courseInfoData)
                 } else {
                     console.error(
                         "Failed to update course info:",
@@ -796,7 +787,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then((response) => response.json())
             .then((data) => {
                 if (data.success) {
-                    // showToast("Academic Details saved successfully");
+                    showToastMsg("Academic Details saved");
                 } else {
                     console.error(
                         "Failed to update academic info:",
@@ -1118,7 +1109,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         if (file.size > 5 * 1024 * 1024) {
-            showToast("File size exceeds 5MB limit.");
+            showToastMsg("File size exceeds 5MB limit.");
             fileInput.value = "";
             fileNameElement.textContent = "No file chosen";
             uploadIcon.style.display = "inline";
@@ -1132,7 +1123,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .slice(file.name.lastIndexOf("."))
             .toLowerCase();
         if (!allowedExtensions.includes(fileExtension)) {
-            showToast("Only .jpg, .jpeg, .png, and .pdf files are allowed.");
+            showToastMsg("Only .jpg, .jpeg, .png, and .pdf files are allowed.");
             fileInput.value = "";
             fileNameElement.textContent = "No file chosen";
             uploadIcon.style.display = "inline";
@@ -1240,7 +1231,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then((data) => {
                 if (data) {
-                    console.log("File uploaded successfully", data);
+                    //console.log("File uploaded successfully", data);
                 } else {
                     console.error(
                         "Error: No URL returned from the server",
@@ -1329,7 +1320,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return response.json();
             })
             .then((data) => {
-                console.log("Files deleted successfully", data);
+                //console.log("Files deleted successfully", data);
             })
             .catch((error) => {
                 console.error("Error deleting file:", error);
@@ -2819,7 +2810,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const universitySuggestionsContainer = document.getElementById("suggestions-university");
     
     if (!universityInput || !universitySuggestionsContainer) {
-        showToast("Error: University input field not found.");
+        showToastMsg("Error: University input field not found.");
     } else {
         let debounceTimeout;
         universityInput.addEventListener("input", () => {

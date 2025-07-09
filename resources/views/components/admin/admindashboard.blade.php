@@ -10,6 +10,38 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!-- Added jQuery -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
+<style>
+    .download-btn-loader-wrapper {
+    position: relative;
+}
+
+.download-btn-loader-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.download-btn-loader-spinner {
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    border: 2px solid transparent;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    z-index: 10;
+}
+
+@keyframes spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+</style>
 
 <body>
     @extends('layouts.app')
@@ -797,25 +829,34 @@
             initializeLeadSuccessChart();
         };
 
-        const button = document.querySelector(".calendar-wrapper #download-buttongroups");
-        const mobButton = document.querySelector(".admin-dashboard-download-button");
+            const downloadBtn = document.querySelector("#download-buttongroups");
 
-        if (button) {
-            button.addEventListener('click', () => {
-                window.location.href = '/download-user-report';
-            });
-        } else {
-            console.error("Desktop download button not found!");
+    const resetDownloadBtn = () => {
+        if (downloadBtn) {
+            downloadBtn.disabled = false;
+            downloadBtn.innerHTML = "Download Report";
+            downloadBtn.classList.remove("download-btn-loader-disabled");
+            downloadBtn.style.cursor = "pointer";
         }
+    };
 
-        if (mobButton) {
-            mobButton.addEventListener('click', () => {
-                window.location.href = '/download-user-report';
-            });
-        } else {
-            console.error("Mobile download button not found!");
-        }
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', function () {
+            // Show loader
+            downloadBtn.disabled = true;
+            downloadBtn.innerHTML = `<span class="download-btn-loader-spinner"></span>`;
+            downloadBtn.classList.add("download-btn-loader-disabled");
+            downloadBtn.style.cursor = "not-allowed";
 
+            // Trigger file download
+            window.location.href = '/download-user-report';
+
+            // ✅ Fallback timeout to reset loader after 3 seconds
+            setTimeout(() => {
+                resetDownloadBtn();
+            }, 6000);
+        });
+    }
 
         // Registration Line Graph with API Data
         const initializeRegistrationLineGraph = (month = null, year = null) => {

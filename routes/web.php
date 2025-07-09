@@ -90,10 +90,16 @@ Route::get('/download-user-report', [Admincontroller::class, 'downloadUserProfil
 
 
 Route::get('/student-dashboard', function () {
-    $user = session('user');
+    $userId = session('user_id');
+
+    if (!$userId) {
+        return redirect()->route('login')->withErrors('Please log in to access your dashboard.');
+    }
+
+    $user = \App\Models\User::find($userId);
 
     if (!$user) {
-        return redirect()->route('login')->withErrors('Please log in to access your dashboard.');
+        return redirect()->route('login')->withErrors('User not found.');
     }
 
     $dashboardData = (new StudentDashboardController)->getDashboardData($user);

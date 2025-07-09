@@ -47,7 +47,12 @@ class StudentDashboardController extends Controller
     ];
     public function getDashboardData($user)
     {
-        \Log::info('Preparing dashboard data', ['user' => $user]);
+        \Log::info('Preparing dashboard data', ['user_id' => $user->id ?? null]);
+
+        if (!$user || !isset($user->unique_id)) {
+            \Log::warning('Invalid user passed to getDashboardData');
+            return [];
+        }
 
         $uniqueId = $user->unique_id;
 
@@ -64,6 +69,7 @@ class StudentDashboardController extends Controller
             'personalDetails' => $personalDetails,
         ];
     }
+
 
     public function checkUserId(Request $request)
     {

@@ -61,7 +61,7 @@
                             </div>
                             <button type="submit" id="loginSubmitBtn">
                                 <span class="btn-text">Sign In</span>
-                                <span class="btn-login-loader" style="display: none;"></span>
+                                <span class="btn-loader" style="display: none;"></span>
                             </button>
                         </div>
 
@@ -80,8 +80,8 @@
                             </button>
 
                             <!-- <button class="iossigninbutton">
-                                                                <img src="http://localhost:8000/assets/images/appleicon.png" alt="Apple logo"> Sign in with Apple
-                                                            </button> -->
+                                                            <img src="http://localhost:8000/assets/images/appleicon.png" alt="Apple logo"> Sign in with Apple
+                                                        </button> -->
                         </div>
 
                         <!-- New User Sign Up Option -->
@@ -117,7 +117,7 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 @if (session('session_expired'))
-                    alert("{{ session('session_expired') }}");
+                    window.showToastMsg("{{ session('session_expired') }}");
                     logoutSession();
                 @endif
             });
@@ -196,11 +196,10 @@
                 const confirmPolicy = document.getElementById("confirmpolicy");
                 const submitBtn = document.getElementById("loginSubmitBtn");
                 const btnText = submitBtn.querySelector(".btn-text");
-                const btnLoader = submitBtn.querySelector(".btn-login-loader");
-                alert(btnLoader)
+                const btnLoader = submitBtn.querySelector(".btn-loader");
 
                 if (!confirmPolicy.checked) {
-                    // alert("You must agree to the terms & policy");
+                    window.showToastMsg("You must agree to the terms & policy");
                     return;
                 }
 
@@ -211,17 +210,17 @@
 
                 const csrfToken = document.querySelector('meta[name="csrf-token"]'); // ✅ Now declared
                 if (csrfToken) {
-                    console.log("Loader test start");
+                    //console.log("Loader test start");
 
                     submitBtn.disabled = true;
                     btnLoader.style.display = "inline-block";
                     btnText.style.opacity = 0.5;
-                    console.log("Loader should now be visible");
+                    //console.log("Loader should now be visible");
 
 
                     fetch('/loginformdata', {
                             method: 'POST',
-                            credentials: 'same-origin', // ✅ Ensures cookies are sent
+                            credentials: 'include', // ✅ Ensures cookies are sent
                             headers: {
                                 'Content-Type': 'application/json',
                                 'X-CSRF-TOKEN': csrfToken.getAttribute('content')
@@ -230,23 +229,34 @@
                         })
                         .then(response => response.json())
                         .then(data => {
-                            console.log(data);
+                            //console.log(data);
                             if (data.success) {
-                                window.showToast(data.message);
+                               window.showToastMsg(data.message);
                                 // typeof window.showToast
-                                console.log(typeof window.showToast)
-                                if (data.redirect) {
-                                    window.location.href = data.redirect;
-                                } else {
-                                    window.showToast("No redirect URL provided. Please contact support.");
+                                //console.log(typeof window.showToast)
+                                switch (data.role) {
+                                    case 'superadmin':
+                                    case 'admin':
+                                        window.location.href = '/admin-page';
+                                        break;
+                                    case 'scuser':
+                                        window.location.href = '/sc-dashboard';
+                                        break;
+                                    case 'user':
+                                        window.location.href = '/student-dashboard';
+                                        break;
+                                    case 'nbfc':
+                                        window.location.href = '/nbfc-dashboard';
+                                        break;
+                                    default:
+                                        window.showToastMsg("Unknown role. Please contact support.");
                                 }
-
                             } else {
-                                window.showToast(data.message);
+                               window.showToastMsg(data.message);
                             }
                         })
                         .catch(error => {
-                            console.error('Error:', error);
+                            console.warn('Error:', error);
                             // alert("An error occurred during login.");
                         })
                         .finally(() => {
@@ -306,8 +316,8 @@
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                // alert("Email is working and reset link sent!");
-                                console.log("Email is working and reset link set!")
+                                window.showToastMsg("Email is working and reset link sent!");
+                                //console.log("Email is working and reset link set!")
                                 statusMessage.textContent = "Reset link sent successfully!";
                                 statusMessage.style.color = "green";
                             } else {

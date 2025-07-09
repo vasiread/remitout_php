@@ -848,7 +848,7 @@
 
     <div id="studentprofile-section-adminsideview" style="display: none;">
         <div class="studentdashboardprofile-profilesection">
-            <img src="path/to/profile.jpg" class="profileImg" id="profile-photo-id" alt="">
+            <img src="assets/images/defaultprofilephoto.jpg" class="profileImg" id="profile-photo-id" alt="">
             <i class="fa-regular fa-pen-to-square"></i>
             <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data" disabled>
 

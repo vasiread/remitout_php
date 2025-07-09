@@ -127,13 +127,11 @@
                 </div>
             </div>
         </div>
-        <div id="toast-container" class="toast-container"></div>
-
+ 
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                // Get the email from the URL query parameter
-                window.showToast("Hello world!"); // now it will work
+                
 
                 const urlParams = new URLSearchParams(window.location.search);
                 const email = urlParams.get('email');
@@ -268,26 +266,26 @@
 
                 if (!validateName(nameInput.value)) {
                     showError('name', 'name-error', true);
-                    alert("Name is required");
+                    window.showToastMsg("Name is required");
                     return;
                 }
                 if (!validatePhone(phoneInput.value)) {
                     showError('phone', 'phone-error', true);
-                    alert("Please enter a valid 10-digit phone number");
+                    window.showToastMsg("Please enter a valid 10-digit phone number");
                     return;
                 }
                 if (!validateEmail(emailInput.value)) {
                     showError('email', 'email-error', true);
-                    alert("Please enter a valid email address");
+                    window.showToastMsg("Please enter a valid email address");
                     return;
                 }
                 if (!validatePassword(passwordInput.value)) {
                     showError('passwordinputID', 'password-error', true);
-                    alert("Password must be 6-20 characters, include uppercase, lowercase, number, and special character");
+                    // window.showToastMsg("Password must be 6-20 characters, include uppercase, lowercase, number, and special character");
                     return;
                 }
                 if (!checkbox.checked) {
-                    alert("You must agree to the terms & policy");
+                    window.showToastMsg("You must agree to the terms & policy");
                     return;
                 }
 
@@ -331,7 +329,7 @@
                     .then(data => {
                         if (data.message) {
                             console.log('OTP sent successfully: ' + data.message);
-                            window.showToast('OTP sent successfullly')
+                            window.showToastMsg('OTP sent')
                         } else {
                             console.warn('OTP not received:', data);
                         }
@@ -419,26 +417,26 @@
 
                 if (!validateName(name)) {
                     showError('name', 'name-error', true);
-                    alert("Name is required");
+                    window.showToastMsg("Name is required");
                     return;
                 }
                 if (!validatePhone(phoneInput)) {
                     showError('phone', 'phone-error', true);
-                    alert("Please enter a valid 10-digit phone number");
+                    window.showToastMsg("Please enter a valid 10-digit phone number");
                     return;
                 }
                 if (!validateEmail(email)) {
                     showError('email', 'email-error', true);
-                    alert("Please enter a valid email address");
+                    window.showToastMsg("Please enter a valid email address");
                     return;
                 }
                 if (!validatePassword(password)) {
                     showError('passwordinputID', 'password-error', true);
-                    alert("Password must be 6-20 characters, include uppercase, lowercase, number, and special character");
+                    window.showToastMsg("Password must be 6-20 characters, include uppercase, lowercase, number, and special character");
                     return;
                 }
                 if (!confirmPolicy) {
-                    alert("You must agree to the terms & policy");
+                    window.showToastMsg("You must agree to the terms & policy");
                     return;
                 }
 
@@ -462,14 +460,14 @@
                         console.log('Response data:', data);
                         if (data.success === false) {
                             showError('email', 'email-error', true);
-                            // alert(data.message);
+                            window.showToastMsg(data.message);
                         } else if (data.success === true) {
                             triggerOtpSection();
                         }
                     })
                     .catch(error => {
-                        console.error('Error:', error);
-                        // alert('An error occurred while checking email');
+                        console.warn('Error:', error);
+                        // window.showToastMsg('An error occurred while checking email');
                     })
                     .finally(() => {
                         // 👇 Always remove button loading
@@ -518,13 +516,13 @@
                             window.location.href = '/student-forms';
                         } else {
                             // Show error, revert button
-                            // alert(data.error || 'Something went wrong. Please try again.');
+                            // window.showToastMsg(data.error || 'Something went wrong. Please try again.');
                             btnText.style.display = 'inline-block';
                             btnLoader.style.display = 'none';
                         }
                     })
                     .catch(() => {
-                        // alert('An error occurred. Please try again.');
+                        // window.showToastMsg('An error occurred. Please try again.');
                         btnText.style.display = 'inline-block';
                         btnLoader.style.display = 'none';
                     });

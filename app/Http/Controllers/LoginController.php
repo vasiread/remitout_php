@@ -30,13 +30,11 @@ class LoginController extends Controller
         $loginName = $request->loginName;
         $loginPassword = $request->loginPassword;
 
-        Log::info('Login attempt', ['loginName' => $loginName]);
-
         $superAdminEmail = env('SUPERADMIN_EMAIL');
         $superAdminPasswordHash = env('SUPERADMIN_PASSWORD');
         $superAdminName = env('SUPERADMIN_NAME');
 
-        // ✅ 1. Super Admin
+
         if ($loginName === $superAdminEmail && Hash::check($loginPassword, $superAdminPasswordHash)) {
             session([
                 'admin' => [
@@ -46,13 +44,10 @@ class LoginController extends Controller
             ]);
             session()->put('expires_at', now()->addSeconds(20000));
 
-            Log::info('Super Admin login successful', ['email' => $superAdminEmail]);
-
             return response()->json([
                 'success' => true,
                 'message' => 'Super Admin login successful',
-                'role' => 'superadmin',
-                'redirect' => '/admin-page'
+                'role' => 'superadmin'
             ]);
         }
 
@@ -67,13 +62,10 @@ class LoginController extends Controller
             ]);
             session()->put('expires_at', now()->addSeconds(10000));
 
-            Log::info('Admin login successful', ['email' => $admin->email]);
-
             return response()->json([
                 'success' => true,
                 'message' => 'Admin login successful',
-                'role' => 'admin',
-                'redirect' => '/admin-page'
+                'role' => 'admin'
             ]);
         }
 
@@ -88,13 +80,10 @@ class LoginController extends Controller
             session()->put('scDetail', $scuser);
             session()->put('expires_at', now()->addSeconds(10000));
 
-            Log::info('SC user login successful', ['referral' => $scuser->referral_code, 'email' => $scuser->email]);
-
             return response()->json([
                 'success' => true,
                 'message' => 'SC login successful',
-                'role' => 'scuser',
-                'redirect' => '/sc-dashboard'
+                'role' => 'scuser'
             ]);
         }
 
@@ -104,18 +93,19 @@ class LoginController extends Controller
             : User::where('unique_id', $loginName)->first();
 
         if ($user && Hash::check($loginPassword, $user->password)) {
-            session(['user' => $user]);
+            session([
+                'user' => $user,
+                'user_id' => $user->id
+            ]);
             session()->put('expires_at', now()->addSeconds(10000));
-
-            Log::info('Student user login successful', ['email' => $user->email, 'id' => $user->id]);
 
             return response()->json([
                 'success' => true,
                 'message' => 'User login successful',
-                'role' => 'user',
-                'redirect' => '/student-dashboard'
+                'role' => 'user'
             ]);
         }
+
 
         // ✅ 5. NBFC User
         $nbfcuser = $isEmail
@@ -126,18 +116,14 @@ class LoginController extends Controller
             session(['nbfcuser' => $nbfcuser]);
             session()->put('expires_at', now()->addSeconds(10000));
 
-            Log::info('NBFC user login successful', ['nbfc_id' => $nbfcuser->nbfc_id, 'email' => $nbfcuser->nbfc_email]);
-
             return response()->json([
                 'success' => true,
                 'message' => 'NBFC login successful',
-                'role' => 'nbfc',
-                'redirect' => '/nbfc-dashboard'
+                'role' => 'nbfc'
             ]);
         }
 
-        Log::warning('Login failed: invalid credentials', ['loginName' => $loginName]);
-
+        // ❌ Invalid credentials
         return response()->json([
             'success' => false,
             'message' => 'Invalid email/ID or password.'

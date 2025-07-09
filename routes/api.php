@@ -300,9 +300,8 @@ Route::post('/admin/messages/clear-nbfc', [AdminController::class, 'clearNbfcMes
 
 
 Route::post('/registerformdata', [RegisterController::class, 'store']);
-Route::post('/emailuniquecheck', [RegisterController::class, 'emailUniqueCheck'])->name('emailUniqueCheck');
-Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
-
+ Route::post('/loginformdata', [LoginController::class, 'loginFormData'])->name('loginformdata');
+ 
 
 Route::post('/update-personalinfo', [StudentDetailsController::class, 'updatePersonalInfo']);
 Route::post('/update-academicsinfo', [StudentDetailsController::class, 'updateAcademicsInfo']);
@@ -369,8 +368,7 @@ Route::post('/getstatusofusers', [scDashboardController::class, 'getStatusOfUser
 
 Route::post('/unread-message-count', [StudentDashboardController::class, 'unreadMessageCount']);
 Route::get('/get-messages-byconversations/{nbfc_id}/{student_id}', [ChatController::class, 'groupCountingChats']);
-Route::post('/getnbfcdata-proposals', [StudentDashboardController::class, 'nbfcProposals']);
-
+ 
 Route::post('/proposalcompletion', [StudentDashboardController::class, 'proposalCompletion']);
 Route::post('/check_userid', [StudentDashboardController::class, 'checkUserId']);
 Route::post('/count-user-status', [StudentDashboardController::class, 'getStatusCount']);
@@ -424,7 +422,7 @@ Route::post('/forgot-passwordmailsentsc', [scDashboardController::class, 'forgot
 Route::get('/admins', [Admincontroller::class, 'getAdmins']);
 Route::post('/admins', [Admincontroller::class, 'createAdmin']);
 Route::put('/admins/{id}', [AdminController::class, 'updateAdmin']);
-Route::get('/student-forms', [AdminController::class, 'showStudentForm'])->name('student-forms')->middleware('auth');;
+Route::get('/student-forms', [AdminController::class, 'showStudentForm'])->name('student-forms');
 Route::get('/getInfoForAdminSocial', [Admincontroller::class, 'showStudentFormAdmin']);
 Route::delete('/deleteInfoForAdminSocial/{id}', [AdminController::class, 'deleteInfoForAdminSocial']);
 Route::delete('/deleteplantostudycountry/{id}', [AdminController::class, 'deleteInfoForAdminPlanToStudy']);

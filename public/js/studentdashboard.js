@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // const sessionLogout = document.querySelector(".studentdashboardprofile-sidebarlists-bottom .logoutBtn");
     // if (sessionLogout) {
     //     sessionLogout.addEventListener('click', () => {
-    //         console.log("Logout button clicked");
+    //         //console.log("Logout button clicked");
     //         sessionLogoutInitial();
     //     });
     // } else {
@@ -53,26 +53,47 @@ document.addEventListener('DOMContentLoaded', function () {
     // const sessionLogout = document.querySelector(".logoutBtn");
     // if (sessionLogout) {
     //     sessionLogout.addEventListener('click', () => {
-    //         console.log("Logout button clicked");
+    //         //console.log("Logout button clicked");
     //         sessionLogoutInitial();
     //     });
     // } else {
     //     console.warn("Logout button (.logoutBtn) not found in the DOM");
     // }
     // Event delegation for dynamically loaded .logoutBtn
-    document.addEventListener('click', (event) => {
-        const logoutBtn = event.target.closest('.logoutBtn');
-        if (logoutBtn) {
-            // console.log('Dynamically detected logout button clicked');
-            event.preventDefault();
-            sessionLogoutInitial();
-        }
+    document.addEventListener('DOMContentLoaded', function () {
+        const logoutBtns = document.querySelectorAll('.logoutBtn');
+
+        logoutBtns.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                // Hide any popup
+                const popup = document.querySelector(".popup-notify-list");
+                if (popup) popup.style.display = "none";
+
+                if (confirm("Are you sure you want to log out?")) {
+                    fetch('/logout', {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            window.location.href = '/login';
+                        } else {
+                            alert("Logout failed.");
+                        }
+                    }).catch(error => {
+                        console.error("Logout error:", error);
+                    });
+                }
+            });
+        });
     });
+
 
 
     const courseDetailsElement = document.getElementById('course-details-container');
     const courseDetails = JSON.parse(courseDetailsElement.getAttribute('data-course-details'));
-    console.log(courseDetails)
+    // //console.log(courseDetails)
     const firstItem = courseDetails[0];
 
     let selectedCountries = [];
@@ -88,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.warn("Unexpected format for plan-to-study:", raw);
         }
 
-        console.log("Selected countries:", selectedCountries);
+        // //console.log("Selected countries:", selectedCountries);
     } catch (e) {
         console.error("Could not parse plan-to-study:", e);
     }
@@ -148,13 +169,13 @@ document.addEventListener('DOMContentLoaded', function () {
         sendDocumenttoEmail();
     });
 
-    setInterval(() => {
-        try {
-            fetchUnreadCount();
-        } catch (err) {
-            console.error("fetchUnreadCount failed in setInterval:", err);
-        }
-    }, 3000);
+    // setInterval(() => {
+    //     try {
+    //         fetchUnreadCount();
+    //     } catch (err) {
+    //         console.error("fetchUnreadCount failed in setInterval:", err);
+    //     }
+    // }, 3000);
 
 
 });
@@ -211,11 +232,31 @@ function handleIndividualCards(mode = 'index1') {
                 const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
 
                 if (mode === 'index1') {
+                    // Show Message buttons
+                    document.querySelectorAll('.triggeredbutton').forEach(el => {
+                        el.style.display = 'flex';
+                    });
+
+                    // Hide Accept/Reject buttons
+                    document.querySelectorAll('.individual-bankmessages-buttoncontainer').forEach(el => {
+                        el.style.display = 'none';
+                    });
+
                     if (triggeredMessageButton && groupButtonContainer) {
                         triggeredMessageButton.style.display = "flex";
                         groupButtonContainer.style.display = "none";
                     }
                 } else if (mode === 'index0') {
+                    // Show Accept/Reject buttons
+                    document.querySelectorAll('.individual-bankmessages-buttoncontainer').forEach(el => {
+                        el.style.display = 'flex';
+                    });
+
+                    // Hide Message buttons
+                    document.querySelectorAll('.triggeredbutton').forEach(el => {
+                        el.style.display = 'none';
+                    });
+
                     card.style.height = "fit-content";
                     if (individualBankMessageInput) individualBankMessageInput.style.display = "none";
                     if (triggeredMessageButton && groupButtonContainer) {
@@ -297,6 +338,16 @@ const initializeSideBarTabs = () => {
                 testScoresEditSection.style.display = "none";
 
                 handleIndividualCards("index1");
+                const msgBtns = document.querySelectorAll('.triggeredbutton');
+                const actionBtns = document.querySelectorAll('.individual-bankmessages-buttoncontainer');
+
+                if (msgBtns.length && actionBtns.length) {
+                    // Show Message
+                    msgBtns.forEach(el => el.style.display = 'flex');
+                    // Hide Accept/Reject
+                    actionBtns.forEach(el => el.style.display = 'none');
+                }
+
                 dynamicHeader.textContent = "Inbox";
                 seenMessage();
             } else if (index === 0) {
@@ -325,6 +376,16 @@ const initializeSideBarTabs = () => {
                 academicsMarksDiv.style.display = "flex";
 
                 handleIndividualCards("index0");
+                const msgBtns = document.querySelectorAll('.triggeredbutton');
+                const actionBtns = document.querySelectorAll('.individual-bankmessages-buttoncontainer');
+
+                if (msgBtns.length && actionBtns.length) {
+                    // Show Accept/Reject
+                    actionBtns.forEach(el => el.style.display = 'flex');
+                    // Hide Message
+                    msgBtns.forEach(el => el.style.display = 'none');
+                }
+
                 dynamicHeader.textContent = "Loan Proposals";
 
 
@@ -349,32 +410,29 @@ const initializeSideBarTabs = () => {
 }
 
 
-function sendDocumenttoEmail(event) {
-    // console.log(event);
-
+function sendDocumenttoEmail() {
     const uniqueIdElement = document.querySelector(".personal_info_id");
-    const userId = uniqueIdElement
-        ? uniqueIdElement.textContent || uniqueIdElement.innerHTML
-        : null;
-
-
+    const userId = uniqueIdElement?.textContent || null;
 
     const userNameElement = document.querySelector("#referenceNameId p");
-    const name = userNameElement
-        ? userNameElement.textContent || userNameElement.innerHTML
-        : null;
+    const name = userNameElement?.textContent || null;
 
-    if (userId && name) {
-        // console.log("Unique ID:", userId, "Email:", email, "Name:", name);
-    } else {
-        console.error("Error: Could not retrieve unique ID, email, or name.");
+    if (!userId || !name) {
+        console.error("Error: Could not retrieve unique ID or name.");
         return;
     }
 
-    const sendDocumentsRequiredDetails = {
-        userId: userId,
-        name: name,
-    };
+    const sendDocumentsRequiredDetails = { userId, name };
+
+    // 👉 Select button and loader
+    const emailBtn = document.getElementById("sendEmailButton");
+    const loader = emailBtn.querySelector(".mailnbfcbutton-loader");
+    const btnText = emailBtn.querySelector(".mailnbfcbutton-text");
+
+    // 👉 Show loader + disable button
+    loader.style.display = "inline-block";
+    emailBtn.classList.add("mailnbfcbutton-disabled");
+    emailBtn.disabled = true;
 
     fetch("/api/send-documents", {
         method: "POST",
@@ -388,27 +446,28 @@ function sendDocumenttoEmail(event) {
     })
         .then((response) => {
             if (!response.ok) {
-                throw new Error(
-                    "Network response was not ok " + response.statusText
-                );
+                throw new Error("Network response was not ok " + response.statusText);
             }
             return response.json();
         })
         .then((data) => {
-            console.log("Success:", data.message);
-            alert(data.message);
-
+            window.showToastMsg(data.message);
             addUserToRequest(userId);
         })
         .catch((error) => {
             console.error("Error:", error);
+            alert("Something went wrong while sending the email.");
+        })
+        .finally(() => {
+            // 👉 Hide loader + re-enable button
+            loader.style.display = "none";
+            emailBtn.classList.remove("mailnbfcbutton-disabled");
+            emailBtn.disabled = false;
         });
-
-    // console.log("Sending Data:", sendDocumentsRequiredDetails);
 }
 
 function addUserToRequest(userId) {
-    // console.log(userId);
+    // //console.log(userId);
 
     // Fetch request to send userId to the server
     fetch("/api/push-user-id-request", {
@@ -424,9 +483,9 @@ function addUserToRequest(userId) {
         .then((response) => response.json())
         .then((data) => {
             if (data.success) {
-                console.log("Success:", data);
+                //console.log("Success:", data);
             } else if (data.error) {
-                console.log("Error:", data.error);
+                //console.log("Error:", data.error);
             }
         })
         .catch((e) => {
@@ -514,7 +573,7 @@ const initialiseAllViews = () => {
                         console.warn(`No endpoint match for fileType: ${fileType}`);
                     }
 
-                    console.log(`File: ${fileType}, Size: ${fileSizeMB} MB`);
+                    //console.log(`File: ${fileType}, Size: ${fileSizeMB} MB`);
                 }
             });
 
@@ -587,7 +646,7 @@ const initialiseProfileUpload = () => {
 
             const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
             if (!allowedTypes.includes(fileType)) {
-                alert("Invalid file type. Only jpg, png, and gif are allowed.");
+                window.showToastMsg("Invalid file type. Only jpg, png, and gif are allowed.");
                 return;
             }
 
@@ -714,10 +773,10 @@ window.adminFileStorage = window.adminFileStorage || {};
 
 function initializeSimpleChat() {
 
-    // console.log("inizializesimplechat")
+    // //console.log("inizializesimplechat")
     const chatContainers = document.querySelectorAll('.individual-bankmessage-input');
 
-    // console.log(chatContainers)
+    // //console.log(chatContainers)
     if (chatContainers.length === 0) return;
 
     chatContainers.forEach((chatContainer, index) => {
@@ -728,7 +787,7 @@ function initializeSimpleChat() {
         const parentContainer = chatContainer.closest('.indivudalloanstatus-cards');
         const messageButton = parentContainer ? parentContainer.querySelector('.triggeredbutton') : null;
 
-        // console.log(messageButton)
+        // //console.log(messageButton)
 
         chatContainer.style.display = 'none';
 
@@ -885,8 +944,8 @@ function initializeSimpleChat() {
 
         if (messageButton) {
             messageButton.addEventListener('click', function (e) {
-                // console.log("code here ")
-                // console.log(messagesWrapper)
+                // //console.log("code here ")
+                // //console.log(messagesWrapper)
 
                 e.preventDefault();
                 const student_id = document.querySelector(".personalinfo-secondrow .personal_info_id").textContent;
@@ -901,7 +960,7 @@ function initializeSimpleChat() {
 
         function sendMessage(messageInput, messageInputNbfcids) {
             if (!messageInput) return;
-            // console.log(messageInput.value);
+            // //console.log(messageInput.value);
 
 
             const content = messageInput.value.trim();
@@ -970,7 +1029,7 @@ function initializeSimpleChat() {
                 const data = await response.json();
 
                 if (response.ok) {
-                    // console.log('Message sent successfully:', data.message);
+                    // //console.log('Message sent successfully:', data.message);
 
                     //         const messageElement = document.createElement("div");
                     //         messageElement.style.cssText = `
@@ -1013,7 +1072,7 @@ function initializeSimpleChat() {
             messageInput.addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {
                     var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
-                    // console.log(messageInputNbfcids[index].textContent);
+                    // //console.log(messageInputNbfcids[index].textContent);
 
                     messageInputNbfcids = messageInputNbfcids[index].textContent;
 
@@ -1034,7 +1093,7 @@ function initializeSimpleChat() {
             sendButton.addEventListener('click', function (e) {
                 e.preventDefault();
                 var messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
-                // console.log(messageInputNbfcids[index].textContent);
+                // //console.log(messageInputNbfcids[index].textContent);
 
                 messageInputNbfcids = messageInputNbfcids[index].textContent;
                 sendMessage(messageInput, messageInputNbfcids);
@@ -1142,13 +1201,12 @@ function initializeSimpleChat() {
 
 
                                 } else {
-                                    alert("File upload failed.");
+                                    window.showToastMsg("File upload failed.");
                                 }
                             })
                             .catch(err => {
-                                console.error("Upload error:", err);
-                                alert("Something went wrong while uploading the file.");
-                            });
+                                console.warn("Upload error:", err);
+                             });
                     }
                 };
 
@@ -1164,7 +1222,7 @@ function initializeSimpleChat() {
 
 
         const savedMessages = JSON.parse(localStorage.getItem(`messages-${chatId}`) || '[]');
-        // console.log(savedMessages)
+        // //console.log(savedMessages)
         // if (savedMessages.length > 0) {
         //     savedMessages.forEach(content => {
         //         const messageElement = document.createElement("div");
@@ -1200,7 +1258,7 @@ function initializeSimpleChat() {
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
-                    console.log('API response:', data); // Log the full response to check its structure
+                    //console.log('API response:', data); // Log the full response to check its structure
                     if (data && data.messages && data.messages.length > 0) {
                         data.messages.forEach(message => {
                             const existingMessage = messagesWrapper.querySelector(`[data-message-id="${message.id}"]`);
@@ -1254,7 +1312,7 @@ function initializeSimpleChat() {
                             }
                         });
                     } else {
-                        console.log('No messages found');
+                        //console.log('No messages found');
                     }
                 })
                 .catch(error => {
@@ -1360,7 +1418,7 @@ const checkUserStatusCount = () => {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // console.log("Successfully retrieved count");
+                // //console.log("Successfully retrieved count");
                 const finalCounting = data.count;
                 return finalCounting - 1; // <-- this will now resolve correctly
             } else {
@@ -1403,7 +1461,7 @@ const initializeIndividualCards = () => {
             const computedStyle = window.getComputedStyle(messageInput);
             const isInputVisible = computedStyle.display === 'flex';
 
-            console.log(`Card ${index} clicked, input currently ${isInputVisible ? 'visible' : 'hidden'}`);
+            //console.log(`Card ${index} clicked, input currently ${isInputVisible ? 'visible' : 'hidden'}`);
 
             // Collapse all other inputs
             document.querySelectorAll('.individual-bankmessage-input').forEach(input => {
@@ -1443,11 +1501,11 @@ const initializeIndividualCards = () => {
             if (individualCards.length > 0 && !isInitialized) {
                 cleanup();
                 isInitialized = true;
-                console.log("Cards loaded. Binding click listeners...");
-                console.log("----------------------------");
+                //console.log("Cards loaded. Binding click listeners...");
+                //console.log("----------------------------");
 
                 individualCards.forEach((card, index) => {
-                    // console.log(`Initializing card ${index}:`, card);
+                    // //console.log(`Initializing card ${index}:`, card);
 
                     const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
                     const messageInput = card.querySelector('.individual-bankmessage-input');
@@ -1527,7 +1585,7 @@ const initializeKycDocumentUpload = () => {
             }
 
             if (!fileUrl) {
-                alert("No document found to preview.");
+                window.showToastMsg("No document found to preview.");
                 return;
             }
 
@@ -1702,7 +1760,7 @@ const initializeKycDocumentUpload = () => {
                 imgContainer.appendChild(img);
                 previewWrapper.appendChild(imgContainer);
             } else {
-                alert("Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported.");
+                window.showToastMsg("Only (JPG, PNG, JPEG) Files are supported.");
                 return;
             }
 
@@ -1752,7 +1810,7 @@ const initializeMarksheetUpload = () => {
             }
 
             if (!fileTypeKey || !documentUrls[fileTypeKey]) {
-                alert("No document found to preview.");
+                window.showToastMsg("No document found to preview.");
                 return;
             }
 
@@ -1923,7 +1981,7 @@ const initializeMarksheetUpload = () => {
                 imgContainer.appendChild(img);
                 previewWrapper.appendChild(imgContainer);
             } else {
-                alert("Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported.");
+                window.showToastMsg("Only (JPG, PNG, JPEG) files are supported.");
                 return;
             }
 
@@ -1979,10 +2037,10 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                 ? fileNameElement.textContent
                 : "Document.pdf";
 
-            console.log(
-                `Previewing secured admission (${fileTypeKey}):`,
-                fileUrl
-            );
+            //console.log( `Previewing secured admission (${fileTypeKey}):`, fileUrl );
+           
+               
+               
 
             if (eyeIcon.classList.contains("preview-active")) {
                 const previewWrapper = document.querySelector(
@@ -1999,7 +2057,7 @@ const initializeSecuredAdmissionDocumentUpload = () => {
             }
 
             if (!fileUrl) {
-                alert("No document found to preview.");
+                window.showToastMsg("No document found to preview.");
                 return;
             }
 
@@ -2297,9 +2355,8 @@ const initializeSecuredAdmissionDocumentUpload = () => {
                 eyeIcon.classList.add("preview-active");
                 eyeIcon.src = "/assets/images/close.png";
             } else {
-                alert(
-                    "Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported."
-                );
+                window.showToastMsg("Only (JPG, PNG, JPEG) files are supported.");
+
             }
         });
     });
@@ -2354,10 +2411,7 @@ const initializeWorkExperienceDocumentUpload = () => {
                 ? fileNameElement.textContent
                 : "Document.pdf";
 
-            console.log(
-                `Previewing work experience (${fileTypeKey}):`,
-                fileUrl
-            );
+            //console.log( `Previewing work experience (${fileTypeKey}):`,fileUrl );
 
             if (eyeIcon.classList.contains("preview-active")) {
                 const previewWrapper = document.querySelector(
@@ -2374,7 +2428,7 @@ const initializeWorkExperienceDocumentUpload = () => {
             }
 
             if (!fileUrl) {
-                alert("No document found to preview.");
+                window.showToastMsg("No document found to preview.");
                 return;
             }
 
@@ -2672,9 +2726,8 @@ const initializeWorkExperienceDocumentUpload = () => {
                 eyeIcon.classList.add("preview-active");
                 eyeIcon.src = "/assets/images/close.png";
             } else {
-                alert(
-                    "Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported."
-                );
+                window.showToastMsg("Only (JPG, PNG, JPEG) files are supported.");
+
             }
         });
     });
@@ -2727,7 +2780,7 @@ const initializeCoBorrowerDocumentUpload = () => {
             }
 
             if (!fileUrl) {
-                alert("No document found to preview.");
+                window.showToastMsg("No document found to preview.");
                 return;
             }
 
@@ -2882,7 +2935,7 @@ const initializeCoBorrowerDocumentUpload = () => {
                 imgContainer.appendChild(img);
                 previewWrapper.appendChild(imgContainer);
             } else {
-                alert("Unsupported file type. Only PDFs and images (JPG, PNG, JPEG) are supported.");
+                window.showToastMsg("Only (JPG, PNG, JPEG) files are supported.");
                 return;
             }
 
@@ -2899,13 +2952,12 @@ const initializeCoBorrowerDocumentUpload = () => {
 
 const bankListedThroughNBFC = async () => {
 
-    // console.log("_______")
+    // //console.log("_______")
 
     const nbfcContainer = document.querySelector(".loanproposals-loanstatuscards");
 
     if (nbfcContainer) {
-        // consle.log("______")
-
+ 
         const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
         const userId = userIdElement ? userIdElement.textContent : '';
 
@@ -2920,7 +2972,7 @@ const bankListedThroughNBFC = async () => {
             .then(response => response.json())
             .then(async data => {
                 if (data.success) {
-                    console.log(data)
+                    //console.log(data)
                     const finalData = data.result;
 
 
@@ -3087,7 +3139,7 @@ const initializeProgressRing = () => {
         .then(response => response.json())
         .then(data => {
             if (data) {
-                console.log("Overall Completion:", data);
+                //console.log("Overall Completion:", data);
                 percentage = data.overall_completion_percentage / 100;
 
                 const radius = 52;
@@ -3173,7 +3225,7 @@ const initialisedocumentsCount = () => {
 
 
 const triggerSave = (event) => {
-    console.log(event);
+    //console.log(event);
 
 }
 
@@ -3250,10 +3302,9 @@ const saveChangesFunctionality = () => {
                 toggleSaveState();
             }
             else {
-                Loader.show();
-                saveChangesButton.textContent = 'Edit';
-                saveChangesButton.style.backgroundColor = "transparent";
-                saveChangesButton.style.color = "#260254";
+                showButtonLoader(saveChangesButton);
+
+            
                 personalDivContainer.style.display = "flex";
                 personalDivContainerEdit.style.display = "none";
                 academicsMarksDivEdit.style.display = "none";
@@ -3299,7 +3350,7 @@ const saveChangesFunctionality = () => {
                 const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
                 const userId = userIdElement ? userIdElement.textContent : '';
 
-                console.log(editedName, editedPhone, editedEmail, editedState, userId);
+                //console.log(editedName, editedPhone, editedEmail, editedState, userId);
 
                 const selectedDegree = document.querySelector('input[name="education-level"]:checked').value;
                 const otherDegreeInput = document.getElementById('otherDegreeInput').value;
@@ -3338,9 +3389,9 @@ const saveChangesFunctionality = () => {
 
 
 
+                showButtonLoader(saveChangesButton);
 
-
-                fetch('/api/from-profileupdate', {
+                fetch('/from-profileupdate', {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
@@ -3350,10 +3401,15 @@ const saveChangesFunctionality = () => {
                 })
                     .then(response => response.json())
                     .then(data => {
-                        console.log("Response Data:", data);
+                        //console.log("Response Data:", data);
+                        hideButtonLoader(saveChangesButton); 
+                        saveChangesButton.textContent = 'Edit';
+                        saveChangesButton.style.backgroundColor = "transparent";
+                        saveChangesButton.style.color = "#260254";
 
-                        alert("Student Details Updated Successfully");
-                        Loader.hide();
+                        window.showToastMsg("Student Details Updated Successfully");
+                        hideButtonLoader(saveChangesButton);
+
                         if (editedName) {
                             document.querySelector("#referenceNameId p").textContent = editedName;
                             document.getElementById("personal_state_id").textContent = editedState;
@@ -3436,16 +3492,16 @@ const saveChangesFunctionality = () => {
 
 
                         if (data.errors) {
-                            Loader.hide();
+                            hideButtonLoader(saveChangesButton); 
                             console.error('Validation errors:', data.errors);
                         } else {
-                            console.log("Success", data);
+                            //console.log("Success", data);
                         }
                     })
                     .catch(error => {
                         console.error("Error", error);
                         Loader.hide(); // ✅ Always hide loader
-                        alert("Something went wrong. Please try again.");
+                        window.showToastMsg("Something went wrong. Please try again.");
                     });
 
             }
@@ -3628,7 +3684,7 @@ function sessionLogoutInitial() {
     })
         .then(response => {
             if (response.ok) {
-                console.log('Logout successful', response);
+                //console.log('Logout successful', response);
                 window.location.href = loginUrl;
             } else {
                 console.error('Logout failed:', response.status, response.statusText);
@@ -3653,7 +3709,7 @@ function seenMessage() {
     })
         .then(response => response.json())
         .then(data => {
-            console.log('Messages marked as read:', data);
+            //console.log('Messages marked as read:', data);
         })
         .catch(error => {
             console.error('Error marking messages as read:', error);
@@ -3679,7 +3735,7 @@ function markAsRead() {
         notifyContainer.addEventListener('click', () => {
             sideBarTopItems.forEach(i => i.classList.remove('active'));
             sideBarTopItems[1].classList.add('active');
-            console.log('Inbox tab selected and activated');
+            //console.log('Inbox tab selected and activated');
 
             if (lastTabHiddenDiv) lastTabHiddenDiv.style.display = "flex";
             if (lastTabVisibleDiv) lastTabVisibleDiv.style.display = "none";
@@ -3723,7 +3779,7 @@ function unReadDots() {
     const messageInputNbfcids = document.querySelectorAll(".messageinputnbfcids");
 
     if (messageInputNbfcids.length > 0) {
-        console.log(messageInputNbfcids);
+        //console.log(messageInputNbfcids);
     }
 
     const userIdElement = document.querySelector(".personalinfo-secondrow .personal_info_id");
@@ -3745,12 +3801,12 @@ function unReadDots() {
                 })
                     .then(response => response.json())
                     .then(data => {
-                        console.log(`Messages for NBFC ${nbfc_id} and student ${student_id}:`, data);
+                        //console.log(`Messages for NBFC ${nbfc_id} and student ${student_id}:`, data);
                         if (data.unreadCount && data.unreadCount > 0) {
                             const triggeredButton = document.querySelector('.triggeredbutton');
                             if (triggeredButton) {
                                 triggeredButton.classList.add('has-unread');
-                                console.log(triggeredButton);
+                                //console.log(triggeredButton);
                             }
                         }
                     })
@@ -3764,7 +3820,7 @@ function unReadDots() {
 
 
 async function bindAcceptRejectButtons(finalData) {
-    // console.log("Binding buttons for:", finalData);
+    // //console.log("Binding buttons for:", finalData);
 
     finalData.forEach((item) => {
         const { acceptButton, rejectButton, user_id, nbfc_id } = item;
@@ -3788,8 +3844,8 @@ async function bindAcceptRejectButtons(finalData) {
                     });
 
                     const result = await response.json();
-                    console.log("✅ Accepted:", item);
-                    console.log("✅ Server Response:", result);
+                    //console.log("✅ Accepted:", item);
+                    //console.log("✅ Server Response:", result);
 
                     acceptButton.style.backgroundColor = "transparent";
                     acceptButton.style.color = "#4CAF50";
@@ -3825,8 +3881,8 @@ async function bindAcceptRejectButtons(finalData) {
                     });
 
                     const result = await response.json();
-                    console.log("❌ Rejected:", item);
-                    console.log("❌ Server Response:", result);
+                    //console.log("❌ Rejected:", item);
+                    //console.log("❌ Server Response:", result);
 
                     rejectButton.style.backgroundColor = "transparent";
                     rejectButton.style.color = "#dc3545";
@@ -3863,8 +3919,8 @@ const findOutAcceptedOrNot = async () => {
     })
         .then(response => response.json())
         .then(result => {
-            console.log("✅ Accepted:", proposal);
-            console.log("✅ Server Response:", result);
+            //console.log("✅ Accepted:", proposal);
+            //console.log("✅ Server Response:", result);
             if (btn && rejectButtons) {
                 btn.style.backgroundColor = "transparent";
                 btn.style.color = "#4CAF50";
@@ -3903,7 +3959,7 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
 
         if (!response.ok) throw new Error("Network response was not ok");
         const result = await response.json();
-        console.log(result);
+        //console.log(result);
 
         const data = result?.data;
         const proposal_accept_update = data?.proposal_accept;
@@ -3934,7 +3990,7 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
                     const fileName = data.file_path.split("/").pop(); // Extract filename from URL
                     showDocumentPreview(data.file_path, fileName);     // Show the document
                 } else {
-                    alert("No document found to preview.");
+                    window.showToastMsg("No document found to preview.");
                     console.error('No file found:', data.message);
                 }
             } catch (error) {
@@ -4033,7 +4089,7 @@ async function fetchStatus(nbfcId = null, insideSecond = null, currentItem = nul
 
 const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
     if (!fileUrl) {
-        alert("No document found to preview.");
+        window.showToastMsg("No document found to preview.");
         return;
     }
 
@@ -4124,7 +4180,7 @@ const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
 
         downloadButton.addEventListener("click", async () => {
             try {
-                console.log("Attempting to download:", fileUrl); // Debug URL
+                //console.log("Attempting to download:", fileUrl); // Debug URL
                 const response = await fetch(fileUrl, {
                     method: 'GET',
                     headers: {
@@ -4134,11 +4190,11 @@ const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
                     credentials: 'include' // Include cookies for authentication
                 });
 
-                console.log("Response status:", response.status); // Debug response
+                //console.log("Response status:", response.status); // Debug response
                 if (!response.ok) throw new Error(`HTTP error ${response.status}`);
 
                 const blob = await response.blob();
-                console.log("Blob size:", blob.size, "type:", blob.type); // Debug blob
+                //console.log("Blob size:", blob.size, "type:", blob.type); // Debug blob
 
                 if (blob.size === 0) throw new Error("Empty file received");
 
@@ -4152,10 +4208,10 @@ const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
                 window.URL.revokeObjectURL(url);
             } catch (error) {
                 console.error("Download error:", error);
-                alert("Error downloading file. Please try again.");
+                window.showToastMsg("Error downloading file. Please try again.");
 
                 // Fallback: Attempt to trigger download via iframe URL
-                console.log("Attempting fallback download...");
+                //console.log("Attempting fallback download...");
                 const a = document.createElement("a");
                 a.href = fileUrl;
                 a.download = fileName || (isPDF ? "document.pdf" : "document.png");
@@ -4347,7 +4403,7 @@ const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
 
         downloadButton.addEventListener("click", async () => {
             try {
-                console.log("Attempting to download:", fileUrl); // Debug URL
+                //console.log("Attempting to download:", fileUrl); // Debug URL
                 const response = await fetch(fileUrl, {
                     method: 'GET',
                     headers: {
@@ -4357,11 +4413,11 @@ const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
                     credentials: 'include' // Include cookies for authentication
                 });
 
-                console.log("Response status:", response.status); // Debug response
+                //console.log("Response status:", response.status); // Debug response
                 if (!response.ok) throw new Error(`HTTP error ${response.status}`);
 
                 const blob = await response.blob();
-                console.log("Blob size:", blob.size, "type:", blob.type); // Debug blob
+                //console.log("Blob size:", blob.size, "type:", blob.type); // Debug blob
 
                 if (blob.size === 0) throw new Error("Empty file received");
 
@@ -4375,10 +4431,10 @@ const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
                 window.URL.revokeObjectURL(url);
             } catch (error) {
                 console.error("Download error:", error);
-                alert("Error downloading file. Please try again.");
+                window.showToastMsg("Error downloading file. Please try again.");
 
                 // Fallback: Attempt to trigger download via direct URL
-                console.log("Attempting fallback download...");
+                //console.log("Attempting fallback download...");
                 const a = document.createElement("a");
                 a.href = fileUrl;
                 a.download = fileName || (isPDF ? "document.pdf" : "document.png");
@@ -4459,7 +4515,7 @@ const showDocumentPreview = (fileUrl, fileName, eyeIcon = null) => {
             eyeIcon.src = "/assets/images/close.png";
         }
     } else {
-        alert("Unsupported file type. Only PDF and images (JPG, PNG, JPEG) are supported.");
+        window.showToastMsg("Only (JPG, PNG, JPEG) files are supported.");
     }
 };
 const loanStatusCount = () => {
@@ -4486,7 +4542,7 @@ const loanStatusCount = () => {
             return response.json();
         })
         .then(data => {
-            console.log("Loan Status Data:", data);
+            //console.log("Loan Status Data:", data);
 
             const formatCount = (num) => num.toString().padStart(2, '0');
 
@@ -4529,15 +4585,14 @@ const passwordForgot = () => {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
+                    // //console.log(data);
                     if (data.message) {
-                        alert(data.message);
+                        window.showToastMsg(data.message);
                     }
                 })
                 .catch(error => {
                     console.error("Error:", error);
-                    alert("There was an error while sending the email.");
-                });
+                 });
         });
     }
 }
@@ -4585,7 +4640,7 @@ async function createAdminChatStudent() {
         background-color: #6f25ce;
         color: white;
         border: none;
-        padding: 7px 22px;
+        padding: 7px 13px;
         border-radius: 4px;
         cursor: pointer;
         font-family: "Poppins", sans-serif;
@@ -4744,7 +4799,7 @@ async function createAdminChatStudent() {
 
                 if (data.success && data.fileUrl) {
                     const fileUrl = data.fileUrl;
-                    console.log(data.fileUrl)
+                    // //console.log(data.fileUrl)
 
                     const payload = {
                         id: student_id,
@@ -4768,12 +4823,11 @@ async function createAdminChatStudent() {
 
                     await loadMessages(student_id, admin_id);
                 } else {
-                    alert("File upload failed.");
+                    window.showToastMsg("File upload failed.");
                 }
             } catch (err) {
                 console.error("Upload error:", err);
-                alert("Something went wrong while uploading the file.");
-            }
+             }
         };
 
         document.body.appendChild(fileInput);
@@ -4869,7 +4923,7 @@ async function createAdminChatStudent() {
 
 
         if (!student_id) {
-            alert("Student ID not found");
+            window.showToastMsg("Student ID not found");
             return;
         }
 
@@ -4898,8 +4952,7 @@ async function createAdminChatStudent() {
             await loadMessages(student_id, admin_id);
         } catch (err) {
             console.error('Error sending message:', err);
-            alert('Failed to send message. Please try again.');
-        }
+         }
     }
 
     let isChatOpen = false;
@@ -4934,16 +4987,26 @@ async function createAdminChatStudent() {
     });
 }
 
-
 function uploadRedirection() {
-    
     const uploadBtn = document.getElementById("upload-redirection");
 
     if (uploadBtn) {
-        // ✅ Reset the button if coming back via browser back/forward
-        uploadBtn.disabled = false;
-        uploadBtn.innerHTML = "Upload";
-        uploadBtn.style.cursor = "pointer";
+        const resetUploadBtn = () => {
+            uploadBtn.disabled = false;
+            uploadBtn.innerHTML = "Upload";
+            uploadBtn.style.cursor = "pointer";
+        };
+
+        // ✅ Reset on initial load (or from back-forward cache)
+        resetUploadBtn();
+
+        // ✅ Also reset when navigating back
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted) {
+                // Page was restored from back/forward cache
+                resetUploadBtn();
+            }
+        });
 
         const targetUrl = uploadBtn.getAttribute("data-url");
 
@@ -4952,9 +5015,31 @@ function uploadRedirection() {
             uploadBtn.innerHTML = `<span class="upload-loader"></span>`;
             uploadBtn.style.cursor = "not-allowed";
 
-            setTimeout(() => {
-                window.location.href = targetUrl;
-            }, 300);
+            // 🔁 Redirect
+            window.location.href = targetUrl;
         });
     }
+}
+
+
+
+function showButtonLoader(button) {
+    button.classList.add("edit-btn-loader-disabled");
+
+    const spinner = document.createElement("div");
+    spinner.className = "edit-btn-loader-spinner";
+    spinner.setAttribute("data-loader", "true");
+    button.appendChild(spinner);
+    button.disabled = true;
+    button.style.cursor = "not-allowed";
+}
+
+function hideButtonLoader(button) {
+    const spinner = button.querySelector('[data-loader="true"]');
+    if (spinner) {
+        spinner.remove();
+    }
+    button.classList.remove("edit-btn-loader-disabled");
+    button.disabled = false;
+    button.style.cursor = "pointer";
 }

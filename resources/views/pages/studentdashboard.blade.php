@@ -9,7 +9,63 @@
     <title>Student Dashboard</title>
 
     <script src="{{ asset('js/studentdashboard.js') }}" defer></script>
+    <script src="{{ asset('assets/js/toast.js') }}" defer></script>
+
+    <style>
+        .edit-btn-loader-wrapper {
+            position: relative;
+        }
+
+        .edit-btn-loader-disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .edit-btn-loader-spinner {
+            position: absolute;
+            top: 20%;
+            left: 70%;
+            transform: translate(-50%, -50%);
+            width: 18px;
+            height: 18px;
+            border: 2px solid transparent;
+            border-top: 2px solid gray;
+            border-right: 2px solid gray;
+            border-radius: 50%;
+
+            animation: spin 0.6s linear infinite;
+            z-index: 10;
+        }
+
+        .mailnbfcbutton-loader {
+            margin-left: 8px;
+            width: 16px;
+            height: 16px;
+            border: 2px solid transparent;
+            border-top: 2px solid rgb(157 104 225);
+            border-right: 2px solid rgb(157 104 225);
+            border-radius: 50%;
+            display: inline-block;
+            animation: spin 0.6s linear infinite;
+            vertical-align: middle;
+        }
+
+        .mailnbfcbutton-disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        
+
+
+        @keyframes spin {
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+    </style>
 </head>
+
 
 <body>
     @extends('layouts.app')
@@ -18,9 +74,8 @@
     @section('studentdashboard')
 
         @php
-            $profileImgPath = '';
-            $uploadPanName = '';
-            $profileIconPath = 'assets/images/account_circle.png';
+            $profileImgPath = 'assets/images/account_circle.png';
+            $profileIconPath = 'assets/images/account_circle1.png';
             $phoneIconPath = 'assets/images/call.png';
             $mailIconPath = 'assets/images/mail.png';
             $pindropIconPath = 'assets/images/pin_drop.png';
@@ -48,7 +103,8 @@
                 </li>
             </ul>
             <ul class="studentdashboardprofile-sidebarlists-bottom">
-                <li class="logoutBtn">
+                <li class="logoutBtn" style="cursor: pointer;">
+
                     <i class="fa-solid fa-arrow-right-from-bracket"></i> Log out
                 </li>
                 <li>
@@ -140,7 +196,7 @@
             </div>
 
             <div class="studentdashboardprofile-profilesection" id="intergratestudentdashboardprofile">
-                <img src="{{ asset($profileImgPath) }}" class="profileImg" id="profile-photo-id" alt="User profile photo"
+                <img src="" class="profileImg" id="profile-photo-id" alt="User profile photo"
                     onerror="this.onerror=null; this.src='{{ asset('assets/images/defaultprofilephoto.jpg') }}';" />
                 <i class="fa-regular fa-pen-to-square"></i>
                 <input type="file" class="profile-upload" accept="image/*" enctype="multipart/form-data">
@@ -151,13 +207,13 @@
                     <ul class="personalinfo-secondrow">
                         <li style="margin-bottom: 3px;color:rgba(33, 33, 33, 1);">Unique ID : <span class="personal_info_id"
                                 style="margin-left: 6px;"> {{ $user->unique_id }}</span> </li>
-                        <li class="personal_info_name" id="referenceNameId"><img src={{ $profileIconPath }}
+                        <li class="personal_info_name" id="referenceNameId"><img src="{{ $profileIconPath }}"
                                 alt="User profile icon">
-                            <p> {{ $userDetails[0]->name ?? 'Name not available' }}</p>
+                            <p> {{ $userDetails[0]->name ?? '' }}</p>
                         </li>
                         <li class="personal_info_phone"><img src={{ $phoneIconPath }} alt="Contact number icon">
 
-                            <p>+91 {{ $userDetails[0]->phone }}</p>
+                            <p>+91 {{ $userDetails[0]->phone ?? '' }}</p>
                         </li>
                         <li class="personal_info_email" id="referenceEmailId">
                             <img src="{{ $mailIconPath }}" alt="Email icon">
@@ -165,7 +221,7 @@
 
                         </li>
                         <li class="personal_info_state"><img src={{ $pindropIconPath }} alt="Location pin icon">
-                            <p id="personal_state_id"> {{ $personalDetails[0]->state }}</p>
+                            <p id="personal_state_id"> {{ $personalDetails[0]->state ?? '' }}</p>
                         </li>
                     </ul>
                     <ul class="personalinfosecondrow-editsection">
@@ -185,7 +241,7 @@
                         </li>
                         <li class="personal_info_state">
                             <p>State</p>
-                            <input type="text" value="{{ $personalDetails[0]->state }}">
+                            <input type="text" value="{{ $personalDetails[0]->state ?? '' }}">
                         </li>
                     </ul>
                 </div>
@@ -320,7 +376,8 @@
                     <h1>Course Details</h1>
                     <!-- <button >Edit</button> -->
                     <div class="personalinfo-firstrow">
-                        <button onClick="triggerEditButton()">Edit</button>
+                        <button class="edit-btn-loader-wrapper" id="editSaveButton"
+                            onclick="triggerEditButton()">Edit</button>
                         <button class="saved-msg">Saved</button>
                     </div>
                 </div>
@@ -398,15 +455,14 @@
 
                 <div class="myapplication-fourthcolumn-additional">
                     <p>3. What is the duration of the course?</p>
-                    <input type="text" placeholder="{{ $courseDetails[0]->{'course-duration'} ?? '' }}"
-                        value="{{ $courseDetails[0]->{'course-duration'} ?? '' }} " disabled>
-
+                    <input type="text" value="{{ $courseDetails[0]->{'course-duration'} ?? '' }}" disabled>
                 </div>
+
                 <div class="myapplication-fourthcolumn">
                     <p>4. What is the Loan amount required?</p>
                     <input type="text" placeholder="" value="{{ $courseDetails[0]->loan_amount_in_lakhs }}" disabled>
-
                 </div>
+
                 <div class="myapplication-fifthcolumn">
                     <p>Referral Code</p>
                     <input type="text" placeholder="{{ $userDetails[0]->referral_code }}"
@@ -691,7 +747,11 @@
                 </div>
 
                 <div class="myapplication-eleventhcolumn">
-                    <button class="mailnbfcbutton">Send Email to NBFCs</button>
+                    <button class="mailnbfcbutton" id="sendEmailButton">
+                        <span class="mailnbfcbutton-text">Send Email to NBFCs</span>
+                        <span class="mailnbfcbutton-loader" style="display: none;"></span>
+                    </button>
+
 
                 </div>
             </div>
