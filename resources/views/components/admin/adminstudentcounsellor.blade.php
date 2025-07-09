@@ -126,7 +126,7 @@
         <div class="scmember-profilecontainer">
             <div class="scmember-profilecontainerimg">
                 <img src="{{ asset('assets/images/image-women.jpeg') }}" id="studentcounsellor-profile"
-                    alt="">
+                    alt="Profile Image">
                 <i class="fa-regular fa-pen-to-square"></i>
                 <input type="file" id="sc-profile-upload-cloud" style="display: none;">
             </div>
@@ -145,33 +145,33 @@
             </div>
             <ul class="scmember_personalinfo">
                 <li class="scmember_personal_info_name" id="referenceNeId">
-                    <img src="{{ $profileIconPath }}" alt="">
+                    <img src="{{ $profileIconPath }}" alt="SC Profile Icon">
                     <p></p>
                 </li>
                 <li class="scmember_personal_info_phone">
-                    <img src="{{ $phoneIconPath }}" alt="">
+                    <img src="{{ $phoneIconPath }}" alt="SC Phone Icon">
                     <p></p>
                 </li>
                 <li class="scmember_personal_info_email" style="word-break: break-all;" id="referenceEmailId">
-                    <img src="{{ $mailIconPath }}" alt="">
+                    <img src="{{ $mailIconPath }}" alt="SC Email icon">
                     <p></p>
                 </li>
                 <li class="scmember_personal_info_state">
-                    <img src="{{ $pindropIconPath }}" alt="">
+                    <img src="{{ $pindropIconPath }}" alt="SC Location Icon">
                     <p style="line-height:19px"></p>
                 </li>
             </ul>
             <ul class="scmember_personalinfo_editmode">
                 <li class="scmember_personal_info_name" id="referenceNeId">
-                    <img src="{{ $profileIconPath }}" alt="">
+                    <img src="{{ $profileIconPath }}" alt="SC Personal Info Icon">
                     <input type="text">
                 </li>
                 <li class="scmember_personal_info_phone">
-                    <img src="{{ $phoneIconPath }}" alt="">
+                    <img src="{{ $phoneIconPath }}" alt="SC Phone Icon">
                     <input type="text">
                 </li>
                 <li class="scmember_personal_info_email" id="referenceEmailId">
-                    <img src="{{ $mailIconPath }}" alt="">
+                    <img src="{{ $mailIconPath }}" alt="EC Email Icon">
                     <input type="text" disabled>
                 </li>
                 <li class="scmember_personal_info_state-edit">

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head> <!-- ✅ Moved this to <head> -->
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -31,7 +31,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
+        href="https://fonts.googleapis.com/css2?family=Inter: -ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
 
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&display=swap" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
@@ -43,49 +43,46 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Aileron:wght@100;200;300;400;500;600;700;800;900&display=swap">
 
-  <script src="{{ asset('js/toast.js') }}" defer></script>
-    <!-- ✅ Global Loader CSS -->
+    <script src="{{ asset('js/toast.js') }}" defer></script>
+
+    <!-- Global Loader CSS -->
     <style>
-     #global-loader {
-    position: fixed;
-    top: 0%;
-    left: 0%;
+        #global-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
 
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(255, 255, 255, 0.5);  
-    backdrop-filter: blur(5px); 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
+        .loader-icon {
+            width: 50px;
+            height: 50px;
+            border: 6px solid rgba(0, 0, 0, 0.1);
+            border-top: 6px solid #333;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            background-color: transparent;
+            position: relative;
+            top: 50%;
+            left: 50%;
+        }
 
-.loader-icon {
-    width: 50px;
-    height: 50px;
-    border: 6px solid rgba(0, 0, 0, 0.1); 
-    border-top: 6px solid #333;  
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    background-color: transparent;
-    position: relative;
-    top: 50%;
-    left: 50%;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
     <script src="{{ asset('assets/js/toast.js') }}" defer></script>
 </head>
 
 <body>
-
     {{-- Navbar --}}
     @if (request()->is('/'))
         <x-header></x-header>
@@ -101,37 +98,16 @@
     @yield(Route::currentRouteName() === 'sc-dashboard' ? 'scdashboard' : '')
     @yield(Route::currentRouteName() === 'adminpage' ? 'adminpage' : '')
     @yield(Route::currentRouteName() === 'nbfc-dashboard' ? 'nbfcdashboard' : '')
-    @if (
-    !in_array(Route::currentRouteName(), [
-        'login',
-        'signup',
-        'admin-page',
-        'nbfcdashboard',
-        'sc-dashboard',
-        'student-dashboard'
-    ])
-)
+    @if (!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page', 'nbfcdashboard', 'sc-dashboard', 'student-dashboard']))
         @yield('homecontent')
     @endif
 
     {{-- Footer --}}
-    @if (
-    !in_array(Route::currentRouteName(), [
-        'login',
-        'signup',
-        'admin-page',
-        'nbfcdashboard',
-        'sc-dashboard',
-        'student-dashboard'
-    ])
-)
-        <x-footer
-        :landingpageContents="$landingpageContents"
-
-        />
+    @if (!in_array(Route::currentRouteName(), ['login', 'signup', 'admin-page', 'nbfcdashboard', 'sc-dashboard', 'student-dashboard']))
+        <x-footer :landingpageContents="$landingpageContents" />
     @endif
 
-    {{-- ✅ Global Loader Element --}}
+    {{-- Global Loader and Toast Container --}}
     <div id="global-loader" style="display: none;">
         <div class="loader-icon"></div>
     </div>
@@ -171,7 +147,7 @@
                             }
                         });
                     });
-                };
+                }
             }
         });
         // Footer signup form handling
@@ -185,18 +161,25 @@
 
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!email) {
-                alert('Please enter an email address.');
+                window.ToastUtils.showToast('Please enter an email address.', 3000, 'error');
                 return;
             }
             if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address.');
+                window.ToastUtils.showToast('Please enter a valid email address.', 3000, 'error');
                 return;
             }
 
             window.location.href = `/signup?email=${encodeURIComponent(email)}`;
         }
-    </script>
 
+        // Display Laravel session messages as toasts
+        @if (session('success'))
+            window.ToastUtils.showToast('{{ session('success') }}', 3000, 'success');
+        @endif
+        @if (session('error'))
+            window.ToastUtils.showToast('{{ session('error') }}', 3000, 'error');
+        @endif
+    </script>
 </body>
 
 </html>

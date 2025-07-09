@@ -39,12 +39,12 @@
                 </div>
                 <div class="admin-index-main-container">
                     <div class="admin-index-item active" data-tab="students">
-                        <img src="assets/images/student-logo.png" alt="" class="admin-index-icon">
+                        <img src="assets/images/student-logo.png" alt="Studnet icon" class="admin-index-icon">
                         <span>Students</span>
                         <span class="admin-index-count" id="student-index-count">00</span>
                     </div>
                     <div class="admin-index-item" data-tab="nbfcs">
-                        <img src="assets/images/nbfc-icon.png" alt="" class="admin-index-icon">
+                        <img src="assets/images/nbfc-icon.png" alt="NBFC Icon" class="admin-index-icon">
                         <span>NBFCs</span>
                         <span class="admin-index-count admin-index-count-gray" id="nbfc-index-count">00</span>
                     </div>
