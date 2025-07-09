@@ -30,7 +30,7 @@ class RegisterController extends Controller
         if ($emailExistsInUser || $emailExistsInScuser || $emailExistsInNbfc || $emailExistsInAdmin) {
             return response()->json([
                 'success' => false,
-                'message' => 'Email is already taken. Please choose a different one.',
+                'message' => 'Email is already taken',
             ]);
         }
 

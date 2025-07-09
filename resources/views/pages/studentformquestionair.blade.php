@@ -18,6 +18,8 @@
 
 
     <script src="{{ asset('js/studentforms.js') }}"></script>
+    <script src="{{ asset('assets/js/toast.js') }}" defer></script>
+
 
     <style>
         select {
@@ -284,7 +286,7 @@
                         <div class="input-content">
                             <img src="./assets/images/school.png" alt="Referral Code Icon" class="icon" />
                             <input type="text" placeholder="Referral Code" name="referral_code"
-                                value="{{$referral}}" id="personal-info-referral" required />
+                                value="{{ $referral }}" id="personal-info-referral" required />
                             <div class="validation-message" id="referralCode-error"></div>
                         </div>
                     </div>
@@ -558,23 +560,23 @@
                         @php
                             $defaultDegrees = ['Bachelor', 'Masters'];
                         @endphp
-                       @foreach ($defaultDegrees as $name)
-    @php
-        $id = strtolower(str_replace(' ', '-', $name));
-        $isChecked = $selectedDegree === $name;
-        if ($isChecked) {
-            $matched = true;
-        }
+                        @foreach ($defaultDegrees as $name)
+                            @php
+                                $id = strtolower(str_replace(' ', '-', $name));
+                                $isChecked = $selectedDegree === $name;
+                                if ($isChecked) {
+                                    $matched = true;
+                                }
 
-        // Add display text only for Bachelors
-        $displayName = $name === 'Bachelors' ? 'Bachelors (only secured loans)' : $name;
-    @endphp
-    <div class="degree">
-        <input type="radio" id="{{ $id }}" name="degree_type"
-            value="{{ $name }}" {{ $isChecked ? 'checked' : '' }}>
-        <label for="{{ $id }}">{{ $displayName }}</label>
-    </div>
-@endforeach
+                                // Add display text only for Bachelors
+                                $displayName = $name === 'Bachelors' ? 'Bachelors (only secured loans)' : $name;
+                            @endphp
+                            <div class="degree">
+                                <input type="radio" id="{{ $id }}" name="degree_type"
+                                    value="{{ $name }}" {{ $isChecked ? 'checked' : '' }}>
+                                <label for="{{ $id }}">{{ $displayName }}</label>
+                            </div>
+                        @endforeach
 
                     @endforelse
 
@@ -766,23 +768,19 @@
 
                 <div class="education-label">Education</div>
 
-               <div class="input-grid">
-    <div class="input-field">
-        <input type="text"
-               id="universityschoolid"
-               name="university_school_name"
-               value="{{ old('university_school_name', $academicInfoValues->university_school_name ?? '') }}"
-               placeholder="University/School">
-        <div id="suggestions-university" class="suggestion-container-college"></div>
-    </div>
+                <div class="input-grid">
+                    <div class="input-field">
+                        <input type="text" id="universityschoolid" name="university_school_name"
+                            value="{{ old('university_school_name', $academicInfoValues->university_school_name ?? '') }}"
+                            placeholder="University/School">
+                        <div id="suggestions-university" class="suggestion-container-college"></div>
+                    </div>
 
-    <div class="input-field">
-        <input type="text"
-               id="educationcourseid"
-               name="course_name"
-               value="{{ old('course_name', $academicInfoValues->course_name ?? '') }}"
-               placeholder="Course Name">
-    </div>
+                    <div class="input-field">
+                        <input type="text" id="educationcourseid" name="course_name"
+                            value="{{ old('course_name', $academicInfoValues->course_name ?? '') }}"
+                            placeholder="Course Name">
+                    </div>
 
 
                     {{-- Dynamically add fields for "social" section --}}
@@ -1966,12 +1964,12 @@
                     </div>
                 @endforeach
 
-              
+
             </div>
 
         </div>
         <!-- Submit Button -->
-              <button type="submit" class="next-btn-kyc" id="saveandsubmit">Save and Submit</button>
+        <button type="submit" class="next-btn-kyc" id="saveandsubmit">Save and Submit</button>
 
 
     </section>

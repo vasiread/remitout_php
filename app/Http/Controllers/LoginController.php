@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Nbfc;
 use App\Models\Scuser;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -33,7 +34,7 @@ class LoginController extends Controller
         $superAdminPasswordHash = env('SUPERADMIN_PASSWORD');
         $superAdminName = env('SUPERADMIN_NAME');
 
-       
+
         if ($loginName === $superAdminEmail && Hash::check($loginPassword, $superAdminPasswordHash)) {
             session([
                 'admin' => [
@@ -92,7 +93,10 @@ class LoginController extends Controller
             : User::where('unique_id', $loginName)->first();
 
         if ($user && Hash::check($loginPassword, $user->password)) {
-            session(['user' => $user]);
+            session([
+                'user' => $user,
+                'user_id' => $user->id
+            ]);
             session()->put('expires_at', now()->addSeconds(10000));
 
             return response()->json([
@@ -101,6 +105,7 @@ class LoginController extends Controller
                 'role' => 'user'
             ]);
         }
+
 
         // ✅ 5. NBFC User
         $nbfcuser = $isEmail

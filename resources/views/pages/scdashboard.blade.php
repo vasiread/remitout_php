@@ -357,7 +357,7 @@
             <div class="scdashboard-inboxcontent">
                 <div class="scmember-profilecontainer">
                     <div class="scmember-profilecontainerimg">
-                        <img src="{{ asset('assets/images/image-women.jpeg') }}" id="studentcounsellor-profile"
+                        <img src="{{ asset('assets/images/defaultprofilephoto.jpg') }}" id="studentcounsellor-profile"
                             alt="">
                         <i class="fa-regular fa-pen-to-square"></i>
                         <input type="file" id="sc-profile-upload-cloud" display="none">
@@ -716,7 +716,7 @@
             if (triggerExpandShrink) {
 
                 triggerExpandShrink.forEach((items, index) => {
-                    console.log(items)
+                    //consol.log(items)
 
                     items.addEventListener("click", () => {
 
@@ -796,7 +796,7 @@
             const updateQueryVisibility = () => {
                 const isMobile = window.innerWidth <= 768;
                 const queryEntries = querysContainer.querySelectorAll('.query-entry');
-                console.log("Found entries:", queryEntries.length); // ✅ Debug
+                //consol.log("Found entries:", queryEntries.length); // ✅ Debug
 
 
                 if (isMobile) {
@@ -952,7 +952,7 @@
                     const scUserRefId = idsession.referral_code;
                     const fileName = file.name;
                     const fileType = file.type;
-                    console.log(`${fileName} . ${fileType}`);
+                    //consol.log(`${fileName} . ${fileType}`);
 
                     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
                     if (!allowedTypes.includes(fileType)) {
@@ -990,7 +990,7 @@
                         })
                         .then(data => {
                             if (data) {
-                                console.log("File uploaded successfully", data);
+                                //consol.log("File uploaded successfully", data);
                                 if (profileViewInstantChange) profileViewInstantChange.src = data
                                     .file_path;
                                 const navImageElement = document.querySelector("#nav-profile-photo-id");
@@ -1036,7 +1036,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.fileUrl) {
-                        console.log("Profile Picture URL:", data.fileUrl);
+                        //consol.log("Profile Picture URL:", data.fileUrl);
                         profileViewInstantChange.src = data.fileUrl;
                     } else {
                         console.error("Error: No URL returned from the server", data);
@@ -1651,7 +1651,7 @@
             url.searchParams.set("ref", referralCode);
 
             const referralLink = url.toString();
-            console.log("Generated referral link:", referralLink);
+            //consol.log("Generated referral link:", referralLink);
 
             const removeExistingListeners = (element, event, handler) => {
                 element.removeEventListener(event, handler);
@@ -1861,7 +1861,8 @@
         const queryDetails = () => {
             const scuser = @json(session('scuser'));
             const scuserid = scuser.referral_code;
-            fetchDeactiveQueryCount(scuserid);
+            // alert(scuserid)
+            // fetchDeactiveQueryCount(scuserid);
 
 
             const mobRef = document.getElementById("mobgeneratedreferralcode");
@@ -1891,7 +1892,7 @@
                                 .created_at));
 
                             sortedQueries.forEach((item) => {
-                                console.log(item);
+                                //consol.log(item);
                                 const div = document.createElement('div'); // ✅ Declare it first
 
                                 div.classList.add('individual-raisedquestions', 'query-entry');
@@ -2194,8 +2195,7 @@
 
                 // alert(`User ${data.scuserid} has ${data.deactive_count} deactive queries.`);
             } catch (error) {
-                console.error(error);
-                alert("Error fetching deactive count.");
+                 console.warn("Error fetching deactive count.");
             }
         }
 
@@ -2228,7 +2228,7 @@
                 })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data);
+                    //consol.log(data);
                     if (!data) {
                         console.error("No data returned from server");
                         return;
@@ -2435,7 +2435,7 @@
                 }
             });
 
-            console.log("Student Data:", students);
+            //consol.log("Student Data:", students);
 
             if (hasInvalidEmail) {
                 console.warn("Some email addresses are invalid. Please fix them.");
@@ -2469,7 +2469,7 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    console.log("Success:", result.message);
+                    //consol.log("Success:", result.message);
                     alert("Students saved successfully!");
                     document.querySelectorAll(".studentAddByScuserPopup-contentpart").forEach(form => {
                         form.querySelectorAll("input").forEach(input => {
@@ -2689,7 +2689,7 @@
                         })
                         .then(response => response.json())
                         .then(data => {
-                            console.log(data);
+                            //consol.log(data);
                             if (data.message) {
                                 alert(data.message);
                             }

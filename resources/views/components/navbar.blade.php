@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,16 +13,20 @@
 <body>
     <nav class="nav">
         <div class="nav-container fullopacity">
-            <img onclick="window.location.href='{{ url('/') }}'" src="{{ asset('assets/images/Remitoutcolored.png') }}" alt="Logo" class="logo" id="profile-logo" style="cursor:pointer;">
+            <img onclick="window.location.href='{{ url('/') }}'"
+                src="{{ asset('assets/images/Remitoutcolored.png') }}" alt="Logo" class="logo" id="profile-logo"
+                style="cursor:pointer;">
 
-            @if(session()->has('user') || session()->has('scuser'))
+            @if (session()->has('user') || session()->has('scuser'))
                 <div class="nav-searchnotificationbars">
                     <div class="unread-notify-container">
-                        <img src="{{ asset('assets/images/notifications_unread.png') }}" class="unread-notify" id="userNotification" alt="">
+                        <img src="{{ asset('assets/images/notifications_unread.png') }}" class="unread-notify"
+                            id="userNotification" alt="">
                         <p></p>
                     </div>
                     <div class="nav-profilecontainer" id="notification-userprofile-section">
-                        <img src="{{ asset('assets/images/defaultprofilephoto.png') }}" id="nav-profile-photo-id" class="nav-profileimg" alt="Profile Image">
+                        <img src="" id="nav-profile-photo-id"
+                            class="nav-profileimg" alt="Profile Image">
                         <h3>{{ session()->has('user') ? session('user')->name : session('scuser')->full_name }}</h3>
                         <i class="fa-solid fa-chevron-down"></i>
                         <div class="popup-notify-list" style="display:none">
@@ -44,7 +49,7 @@
         </div>
     </nav>
 
-  <div class="password-change-overlay" style="display: none;"></div>
+    <div class="password-change-overlay" style="display: none;"></div>
 
     <div class="password-change-container">
         <div class="password-change-triggered-view-headersection">
@@ -79,8 +84,10 @@
         </div>
     </div>
 
-    <script>
+    <script>                window.FALLBACK_PROFILE_IMG = "{{ asset('assets/images/defaultprofilephoto.jpg') }}";
+
         window.App = {
+
             user: @json(session('user')),
             scuser: @json(session('scuser')),
             hasScUserSession: {{ session()->has('scuser') ? 'true' : 'false' }},
@@ -95,9 +102,12 @@
                 if (individualCards.length > 0) {
                     clearInterval(checkInterval);
                     individualCards.forEach((card) => {
-                        const triggeredMessageButton = card.querySelector('.individual-bankmessages .triggeredbutton');
-                        const groupButtonContainer = card.querySelector('.individual-bankmessages-buttoncontainer');
-                        const individualBankMessageInput = card.querySelector('.individual-bankmessage-input');
+                        const triggeredMessageButton = card.querySelector(
+                            '.individual-bankmessages .triggeredbutton');
+                        const groupButtonContainer = card.querySelector(
+                            '.individual-bankmessages-buttoncontainer');
+                        const individualBankMessageInput = card.querySelector(
+                            '.individual-bankmessage-input');
                         if (mode === 'index1') {
                             if (triggeredMessageButton && groupButtonContainer) {
                                 triggeredMessageButton.style.display = 'flex';
@@ -124,7 +134,8 @@
             window.App.activeSection = sectionId;
             window.App.activeIndex = index;
 
-            let trackProgressDiv, myApplicationDiv, dynamicHeader, communityJoinCard, profileStatusCard, profileImgEditIcon, educationEditSection, testScoresEditSection;
+            let trackProgressDiv, myApplicationDiv, dynamicHeader, communityJoinCard, profileStatusCard, profileImgEditIcon,
+                educationEditSection, testScoresEditSection;
             let scDashboardContainer, scInboxContainer, scApplicationStatus;
 
             if (window.App.hasScUserSession) {
@@ -224,7 +235,7 @@
                         saveChangesButton.style.backgroundColor = 'transparent';
                         saveChangesButton.style.color = '#260254';
                     }
-                } 
+                }
             }
 
             if (window.innerWidth <= 1020) {
@@ -238,42 +249,42 @@
             }
         }
 
-     function sessionLogoutInitial(logoutUrl, loginUrl) {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-    if (!csrfToken) {
-        console.error('CSRF token not found');
-        alert('Logout failed: CSRF token missing');
-        return;
-    }
-    if (!logoutUrl || !loginUrl) {
-        console.error('Missing logout or login URL');
-        alert('Logout failed: Invalid URLs');
-        return;
-    }
+        function sessionLogoutInitial(logoutUrl, loginUrl) {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+            if (!csrfToken) {
+                console.error('CSRF token not found');
+                alert('Logout failed: CSRF token missing');
+                return;
+            }
+            if (!logoutUrl || !loginUrl) {
+                console.error('Missing logout or login URL');
+                alert('Logout failed: Invalid URLs');
+                return;
+            }
 
-    fetch(logoutUrl, {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': csrfToken,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({})
-    })
-    .then(response => {
-        if (response.ok) {
-            // Optional: log response status or handle response.json() if needed
-            console.log('Logout successful');
-            window.location.href = loginUrl;
-        } else {
-            console.error('Logout failed:', response.status, response.statusText);
-            alert('Logout failed: Server error');
+            fetch(logoutUrl, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Optional: log response status or handle response.json() if needed
+                        console.log('Logout successful');
+                        window.location.href = loginUrl;
+                    } else {
+                        console.error('Logout failed:', response.status, response.statusText);
+                        alert('Logout failed: Server error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Fetch error during logout:', error);
+                    alert('Logout failed: Network error');
+                });
         }
-    })
-    .catch(error => {
-        console.error('Fetch error during logout:', error);
-        alert('Logout failed: Network error');
-    });
-}
 
 
         function dynamicMobileNav() {
@@ -368,13 +379,16 @@
                 `;
                 document.body.appendChild(mobileSidebar);
 
-                overlay.addEventListener('click', function () {
+                overlay.addEventListener('click', function() {
                     const menuIcon = document.getElementById('menu-icon');
                     const closeIcon = document.getElementById('close-icon');
                     closeSidebar(mobileSidebar, overlay, menuIcon, closeIcon);
                 });
             }
-            return { mobileSidebar, overlay };
+            return {
+                mobileSidebar,
+                overlay
+            };
         }
 
         function displayError(elementId, message) {
@@ -392,66 +406,71 @@
                 errorElements[i].style.display = 'none';
             }
         }
+const retrieveProfilePicture = async () => {
+    const profileImgUpdate = document.querySelector(".nav-profilecontainer .nav-profileimg");
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+    const fallbackImage = window.FALLBACK_PROFILE_IMG;
 
-        const retrieveProfilePicture = async () => {
-            const profileImgUpdate = document.querySelector(".nav-profilecontainer .nav-profileimg");
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            if (!csrfToken) return;
+    if (!csrfToken || !profileImgUpdate) return;
 
-            if (window.App.hasScUserSession) {
-                const userSession = window.App.scuser;
-                if (!userSession || !userSession.referral_code) return;
-                const scuserRefid = userSession.referral_code;
-                try {
-                    const response = await fetch('/api/view-scuserprofile-photo', {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken,
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ scuserRefid: scuserRefid }),
-                    });
-                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                    const data = await response.json();
-                    if (data.fileUrl && profileImgUpdate) {
-                        profileImgUpdate.src = data.fileUrl;
-                    } else {
-                        const fallbackImage = '{{ asset('assets/images/defaultprofilephoto.jpg') }}';
-                        if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
-                    }
-                } catch (error) {
-                    const fallbackImage = '{{ asset('assets/images/defaultprofilephoto.jpg') }}';
-                    if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
-                }
-            } else if (window.App.hasUserSession) {
-                const userSession = window.App.user;
-                if (!userSession || !userSession.unique_id) return;
-                const userId = userSession.unique_id;
-                try {
-                    const response = await fetch('/api/retrieve-profile-picture', {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken,
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ userId: userId })
-                    });
-                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                    const data = await response.json();
-                    if (data.fileUrl && profileImgUpdate) {
-                        profileImgUpdate.src = data.fileUrl;
-                    } else {
-                        const fallbackImage = '{{ asset('assets/images/defaultprofilephoto.jpg') }}';
-                        if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
-                    }
-                } catch (error) {
-                    const fallbackImage = '{{ asset('assets/images/defaultprofilephoto.jpg') }}';
-                    if (profileImgUpdate) profileImgUpdate.src = fallbackImage;
-                }
+    // ✅ SCUSER branch
+    if (window.App.hasScUserSession) {
+        const userSession = window.App.scuser;
+        if (!userSession?.referral_code) return;
+
+        const scuserRefid = userSession.referral_code;
+
+        try {
+            const response = await fetch('/api/view-scuserprofile-photo', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ scuserRefid })
+            });
+
+            const data = await response.json();
+            if (response.ok && data.fileUrl) {
+                console.log("Image file URL:", data.fileUrl);
+
+            } else {
+                profileImgUpdate.src = fallbackImage;
             }
-        };
+        } catch (error) {
+            profileImgUpdate.src = fallbackImage;
+        }
+
+    // ✅ USER branch
+    } else if (window.App.hasUserSession) {
+        const userSession = window.App.user;
+        if (!userSession?.unique_id) return; // ✅ use `id` not `unique_id` unless backend matches
+        const userId = userSession.unique_id;
+
+        try {
+            const response = await fetch('/api/retrieve-profile-picture', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userId })
+            });
+
+            const data = await response.json();
+            if (response.ok && data.fileUrl) {
+                profileImgUpdate.src = data.fileUrl;
+            } else {
+                profileImgUpdate.src = fallbackImage;
+            }
+        } catch (error) {
+            profileImgUpdate.src = fallbackImage;
+        }
+    }
+};
+
 
         const userPopup = () => {
             const userPopupTrigger = document.querySelector(".nav-profilecontainer");
@@ -475,7 +494,8 @@
                 document.addEventListener('click', (event) => {
                     const isClickInsideTrigger = userPopupTrigger.contains(event.target);
                     const isClickInsidePopup = userPopupList.contains(event.target);
-                    if (!isClickInsideTrigger && !isClickInsidePopup && userPopupList.style.display === "flex") {
+                    if (!isClickInsideTrigger && !isClickInsidePopup && userPopupList.style.display ===
+                        "flex") {
                         arrowIcon.classList.remove("fa-chevron-up");
                         arrowIcon.classList.add("fa-chevron-down");
                         userPopupList.style.display = 'none';
@@ -487,7 +507,7 @@
         const passwordChangeCheck = () => {
             const saveButton = document.getElementById('password-change-save');
             if (saveButton) {
-                saveButton.addEventListener('click', function () {
+                saveButton.addEventListener('click', function() {
                     const currentPassword = document.getElementById('current-password').value.trim();
                     const newPassword = document.getElementById('new-password').value.trim();
                     const confirmNewPassword = document.getElementById('confirm-new-password').value.trim();
@@ -541,13 +561,14 @@
                         newPassword
                     };
                     fetch("/api/passwordchange", {
-                        method: "POST",
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-                        },
-                        body: JSON.stringify(passwordChangeVariables)
-                    })
+                            method: "POST",
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                    ?.getAttribute('content') || ''
+                            },
+                            body: JSON.stringify(passwordChangeVariables)
+                        })
                         .then((response) => response.json())
                         .then((data) => {
                             if (data.success) {
@@ -582,16 +603,18 @@
             const arrowUp = document.querySelector('.nav-profilecontainer i');
 
             if (passwordTrigger) {
-                passwordTrigger.addEventListener('click', () => {
+                passwordTrigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+
                     if (passwordChangeContainer) {
                         passwordChangeContainer.style.display = 'flex';
-                         popupPassword.style.display = 'none';
+                        popupPassword.style.display = 'none';
                     }
                     if (passwordChangeOverlay) {
                         passwordChangeOverlay.style.display = 'block';
                     }
                     // if (popupPassword) {
-                       
+
                     // }
                     if (arrowUp && arrowUp.classList.contains('fa-chevron-up')) {
                         arrowUp.classList.remove('fa-chevron-up');
@@ -619,13 +642,17 @@
         const initializeSidebar = () => {
             const sidebarItems = document.querySelectorAll(".sidebarlists-top li");
             const isScUser = window.App.hasScUserSession;
-            const trackprogressContainer = document.querySelector(isScUser ? ".scdashboard-container" : ".studentdashboardprofile-trackprogress");
-            const inboxContainer = document.querySelector(isScUser ? ".scdashboard-inboxcontent" : ".studentdashboardprofile-trackprogress");
-            const applicationStatus = document.querySelector(isScUser ? ".scdashboard-applicationstatus" : ".studentdashboardprofile-myapplication");
+            const trackprogressContainer = document.querySelector(isScUser ? ".scdashboard-container" :
+                ".studentdashboardprofile-trackprogress");
+            const inboxContainer = document.querySelector(isScUser ? ".scdashboard-inboxcontent" :
+                ".studentdashboardprofile-trackprogress");
+            const applicationStatus = document.querySelector(isScUser ? ".scdashboard-applicationstatus" :
+                ".studentdashboardprofile-myapplication");
             const dynamicHeader = document.getElementById("loanproposals-header");
             const communityJoinCard = document.querySelector(".studentdashboardprofile-communityjoinsection");
             const profileStatusCard = document.querySelector(".personalinfo-profilestatus");
-            const profileImgEditIcon = document.querySelector(".studentdashboardprofile-profilesection .fa-pen-to-square");
+            const profileImgEditIcon = document.querySelector(
+                ".studentdashboardprofile-profilesection .fa-pen-to-square");
             const educationEditSection = document.querySelector(".studentdashboardprofile-educationeditsection");
             const testScoresEditSection = document.querySelector(".studentdashboardprofile-testscoreseditsection");
             const triggeredSidebar = document.querySelector(".togglesidebar");
@@ -634,9 +661,12 @@
                 item.addEventListener("click", () => {
                     sidebarItems.forEach(i => i.classList.remove('active'));
                     item.classList.add('active');
-                    const sectionId = index === 0 ? (isScUser ? 'scdashboard-container' : 'studentdashboardprofile-trackprogress') :
-                                     index === 1 ? (isScUser ? 'scdashboard-inboxcontent' : 'studentdashboardprofile-trackprogress') :
-                                     (isScUser ? 'scdashboard-applicationstatus' : 'studentdashboardprofile-myapplication');
+                    const sectionId = index === 0 ? (isScUser ? 'scdashboard-container' :
+                            'studentdashboardprofile-trackprogress') :
+                        index === 1 ? (isScUser ? 'scdashboard-inboxcontent' :
+                            'studentdashboardprofile-trackprogress') :
+                        (isScUser ? 'scdashboard-applicationstatus' :
+                            'studentdashboardprofile-myapplication');
                     window.App.activeSection = sectionId;
                     window.App.activeIndex = index;
 
@@ -656,10 +686,14 @@
                         }
                     } else {
                         const personalDivContainer = document.querySelector(".personalinfo-secondrow");
-                        const personalDivContainerEdit = document.querySelector(".personalinfosecondrow-editsection");
-                        const academicsMarksDivEdit = document.querySelector(".testscoreseditsection-secondrow-editsection");
-                        const academicsMarksDiv = document.querySelector(".testscoreseditsection-secondrow");
-                        const saveChangesButton = document.querySelector(".personalinfo-firstrow button");
+                        const personalDivContainerEdit = document.querySelector(
+                            ".personalinfosecondrow-editsection");
+                        const academicsMarksDivEdit = document.querySelector(
+                            ".testscoreseditsection-secondrow-editsection");
+                        const academicsMarksDiv = document.querySelector(
+                            ".testscoreseditsection-secondrow");
+                        const saveChangesButton = document.querySelector(
+                            ".personalinfo-firstrow button");
 
                         if (index === 0) {
                             if (trackprogressContainer) trackprogressContainer.style.display = 'flex';
@@ -669,7 +703,8 @@
                             if (profileImgEditIcon) profileImgEditIcon.style.display = 'none';
                             if (educationEditSection) educationEditSection.style.display = 'none';
                             if (testScoresEditSection) testScoresEditSection.style.display = 'none';
-                            if (personalDivContainerEdit) personalDivContainerEdit.style.display = 'none';
+                            if (personalDivContainerEdit) personalDivContainerEdit.style.display =
+                                'none';
                             if (personalDivContainer) personalDivContainer.style.display = 'flex';
                             if (academicsMarksDivEdit) academicsMarksDivEdit.style.display = 'none';
                             if (academicsMarksDiv) academicsMarksDiv.style.display = 'flex';
@@ -688,7 +723,8 @@
                             if (profileImgEditIcon) profileImgEditIcon.style.display = 'none';
                             if (educationEditSection) educationEditSection.style.display = 'none';
                             if (testScoresEditSection) testScoresEditSection.style.display = 'none';
-                            if (personalDivContainerEdit) personalDivContainerEdit.style.display = 'none';
+                            if (personalDivContainerEdit) personalDivContainerEdit.style.display =
+                                'none';
                             if (personalDivContainer) personalDivContainer.style.display = 'flex';
                             if (academicsMarksDivEdit) academicsMarksDivEdit.style.display = 'none';
                             if (academicsMarksDiv) academicsMarksDiv.style.display = 'flex';
@@ -726,15 +762,18 @@
             });
         };
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             dynamicMobileNav();
             userPopup();
             passwordChangeCheck();
             passwordModalTrigger();
             initializeSidebar();
-            retrieveProfilePicture();
+            if(window.App){
+                            retrieveProfilePicture();
 
-              document.querySelectorAll('.toggle-password').forEach(icon => {
+            }
+
+            document.querySelectorAll('.toggle-password').forEach(icon => {
                 icon.addEventListener('click', () => {
                     const targetId = icon.getAttribute('data-target');
                     const input = document.getElementById(targetId);
@@ -772,17 +811,24 @@
                 });
             }
 
-            const { mobileSidebar, overlay } = createSidebar();
-            toggleSection(window.App.hasScUserSession ? 'scdashboard-container' : 'studentdashboardprofile-trackprogress', 0);
+            const {
+                mobileSidebar,
+                overlay
+            } = createSidebar();
+            toggleSection(window.App.hasScUserSession ? 'scdashboard-container' :
+                'studentdashboardprofile-trackprogress', 0);
 
             const menuIcon = document.getElementById('menu-icon');
             const closeIcon = document.getElementById('close-icon');
             if (menuIcon && closeIcon) {
-                menuIcon.addEventListener('click', function (event) {
+                menuIcon.addEventListener('click', function(event) {
                     event.preventDefault();
                     if (window.innerWidth > 1020) return;
                     if (!mobileSidebar || !overlay) {
-                        ({ mobileSidebar, overlay } = createSidebar());
+                        ({
+                            mobileSidebar,
+                            overlay
+                        } = createSidebar());
                     }
                     if (mobileSidebar && overlay) {
                         if (mobileSidebar.classList.contains('active')) {
@@ -802,7 +848,7 @@
                     }
                 });
 
-                closeIcon.addEventListener('click', function () {
+                closeIcon.addEventListener('click', function() {
                     if (window.innerWidth > 1020) return;
                     if (mobileSidebar && overlay) {
                         closeSidebar(mobileSidebar, overlay, menuIcon, closeIcon);
@@ -818,4 +864,5 @@
         window.addEventListener('resize', dynamicMobileNav);
     </script>
 </body>
+
 </html>
