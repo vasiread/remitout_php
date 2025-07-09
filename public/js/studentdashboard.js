@@ -1393,7 +1393,7 @@ const initialiseProfileView = () => {
             } else {
                 // No error — just silently fallback to default image or do nothing
                 if (imgElement) {
-                    imgElement.src = "/assets/images/default-profile.jpg"; // Optional fallback
+                    imgElement.src = "/assets/images/default-profile.png"; // Optional fallback
                 }
             }
         })
